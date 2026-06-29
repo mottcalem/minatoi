@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UrunlerRouteImport } from './routes/urunler'
+import { Route as IletisimRouteImport } from './routes/iletisim'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UrunSlugRouteImport } from './routes/urun.$slug'
 import { Route as KategoriSlugRouteImport } from './routes/kategori.$slug'
@@ -17,6 +18,11 @@ import { Route as KategoriSlugRouteImport } from './routes/kategori.$slug'
 const UrunlerRoute = UrunlerRouteImport.update({
   id: '/urunler',
   path: '/urunler',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IletisimRoute = IletisimRouteImport.update({
+  id: '/iletisim',
+  path: '/iletisim',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -37,12 +43,14 @@ const KategoriSlugRoute = KategoriSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/iletisim': typeof IletisimRoute
   '/urunler': typeof UrunlerRoute
   '/kategori/$slug': typeof KategoriSlugRoute
   '/urun/$slug': typeof UrunSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/iletisim': typeof IletisimRoute
   '/urunler': typeof UrunlerRoute
   '/kategori/$slug': typeof KategoriSlugRoute
   '/urun/$slug': typeof UrunSlugRoute
@@ -50,20 +58,28 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/iletisim': typeof IletisimRoute
   '/urunler': typeof UrunlerRoute
   '/kategori/$slug': typeof KategoriSlugRoute
   '/urun/$slug': typeof UrunSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/urunler' | '/kategori/$slug' | '/urun/$slug'
+  fullPaths: '/' | '/iletisim' | '/urunler' | '/kategori/$slug' | '/urun/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/urunler' | '/kategori/$slug' | '/urun/$slug'
-  id: '__root__' | '/' | '/urunler' | '/kategori/$slug' | '/urun/$slug'
+  to: '/' | '/iletisim' | '/urunler' | '/kategori/$slug' | '/urun/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/iletisim'
+    | '/urunler'
+    | '/kategori/$slug'
+    | '/urun/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  IletisimRoute: typeof IletisimRoute
   UrunlerRoute: typeof UrunlerRoute
   KategoriSlugRoute: typeof KategoriSlugRoute
   UrunSlugRoute: typeof UrunSlugRoute
@@ -76,6 +92,13 @@ declare module '@tanstack/react-router' {
       path: '/urunler'
       fullPath: '/urunler'
       preLoaderRoute: typeof UrunlerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/iletisim': {
+      id: '/iletisim'
+      path: '/iletisim'
+      fullPath: '/iletisim'
+      preLoaderRoute: typeof IletisimRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -104,6 +127,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  IletisimRoute: IletisimRoute,
   UrunlerRoute: UrunlerRoute,
   KategoriSlugRoute: KategoriSlugRoute,
   UrunSlugRoute: UrunSlugRoute,
@@ -111,3 +135,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
