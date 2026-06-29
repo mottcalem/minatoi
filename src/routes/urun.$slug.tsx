@@ -113,7 +113,7 @@ function ProductDetail() {
           <div className="mt-8 rounded-2xl border border-border bg-card p-5">
             <h3 className="font-display text-base font-semibold">Ürün Özellikleri</h3>
             <ul className="mt-3 space-y-2 text-sm">
-              {product.features.map((f) => (
+              {product.features.map((f: string) => (
                 <li key={f} className="flex items-start gap-3">
                   <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground text-[10px]">✓</span>
                   {f}
