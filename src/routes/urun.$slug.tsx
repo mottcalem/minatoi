@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { CATEGORIES, PRODUCTS, formatTL, getProduct } from "@/data/products";
+import type { Product } from "@/data/products";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { CashOnDeliveryForm } from "@/components/CashOnDeliveryForm";
 import { ProductCard } from "@/components/ProductCard";
@@ -19,9 +20,9 @@ export const Route = createFileRoute("/urun/$slug")({
     };
   },
   loader: ({ params }) => {
-    const product = getProduct(params.slug);
+    const product: Product | undefined = getProduct(params.slug);
     if (!product) throw notFound();
-    return { product };
+    return { product: product as Product };
   },
   notFoundComponent: () => (
     <div className="mx-auto max-w-3xl px-4 py-20 text-center">
