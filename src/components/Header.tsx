@@ -2,58 +2,85 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { SITE } from "@/data/site";
 
+type NavItem =
+  | { to: "/"; label: string }
+  | { to: "/urunler"; label: string }
+  | { to: "/iletisim"; label: string }
+  | { to: "/kategori/$slug"; label: string; slug: string };
+
+const NAV: NavItem[] = [
+  { to: "/", label: "Anasayfa" },
+  { to: "/urunler", label: "Tüm Ürünler" },
+  { to: "/kategori/$slug", label: "Gözlük", slug: "gozluk" },
+  { to: "/kategori/$slug", label: "Deri Kılıf", slug: "kilif" },
+  { to: "/kategori/$slug", label: "Cüzdan", slug: "cuzdan" },
+  { to: "/iletisim", label: "İletişim" },
+];
+
+function NavLink({ item, onClick, className }: { item: NavItem; onClick?: () => void; className?: string }) {
+  const base = "text-sm transition hover:text-primary";
+  if (item.to === "/kategori/$slug") {
+    return (
+      <Link
+        to="/kategori/$slug"
+        params={{ slug: item.slug }}
+        onClick={onClick}
+        className={`${base} ${className ?? ""}`}
+        activeProps={{ className: "text-primary" }}
+      >
+        {item.label}
+      </Link>
+    );
+  }
+  return (
+    <Link
+      to={item.to}
+      onClick={onClick}
+      className={`${base} ${className ?? ""}`}
+      activeOptions={{ exact: item.to === "/" }}
+      activeProps={{ className: "text-primary" }}
+    >
+      {item.label}
+    </Link>
+  );
+}
+
 export function Header() {
   const [open, setOpen] = useState(false);
-  const nav = [
-    { to: "/", label: "Anasayfa" },
-    { to: "/urunler", label: "Tüm Ürünler" },
-    { to: "/kategori/gozluk", label: "Gözlük" },
-    { to: "/kategori/kilif", label: "Deri Kılıf" },
-    { to: "/kategori/cuzdan", label: "Cüzdan" },
-    { to: "/iletisim", label: "İletişim" },
-  ];
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4">
-        <Link to="/" className="flex items-center gap-2 shrink-0">
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-gradient-gold text-primary-foreground font-black">B</span>
-          <span className="font-display text-lg font-bold tracking-tight">{SITE.name}</span>
+      <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 py-4 lg:flex lg:justify-between">
+        <Link to="/" className="flex min-w-0 items-center gap-2">
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-gold font-black text-primary-foreground">B</span>
+          <span className="truncate font-display text-lg font-bold tracking-tight">{SITE.name}</span>
         </Link>
         <nav className="hidden lg:flex items-center gap-7">
-          {nav.map((n) => (
-            <Link
-              key={n.to}
-              to={n.to}
-              params={n.to.startsWith("/kategori/") ? { slug: n.to.split("/").pop()! } : undefined as never}
-              className="text-sm text-muted-foreground hover:text-primary transition"
-              activeOptions={{ exact: n.to === "/" }}
-              activeProps={{ className: "text-primary" }}
-            >
-              {n.label}
-            </Link>
+          {NAV.map((n, i) => (
+            <NavLink key={i} item={n} className="text-muted-foreground" />
           ))}
         </nav>
         <button
           onClick={() => setOpen((o) => !o)}
-          className="lg:hidden grid h-10 w-10 place-items-center rounded-md border border-border"
+          className="lg:hidden grid h-10 w-10 shrink-0 place-items-center rounded-md border border-border"
           aria-label="Menü"
         >
-          <span className="block h-0.5 w-5 bg-foreground relative before:absolute before:-top-1.5 before:left-0 before:h-0.5 before:w-5 before:bg-foreground after:absolute after:top-1.5 after:left-0 after:h-0.5 after:w-5 after:bg-foreground" />
+          <div className="flex flex-col gap-1.5">
+            <span className="h-0.5 w-5 bg-foreground" />
+            <span className="h-0.5 w-5 bg-foreground" />
+            <span className="h-0.5 w-5 bg-foreground" />
+          </div>
         </button>
       </div>
       {open && (
         <div className="lg:hidden border-t border-border bg-background">
-          <nav className="mx-auto flex max-w-7xl flex-col px-4 py-3">
-            {nav.map((n) => (
-              <Link
-                key={n.to}
-                to={n.to}
-                params={n.to.startsWith("/kategori/") ? { slug: n.to.split("/").pop()! } : undefined as never}
+          <nav className="mx-auto flex max-w-7xl flex-col px-4 py-2">
+            {NAV.map((n, i) => (
+              <NavLink
+                key={i}
+                item={n}
                 onClick={() => setOpen(false)}
-                className="py-3 text-sm text-foreground border-b border-border last:border-0"
-              >
-                {n.label}
-              </Link>
+                className="border-b border-border py-3 text-foreground last:border-0"
+              />
             ))}
           </nav>
         </div>
