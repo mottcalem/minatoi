@@ -23,7 +23,7 @@ function Contact() {
         <div className="rounded-2xl border border-border bg-card p-6">
           <div className="text-3xl">💬</div>
           <h2 className="mt-3 font-display text-xl font-bold">WhatsApp</h2>
-          <p className="mt-1 text-sm text-muted-foreground">+{SITE.whatsappNumber}</p>
+          <p className="mt-1 text-sm text-muted-foreground">{SITE.phone}</p>
           <WhatsAppButton className="mt-4 w-full" message="Merhaba, iletişim sayfasından yazıyorum.">Mesaj Gönder</WhatsAppButton>
         </div>
         <div className="rounded-2xl border border-border bg-card p-6">
@@ -51,10 +51,22 @@ function Contact() {
           </a>
         </div>
       </div>
+
       <div className="mt-10 rounded-2xl border border-border bg-card/40 p-6 text-sm text-muted-foreground">
-        <strong className="text-foreground">Çalışma saatleri:</strong> Hafta içi 09:00 – 19:00 · Cumartesi 10:00 – 17:00<br />
-        <strong className="text-foreground">Kargo:</strong> Aynı gün kargolama (saat 15:00'e kadar olan siparişler).<br />
-        Hızlı yanıt için <a href={waLink("Merhaba!")} target="_blank" rel="noreferrer" className="text-whatsapp hover:underline">WhatsApp</a> tercih edin.
+        <h2 className="font-display text-base font-semibold text-foreground">Firma Bilgileri</h2>
+        <dl className="mt-3 grid gap-x-8 gap-y-2 sm:grid-cols-2">
+          <div><dt className="inline font-medium text-foreground">Yetkili: </dt><dd className="inline">{SITE.owner}</dd></div>
+          <div><dt className="inline font-medium text-foreground">Şirket Türü: </dt><dd className="inline">{SITE.companyType}</dd></div>
+          <div><dt className="inline font-medium text-foreground">Vergi Dairesi: </dt><dd className="inline">{SITE.taxOffice}</dd></div>
+          <div><dt className="inline font-medium text-foreground">VKN: </dt><dd className="inline">{SITE.taxNumber}</dd></div>
+          <div><dt className="inline font-medium text-foreground">E-posta: </dt><dd className="inline">{SITE.email}</dd></div>
+          <div><dt className="inline font-medium text-foreground">Telefon: </dt><dd className="inline">{SITE.phone}</dd></div>
+        </dl>
+        <div className="mt-4 border-t border-border pt-4">
+          <strong className="text-foreground">Çalışma saatleri:</strong> Hafta içi 09:00 – 19:00 · Cumartesi 10:00 – 17:00<br />
+          <strong className="text-foreground">Kargo:</strong> Aynı gün kargolama (saat 15:00'e kadar olan siparişler).<br />
+          Hızlı yanıt için <a href={waLink("Merhaba!")} target="_blank" rel="noreferrer" className="text-whatsapp hover:underline">WhatsApp</a> tercih edin.
+        </div>
       </div>
     </section>
   );

@@ -26,13 +26,13 @@ function Index() {
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 md:py-24 lg:grid-cols-2">
           <div>
             <span className="inline-block rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-              El Yapımı · Sınırlı Üretim
+              El Yapımı Deri · Premium Gözlük
             </span>
             <h1 className="mt-5 font-display text-4xl font-bold leading-[1.05] sm:text-5xl md:text-6xl">
               Tarzını <span className="text-gradient-gold">zanaatkârlıkla</span> tamamla.
             </h1>
             <p className="mt-5 max-w-xl text-base text-muted-foreground sm:text-lg">
-              TheBullsCraft; el dikişli deri kılıflar, klasik cüzdanlar ve UV400 korumalı premium güneş gözlüklerini bir araya getiriyor. Her parça tek tek özenle üretilir.
+              TheBullsCraft; el dikişli deri kılıflar ve klasik cüzdanları, UV400 korumalı premium güneş gözlükleriyle bir araya getiriyor. Deri ürünlerimiz tek tek elde işlenir; gözlüklerimiz ise özenle seçilmiş premium modellerdir.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link
@@ -117,9 +117,9 @@ function Index() {
           <img src={craftImg} alt="El yapımı zanaat" loading="lazy" width={1200} height={900} className="rounded-3xl object-cover shadow-elegant" />
           <div>
             <span className="text-xs font-semibold uppercase tracking-widest text-primary">Atölyemiz</span>
-            <h2 className="mt-3 font-display text-3xl font-bold sm:text-4xl">Her parça tek tek, elde üretilir.</h2>
+            <h2 className="mt-3 font-display text-3xl font-bold sm:text-4xl">Deri ürünlerimiz tek tek, elde üretilir.</h2>
             <p className="mt-4 text-muted-foreground">
-              Birinci sınıf dana derisi, sabırlı el dikişi ve detaylara verilen özen — TheBullsCraft farkı budur. Ürünlerimiz kullandıkça güzelleşir, sizinle bir hikâye biriktirir.
+              Birinci sınıf dana derisi, sabırlı el dikişi ve detaylara verilen özen — TheBullsCraft’in el yapımı deri koleksiyonunun farkı budur. Deri ürünlerimiz kullandıkça güzelleşir, sizinle bir hikâye biriktirir. Gözlük koleksiyonumuz ise özenle seçilmiş, UV400 korumalı premium modellerden oluşur.
             </p>
             <ul className="mt-6 space-y-3 text-sm">
               {[

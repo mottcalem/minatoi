@@ -3,7 +3,7 @@ import { SITE, waLink } from "@/data/site";
 
 export function Footer() {
   return (
-    <footer className="mt-24 border-t border-border bg-card/40">
+    <footer className="mt-24 border-t border-border bg-card/60">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 md:grid-cols-4">
         <div>
           <div className="flex items-center gap-2">
@@ -11,6 +11,10 @@ export function Footer() {
             <span className="font-display text-lg font-bold">{SITE.name}</span>
           </div>
           <p className="mt-3 text-sm text-muted-foreground">{SITE.tagline}</p>
+          <p className="mt-3 text-xs text-muted-foreground">
+            {SITE.owner} · {SITE.companyType}<br />
+            {SITE.taxOffice} / {SITE.taxNumber}
+          </p>
         </div>
         <div>
           <h4 className="font-display text-sm font-semibold">Kategoriler</h4>
@@ -28,11 +32,19 @@ export function Footer() {
             <li><a href={SITE.instagram} target="_blank" rel="noreferrer" className="hover:text-primary">Instagram</a></li>
             <li><a href={SITE.shopierStore} target="_blank" rel="noreferrer" className="hover:text-primary">Shopier Mağaza</a></li>
           </ul>
+          <h4 className="mt-5 font-display text-sm font-semibold">Mevzuat</h4>
+          <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+            <li><Link to="/kullanici-sozlesmesi" className="hover:text-primary">Kullanıcı Sözleşmesi</Link></li>
+            <li><Link to="/iptal-iade" className="hover:text-primary">İptal & İade</Link></li>
+            <li><Link to="/gizlilik-politikasi" className="hover:text-primary">Gizlilik Politikası</Link></li>
+            <li><Link to="/kvkk" className="hover:text-primary">KVKK Aydınlatma Metni</Link></li>
+          </ul>
         </div>
         <div>
           <h4 className="font-display text-sm font-semibold">İletişim</h4>
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-            <li>{SITE.email}</li>
+            <li><a href={`mailto:${SITE.email}`} className="hover:text-primary">{SITE.email}</a></li>
+            <li>{SITE.phone}</li>
             <li>
               <a
                 href={waLink("Merhaba, bilgi almak istiyorum.")}
@@ -40,7 +52,7 @@ export function Footer() {
                 rel="noreferrer"
                 className="text-whatsapp hover:underline"
               >
-                WhatsApp: +{SITE.whatsappNumber}
+                WhatsApp: {SITE.phone}
               </a>
             </li>
           </ul>

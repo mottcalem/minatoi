@@ -10,7 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UrunlerRouteImport } from './routes/urunler'
+import { Route as KvkkRouteImport } from './routes/kvkk'
+import { Route as KullaniciSozlesmesiRouteImport } from './routes/kullanici-sozlesmesi'
+import { Route as IptalIadeRouteImport } from './routes/iptal-iade'
 import { Route as IletisimRouteImport } from './routes/iletisim'
+import { Route as GizlilikPolitikasiRouteImport } from './routes/gizlilik-politikasi'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UrunSlugRouteImport } from './routes/urun.$slug'
 import { Route as KategoriSlugRouteImport } from './routes/kategori.$slug'
@@ -20,9 +24,29 @@ const UrunlerRoute = UrunlerRouteImport.update({
   path: '/urunler',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KvkkRoute = KvkkRouteImport.update({
+  id: '/kvkk',
+  path: '/kvkk',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KullaniciSozlesmesiRoute = KullaniciSozlesmesiRouteImport.update({
+  id: '/kullanici-sozlesmesi',
+  path: '/kullanici-sozlesmesi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IptalIadeRoute = IptalIadeRouteImport.update({
+  id: '/iptal-iade',
+  path: '/iptal-iade',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IletisimRoute = IletisimRouteImport.update({
   id: '/iletisim',
   path: '/iletisim',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GizlilikPolitikasiRoute = GizlilikPolitikasiRouteImport.update({
+  id: '/gizlilik-politikasi',
+  path: '/gizlilik-politikasi',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -43,14 +67,22 @@ const KategoriSlugRoute = KategoriSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/gizlilik-politikasi': typeof GizlilikPolitikasiRoute
   '/iletisim': typeof IletisimRoute
+  '/iptal-iade': typeof IptalIadeRoute
+  '/kullanici-sozlesmesi': typeof KullaniciSozlesmesiRoute
+  '/kvkk': typeof KvkkRoute
   '/urunler': typeof UrunlerRoute
   '/kategori/$slug': typeof KategoriSlugRoute
   '/urun/$slug': typeof UrunSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/gizlilik-politikasi': typeof GizlilikPolitikasiRoute
   '/iletisim': typeof IletisimRoute
+  '/iptal-iade': typeof IptalIadeRoute
+  '/kullanici-sozlesmesi': typeof KullaniciSozlesmesiRoute
+  '/kvkk': typeof KvkkRoute
   '/urunler': typeof UrunlerRoute
   '/kategori/$slug': typeof KategoriSlugRoute
   '/urun/$slug': typeof UrunSlugRoute
@@ -58,20 +90,46 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/gizlilik-politikasi': typeof GizlilikPolitikasiRoute
   '/iletisim': typeof IletisimRoute
+  '/iptal-iade': typeof IptalIadeRoute
+  '/kullanici-sozlesmesi': typeof KullaniciSozlesmesiRoute
+  '/kvkk': typeof KvkkRoute
   '/urunler': typeof UrunlerRoute
   '/kategori/$slug': typeof KategoriSlugRoute
   '/urun/$slug': typeof UrunSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/iletisim' | '/urunler' | '/kategori/$slug' | '/urun/$slug'
+  fullPaths:
+    | '/'
+    | '/gizlilik-politikasi'
+    | '/iletisim'
+    | '/iptal-iade'
+    | '/kullanici-sozlesmesi'
+    | '/kvkk'
+    | '/urunler'
+    | '/kategori/$slug'
+    | '/urun/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/iletisim' | '/urunler' | '/kategori/$slug' | '/urun/$slug'
+  to:
+    | '/'
+    | '/gizlilik-politikasi'
+    | '/iletisim'
+    | '/iptal-iade'
+    | '/kullanici-sozlesmesi'
+    | '/kvkk'
+    | '/urunler'
+    | '/kategori/$slug'
+    | '/urun/$slug'
   id:
     | '__root__'
     | '/'
+    | '/gizlilik-politikasi'
     | '/iletisim'
+    | '/iptal-iade'
+    | '/kullanici-sozlesmesi'
+    | '/kvkk'
     | '/urunler'
     | '/kategori/$slug'
     | '/urun/$slug'
@@ -79,7 +137,11 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  GizlilikPolitikasiRoute: typeof GizlilikPolitikasiRoute
   IletisimRoute: typeof IletisimRoute
+  IptalIadeRoute: typeof IptalIadeRoute
+  KullaniciSozlesmesiRoute: typeof KullaniciSozlesmesiRoute
+  KvkkRoute: typeof KvkkRoute
   UrunlerRoute: typeof UrunlerRoute
   KategoriSlugRoute: typeof KategoriSlugRoute
   UrunSlugRoute: typeof UrunSlugRoute
@@ -94,11 +156,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UrunlerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/kvkk': {
+      id: '/kvkk'
+      path: '/kvkk'
+      fullPath: '/kvkk'
+      preLoaderRoute: typeof KvkkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kullanici-sozlesmesi': {
+      id: '/kullanici-sozlesmesi'
+      path: '/kullanici-sozlesmesi'
+      fullPath: '/kullanici-sozlesmesi'
+      preLoaderRoute: typeof KullaniciSozlesmesiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/iptal-iade': {
+      id: '/iptal-iade'
+      path: '/iptal-iade'
+      fullPath: '/iptal-iade'
+      preLoaderRoute: typeof IptalIadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/iletisim': {
       id: '/iletisim'
       path: '/iletisim'
       fullPath: '/iletisim'
       preLoaderRoute: typeof IletisimRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gizlilik-politikasi': {
+      id: '/gizlilik-politikasi'
+      path: '/gizlilik-politikasi'
+      fullPath: '/gizlilik-politikasi'
+      preLoaderRoute: typeof GizlilikPolitikasiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -127,7 +217,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  GizlilikPolitikasiRoute: GizlilikPolitikasiRoute,
   IletisimRoute: IletisimRoute,
+  IptalIadeRoute: IptalIadeRoute,
+  KullaniciSozlesmesiRoute: KullaniciSozlesmesiRoute,
+  KvkkRoute: KvkkRoute,
   UrunlerRoute: UrunlerRoute,
   KategoriSlugRoute: KategoriSlugRoute,
   UrunSlugRoute: UrunSlugRoute,
@@ -135,3 +229,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
