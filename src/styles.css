@@ -61,7 +61,7 @@
   --whatsapp: oklch(0.72 0.17 150);
   --whatsapp-foreground: oklch(0.99 0.004 80);
   --gradient-hero: linear-gradient(135deg, oklch(0.99 0.004 80) 0%, oklch(0.97 0.02 70) 55%, oklch(0.92 0.06 60) 100%);
-  --gradient-gold: linear-gradient(135deg, oklch(0.74 0.13 70), oklch(0.58 0.15 50));
+  --gradient-gold: linear-gradient(135deg, oklch(0.55 0.16 50), oklch(0.40 0.14 45));
   --shadow-elegant: 0 18px 50px -22px oklch(0.4 0.04 55 / 0.28), 0 6px 18px -10px oklch(0.4 0.04 55 / 0.18);
   --shadow-glow: 0 0 44px -12px oklch(0.62 0.14 55 / 0.30);
 }
@@ -83,10 +83,14 @@
 }
 
 @utility text-gradient-gold {
-  background: var(--gradient-gold);
+  background-image: var(--gradient-gold);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+@utility bg-gradient-gold {
+  background-image: var(--gradient-gold);
 }
 
 @utility bg-hero {

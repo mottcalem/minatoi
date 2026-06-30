@@ -82,11 +82,11 @@ function Index() {
               className="group relative overflow-hidden rounded-2xl border border-border"
             >
               <img src={c.image} alt={c.label} loading="lazy" width={800} height={800} className="h-72 w-full object-cover transition duration-500 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
               <div className="absolute bottom-0 p-5">
-                <h3 className="font-display text-xl font-bold">{c.label}</h3>
-                <p className="text-sm text-muted-foreground">{c.description}</p>
-                <span className="mt-3 inline-block text-sm font-semibold text-primary">Keşfet →</span>
+                <h3 className="font-display text-xl font-bold text-white drop-shadow">{c.label}</h3>
+                <p className="text-sm text-white/85 drop-shadow">{c.description}</p>
+                <span className="mt-3 inline-block text-sm font-semibold text-white drop-shadow">Keşfet →</span>
               </div>
             </Link>
           ))}
