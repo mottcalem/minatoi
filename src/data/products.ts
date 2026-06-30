@@ -4,11 +4,33 @@ import walletsImg from "@/assets/cat-wallets.jpg";
 
 export type Category = "gozluk" | "kilif" | "cuzdan";
 
+export type GlassesSeries = "urban" | "heritage" | "modern";
+
+export const SERIES: Record<GlassesSeries, { label: string; description: string }> = {
+  urban: { label: "Urban Series", description: "Şehir yaşamına ilham veren modern ve çok yönlü siluetler." },
+  heritage: { label: "Heritage Series", description: "Zamansız klasikleri çağdaş detaylarla yeniden yorumlayan seri." },
+  modern: { label: "Modern Series", description: "Cesiz çizgiler ve minimalist formlarla geleceğe bakan koleksiyon." },
+};
+
 export const CATEGORIES: { slug: Category; label: string; description: string; image: string }[] = [
-  { slug: "gozluk", label: "Gözlük", description: "UV400 korumalı premium güneş gözlükleri", image: glassesImg },
+  { slug: "gozluk", label: "Gözlük", description: "UV korumalı, EN ISO 12312-1:2013 standart güneş gözlükleri", image: glassesImg },
   { slug: "kilif", label: "Deri Kılıf", description: "Tam deri, el yapımı gözlük kılıfları", image: casesImg },
   { slug: "cuzdan", label: "Deri Cüzdan", description: "Minimal ve klasik deri cüzdan modelleri", image: walletsImg },
 ];
+
+export type TechSpec = { label: string; value: string };
+
+export type GlassesDetails = {
+  series: GlassesSeries;
+  techSpecs: TechSpec[];
+  filterInfo: { type: string; category: string; lightTransmission: string; notes: string[] };
+  materials: string[];
+  care: string[];
+  usage: string[];
+  safety: string[];
+  boxContents: string[];
+  summary: string[];
+};
 
 export type Product = {
   slug: string;
@@ -22,127 +44,29 @@ export type Product = {
   features: string[];
   shopierUrl: string;
   badge?: string;
+  glasses?: GlassesDetails;
 };
 
 const SHOPIER = "https://www.shopier.com/thebullscraft";
 
 export const PRODUCTS: Product[] = [
-  // 10 gözlük
-  {
-    slug: "matador-aviator",
-    name: "Matador Aviator",
-    category: "gozluk",
-    price: 1490,
-    oldPrice: 1890,
-    image: glassesImg,
-    shortDescription: "Klasik pilot tasarımı, altın çerçeve, polarize cam.",
-    description: "Matador Aviator, zamansız pilot formunu modern detaylarla buluşturuyor. Hafif metal çerçeve, polarize lens ve premium ambalaj.",
-    features: ["UV400 koruma", "Polarize cam", "Altın metal çerçeve", "Deri kılıf hediye", "2 yıl garanti"],
-    shopierUrl: SHOPIER,
-    badge: "Çok Satan",
-  },
-  {
-    slug: "torero-wayfarer",
-    name: "Torero Wayfarer",
-    category: "gozluk",
-    price: 1290,
-    image: glassesImg,
-    shortDescription: "İkonik wayfarer formu, mat siyah asetat çerçeve.",
-    description: "Torero, güçlü çene hattını destekleyen klasik wayfarer kesimiyle her stile uyum sağlar.",
-    features: ["UV400 koruma", "Mat siyah asetat", "Yay menteşe", "Deri kılıf hediye"],
-    shopierUrl: SHOPIER,
-  },
-  {
-    slug: "rancho-round",
-    name: "Rancho Round",
-    category: "gozluk",
-    price: 1190,
-    image: glassesImg,
-    shortDescription: "Yuvarlak retro form, ince altın çerçeve.",
-    description: "Rancho Round, vintage ruhu modern hafiflikle birleştiren ince çerçeveli yuvarlak modelimiz.",
-    features: ["UV400 koruma", "İnce metal çerçeve", "Cam lens", "Hafif tasarım"],
-    shopierUrl: SHOPIER,
-  },
-  {
-    slug: "corrida-square",
-    name: "Corrida Square",
-    category: "gozluk",
-    price: 1390,
-    image: glassesImg,
-    shortDescription: "Kare çerçeve, gradient kahverengi cam.",
-    description: "Corrida, güçlü hatları ve sıcak tonlardaki gradient camıyla karakterli bir duruş sunar.",
-    features: ["UV400 koruma", "Gradient cam", "Kalın asetat", "Spring hinge"],
-    shopierUrl: SHOPIER,
-    badge: "Yeni",
-  },
-  {
-    slug: "pampas-cat-eye",
-    name: "Pampas Cat Eye",
-    category: "gozluk",
-    price: 1450,
-    image: glassesImg,
-    shortDescription: "Kadın cat-eye, klasik çizgilerle modern dokunuş.",
-    description: "Pampas, zarif kedi gözü formunu güçlü bir kadın siluetiyle harmanlıyor.",
-    features: ["UV400 koruma", "Polarize cam", "Asetat çerçeve", "Deri kılıf hediye"],
-    shopierUrl: SHOPIER,
-  },
-  {
-    slug: "sierra-sport",
-    name: "Sierra Sport",
-    category: "gozluk",
-    price: 1690,
-    image: glassesImg,
-    shortDescription: "Sportif sarmal form, ayna kaplama lens.",
-    description: "Sierra Sport, açık hava ve sürüş için tasarlanmış sarmal yapısıyla maksimum koruma sağlar.",
-    features: ["UV400 koruma", "Ayna kaplama", "TR90 esnek çerçeve", "Kayma önleyici burunluk"],
-    shopierUrl: SHOPIER,
-  },
-  {
-    slug: "vintage-clubmaster",
-    name: "Vintage Clubmaster",
-    category: "gozluk",
-    price: 1390,
-    image: glassesImg,
-    shortDescription: "Yarım çerçeve, vintage clubmaster siluet.",
-    description: "Vintage Clubmaster, kahve tonları ve altın detaylarla retro şıklığın zirvesi.",
-    features: ["UV400 koruma", "Yarım metal çerçeve", "Asetat kaş bandı", "Polarize"],
-    shopierUrl: SHOPIER,
-  },
-  {
-    slug: "obsidian-black",
-    name: "Obsidian Black",
-    category: "gozluk",
-    price: 1590,
-    image: glassesImg,
-    shortDescription: "Tam siyah pilot, ayna lens, bold duruş.",
-    description: "Obsidian, tamamen siyaha bürünmüş cesur pilot formuyla dikkat çeker.",
-    features: ["UV400 koruma", "Ayna lens", "Metal çerçeve", "Hafif yapı"],
-    shopierUrl: SHOPIER,
-  },
-  {
-    slug: "amber-classic",
-    name: "Amber Classic",
-    category: "gozluk",
-    price: 1290,
-    image: glassesImg,
-    shortDescription: "Bal rengi asetat, sıcak ton cam.",
-    description: "Amber Classic, kehribar tonlarıyla zarif ve sıcak bir profil sunar.",
-    features: ["UV400 koruma", "Bal rengi asetat", "Cam lens", "Hediye kutusu"],
-    shopierUrl: SHOPIER,
-  },
-  {
-    slug: "titan-flyer",
-    name: "Titan Flyer",
-    category: "gozluk",
-    price: 1990,
-    oldPrice: 2290,
-    image: glassesImg,
-    shortDescription: "Titanyum çerçeve, ultra hafif premium pilot.",
-    description: "Titan Flyer, titanyum çerçevesi ve polarize lensiyle koleksiyonun amiral modeli.",
-    features: ["UV400 koruma", "Titanyum çerçeve", "Polarize cam", "Premium ambalaj", "3 yıl garanti"],
-    shopierUrl: SHOPIER,
-    badge: "Premium",
-  },
+  // ── Gözlükler (Urban Series) ──────────────────────────────────────
+  makeGlasses("urban", "Soho", { price: 1290, badge: "Yeni" }),
+  makeGlasses("urban", "Milan", { price: 1290 }),
+  makeGlasses("urban", "Monaco", { price: 1390, oldPrice: 1690 }),
+  makeGlasses("urban", "Chelsea", { price: 1290 }),
+
+  // ── Gözlükler (Heritage Series) ───────────────────────────────────
+  makeGlasses("heritage", "Atlas", { price: 1490, badge: "Çok Satan" }),
+  makeGlasses("heritage", "Heritage", { price: 1490 }),
+  makeGlasses("heritage", "Sterling", { price: 1590 }),
+  makeGlasses("heritage", "Raven", { price: 1490 }),
+
+  // ── Gözlükler (Modern Series) ─────────────────────────────────────
+  makeGlasses("modern", "Orion", { price: 1390 }),
+  makeGlasses("modern", "Eclipse", { price: 1390, badge: "Yeni" }),
+  makeGlasses("modern", "Nova", { price: 1490, oldPrice: 1790 }),
+  makeGlasses("modern", "Lumen", { price: 1390, badge: "Premium" }),
 
   // Deri kılıflar
   {
@@ -231,3 +155,121 @@ export function productsByCategory(cat?: Category) {
 export function formatTL(n: number) {
   return new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", maximumFractionDigits: 0 }).format(n);
 }
+
+// ── Gözlük ürün şablonu ──────────────────────────────────────────────
+// Tüm gözlük modelleri aynı teknik özelliklere sahiptir; yalnızca seri ve
+// model adı değişir. makeGlasses() ile tutarlı bir GlassesDetails üretiriz.
+const GLASSES_TECH_SPECS: TechSpec[] = [
+  { label: "Ürün Tipi", value: "Güneş Gözlüğü" },
+  { label: "Kullanım Amacı", value: "Günlük kullanım" },
+  { label: "Standart", value: "EN ISO 12312-1:2013" },
+  { label: "UV Koruması", value: "UV korumalı filtre" },
+  { label: "Filtre Tipi", value: "G (Gradient / Gradyan)" },
+  { label: "Filtre Kategorisi", value: "Kategori 3" },
+  { label: "Işık Geçirgenliği", value: "%8 - %18" },
+  { label: "Kullanım Alanı", value: "Güçlü güneş ışığı" },
+  { label: "CE Sertifikası", value: "Mevcuttur" },
+  { label: "Menşei", value: "Çin" },
+];
+
+const GLASSES_SUMMARY = [
+  "EN ISO 12312-1:2013 Standartlarına Uygun",
+  "CE Belgeli",
+  "UV Korumalı Lens",
+  "Gradient (Gradyan) Cam",
+  "Filtre Kategorisi 3",
+  "Güçlü Güneş Işığı İçin Uygun",
+  "Günlük Kullanıma Uygun",
+  "Şık ve Ergonomik Tasarım",
+];
+
+const GLASSES_DESCRIPTION =
+  "Günlük kullanım için tasarlanan güneş gözlüğümüz, gözlerinizi zararlı UV ışınlarına karşı korurken modern tasarımıyla stilinizi tamamlar. EN ISO 12312-1:2013 standardına uygun olarak üretilmiş olup, yüksek kaliteli filtre teknolojisi sayesinde güçlü güneş ışığında net ve konforlu görüş sunar.\n\nGradient (Gradyan) filtre yapısı sayesinde üst bölüm daha koyu, alt bölüm ise daha açık tonda tasarlanmıştır. Bu sayede hem yoğun güneş ışığını filtreler hem de aşağı bakışlarda daha rahat görüş sağlar.\n\nDayanıklı malzemeleri ve kaliteli işçiliği sayesinde günlük kullanım, şehir yaşamı, seyahat ve açık hava aktiviteleri için ideal bir tercihtir.";
+
+const GLASSES_FEATURES = [
+  "EN ISO 12312-1:2013 standartlarına uygun",
+  "UV korumalı gradient lens",
+  "Filtre kategorisi 3 — güçlü güneş ışığı",
+  "CE belgeli",
+  "Şık ve ergonomik tasarım",
+];
+
+export function makeGlasses(
+  series: GlassesSeries,
+  model: string,
+  opts: { price: number; oldPrice?: number; image?: string; shopierUrl?: string; badge?: string },
+): Product {
+  return {
+    slug: `${series}-${model.toLowerCase()}`,
+    name: `${SERIES[series].label.split(" ")[0]} ${model}`,
+    category: "gozluk",
+    price: opts.price,
+    oldPrice: opts.oldPrice,
+    image: opts.image ?? glassesImg,
+    shortDescription: `${SERIES[series].label} — UV korumalı, gradient camlı güneş gözlüğü.`,
+    description: GLASSES_DESCRIPTION,
+    features: GLASSES_FEATURES,
+    shopierUrl: opts.shopierUrl ?? SHOPIER,
+    badge: opts.badge,
+    glasses: {
+      series,
+      techSpecs: GLASSES_TECH_SPECS,
+      filterInfo: {
+        type: "G (Gradient)",
+        category: "3",
+        lightTransmission: "%8 - %18",
+        notes: [
+          "Gradyan filtre, camın üst kısmında daha koyu, alt kısmında ise daha açık ton bulunmasını sağlar.",
+          "Araç kullanırken gösterge panelini daha rahat görmeye konfor kazandırır.",
+          "Günlük şehir kullanımına ve açık hava aktivitelerine uygundur.",
+          "Kategori 3 filtre güçlü güneş ışığında, yaz aylarında sahil ve şehir kullanımı için ideal koruma sağlar.",
+        ],
+      },
+      materials: [
+        "Dayanıklı plastik veya metal çerçeve",
+        "Cilt dostu yüzey kaplaması",
+        "Zararlı kimyasal içermeyen güvenli yapı",
+        "Günlük kullanıma uygun kaliteli bileşenler",
+      ],
+      care: [
+        "Mikrofiber bez ile temizleyiniz.",
+        "Camları yalnızca optik temizleme solüsyonları veya sabunlu su ile temizleyiniz.",
+        "Aseton, alkol ve benzeri kimyasallar kullanmayınız.",
+        "Camları sert yüzeylere temas ettirmeyiniz.",
+        "Kullanmadığınız zamanlarda koruyucu kılıfında muhafaza ediniz.",
+        "Aşındırıcı bez veya kağıt havlu kullanmayınız.",
+        "Deniz suyu veya havuz suyuna maruz bırakmayınız.",
+        "Araç ön panelinde veya uzun süre doğrudan güneş altında bırakmayınız.",
+      ],
+      usage: [
+        "Günlük kullanım için uygundur.",
+        "Güçlü güneş ışığında yüksek görüş konforu sağlar.",
+        "Araç kullanımı sırasında kullanılabilir.",
+        "Solaryumda kullanılmamalıdır.",
+        "Güneşe doğrudan bakmak amacıyla kullanılmamalıdır.",
+        "Gece sürüşü veya düşük ışıklı ortamlarda kullanılması tavsiye edilmez.",
+      ],
+      safety: [
+        "Gözlüğünüzü tek elle çıkarıp takmamaya özen gösteriniz.",
+        "Çerçevenin eğilmesine neden olacak darbelerden kaçınınız.",
+        "Ürünü çocukların erişemeyeceği şekilde muhafaza ediniz.",
+        "Herhangi bir deformasyon oluşması halinde kullanımı durdurunuz.",
+      ],
+      boxContents: [
+        "1 Adet Güneş Gözlüğü",
+        "Koruyucu Gözlük Kılıfı",
+        "Mikrofiber Temizleme Bezi (varsa)",
+        "Kullanım ve Bakım Bilgilendirme Kılavuzu",
+      ],
+      summary: GLASSES_SUMMARY,
+    },
+  };
+}
+
+// Seri → modeller eşleştirmesi. Ürün girişlerini yaparken bu listeyi
+// referans alarak makeGlasses() çağrılarıyla PRODUCTS'a ekleyebilirsiniz.
+export const GLASSES_MODELS: Record<GlassesSeries, string[]> = {
+  urban: ["Soho", "Milan", "Monaco", "Chelsea"],
+  heritage: ["Atlas", "Heritage", "Sterling", "Raven"],
+  modern: ["Orion", "Eclipse", "Nova", "Lumen"],
+};

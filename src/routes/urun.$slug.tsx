@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { CATEGORIES, PRODUCTS, formatTL, getProduct } from "@/data/products";
-import type { Product } from "@/data/products";
+import { CATEGORIES, PRODUCTS, SERIES, formatTL, getProduct } from "@/data/products";
+import type { Product, GlassesDetails } from "@/data/products";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { CashOnDeliveryForm } from "@/components/CashOnDeliveryForm";
 import { ProductCard } from "@/components/ProductCard";
@@ -80,6 +80,11 @@ function ProductDetail() {
         <div>
           <p className="text-xs font-semibold uppercase tracking-widest text-primary">{cat.label}</p>
           <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl">{product.name}</h1>
+          {product.glasses && (
+            <p className="mt-1 text-xs font-medium uppercase tracking-widest text-accent">
+              {SERIES[product.glasses.series].label}
+            </p>
+          )}
           <p className="mt-3 text-muted-foreground">{product.shortDescription}</p>
 
           <div className="mt-5 flex items-baseline gap-3">
@@ -145,9 +150,16 @@ function ProductDetail() {
 
       {/* Description */}
       <section className="mt-16">
-        <h2 className="font-display text-2xl font-bold">Açıklama</h2>
-        <p className="mt-3 max-w-3xl text-muted-foreground">{product.description}</p>
+        <h2 className="font-display text-2xl font-bold">Ürün Açıklaması</h2>
+        <div className="mt-3 max-w-3xl space-y-4 text-muted-foreground">
+          {product.description.split("\n\n").map((para, i) => (
+            <p key={i}>{para}</p>
+          ))}
+        </div>
       </section>
+
+      {/* Glasses details */}
+      {product.glasses && <GlassesInfo details={product.glasses} />}
 
       {/* Related */}
       {related.length > 0 && (
@@ -159,5 +171,135 @@ function ProductDetail() {
         </section>
       )}
     </article>
+  );
+}
+
+function GlassesInfo({ details }: { details: GlassesDetails }) {
+  return (
+    <div className="mt-12 space-y-12">
+      {/* Tech specs table */}
+      <section>
+        <h2 className="font-display text-2xl font-bold">Teknik Özellikler</h2>
+        <div className="mt-4 overflow-hidden rounded-2xl border border-border">
+          <table className="w-full text-sm">
+            <tbody>
+              {details.techSpecs.map((s, i) => (
+                <tr key={s.label} className={i % 2 === 0 ? "bg-card/50" : ""}>
+                  <th className="w-1/3 border-b border-border px-4 py-3 text-left font-medium text-foreground">{s.label}</th>
+                  <td className="border-b border-border px-4 py-3 text-muted-foreground">{s.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* Filter info */}
+      <section>
+        <h2 className="font-display text-2xl font-bold">Filtre Bilgisi</h2>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          <div className="rounded-2xl border border-border bg-card p-5">
+            <h3 className="font-display text-base font-semibold">Filtre Tipi: {details.filterInfo.type}</h3>
+            <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+              {details.filterInfo.notes.map((n, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <span className="mt-1 text-primary">•</span>
+                  {n}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-2xl border border-border bg-card p-5">
+            <h3 className="font-display text-base font-semibold">Filtre Kategorisi: {details.filterInfo.category}</h3>
+            <p className="mt-3 text-sm text-muted-foreground">
+              Işık geçirgenliği: <strong className="text-foreground">{details.filterInfo.lightTransmission}</strong>
+            </p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Güçlü güneş ışığında, yaz aylarında sahil, şehir ve açık hava aktivitelerinde ideal koruma sağlar.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Materials */}
+      <section>
+        <h2 className="font-display text-2xl font-bold">Malzeme Özellikleri</h2>
+        <p className="mt-2 text-sm text-muted-foreground">Üründe kullanılan malzemeler:</p>
+        <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+          {details.materials.map((m, i) => (
+            <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground text-[10px]">✓</span>
+              {m}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Care & Usage */}
+      <div className="grid gap-8 lg:grid-cols-2">
+        <section>
+          <h2 className="font-display text-2xl font-bold">Bakım ve Temizlik</h2>
+          <p className="mt-2 text-sm text-muted-foreground">Gözlüğünüzün uzun ömürlü olması için aşağıdaki önerilere dikkat ediniz.</p>
+          <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+            {details.care.map((c, i) => (
+              <li key={i} className="flex items-start gap-2">
+                <span className="mt-1 text-primary">•</span>
+                {c}
+              </li>
+            ))}
+          </ul>
+        </section>
+        <section>
+          <h2 className="font-display text-2xl font-bold">Kullanım Önerileri</h2>
+          <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+            {details.usage.map((u, i) => (
+              <li key={i} className="flex items-start gap-2">
+                <span className="mt-1 text-primary">•</span>
+                {u}
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+
+      {/* Safety */}
+      <section>
+        <h2 className="font-display text-2xl font-bold">Güvenlik Bilgileri</h2>
+        <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+          {details.safety.map((s, i) => (
+            <li key={i} className="flex items-start gap-2">
+              <span className="mt-1 text-primary">•</span>
+              {s}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Box contents */}
+      <section>
+        <h2 className="font-display text-2xl font-bold">Kutu İçeriği</h2>
+        <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+          {details.boxContents.map((b, i) => (
+            <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground text-[10px]">✓</span>
+              {b}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Summary */}
+      <section className="rounded-2xl border border-primary/30 bg-primary/5 p-6">
+        <h2 className="font-display text-xl font-bold">Kısa Teknik Özellikler</h2>
+        <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+          {details.summary.map((s, i) => (
+            <li key={i} className="flex items-start gap-2 text-sm">
+              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground text-[10px]">✓</span>
+              {s}
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
   );
 }
