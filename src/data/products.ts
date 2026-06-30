@@ -49,113 +49,6 @@ export type Product = {
 
 const SHOPIER = "https://www.shopier.com/thebullscraft";
 
-export const PRODUCTS: Product[] = [
-  // ── Gözlükler (Urban Series) ──────────────────────────────────────
-  makeGlasses("urban", "Soho", { price: 1290, badge: "Yeni" }),
-  makeGlasses("urban", "Milan", { price: 1290 }),
-  makeGlasses("urban", "Monaco", { price: 1390, oldPrice: 1690 }),
-  makeGlasses("urban", "Chelsea", { price: 1290 }),
-
-  // ── Gözlükler (Heritage Series) ───────────────────────────────────
-  makeGlasses("heritage", "Atlas", { price: 1490, badge: "Çok Satan" }),
-  makeGlasses("heritage", "Heritage", { price: 1490 }),
-  makeGlasses("heritage", "Sterling", { price: 1590 }),
-  makeGlasses("heritage", "Raven", { price: 1490 }),
-
-  // ── Gözlükler (Modern Series) ─────────────────────────────────────
-  makeGlasses("modern", "Orion", { price: 1390 }),
-  makeGlasses("modern", "Eclipse", { price: 1390, badge: "Yeni" }),
-  makeGlasses("modern", "Nova", { price: 1490, oldPrice: 1790 }),
-  makeGlasses("modern", "Lumen", { price: 1390, badge: "Premium" }),
-
-  // Deri kılıflar
-  {
-    slug: "klasik-deri-kilif-taba",
-    name: "Klasik Deri Kılıf — Taba",
-    category: "kilif",
-    price: 390,
-    image: casesImg,
-    shortDescription: "Tam deri, el dikişli klasik gözlük kılıfı.",
-    description: "Birinci sınıf dana derisinden el dikişiyle üretilmiş, çıt çıt kapaklı klasik gözlük kılıfımız.",
-    features: ["%100 hakiki deri", "El dikişi", "Çıt çıt kapak", "Yumuşak iç astar"],
-    shopierUrl: SHOPIER,
-    badge: "Çok Satan",
-  },
-  {
-    slug: "klasik-deri-kilif-kahve",
-    name: "Klasik Deri Kılıf — Kahve",
-    category: "kilif",
-    price: 390,
-    image: casesImg,
-    shortDescription: "Koyu kahve tonunda el yapımı gözlük kılıfı.",
-    description: "Yıllar geçtikçe güzelleşen patine yapısıyla koyu kahve klasik kılıf.",
-    features: ["%100 hakiki deri", "El dikişi", "Çıt çıt kapak", "Mikrofiber astar"],
-    shopierUrl: SHOPIER,
-  },
-  {
-    slug: "minimal-deri-kilif-siyah",
-    name: "Minimal Deri Kılıf — Siyah",
-    category: "kilif",
-    price: 420,
-    image: casesImg,
-    shortDescription: "İnce ve modern siyah deri gözlük kılıfı.",
-    description: "Minimal kesimi ve ince yapısıyla cep ve çantada yer kaplamayan modern model.",
-    features: ["%100 hakiki deri", "İnce profil", "Manyetik kapak", "Süet astar"],
-    shopierUrl: SHOPIER,
-    badge: "Yeni",
-  },
-
-  // Cüzdanlar
-  {
-    slug: "bifold-cuzdan-kahve",
-    name: "Bifold Cüzdan — Kahve",
-    category: "cuzdan",
-    price: 690,
-    oldPrice: 890,
-    image: walletsImg,
-    shortDescription: "8 kart gözü, klasik iki katlı deri cüzdan.",
-    description: "Klasik bifold form, 8 kart bölmesi ve banknot gözüyle günlük kullanımın vazgeçilmezi.",
-    features: ["%100 hakiki deri", "8 kart gözü", "RFID koruma", "El dikişi"],
-    shopierUrl: SHOPIER,
-    badge: "Çok Satan",
-  },
-  {
-    slug: "kart-cuzdan-minimal",
-    name: "Minimal Kart Cüzdanı",
-    category: "cuzdan",
-    price: 490,
-    image: walletsImg,
-    shortDescription: "İnce kart cüzdanı, 6 kart kapasiteli.",
-    description: "Cebinizde fark edilmeyen minimal kart cüzdanı, günlük şıklığı tamamlar.",
-    features: ["%100 hakiki deri", "6 kart gözü", "RFID koruma", "Hafif"],
-    shopierUrl: SHOPIER,
-  },
-  {
-    slug: "premium-uzun-cuzdan",
-    name: "Premium Uzun Cüzdan",
-    category: "cuzdan",
-    price: 990,
-    image: walletsImg,
-    shortDescription: "Fermuarlı, uzun model premium deri cüzdan.",
-    description: "12 kart, banknot ve bozuk para bölmeleriyle hepsi-bir-arada premium cüzdan.",
-    features: ["%100 hakiki deri", "12 kart gözü", "Fermuarlı bozuk para", "Premium kutu"],
-    shopierUrl: SHOPIER,
-    badge: "Premium",
-  },
-];
-
-export function getProduct(slug: string) {
-  return PRODUCTS.find((p) => p.slug === slug);
-}
-
-export function productsByCategory(cat?: Category) {
-  return cat ? PRODUCTS.filter((p) => p.category === cat) : PRODUCTS;
-}
-
-export function formatTL(n: number) {
-  return new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", maximumFractionDigits: 0 }).format(n);
-}
-
 // ── Gözlük ürün şablonu ──────────────────────────────────────────────
 // Tüm gözlük modelleri aynı teknik özelliklere sahiptir; yalnızca seri ve
 // model adı değişir. makeGlasses() ile tutarlı bir GlassesDetails üretiriz.
@@ -273,3 +166,110 @@ export const GLASSES_MODELS: Record<GlassesSeries, string[]> = {
   heritage: ["Atlas", "Heritage", "Sterling", "Raven"],
   modern: ["Orion", "Eclipse", "Nova", "Lumen"],
 };
+
+export const PRODUCTS: Product[] = [
+  // ── Gözlükler (Urban Series) ──────────────────────────────────────
+  makeGlasses("urban", "Soho", { price: 1290, badge: "Yeni" }),
+  makeGlasses("urban", "Milan", { price: 1290 }),
+  makeGlasses("urban", "Monaco", { price: 1390, oldPrice: 1690 }),
+  makeGlasses("urban", "Chelsea", { price: 1290 }),
+
+  // ── Gözlükler (Heritage Series) ───────────────────────────────────
+  makeGlasses("heritage", "Atlas", { price: 1490, badge: "Çok Satan" }),
+  makeGlasses("heritage", "Heritage", { price: 1490 }),
+  makeGlasses("heritage", "Sterling", { price: 1590 }),
+  makeGlasses("heritage", "Raven", { price: 1490 }),
+
+  // ── Gözlükler (Modern Series) ─────────────────────────────────────
+  makeGlasses("modern", "Orion", { price: 1390 }),
+  makeGlasses("modern", "Eclipse", { price: 1390, badge: "Yeni" }),
+  makeGlasses("modern", "Nova", { price: 1490, oldPrice: 1790 }),
+  makeGlasses("modern", "Lumen", { price: 1390, badge: "Premium" }),
+
+  // Deri kılıflar
+  {
+    slug: "klasik-deri-kilif-taba",
+    name: "Klasik Deri Kılıf — Taba",
+    category: "kilif",
+    price: 390,
+    image: casesImg,
+    shortDescription: "Tam deri, el dikişli klasik gözlük kılıfı.",
+    description: "Birinci sınıf dana derisinden el dikişiyle üretilmiş, çıt çıt kapaklı klasik gözlük kılıfımız.",
+    features: ["%100 hakiki deri", "El dikişi", "Çıt çıt kapak", "Yumuşak iç astar"],
+    shopierUrl: SHOPIER,
+    badge: "Çok Satan",
+  },
+  {
+    slug: "klasik-deri-kilif-kahve",
+    name: "Klasik Deri Kılıf — Kahve",
+    category: "kilif",
+    price: 390,
+    image: casesImg,
+    shortDescription: "Koyu kahve tonunda el yapımı gözlük kılıfı.",
+    description: "Yıllar geçtikçe güzelleşen patine yapısıyla koyu kahve klasik kılıf.",
+    features: ["%100 hakiki deri", "El dikişi", "Çıt çıt kapak", "Mikrofiber astar"],
+    shopierUrl: SHOPIER,
+  },
+  {
+    slug: "minimal-deri-kilif-siyah",
+    name: "Minimal Deri Kılıf — Siyah",
+    category: "kilif",
+    price: 420,
+    image: casesImg,
+    shortDescription: "İnce ve modern siyah deri gözlük kılıfı.",
+    description: "Minimal kesimi ve ince yapısıyla cep ve çantada yer kaplamayan modern model.",
+    features: ["%100 hakiki deri", "İnce profil", "Manyetik kapak", "Süet astar"],
+    shopierUrl: SHOPIER,
+    badge: "Yeni",
+  },
+
+  // Cüzdanlar
+  {
+    slug: "bifold-cuzdan-kahve",
+    name: "Bifold Cüzdan — Kahve",
+    category: "cuzdan",
+    price: 690,
+    oldPrice: 890,
+    image: walletsImg,
+    shortDescription: "8 kart gözü, klasik iki katlı deri cüzdan.",
+    description: "Klasik bifold form, 8 kart bölmesi ve banknot gözüyle günlük kullanımın vazgeçilmezi.",
+    features: ["%100 hakiki deri", "8 kart gözü", "RFID koruma", "El dikişi"],
+    shopierUrl: SHOPIER,
+    badge: "Çok Satan",
+  },
+  {
+    slug: "kart-cuzdan-minimal",
+    name: "Minimal Kart Cüzdanı",
+    category: "cuzdan",
+    price: 490,
+    image: walletsImg,
+    shortDescription: "İnce kart cüzdanı, 6 kart kapasiteli.",
+    description: "Cebinizde fark edilmeyen minimal kart cüzdanı, günlük şıklığı tamamlar.",
+    features: ["%100 hakiki deri", "6 kart gözü", "RFID koruma", "Hafif"],
+    shopierUrl: SHOPIER,
+  },
+  {
+    slug: "premium-uzun-cuzdan",
+    name: "Premium Uzun Cüzdan",
+    category: "cuzdan",
+    price: 990,
+    image: walletsImg,
+    shortDescription: "Fermuarlı, uzun model premium deri cüzdan.",
+    description: "12 kart, banknot ve bozuk para bölmeleriyle hepsi-bir-arada premium cüzdan.",
+    features: ["%100 hakiki deri", "12 kart gözü", "Fermuarlı bozuk para", "Premium kutu"],
+    shopierUrl: SHOPIER,
+    badge: "Premium",
+  },
+];
+
+export function getProduct(slug: string) {
+  return PRODUCTS.find((p) => p.slug === slug);
+}
+
+export function productsByCategory(cat?: Category) {
+  return cat ? PRODUCTS.filter((p) => p.category === cat) : PRODUCTS;
+}
+
+export function formatTL(n: number) {
+  return new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", maximumFractionDigits: 0 }).format(n);
+}
