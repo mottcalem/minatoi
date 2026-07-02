@@ -27,13 +27,13 @@ function Index() {
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 md:py-24 lg:grid-cols-2">
           <div>
             <span className="inline-block rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-              El Yapımı Deri · Premium Gözlük
+              El Yapımı Hakiki Deri • Premium Koleksiyon
             </span>
             <h1 className="mt-5 font-display text-4xl font-bold leading-[1.05] sm:text-5xl md:text-6xl">
-              Tarzını <span className="text-gradient-gold">zanaatkârlıkla</span> tamamla.
+              Gerçek Derinin <span className="text-gradient-gold">Zamansız Şıklığını</span> Keşfet.
             </h1>
             <p className="mt-5 max-w-xl text-base text-muted-foreground sm:text-lg">
-              TheBullsCraft; el dikişli deri kılıflar ve klasik cüzdanları, UV400 korumalı premium güneş gözlükleriyle bir araya getiriyor. Deri ürünlerimiz tek tek elde işlenir; gözlüklerimiz ise özenle seçilmiş premium modellerdir.
+              TheBullsCraft, geleneksel deri işçiliğini modern tasarımlarla buluşturur. Her cüzdan, kartlık, gözlük kılıfı ve deri aksesuar ustalıkla elde üretilir. Premium güneş gözlükleriyle stilinizi tamamlayın.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link
