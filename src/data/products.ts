@@ -2,6 +2,12 @@ import glassesImg from "@/assets/cat-glasses.jpg";
 import casesImg from "@/assets/cat-cases.jpg";
 import walletsImg from "@/assets/cat-wallets.jpg";
 
+// Cüzdan ürün görselleri
+const walletClosed = "/images/products/wallets/wallet_closed_1264x848.jpg";
+const walletAngle = "/images/products/wallets/wallet_angle_1264x848.jpg";
+const walletModel = "/images/products/wallets/wallet_model_1080x1350.jpg";
+const walletMan = "/images/products/wallets/wallet_man_1080x1350.jpg";
+
 export type Category = "gozluk" | "kilif" | "cuzdan";
 
 export type GlassesSeries = "urban" | "heritage" | "modern";
@@ -32,6 +38,14 @@ export type GlassesDetails = {
   summary: string[];
 };
 
+export type WalletDetails = {
+  techSpecs: TechSpec[];
+  materials: string[];
+  care: string[];
+  boxContents: string[];
+  summary: string[];
+};
+
 export type Product = {
   slug: string;
   name: string;
@@ -39,12 +53,14 @@ export type Product = {
   price: number;
   oldPrice?: number;
   image: string;
+  images?: string[];
   shortDescription: string;
   description: string;
   features: string[];
   shopierUrl: string;
   badge?: string;
   glasses?: GlassesDetails;
+  wallet?: WalletDetails;
 };
 
 const SHOPIER = "https://www.shopier.com/thebullscraft";
@@ -225,40 +241,204 @@ export const PRODUCTS: Product[] = [
 
   // Cüzdanlar
   {
-    slug: "bifold-cuzdan-kahve",
-    name: "Bifold Cüzdan — Kahve",
+    slug: "sokrates-klasik-cuzdan",
+    name: "SOKRATES — El Yapımı Hakiki Deri Klasik Erkek Cüzdanı",
+    category: "cuzdan",
+    price: 890,
+    oldPrice: 1190,
+    image: walletAngle,
+    images: [walletAngle, walletClosed, walletModel, walletMan],
+    shortDescription: "El yapımı hakiki deri, klasik erkek cüzdanı. 6 kart gözü, çıtçıtlı bozuk para, RFID koruma.",
+    description:
+      "SOKRATES, birinci sınıf hakiki deriden el işçiliğiyle üretilen klasik bir erkek cüzdanıdır. " +
+      "Zamansız tasarımı, el dikişi detayları ve doğal deri dokusuyla her stile uyum sağlar. " +
+      "Günlük kullanımda yıpranmaya karşı dayanıklı, kullandıkça güzelleşen bir patina geliştirir.\n\n" +
+      "6 kart gözü, çıtçıtlı bozuk para bölmesi ve iki banknot gözüyle pratik bir organizasyon sunar. " +
+      "RFID koruma teknolojisi ile kartlarınızın bilgilerini güvende tutar.",
+    features: [
+      "%100 hakiki deri, el dikişi",
+      "6 kart gözü",
+      "Çıtçıtlı bozuk para bölmesi",
+      "RFID koruma",
+      "İki banknot gözü",
+    ],
+    shopierUrl: "https://www.shopier.com/sokrates-klasik-cuzdan",
+    badge: "Çok Satan",
+    wallet: {
+      techSpecs: [
+        { label: "Ürün Tipi", value: "Erkek Cüzdanı" },
+        { label: "Model", value: "SOKRATES Klasik" },
+        { label: "Malzeme", value: "%100 Hakiki Deri" },
+        { label: "İşçilik", value: "El dikişi" },
+        { label: "Kart Gözü Sayısı", value: "6 adet" },
+        { label: "Bozuk Para Bölmesi", value: "Çıtçıtlı" },
+        { label: "Banknot Gözü", value: "2 adet" },
+        { label: "RFID Koruma", value: "Var" },
+        { label: "Boyut", value: "11 × 9.5 cm" },
+        { label: "Menşei", value: "Türkiye" },
+      ],
+      materials: [
+        "Birinci sınıf hakiki dana derisi",
+        "Pamuklu dikiş ipi",
+        "Metal çıtçıt mekanizması",
+        "RFID korumalı iç astar",
+      ],
+      care: [
+        "Nemli ve yumuşak bir bez ile temizleyiniz.",
+        "Doğrudan güneş ışığından ve ısı kaynaklarından uzak tutunuz.",
+        "Sert kimyasal temizleyiciler kullanmayınız.",
+        "Deri bakım kremi ile düzenli aralıklarla besleyiniz.",
+        "Suda bekletmeyiniz; ıslanırsa doğal olarak kurumaya bırakınız.",
+        "Kullanmadığınız zamanlarda bez kılıfında muhafaza ediniz.",
+      ],
+      boxContents: [
+        "1 Adet SOKRATES Cüzdan",
+        "Koruyucu Bez Kılıf",
+        "Kullanım ve Bakım Bilgilendirme Kılavuzu",
+      ],
+      summary: [
+        "%100 Hakiki Deri",
+        "El Dikişi",
+        "6 Kart Gözü",
+        "Çıtçıtlı Bozuk Para Bölmesi",
+        "RFID Koruma",
+        "İki Banknot Gözü",
+        "Kullandıkça Güzelleşen Patina",
+        "Türkiye'de Üretilmiştir",
+      ],
+    },
+  },
+  {
+    slug: "aristo-minimal-cuzdan",
+    name: "ARISTO — Minimal Hakiki Deri Kart Cüzdanı",
     category: "cuzdan",
     price: 690,
-    oldPrice: 890,
-    image: walletsImg,
-    shortDescription: "8 kart gözü, klasik iki katlı deri cüzdan.",
-    description: "Klasik bifold form, 8 kart bölmesi ve banknot gözüyle günlük kullanımın vazgeçilmezi.",
-    features: ["%100 hakiki deri", "8 kart gözü", "RFID koruma", "El dikişi"],
-    shopierUrl: SHOPIER,
-    badge: "Çok Satan",
+    image: walletClosed,
+    images: [walletClosed, walletAngle],
+    shortDescription: "İnce profil, 6 kart gözü, çıtçıtsız sade tasarım. Cebinde fark edilmeyen minimal cüzdan.",
+    description:
+      "ARISTO, sade hatları ve ince profiliyle günlük taşımacılığı kolaylaştıran minimal bir kart cüzdanıdır. " +
+      "Çıtçıt mekanizması içermez; tamamen düz ve esnek yapısıyla cepte iz bırakmaz.\n\n" +
+      "Hakiki deri yüzeyi kullandıkça yumuşar ve doğal bir patina geliştirir. " +
+      "6 kart gözü ve gizli banknot bölmesiyle pratik kullanım sunar.",
+    features: [
+      "%100 hakiki deri",
+      "6 kart gözü",
+      "Çıtçıtsız sade tasarım",
+      "Gizli banknot bölmesi",
+      "İnce profil — iz bırakmaz",
+    ],
+    shopierUrl: "https://www.shopier.com/aristo-minimal-cuzdan",
+    badge: "Yeni",
+    wallet: {
+      techSpecs: [
+        { label: "Ürün Tipi", value: "Kart Cüzdanı" },
+        { label: "Model", value: "ARISTO Minimal" },
+        { label: "Malzeme", value: "%100 Hakiki Deri" },
+        { label: "İşçilik", value: "El dikişi" },
+        { label: "Kart Gözü Sayısı", value: "6 adet" },
+        { label: "Bozuk Para Bölmesi", value: "Yok" },
+        { label: "Banknot Gözü", value: "1 gizli bölme" },
+        { label: "RFID Koruma", value: "Var" },
+        { label: "Boyut", value: "10 × 8 cm" },
+        { label: "Menşei", value: "Türkiye" },
+      ],
+      materials: [
+        "Hakiki dana derisi",
+        "Pamuklu dikiş ipi",
+        "RFID korumalı iç astar",
+      ],
+      care: [
+        "Nemli ve yumuşak bir bez ile temizleyiniz.",
+        "Doğrudan güneş ışığından ve ısı kaynaklarından uzak tutunuz.",
+        "Sert kimyasal temizleyiciler kullanmayınız.",
+        "Deri bakım kremi ile düzenli aralıklarla besleyiniz.",
+        "Suda bekletmeyiniz; ıslanırsa doğal olarak kurumaya bırakınız.",
+      ],
+      boxContents: [
+        "1 Adet ARISTO Cüzdan",
+        "Kullanım ve Bakım Bilgilendirme Kılavuzu",
+      ],
+      summary: [
+        "%100 Hakiki Deri",
+        "El Dikişi",
+        "6 Kart Gözü",
+        "Çıtçıtsız Sade Tasarım",
+        "RFID Koruma",
+        "İnce Profil",
+        "Gizli Banknot Bölmesi",
+        "Türkiye'de Üretilmiştir",
+      ],
+    },
   },
   {
-    slug: "kart-cuzdan-minimal",
-    name: "Minimal Kart Cüzdanı",
+    slug: "platon-uzun-cuzdan",
+    name: "PLATON — Premium Hakiki Deri Uzun Cüzdan",
     category: "cuzdan",
-    price: 490,
-    image: walletsImg,
-    shortDescription: "İnce kart cüzdanı, 6 kart kapasiteli.",
-    description: "Cebinizde fark edilmeyen minimal kart cüzdanı, günlük şıklığı tamamlar.",
-    features: ["%100 hakiki deri", "6 kart gözü", "RFID koruma", "Hafif"],
-    shopierUrl: SHOPIER,
-  },
-  {
-    slug: "premium-uzun-cuzdan",
-    name: "Premium Uzun Cüzdan",
-    category: "cuzdan",
-    price: 990,
-    image: walletsImg,
-    shortDescription: "Fermuarlı, uzun model premium deri cüzdan.",
-    description: "12 kart, banknot ve bozuk para bölmeleriyle hepsi-bir-arada premium cüzdan.",
-    features: ["%100 hakiki deri", "12 kart gözü", "Fermuarlı bozuk para", "Premium kutu"],
-    shopierUrl: SHOPIER,
+    price: 1190,
+    oldPrice: 1490,
+    image: walletModel,
+    images: [walletModel, walletMan, walletAngle],
+    shortDescription: "Fermuarlı uzun model, 12 kart gözü, bozuk para bölmesi. Hepsibirarada premium cüzdan.",
+    description:
+      "PLATON, fermuarlı uzun formuyla maksimum kapasite ve düzen sunan premium bir cüzdan modelidir. " +
+      "12 kart gözü, fermuarlı bozuk para bölmesi ve çift banknot gözüyle tüm ihtiyaçlarınızı tek başına karşılar.\n\n" +
+      "Birinci sınıf hakiki deri ve özenli el dikişi, uzun yıllar dayanıklılık ve şıklık garanti eder. " +
+      "Premium sunum kutusuyla hediyelik için de idealdir.",
+    features: [
+      "%100 hakiki deri, el dikişi",
+      "12 kart gözü",
+      "Fermuarlı bozuk para bölmesi",
+      "Çift banknot gözü",
+      "RFID koruma",
+      "Premium sunum kutusu",
+    ],
+    shopierUrl: "https://www.shopier.com/platon-uzun-cuzdan",
     badge: "Premium",
+    wallet: {
+      techSpecs: [
+        { label: "Ürün Tipi", value: "Uzun Cüzdan" },
+        { label: "Model", value: "PLATON Premium" },
+        { label: "Malzeme", value: "%100 Hakiki Deri" },
+        { label: "İşçilik", value: "El dikişi" },
+        { label: "Kart Gözü Sayısı", value: "12 adet" },
+        { label: "Bozuk Para Bölmesi", value: "Fermuarlı" },
+        { label: "Banknot Gözü", value: "2 adet" },
+        { label: "RFID Koruma", value: "Var" },
+        { label: "Boyut", value: "19 × 10 cm" },
+        { label: "Menşei", value: "Türkiye" },
+      ],
+      materials: [
+        "Birinci sınıf hakiki dana derisi",
+        "Pamuklu dikiş ipi",
+        "Metal fermuar mekanizması",
+        "RFID korumalı iç astar",
+      ],
+      care: [
+        "Nemli ve yumuşak bir bez ile temizleyiniz.",
+        "Doğrudan güneş ışığından ve ısı kaynaklarından uzak tutunuz.",
+        "Sert kimyasal temizleyiciler kullanmayınız.",
+        "Deri bakım kremi ile düzenli aralıklarla besleyiniz.",
+        "Suda bekletmeyiniz; ıslanırsa doğal olarak kurumaya bırakınız.",
+        "Fermuarı düzenli aralıklarla temiz ve kuru tutunuz.",
+      ],
+      boxContents: [
+        "1 Adet PLATON Cüzdan",
+        "Premium Sunum Kutusu",
+        "Koruyucu Bez Kılıf",
+        "Kullanım ve Bakım Bilgilendirme Kılavuzu",
+      ],
+      summary: [
+        "%100 Hakiki Deri",
+        "El Dikişi",
+        "12 Kart Gözü",
+        "Fermuarlı Bozuk Para Bölmesi",
+        "Çift Banknot Gözü",
+        "RFID Koruma",
+        "Premium Sunum Kutusu",
+        "Türkiye'de Üretilmiştir",
+      ],
+    },
   },
 ];
 

@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import heroImg from "@/assets/hero.jpg";
 import craftImg from "@/assets/craft.jpg";
-import { CATEGORIES, PRODUCTS } from "@/data/products";
+import { CATEGORIES, PRODUCTS, getProduct } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+
+const heroWallet = "/images/products/wallets/wallet_model_1080x1350.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -54,7 +55,7 @@ function Index() {
           <div className="relative">
             <div className="absolute -inset-6 -z-10 rounded-3xl bg-gradient-gold opacity-20 blur-3xl" />
             <img
-              src={heroImg}
+              src={heroWallet}
               alt="Premium gözlük ve el yapımı deri kılıf"
               width={1600}
               height={1100}
@@ -92,6 +93,69 @@ function Index() {
           ))}
         </div>
       </section>
+
+      {/* WALLET SHOWCASE */}
+      {(() => {
+        const sokrates = getProduct("sokrates-klasik-cuzdan");
+        if (!sokrates) return null;
+        const walletProducts = PRODUCTS.filter((p) => p.category === "cuzdan");
+        return (
+          <section className="bg-card/40 py-16">
+            <div className="mx-auto max-w-7xl px-4">
+              <div className="grid items-center gap-10 lg:grid-cols-2">
+                <div className="relative order-2 lg:order-1">
+                  <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-gold opacity-15 blur-2xl" />
+                  <img
+                    src={sokrates.images?.[3] ?? sokrates.image}
+                    alt={sokrates.name}
+                    width={1080}
+                    height={1350}
+                    className="w-full rounded-3xl object-cover shadow-elegant"
+                  />
+                </div>
+                <div className="order-1 lg:order-2">
+                  <span className="text-xs font-semibold uppercase tracking-widest text-primary">El Yapımı Deri Cüzdanlar</span>
+                  <h2 className="mt-3 font-display text-3xl font-bold sm:text-4xl">SOKRATES ile tanışın.</h2>
+                  <p className="mt-4 text-muted-foreground">
+                    Birinci sınıf hakiki deri, sabırlı el dikişi ve kullandıkça güzelleşen patina. SOKRATES, 6 kart gözü, çıtçıtlı bozuk para bölmesi ve RFID korumasıyla günlük kullanımın vazgeçilmezi.
+                  </p>
+                  <ul className="mt-6 space-y-3 text-sm">
+                    {sokrates.features.map((f) => (
+                      <li key={f} className="flex items-start gap-3">
+                        <span className="mt-1 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground text-xs">✓</span>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-7 flex flex-wrap items-center gap-4">
+                    <Link
+                      to="/urun/$slug"
+                      params={{ slug: sokrates.slug }}
+                      className="inline-flex items-center justify-center rounded-full bg-gradient-gold px-6 py-3 text-sm font-semibold text-primary-foreground shadow-glow transition hover:brightness-110"
+                    >
+                      SOKRATES'i İncele →
+                    </Link>
+                    <span className="font-display text-2xl font-bold text-primary">
+                      {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", maximumFractionDigits: 0 }).format(sokrates.price)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {walletProducts.length > 1 && (
+                <div className="mt-12">
+                  <h3 className="font-display text-xl font-bold">Diğer Cüzdan Modelleri</h3>
+                  <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    {walletProducts.filter((p) => p.slug !== sokrates.slug).map((p) => (
+                      <ProductCard key={p.slug} product={p} />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+        );
+      })()}
 
       {/* FEATURED */}
       <section className="mx-auto max-w-7xl px-4 py-12">

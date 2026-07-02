@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { CATEGORIES, PRODUCTS, SERIES, formatTL, getProduct } from "@/data/products";
-import type { Product, GlassesDetails } from "@/data/products";
+import type { Product, GlassesDetails, WalletDetails } from "@/data/products";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { CashOnDeliveryForm } from "@/components/CashOnDeliveryForm";
 import { ProductCard } from "@/components/ProductCard";
@@ -59,21 +59,10 @@ function ProductDetail() {
       </nav>
 
       <div className="grid gap-10 lg:grid-cols-2">
-        {/* Image */}
+        {/* Image gallery */}
         <div className="relative">
           <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-gold opacity-15 blur-2xl" />
-          <img
-            src={product.image}
-            alt={product.name}
-            width={800}
-            height={800}
-            className="w-full rounded-3xl object-cover shadow-elegant"
-          />
-          {product.badge && (
-            <span className="absolute left-4 top-4 rounded-full bg-gradient-gold px-3 py-1 text-xs font-semibold text-primary-foreground">
-              {product.badge}
-            </span>
-          )}
+          <ProductGallery product={product} />
         </div>
 
         {/* Info */}
@@ -160,6 +149,9 @@ function ProductDetail() {
 
       {/* Glasses details */}
       {product.glasses && <GlassesInfo details={product.glasses} />}
+
+      {/* Wallet details */}
+      {product.wallet && <WalletInfo details={product.wallet} />}
 
       {/* Related */}
       {related.length > 0 && (
@@ -300,6 +292,115 @@ function GlassesInfo({ details }: { details: GlassesDetails }) {
           ))}
         </ul>
       </section>
+    </div>
+  );
+}
+
+function WalletInfo({ details }: { details: WalletDetails }) {
+  return (
+    <div className="mt-12 space-y-12">
+      {/* Tech specs table */}
+      <section>
+        <h2 className="font-display text-2xl font-bold">Teknik Özellikler</h2>
+        <div className="mt-4 overflow-hidden rounded-2xl border border-border">
+          <table className="w-full text-sm">
+            <tbody>
+              {details.techSpecs.map((s, i) => (
+                <tr key={s.label} className={i % 2 === 0 ? "bg-card/50" : ""}>
+                  <th className="w-1/3 border-b border-border px-4 py-3 text-left font-medium text-foreground">{s.label}</th>
+                  <td className="border-b border-border px-4 py-3 text-muted-foreground">{s.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* Materials */}
+      <section>
+        <h2 className="font-display text-2xl font-bold">Malzeme Özellikleri</h2>
+        <p className="mt-2 text-sm text-muted-foreground">Üründe kullanılan malzemeler:</p>
+        <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+          {details.materials.map((m, i) => (
+            <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground text-[10px]">✓</span>
+              {m}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Care */}
+      <section>
+        <h2 className="font-display text-2xl font-bold">Bakım ve Temizlik</h2>
+        <p className="mt-2 text-sm text-muted-foreground">Cüzdanınızın uzun ömürlü olması için aşağıdaki önerilere dikkat ediniz.</p>
+        <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+          {details.care.map((c, i) => (
+            <li key={i} className="flex items-start gap-2">
+              <span className="mt-1 text-primary">•</span>
+              {c}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Box contents */}
+      <section>
+        <h2 className="font-display text-2xl font-bold">Kutu İçeriği</h2>
+        <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+          {details.boxContents.map((b, i) => (
+            <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground text-[10px]">✓</span>
+              {b}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Summary */}
+      <section className="rounded-2xl border border-primary/30 bg-primary/5 p-6">
+        <h2 className="font-display text-xl font-bold">Kısa Teknik Özellikler</h2>
+        <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+          {details.summary.map((s, i) => (
+            <li key={i} className="flex items-start gap-2 text-sm">
+              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground text-[10px]">✓</span>
+              {s}
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  );
+}
+function ProductGallery({ product }: { product: Product }) {
+  const images = product.images?.length ? product.images : [product.image];
+  return (
+    <div className="flex flex-col gap-3">
+      <img
+        src={images[0]}
+        alt={product.name}
+        width={800}
+        height={800}
+        className="w-full rounded-3xl object-cover shadow-elegant"
+      />
+      {product.badge && (
+        <span className="absolute left-4 top-4 rounded-full bg-gradient-gold px-3 py-1 text-xs font-semibold text-primary-foreground">
+          {product.badge}
+        </span>
+      )}
+      {images.length > 1 && (
+        <div className="grid grid-cols-4 gap-2">
+          {images.slice(1).map((img, i) => (
+            <img
+              key={i}
+              src={img}
+              alt={`${product.name} ${i + 2}`}
+              loading="lazy"
+              className="aspect-square w-full rounded-xl object-cover"
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
