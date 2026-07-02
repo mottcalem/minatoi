@@ -51,7 +51,13 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur">
       <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 py-4 lg:flex lg:justify-between">
         <Link to="/" className="flex min-w-0 items-center gap-2">
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-gold font-black text-primary-foreground">B</span>
+          <img
+            src="/images/products/wallets/TheBullsCraft_Damga.png"
+            alt="TheBullsCraft"
+            width={36}
+            height={36}
+            className="h-9 w-9 shrink-0 rounded-full object-cover"
+          />
           <span className="truncate font-display text-lg font-bold tracking-tight">{SITE.name}</span>
         </Link>
         <nav className="hidden lg:flex items-center gap-7">
