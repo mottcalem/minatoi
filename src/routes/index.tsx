@@ -4,7 +4,7 @@ import { CATEGORIES, PRODUCTS, getProduct } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 
-const heroWallet = "/images/products/wallets/wallet_model_1080x1350.jpg";
+const heroWallet = "/images/products/wallets/wallet_man_1080x1350.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
