@@ -33,7 +33,7 @@ function Index() {
               Gerçek Derinin <span className="text-gradient-gold">Zamansız Şıklığını</span> Keşfet.
             </h1>
             <p className="mt-5 max-w-xl text-base text-muted-foreground sm:text-lg">
-              TheBullsCraft, geleneksel deri işçiliğini modern tasarımlarla buluşturur. Her cüzdan, kartlık, gözlük kılıfı ve deri aksesuar ustalıkla elde üretilir. Premium güneş gözlükleriyle stilinizi tamamlayın.
+              TheBullsCraft, geleneksel deri işçiliğini modern tasarımlarla buluşturur. Her cüzdan, kartlık, gözlük kılıfı ve deri aksesuar ustalıkla elde üretilir.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link
