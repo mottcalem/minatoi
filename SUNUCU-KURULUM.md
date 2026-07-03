@@ -1,4 +1,4 @@
-# The Bulls — Windows Sunucu Kurulum Rehberi
+# TheBullsCraft — Windows Sunucu Kurulum Rehberi
 
 ## Gereksinimler
 

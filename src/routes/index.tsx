@@ -10,8 +10,8 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "TheBullsCraft — El Yapımı Hakiki Deri Ürünler" },
-      { name: "description", content: "El yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfları. Kapıda ödeme, hızlı kargo. The Bulls — Handcrafted Leather Goods." },
-      { property: "og:title", content: "The Bulls — El Yapımı Hakiki Deri Ürünler" },
+      { name: "description", content: "El yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfları. Kapıda ödeme, hızlı kargo. TheBullsCraft — Handcrafted Leather Goods." },
+      { property: "og:title", content: "TheBullsCraft — El Yapımı Hakiki Deri Ürünler" },
     ],
   }),
   loader: async () => {
@@ -163,7 +163,7 @@ function Index() {
             <p className="text-xs font-semibold uppercase tracking-widest text-primary">Atölyemiz</p>
             <h2 className="mt-3 font-display text-3xl font-bold text-stone-900 sm:text-4xl">Her ürün tek tek, elle üretilir.</h2>
             <p className="mt-4 text-stone-500 leading-relaxed">
-              Birinci sınıf dana derisi, sabırlı el dikişi ve detaylara verilen özen — The Bulls el yapımı deri koleksiyonunun farkı budur.
+              Birinci sınıf dana derisi, sabırlı el dikişi ve detaylara verilen özen — TheBullsCraft el yapımı deri koleksiyonunun farkı budur.
             </p>
             <ul className="mt-6 space-y-3">
               {["%100 hakiki deri, el dikişi", "Kenar perdahı elle yapılır", "Türkiye geneli kapıda ödeme", "WhatsApp'tan birebir destek"].map((t) => (

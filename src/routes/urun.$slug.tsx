@@ -11,8 +11,8 @@ export const Route = createFileRoute("/urun/$slug")({
   head: ({ params }) => {
     return {
       meta: [
-        { title: `Ürün — The Bulls` },
-        { property: "og:title", content: `Ürün — The Bulls` },
+        { title: `Ürün — TheBullsCraft` },
+        { property: "og:title", content: `Ürün — TheBullsCraft` },
       ],
     };
   },

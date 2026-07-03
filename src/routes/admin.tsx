@@ -5,7 +5,7 @@ import { fetchProducts, fetchProductsServer, saveProducts, generateSlug, EMPTY_P
 import { adminLogin, adminLogout, isAdminLoggedIn } from "@/lib/adminAuth";
 
 export const Route = createFileRoute("/admin")({
-  head: () => ({ meta: [{ title: "Admin — The Bulls" }] }),
+  head: () => ({ meta: [{ title: "Admin — TheBullsCraft" }] }),
   loader: async () => {
     const products = await fetchProductsServer();
     return { initialProducts: products };
@@ -49,9 +49,9 @@ function LoginPage({ onSuccess }: { onSuccess: () => void }) {
     <div className="flex min-h-[calc(100vh-140px)] items-center justify-center px-4 py-16 bg-stone-50">
       <div className="w-full max-w-sm">
         <div className="mb-8 flex flex-col items-center gap-3">
-          <img src="/images/products/wallets/TheBullsCraft_Damga.png" alt="The Bulls" className="h-16 w-16 object-contain" />
+          <img src="/images/products/wallets/TheBullsCraft_Damga.png" alt="TheBullsCraft" className="h-16 w-16 object-contain" />
           <div className="text-center">
-            <p className="font-display text-2xl font-bold text-stone-900">THE BULLS</p>
+            <p className="font-display text-2xl font-bold text-stone-900">TheBullsCraft</p>
             <p className="text-xs uppercase tracking-widest text-stone-400">Admin Panel</p>
           </div>
         </div>

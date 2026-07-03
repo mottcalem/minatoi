@@ -6,11 +6,11 @@ import { ProductCard } from "@/components/ProductCard";
 export const Route = createFileRoute("/kategori/$slug")({
   head: ({ params }) => {
     const cat = CATEGORIES.find((c) => c.slug === params.slug);
-    const title = cat ? `${cat.label} — The Bulls` : "Kategori — The Bulls";
+    const title = cat ? `${cat.label} — TheBullsCraft` : "Kategori — TheBullsCraft";
     return {
       meta: [
         { title },
-        { name: "description", content: cat?.description ?? "The Bulls kategori ürünleri." },
+        { name: "description", content: cat?.description ?? "TheBullsCraft kategori ürünleri." },
       ],
     };
   },

@@ -6,8 +6,8 @@ import { ProductCard } from "@/components/ProductCard";
 export const Route = createFileRoute("/urunler")({
   head: () => ({
     meta: [
-      { title: "Tüm Ürünler — The Bulls" },
-      { name: "description", content: "The Bulls tüm ürünleri: el yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfları." },
+      { title: "Tüm Ürünler — TheBullsCraft" },
+      { name: "description", content: "TheBullsCraft tüm ürünleri: el yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfları." },
     ],
   }),
   loader: async () => {
