@@ -105,7 +105,9 @@ function safeEqual(a: string, b: string): boolean {
 export default defineEventHandler(async (event) => {
   const method = getMethod(event);
   setResponseHeader(event, "Content-Type", "application/json; charset=utf-8");
-  setResponseHeader(event, "Cache-Control", "no-cache, no-store, must-revalidate");
+  setResponseHeader(event, "Cache-Control", "no-cache, no-store, must-revalidate, max-age=0");
+  setResponseHeader(event, "Pragma", "no-cache");
+  setResponseHeader(event, "Expires", "0");
 
   // ── GET ─────────────────────────────────────────────────────────────────
   if (method === "GET") {

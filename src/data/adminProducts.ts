@@ -63,8 +63,53 @@ export async function fetchProductsServer(): Promise<Product[]> {
     console.warn("[fetchProductsServer] Disk read failed, falling back to empty list");
     return [];
   }
-  // Tarayıcı ortamı: API'yi kullan
-  return fetchProducts();
+  // Tarayıcı ortamı (client-side navigation): API'den oku
+  // /products.json cache'leniyor, API her zaman güncel veriyi döndürür
+  return fetchProductsClient();
+}
+
+/**
+ * Tarayıcı ortamında önce API'den, başarısız olursa statik dosyadan okur.
+ * Hiçbir zaman exception fırlatmaz — en kötü boş dizi döner.
+ */
+async function fetchProductsClient(): Promise<Product[]> {
+  // 1. API endpoint — güncel veri
+  try {
+    const res = await fetch(API_URL, {
+      cache: "no-store",
+      headers: { Accept: "application/json" },
+    });
+    if (res.ok) {
+      const text = await res.text();
+      if (text && text.trim().startsWith("[")) {
+        const data = JSON.parse(text);
+        if (Array.isArray(data) && data.length > 0) {
+          return data as Product[];
+        }
+      }
+    }
+  } catch (err) {
+    console.warn("[fetchProductsClient] API fetch failed:", err);
+  }
+
+  // 2. Fallback: statik /products.json
+  try {
+    const res = await fetch("/products.json", {
+      cache: "no-store",
+      headers: { Accept: "application/json" },
+    });
+    if (res.ok) {
+      const text = await res.text();
+      if (text && text.trim().startsWith("[")) {
+        const data = JSON.parse(text);
+        if (Array.isArray(data)) return data as Product[];
+      }
+    }
+  } catch (err) {
+    console.warn("[fetchProductsClient] Static /products.json failed:", err);
+  }
+
+  return [];
 }
 
 /**

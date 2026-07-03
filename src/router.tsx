@@ -9,7 +9,9 @@ export const getRouter = () => {
     routeTree,
     context: { queryClient },
     scrollRestoration: true,
-    defaultPreloadStaleTime: 0,
+    // defaultPreloadStaleTime kaldırıldı — 0 verince her hover'da loader tetiklenip
+    // navigasyon bloklanıyor. Varsayılan değer (30sn) daha kararlı çalışır.
+    defaultStaleTime: 30_000,
   });
 
   return router;

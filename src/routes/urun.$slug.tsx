@@ -45,26 +45,26 @@ function ProductDetail() {
     `Stok durumu ve kargo süreci hakkında bilgi verir misiniz?`;
 
   return (
-    <article className="mx-auto max-w-7xl px-4 py-10">
+    <article className="mx-auto max-w-7xl px-4 py-10 overflow-x-hidden">
       {/* Breadcrumb */}
-      <nav className="mb-6 text-xs text-stone-400">
+      <nav className="mb-6 text-xs text-stone-400 overflow-hidden">
         <Link to="/" className="hover:text-primary transition-colors">Anasayfa</Link>
         <span className="mx-2">/</span>
         <Link to="/kategori/$slug" params={{ slug: cat.slug }} className="hover:text-primary transition-colors">{cat.label}</Link>
         <span className="mx-2">/</span>
-        <span className="text-stone-700">{product.name}</span>
+        <span className="text-stone-700 break-words">{product.name}</span>
       </nav>
       <div className="grid gap-10 lg:grid-cols-2">
         {/* Image gallery */}
-        <div className="relative">
+        <div className="relative min-w-0">
           <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-gold opacity-15 blur-2xl" />
           <ProductGallery product={product} />
         </div>
 
         {/* Info */}
-        <div>
+        <div className="min-w-0">
           <p className="text-xs font-semibold uppercase tracking-widest text-primary">{cat.label}</p>
-          <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl">{product.name}</h1>
+          <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl break-words">{product.name}</h1>
           {product.glasses && (
             <p className="mt-1 text-xs font-medium uppercase tracking-widest text-accent">
               {SERIES[product.glasses.series].label}
@@ -412,7 +412,7 @@ function ProductGallery({ product }: { product: Product }) {
 
       {/* Thumbnail şeridi */}
       {images.length > 1 && (
-        <div className="flex gap-2 overflow-x-auto pb-1">
+        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide" style={{ WebkitOverflowScrolling: 'touch' }}>
           {images.map((img, i) => (
             <button
               key={i}
