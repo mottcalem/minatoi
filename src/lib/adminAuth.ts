@@ -48,6 +48,11 @@ export async function adminLogin(username: string, password: string): Promise<Au
   // Token + oluşturma zamanı + passHash (API auth için) 8 saatlik geçerlilik
   const payload = JSON.stringify({ token, passHash, createdAt: Date.now() });
   sessionStorage.setItem(SESSION_KEY, payload);
+  
+  // API istekleri için passHash'i localStorage'a da kaydet
+  // (saveProducts fonksiyonu localStorage'dan okuyor)
+  localStorage.setItem("admin_token", passHash);
+  
   return { ok: true };
 }
 
@@ -68,4 +73,5 @@ export function isAdminLoggedIn(): boolean {
 /** Oturumu kapat */
 export function adminLogout(): void {
   sessionStorage.removeItem(SESSION_KEY);
+  localStorage.removeItem("admin_token");
 }

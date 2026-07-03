@@ -253,6 +253,16 @@ function AdminPage({ initialProducts, onLogout }: { initialProducts: Product[]; 
   // Ürün listesini API'ye kaydet ve sonra yenile
   async function persist(updated: Product[], successMsg: string) {
     setSaving(true);
+    
+    // Geliştirme modu kontrolü
+    if (isDevMode) {
+      console.warn("[Admin] ⚠️ Geliştirme modundasınız. Kayıt işlemi yalnızca production build'de çalışır.");
+      console.warn("[Admin] Production build: npm run build → node .output/server/index.mjs");
+      setSaving(false);
+      showToast("⚠️ Geliştirme modu: Kayıt işlemi production build'de çalışır. Detaylar için console'u kontrol edin.", "err");
+      return;
+    }
+    
     const result = await saveProducts(updated);
     setSaving(false);
     if (result.ok) {
@@ -260,7 +270,13 @@ function AdminPage({ initialProducts, onLogout }: { initialProducts: Product[]; 
       window.dispatchEvent(new Event("products-saved"));
       showToast(successMsg, "ok");
     } else {
-      showToast(`Kayıt başarısız: ${result.error}`, "err");
+      console.error("[Admin] Save failed:", result.error);
+      const errMsg = result.error?.includes("401") 
+        ? "Yetki hatası. Lütfen tekrar giriş yapın." 
+        : result.error?.includes("Unauthorized")
+        ? "Yetki hatası. Şifre değişti mi? Tekrar giriş yapın."
+        : `Kayıt başarısız: ${result.error}`;
+      showToast(errMsg, "err");
     }
   }
 

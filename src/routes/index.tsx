@@ -9,7 +9,7 @@ import { formatTL } from "@/data/products";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "The Bulls — El Yapımı Hakiki Deri Ürünler" },
+      { title: "TheBullsCraft — El Yapımı Hakiki Deri Ürünler" },
       { name: "description", content: "El yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfları. Kapıda ödeme, hızlı kargo. The Bulls — Handcrafted Leather Goods." },
       { property: "og:title", content: "The Bulls — El Yapımı Hakiki Deri Ürünler" },
     ],
@@ -38,11 +38,11 @@ function Index() {
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3.5 py-1 text-xs font-semibold text-amber-800">
               <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
-              El Yapımı · Hakiki Deri · Türkiye
+              El Yapımı · Hakiki Deri
             </span>
             <h1 className="mt-5 font-display text-4xl font-bold leading-[1.05] text-stone-900 sm:text-5xl md:text-6xl">
               Derinin <br />
-              <span className="text-gradient-gold">zamansız</span> <br />
+              <span className="text-gradient-gold">elde işlenmiş</span> <br />
               şıklığı.
             </h1>
             <p className="mt-5 max-w-lg text-base text-stone-500 sm:text-lg">
@@ -58,9 +58,9 @@ function Index() {
             </div>
             <dl className="mt-10 grid grid-cols-3 gap-3 border-t border-stone-100 pt-8">
               {[
-                { dt: "Ücretsiz Kargo", dd: "500₺ üzeri" },
-                { dt: "Kapıda Ödeme", dd: "Tüm Türkiye" },
-                { dt: "Kalite Garantisi", dd: "2 yıl" },
+                { dt: "Ücretsiz Kargo", dd: "999₺ üzeri" },
+                { dt: "Kişiselleştirme", dd: "Logo & İsim Kazıma" },
+                { dt: "Kalite Garantisi", dd: "%100 Hakiki Deri" },
               ].map(({ dt, dd }) => (
                 <div key={dt} className="text-center sm:text-left">
                   <dt className="text-xs text-stone-400">{dt}</dt>
@@ -79,6 +79,16 @@ function Index() {
                   src={cuzdanlar[0].images?.[8] ?? cuzdanlar[0].image}
                   alt="El yapımı deri cüzdan"
                   className="w-full rounded-[2rem] object-cover shadow-elegant max-h-[560px]"
+                  loading="eager"
+                  onError={(e) => {
+                    const img = e.currentTarget;
+                    // Eğer görsel yüklenemezse fallback görseli kullan
+                    if (!img.src.includes('/images/products/')) {
+                      return;
+                    }
+                    img.style.display = 'none';
+                    console.error('Hero image failed to load:', img.src);
+                  }}
                 />
                 <div className="absolute -bottom-5 -left-6 rounded-2xl bg-white px-5 py-3.5 shadow-elegant">
                   <p className="text-xs text-stone-400">En Çok Satan</p>
