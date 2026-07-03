@@ -260,13 +260,7 @@ function AdminPage({ initialProducts, onLogout }: { initialProducts: Product[]; 
       window.dispatchEvent(new Event("products-saved"));
       showToast(successMsg, "ok");
     } else {
-      // Dev modda API yok — JSON'u direkt güncelle, state'i tut
-      if (result.error?.includes("fetch") || result.error?.includes("Failed")) {
-        setProducts(updated);
-        showToast(successMsg + " (Lokal — production'da kalıcı olur)", "ok");
-      } else {
-        showToast(`Kayıt başarısız: ${result.error}`, "err");
-      }
+      showToast(`Kayıt başarısız: ${result.error}`, "err");
     }
   }
 

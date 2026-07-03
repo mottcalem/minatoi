@@ -1,88 +1,104 @@
 /**
- * Ürün veri katmanı.
+ * Ürün veri katmanı — Supabase REST API-backed.
  *
- * fetchProductsServer() hem SSR (Node.js) hem client-side navigation'da çalışır:
- *   - Sunucu: fs.readFile ile public/products.json okunur
- *   - Tarayıcı: fetch("/products.json") ile okunur
- *
- * saveProducts() production'da POST /api/products ile dosyayı günceller.
+ * Tüm okuma/yazma Supabase `products` tablosundan yapılır.
+ * Hem SSR hem client-side navigation'da çalışır.
+ * Ekstra npm bağımlılığı yok — doğrudan fetch kullanır.
  */
 
+import { supabaseSelect, supabaseInsert, supabaseDeleteAll } from "@/lib/supabase";
 import type { Product, Category } from "./products";
 
 export type { Product, Category };
 
-// ─── Ana veri okuma fonksiyonu — her ortamda çalışır ────────────────────────
+// ─── DB satır tipi ──────────────────────────────────────────────────────────
+
+type ProductRow = {
+  slug: string;
+  name: string;
+  category: Category;
+  price: number;
+  old_price: number | null;
+  image: string;
+  images: string[] | null;
+  short_description: string;
+  description: string;
+  features: string[];
+  shopier_url: string;
+  badge: string | null;
+  glasses: unknown | null;
+  wallet: unknown | null;
+  sort_order: number;
+};
+
+function rowToProduct(r: ProductRow): Product {
+  return {
+    slug: r.slug,
+    name: r.name,
+    category: r.category,
+    price: r.price,
+    oldPrice: r.old_price ?? undefined,
+    image: r.image,
+    images: r.images ?? undefined,
+    shortDescription: r.short_description,
+    description: r.description,
+    features: r.features ?? [],
+    shopierUrl: r.shopier_url,
+    badge: r.badge ?? undefined,
+    glasses: (r.glasses as Product["glasses"]) ?? undefined,
+    wallet: (r.wallet as Product["wallet"]) ?? undefined,
+  };
+}
+
+function productToRow(p: Product, sort_order: number): ProductRow {
+  return {
+    slug: p.slug,
+    name: p.name,
+    category: p.category,
+    price: p.price,
+    old_price: p.oldPrice ?? null,
+    image: p.image,
+    images: p.images ?? null,
+    short_description: p.shortDescription,
+    description: p.description,
+    features: p.features,
+    shopier_url: p.shopierUrl,
+    badge: p.badge ?? null,
+    glasses: (p.glasses as Record<string, unknown>) ?? null,
+    wallet: (p.wallet as Record<string, unknown>) ?? null,
+    sort_order,
+  };
+}
+
+// ─── Okuma ──────────────────────────────────────────────────────────────────
 
 export async function fetchProductsServer(): Promise<Product[]> {
-  // Tarayıcıda mıyız?
-  if (typeof window !== "undefined") {
-    return fetchProducts();
-  }
-
-  // Node.js (SSR) ortamı
-  try {
-    const { readFile } = await import("node:fs/promises");
-    const { resolve } = await import("node:path");
-    const paths = [
-      resolve(process.cwd(), "public", "products.json"),
-      resolve(process.cwd(), "data",   "products.json"),
-    ];
-    for (const p of paths) {
-      try {
-        const raw = await readFile(p, "utf-8");
-        return JSON.parse(raw) as Product[];
-      } catch { /* sonrakini dene */ }
-    }
-  } catch { /* fs yok */ }
-  return [];
+  return fetchProducts();
 }
-
-// ─── Client fetch — /products.json static dosyasından ───────────────────────
 
 export async function fetchProducts(): Promise<Product[]> {
-  try {
-    const res = await fetch("/products.json", {
-      cache: "no-store",
-      headers: { "Cache-Control": "no-cache" },
-    });
-    if (!res.ok) return [];
-    return res.json() as Promise<Product[]>;
-  } catch {
-    return [];
-  }
+  const rows = await supabaseSelect<ProductRow>("products", {
+    order: { column: "sort_order", ascending: true },
+  });
+  return rows.map(rowToProduct);
 }
 
-// ─── Admin: kayıt — POST /api/products ──────────────────────────────────────
-
-function getAuthToken(): string {
-  try {
-    const raw = sessionStorage.getItem("thebulls_admin_session");
-    if (!raw) return "";
-    const { passHash } = JSON.parse(raw) as { passHash?: string };
-    return passHash ?? "";
-  } catch {
-    return "";
-  }
-}
+// ─── Yazma (admin) ──────────────────────────────────────────────────────────
 
 export async function saveProducts(
   products: Product[],
 ): Promise<{ ok: boolean; error?: string }> {
-  const token = getAuthToken();
   try {
-    const res = await fetch("/api/products", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(products),
-    });
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}));
-      return { ok: false, error: (data as { error?: string }).error ?? "Sunucu hatası" };
+    // Tüm tabloyu temizle ve yeniden yaz (admin panel tüm listeyi yönetir)
+    const del = await supabaseDeleteAll("products");
+    if (!del.ok) return del;
+
+    if (products.length > 0) {
+      const rows = products.map((p, i) => productToRow(p, i));
+      const ins = await supabaseInsert("products", rows);
+      if (!ins.ok) return ins;
     }
+
     return { ok: true };
   } catch (e) {
     return { ok: false, error: String(e) };
