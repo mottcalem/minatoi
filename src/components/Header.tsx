@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { SITE } from "@/data/site";
 
 type NavItem =
   | { to: "/"; label: string }
@@ -11,14 +10,13 @@ type NavItem =
 const NAV: NavItem[] = [
   { to: "/", label: "Anasayfa" },
   { to: "/urunler", label: "Tüm Ürünler" },
-  { to: "/kategori/$slug", label: "Gözlük", slug: "gozluk" },
   { to: "/kategori/$slug", label: "Deri Kılıf", slug: "kilif" },
-  { to: "/kategori/$slug", label: "Cüzdan", slug: "cuzdan" },
+  { to: "/kategori/$slug", label: "Cüzdan & Kartlık", slug: "cuzdan" },
   { to: "/iletisim", label: "İletişim" },
 ];
 
 function NavLink({ item, onClick, className }: { item: NavItem; onClick?: () => void; className?: string }) {
-  const base = "text-sm transition hover:text-primary";
+  const base = "text-sm font-medium transition-colors hover:text-primary";
   if (item.to === "/kategori/$slug") {
     return (
       <Link
@@ -26,7 +24,7 @@ function NavLink({ item, onClick, className }: { item: NavItem; onClick?: () => 
         params={{ slug: item.slug }}
         onClick={onClick}
         className={`${base} ${className ?? ""}`}
-        activeProps={{ className: "text-primary" }}
+        activeProps={{ className: "text-primary font-semibold" }}
       >
         {item.label}
       </Link>
@@ -38,7 +36,7 @@ function NavLink({ item, onClick, className }: { item: NavItem; onClick?: () => 
       onClick={onClick}
       className={`${base} ${className ?? ""}`}
       activeOptions={{ exact: item.to === "/" }}
-      activeProps={{ className: "text-primary" }}
+      activeProps={{ className: "text-primary font-semibold" }}
     >
       {item.label}
     </Link>
@@ -47,45 +45,67 @@ function NavLink({ item, onClick, className }: { item: NavItem; onClick?: () => 
 
 export function Header() {
   const [open, setOpen] = useState(false);
+
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur">
-      <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-4 py-4 lg:flex lg:justify-between">
-        <Link to="/" className="flex min-w-0 items-center gap-2">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-stone-100 shadow-sm">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-3 shrink-0">
           <img
-            src="/images/products/wallets/TheBullsCraft_Damga.png"
-            alt="TheBullsCraft"
-            width={36}
-            height={36}
-            className="h-9 w-9 shrink-0 rounded-full object-cover"
+            src="/images/products/wallets/thebullscraft-icon.png"
+            alt="TheBullsCraft — Handcrafted Leather Goods"
+            width={48}
+            height={48}
+            className="h-12 w-12 object-contain"
           />
-          <span className="truncate font-display text-lg font-bold tracking-tight">{SITE.name}</span>
+          <div className="flex flex-col leading-tight">
+            <span className="font-display text-xl font-bold tracking-tight text-stone-900">
+              TheBullsCraft
+            </span>
+            <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-stone-500">
+              Handcrafted Leather Goods
+            </span>
+          </div>
         </Link>
-        <nav className="hidden lg:flex items-center gap-7">
+
+        {/* Desktop Nav */}
+        <nav className="hidden lg:flex items-center gap-8">
           {NAV.map((n, i) => (
-            <NavLink key={i} item={n} className="text-muted-foreground" />
+            <NavLink key={i} item={n} className="text-stone-600" />
           ))}
         </nav>
+
+        {/* Mobile hamburger */}
         <button
           onClick={() => setOpen((o) => !o)}
-          className="lg:hidden grid h-10 w-10 shrink-0 place-items-center rounded-md border border-border"
-          aria-label="Menü"
+          className="lg:hidden grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-stone-200 hover:bg-stone-50 transition-colors"
+          aria-label="Menüyü aç"
+          aria-expanded={open}
         >
-          <div className="flex flex-col gap-1.5">
-            <span className="h-0.5 w-5 bg-foreground" />
-            <span className="h-0.5 w-5 bg-foreground" />
-            <span className="h-0.5 w-5 bg-foreground" />
-          </div>
+          {open ? (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          ) : (
+            <div className="flex flex-col gap-1.5">
+              <span className="h-0.5 w-5 bg-stone-700 rounded" />
+              <span className="h-0.5 w-5 bg-stone-700 rounded" />
+              <span className="h-0.5 w-3.5 bg-stone-700 rounded" />
+            </div>
+          )}
         </button>
       </div>
+
+      {/* Mobile menu */}
       {open && (
-        <div className="lg:hidden border-t border-border bg-background">
-          <nav className="mx-auto flex max-w-7xl flex-col px-4 py-2">
+        <div className="lg:hidden border-t border-stone-100 bg-white">
+          <nav className="mx-auto flex max-w-7xl flex-col px-4 py-1">
             {NAV.map((n, i) => (
               <NavLink
                 key={i}
                 item={n}
                 onClick={() => setOpen(false)}
-                className="border-b border-border py-3 text-foreground last:border-0"
+                className="border-b border-stone-100 py-4 text-stone-700 last:border-0"
               />
             ))}
           </nav>

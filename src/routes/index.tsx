@@ -1,219 +1,204 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import craftImg from "@/assets/craft.jpg";
-import { CATEGORIES, PRODUCTS, getProduct } from "@/data/products";
+import { CATEGORIES, type Product } from "@/data/products";
+import { fetchProductsServer } from "@/data/adminProducts";
 import { ProductCard } from "@/components/ProductCard";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
-
-const heroWallet = "/images/products/wallets/wallet_man_1080x1350.jpg";
+import { formatTL } from "@/data/products";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "TheBullsCraft — El Yapımı Deri Ürünler & Premium Gözlük" },
-      { name: "description", content: "TheBullsCraft koleksiyonu: el yapımı deri gözlük kılıfları, cüzdanlar ve UV400 korumalı premium güneş gözlükleri. Kapıda ödeme ve WhatsApp destek." },
-      { property: "og:title", content: "TheBullsCraft — El Yapımı Deri Ürünler" },
-      { property: "og:description", content: "Premium gözlükler, el yapımı deri kılıflar ve cüzdanlar." },
+      { title: "The Bulls — El Yapımı Hakiki Deri Ürünler" },
+      { name: "description", content: "El yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfları. Kapıda ödeme, hızlı kargo. The Bulls — Handcrafted Leather Goods." },
+      { property: "og:title", content: "The Bulls — El Yapımı Hakiki Deri Ürünler" },
     ],
   }),
+  loader: async () => {
+    const products = await fetchProductsServer();
+    return { products };
+  },
   component: Index,
 });
 
 function Index() {
-  const featured = PRODUCTS.slice(0, 8);
+  const { products } = Route.useLoaderData();
+  const cuzdanlar = products.filter((p) => p.category === "cuzdan");
+  const kiliflar  = products.filter((p) => p.category === "kilif");
+
   return (
     <>
-      {/* HERO */}
+      {/* ─── HERO ─────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-hero">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 md:py-24 lg:grid-cols-2">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-amber-100/60 blur-3xl" />
+          <div className="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-stone-200/50 blur-3xl" />
+        </div>
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 md:py-28 lg:grid-cols-2 relative z-10">
           <div>
-            <span className="inline-block rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-              El Yapımı Hakiki Deri • Premium Koleksiyon
+            <span className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3.5 py-1 text-xs font-semibold text-amber-800">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+              El Yapımı · Hakiki Deri · Türkiye
             </span>
-            <h1 className="mt-5 font-display text-4xl font-bold leading-[1.05] sm:text-5xl md:text-6xl">
-              Gerçek Derinin <span className="text-gradient-gold">Zamansız Şıklığını</span> Keşfet.
+            <h1 className="mt-5 font-display text-4xl font-bold leading-[1.05] text-stone-900 sm:text-5xl md:text-6xl">
+              Derinin <br />
+              <span className="text-gradient-gold">zamansız</span> <br />
+              şıklığı.
             </h1>
-            <p className="mt-5 max-w-xl text-base text-muted-foreground sm:text-lg">
-              TheBullsCraft, geleneksel deri işçiliğini modern tasarımlarla buluşturur. Her cüzdan, kartlık, gözlük kılıfı ve deri aksesuar ustalıkla elde üretilir.
+            <p className="mt-5 max-w-lg text-base text-stone-500 sm:text-lg">
+              Her cüzdan, her kartlık, her kılıf — sabırlı el işçiliğiyle, birinci sınıf hakiki deriden. Kullandıkça güzelleşir, sizinle birlikte yaşlanır.
             </p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Link
-                to="/urunler"
-                className="inline-flex items-center justify-center rounded-full bg-gradient-gold px-6 py-3 text-sm font-semibold text-primary-foreground shadow-glow transition hover:brightness-110"
-              >
-                Koleksiyonu Keşfet →
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link to="/urunler" className="inline-flex items-center justify-center rounded-full bg-gradient-gold px-7 py-3.5 text-sm font-semibold text-white shadow-glow transition hover:brightness-110">
+                Koleksiyonu Keşfet
               </Link>
-              <WhatsAppButton message="Merhaba, TheBullsCraft ürünleri hakkında bilgi almak istiyorum.">
+              <WhatsAppButton message="Merhaba, ürünleriniz hakkında bilgi almak istiyorum." variant="outline">
                 Hızlı Sipariş
               </WhatsAppButton>
             </div>
-            <dl className="mt-10 grid grid-cols-3 gap-4 border-t border-border pt-6 text-center sm:text-left">
-              <div><dt className="text-xs text-muted-foreground">Ücretsiz Kargo</dt><dd className="font-display text-base font-semibold">500₺ üzeri</dd></div>
-              <div><dt className="text-xs text-muted-foreground">Kapıda Ödeme</dt><dd className="font-display text-base font-semibold">Tüm Türkiye</dd></div>
-              <div><dt className="text-xs text-muted-foreground">Garanti</dt><dd className="font-display text-base font-semibold">2 yıl</dd></div>
+            <dl className="mt-10 grid grid-cols-3 gap-3 border-t border-stone-100 pt-8">
+              {[
+                { dt: "Ücretsiz Kargo", dd: "500₺ üzeri" },
+                { dt: "Kapıda Ödeme", dd: "Tüm Türkiye" },
+                { dt: "Kalite Garantisi", dd: "2 yıl" },
+              ].map(({ dt, dd }) => (
+                <div key={dt} className="text-center sm:text-left">
+                  <dt className="text-xs text-stone-400">{dt}</dt>
+                  <dd className="font-display text-sm font-bold text-stone-800">{dd}</dd>
+                </div>
+              ))}
             </dl>
           </div>
-          <div className="relative">
-            <div className="absolute -inset-6 -z-10 rounded-3xl bg-gradient-gold opacity-20 blur-3xl" />
-            <img
-              src={heroWallet}
-              alt="Premium gözlük ve el yapımı deri kılıf"
-              width={1600}
-              height={1100}
-              className="w-full rounded-3xl object-cover shadow-elegant"
-            />
+
+          {/* Hero görsel */}
+          <div className="relative hidden lg:block">
+            <div className="absolute -inset-8 -z-10 rounded-[3rem] bg-gradient-gold opacity-10 blur-3xl" />
+            {cuzdanlar[0] ? (
+              <div className="relative">
+                <img
+                  src={cuzdanlar[0].images?.[8] ?? cuzdanlar[0].image}
+                  alt="El yapımı deri cüzdan"
+                  className="w-full rounded-[2rem] object-cover shadow-elegant max-h-[560px]"
+                />
+                <div className="absolute -bottom-5 -left-6 rounded-2xl bg-white px-5 py-3.5 shadow-elegant">
+                  <p className="text-xs text-stone-400">En Çok Satan</p>
+                  <p className="mt-0.5 font-display text-sm font-bold text-stone-900">{cuzdanlar[0].name.split("—")[0].trim()}</p>
+                  <p className="text-sm font-semibold text-primary">{formatTL(cuzdanlar[0].price)}</p>
+                </div>
+              </div>
+            ) : (
+              <div className="w-full rounded-[2rem] bg-stone-100 shadow-elegant aspect-[4/5]" />
+            )}
           </div>
         </div>
       </section>
 
-      {/* CATEGORIES */}
+      {/* ─── KATEGORİLER ──────────────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-4 py-16">
-        <div className="flex items-end justify-between gap-4">
+        <div className="mb-8 flex items-end justify-between gap-4">
           <div>
-            <h2 className="font-display text-3xl font-bold sm:text-4xl">Kategoriler</h2>
-            <p className="mt-2 text-muted-foreground">Sana en yakışanı seç.</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-primary">Koleksiyon</p>
+            <h2 className="mt-2 font-display text-3xl font-bold text-stone-900 sm:text-4xl">Kategoriler</h2>
           </div>
-          <Link to="/urunler" className="hidden text-sm text-primary hover:underline sm:inline">Tümü →</Link>
+          <Link to="/urunler" className="hidden text-sm font-medium text-primary hover:underline sm:inline">Tümünü Gör →</Link>
         </div>
-        <div className="mt-8 grid gap-5 sm:grid-cols-3">
-          {CATEGORIES.map((c) => (
-            <Link
-              key={c.slug}
-              to="/kategori/$slug"
-              params={{ slug: c.slug }}
-              className="group relative overflow-hidden rounded-2xl border border-border"
-            >
-              <img src={c.image} alt={c.label} loading="lazy" width={800} height={800} className="h-72 w-full object-cover transition duration-500 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {CATEGORIES.filter((c) => c.slug !== "gozluk").map((c) => (
+            <Link key={c.slug} to="/kategori/$slug" params={{ slug: c.slug }}
+              className="group relative overflow-hidden rounded-2xl border border-stone-100 bg-white shadow-sm hover:shadow-elegant transition-shadow">
+              <img src={c.image} alt={c.label} loading="lazy" className="h-64 w-full object-cover transition duration-500 group-hover:scale-105" />
+              <div className="absolute inset-0 bg-gradient-to-t from-stone-900/75 via-stone-900/10 to-transparent" />
               <div className="absolute bottom-0 p-5">
-                <h3 className="font-display text-xl font-bold text-white drop-shadow">{c.label}</h3>
-                <p className="text-sm text-white/85 drop-shadow">{c.description}</p>
-                <span className="mt-3 inline-block text-sm font-semibold text-white drop-shadow">Keşfet →</span>
+                <h3 className="font-display text-xl font-bold text-white">{c.label}</h3>
+                <p className="mt-1 text-sm text-white/80">{c.description}</p>
+                <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-white/90 group-hover:gap-2 transition-all">Keşfet <span>→</span></span>
               </div>
             </Link>
           ))}
-        </div>
-      </section>
-
-      {/* WALLET SHOWCASE */}
-      {(() => {
-        const sokrates = getProduct("sokrates-klasik-cuzdan");
-        if (!sokrates) return null;
-        const walletProducts = PRODUCTS.filter((p) => p.category === "cuzdan");
-        return (
-          <section className="bg-card/40 py-16">
-            <div className="mx-auto max-w-7xl px-4">
-              <div className="grid items-center gap-10 lg:grid-cols-2">
-                <div className="relative order-2 lg:order-1">
-                  <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-gold opacity-15 blur-2xl" />
-                  <img
-                    src={sokrates.images?.[3] ?? sokrates.image}
-                    alt={sokrates.name}
-                    width={1080}
-                    height={1350}
-                    className="w-full rounded-3xl object-cover shadow-elegant"
-                  />
-                </div>
-                <div className="order-1 lg:order-2">
-                  <span className="text-xs font-semibold uppercase tracking-widest text-primary">El Yapımı Deri Cüzdanlar</span>
-                  <h2 className="mt-3 font-display text-3xl font-bold sm:text-4xl">SOKRATES ile tanışın.</h2>
-                  <p className="mt-4 text-muted-foreground">
-                    Birinci sınıf hakiki deri, sabırlı el dikişi ve kullandıkça güzelleşen patina. SOKRATES, 6 kart gözü, çıtçıtlı bozuk para bölmesi ve RFID korumasıyla günlük kullanımın vazgeçilmezi.
-                  </p>
-                  <ul className="mt-6 space-y-3 text-sm">
-                    {sokrates.features.map((f) => (
-                      <li key={f} className="flex items-start gap-3">
-                        <span className="mt-1 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground text-xs">✓</span>
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="mt-7 flex flex-wrap items-center gap-4">
-                    <Link
-                      to="/urun/$slug"
-                      params={{ slug: sokrates.slug }}
-                      className="inline-flex items-center justify-center rounded-full bg-gradient-gold px-6 py-3 text-sm font-semibold text-primary-foreground shadow-glow transition hover:brightness-110"
-                    >
-                      SOKRATES'i İncele →
-                    </Link>
-                    <span className="font-display text-2xl font-bold text-primary">
-                      {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", maximumFractionDigits: 0 }).format(sokrates.price)}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {walletProducts.length > 1 && (
-                <div className="mt-12">
-                  <h3 className="font-display text-xl font-bold">Diğer Cüzdan Modelleri</h3>
-                  <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                    {walletProducts.filter((p) => p.slug !== sokrates.slug).map((p) => (
-                      <ProductCard key={p.slug} product={p} />
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          </section>
-        );
-      })()}
-
-      {/* FEATURED */}
-      <section className="mx-auto max-w-7xl px-4 py-12">
-        <div className="flex items-end justify-between gap-4">
-          <div>
-            <h2 className="font-display text-3xl font-bold sm:text-4xl">Öne Çıkanlar</h2>
-            <p className="mt-2 text-muted-foreground">En çok sevilen modellerden bir seçki.</p>
+          <div className="group relative overflow-hidden rounded-2xl border border-dashed border-stone-200 bg-stone-50 flex flex-col items-center justify-center py-16 text-center px-6">
+            <span className="rounded-full border border-stone-200 bg-white px-3 py-1 text-xs font-semibold text-stone-500">Yakında</span>
+            <h3 className="mt-3 font-display text-xl font-bold text-stone-400">Gözlük</h3>
+            <p className="mt-1 text-sm text-stone-400">Premium güneş gözlükleri çok yakında.</p>
           </div>
         </div>
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {featured.map((p) => <ProductCard key={p.slug} product={p} />)}
-        </div>
-        <div className="mt-10 text-center">
-          <Link to="/urunler" className="inline-flex rounded-full border border-primary/40 px-6 py-3 text-sm font-semibold text-primary hover:bg-primary/10">
-            Tüm Ürünleri Gör
-          </Link>
-        </div>
       </section>
 
-      {/* CRAFT STORY */}
-      <section className="bg-card/40 py-20">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 lg:grid-cols-2">
-          <img src={craftImg} alt="El yapımı zanaat" loading="lazy" width={1200} height={900} className="rounded-3xl object-cover shadow-elegant" />
+      {/* ─── CÜZDAN & KARTLIK ─────────────────────────────────────── */}
+      {cuzdanlar.length > 0 && (
+        <section className="bg-stone-50 py-20">
+          <div className="mx-auto max-w-7xl px-4">
+            <div className="mb-10 flex items-end justify-between gap-4">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-primary">El Yapımı</p>
+                <h2 className="mt-2 font-display text-3xl font-bold text-stone-900 sm:text-4xl">Cüzdan & Kartlık</h2>
+                <p className="mt-2 max-w-xl text-stone-500">Birinci sınıf hakiki deri, sabırlı el dikişi.</p>
+              </div>
+              <Link to="/kategori/$slug" params={{ slug: "cuzdan" }} className="hidden text-sm font-medium text-primary hover:underline sm:inline">Tümünü Gör →</Link>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {cuzdanlar.slice(0, 3).map((p) => <ProductCard key={p.slug} product={p} />)}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ─── ZANAAT ───────────────────────────────────────────────── */}
+      <section className="mx-auto max-w-7xl px-4 py-20">
+        <div className="grid items-center gap-12 lg:grid-cols-2">
+          <div className="relative">
+            <div className="absolute -inset-4 -z-10 rounded-3xl bg-amber-50 blur-2xl opacity-70" />
+            <img src={craftImg} alt="El yapımı deri işçiliği" loading="lazy" className="w-full rounded-3xl object-cover shadow-elegant" />
+          </div>
           <div>
-            <span className="text-xs font-semibold uppercase tracking-widest text-primary">Atölyemiz</span>
-            <h2 className="mt-3 font-display text-3xl font-bold sm:text-4xl">Deri ürünlerimiz tek tek, elde üretilir.</h2>
-            <p className="mt-4 text-muted-foreground">
-              Birinci sınıf dana derisi, sabırlı el dikişi ve detaylara verilen özen — TheBullsCraft’in el yapımı deri koleksiyonunun farkı budur. Deri ürünlerimiz kullandıkça güzelleşir, sizinle bir hikâye biriktirir. Gözlük koleksiyonumuz ise özenle seçilmiş, UV400 korumalı premium modellerden oluşur.
+            <p className="text-xs font-semibold uppercase tracking-widest text-primary">Atölyemiz</p>
+            <h2 className="mt-3 font-display text-3xl font-bold text-stone-900 sm:text-4xl">Her ürün tek tek, elle üretilir.</h2>
+            <p className="mt-4 text-stone-500 leading-relaxed">
+              Birinci sınıf dana derisi, sabırlı el dikişi ve detaylara verilen özen — The Bulls el yapımı deri koleksiyonunun farkı budur.
             </p>
-            <ul className="mt-6 space-y-3 text-sm">
-              {[
-                "%100 hakiki deri, el dikişi",
-                "UV400 korumalı premium lensler",
-                "Türkiye geneli kapıda ödeme",
-                "WhatsApp'tan birebir destek",
-              ].map((t) => (
-                <li key={t} className="flex items-start gap-3">
-                  <span className="mt-1 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground text-xs">✓</span>
+            <ul className="mt-6 space-y-3">
+              {["%100 hakiki deri, el dikişi", "Kenar perdahı elle yapılır", "Türkiye geneli kapıda ödeme", "WhatsApp'tan birebir destek"].map((t) => (
+                <li key={t} className="flex items-center gap-3 text-sm text-stone-700">
+                  <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary/10 text-primary text-[11px] font-bold">✓</span>
                   {t}
                 </li>
               ))}
             </ul>
+            <div className="mt-8">
+              <Link to="/urunler" className="inline-flex items-center justify-center rounded-full bg-gradient-gold px-7 py-3.5 text-sm font-semibold text-white shadow-glow transition hover:brightness-110">
+                Tüm Ürünleri Gör
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA BAND */}
+      {/* ─── GÖZLÜK KILIFLAR ──────────────────────────────────────── */}
+      {kiliflar.length > 0 && (
+        <section className="bg-stone-50 py-20">
+          <div className="mx-auto max-w-7xl px-4">
+            <div className="mb-10 flex items-end justify-between gap-4">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-primary">Aksesuar</p>
+                <h2 className="mt-2 font-display text-3xl font-bold text-stone-900 sm:text-4xl">Gözlük Kılıfları</h2>
+                <p className="mt-2 max-w-lg text-stone-500">Gözlüğünü hakiki deriyle koruyun.</p>
+              </div>
+              <Link to="/kategori/$slug" params={{ slug: "kilif" }} className="hidden text-sm font-medium text-primary hover:underline sm:inline">Tümünü Gör →</Link>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {kiliflar.slice(0, 3).map((p) => <ProductCard key={p.slug} product={p} />)}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ─── CTA ──────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-4 py-20">
-        <div className="rounded-3xl border border-border bg-gradient-to-br from-card to-secondary p-10 text-center shadow-elegant md:p-16">
-          <h2 className="font-display text-3xl font-bold sm:text-4xl">Aklındaki modeli bulamadın mı?</h2>
-          <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-            WhatsApp'tan yaz, sana özel öneri ve stok bilgisini hemen ileyelim. Kapıda ödeme ile risksiz alışveriş.
-          </p>
-          <div className="mt-7 flex flex-wrap justify-center gap-3">
-            <WhatsAppButton size="lg" message="Merhaba, model önerisi almak istiyorum.">
-              Hemen WhatsApp'tan Yaz
-            </WhatsAppButton>
-            <Link to="/urunler" className="inline-flex items-center rounded-full border border-border px-6 py-4 text-sm font-semibold hover:bg-secondary">
+        <div className="rounded-3xl border border-stone-100 bg-gradient-to-br from-stone-50 to-amber-50/60 px-8 py-16 text-center shadow-sm md:px-16">
+          <h2 className="font-display text-3xl font-bold text-stone-900 sm:text-4xl">Aklındaki modeli bulamadın mı?</h2>
+          <p className="mx-auto mt-3 max-w-xl text-stone-500">WhatsApp'tan yaz, sana özel öneri ve stok bilgisini hemen ileteyim.</p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <WhatsAppButton size="lg" message="Merhaba, model önerisi almak istiyorum.">WhatsApp ile Yaz</WhatsAppButton>
+            <Link to="/urunler" className="inline-flex items-center rounded-full border border-stone-200 bg-white px-7 py-4 text-sm font-semibold text-stone-700 hover:bg-stone-50 transition">
               Tüm Koleksiyon
             </Link>
           </div>

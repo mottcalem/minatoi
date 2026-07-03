@@ -1,28 +1,26 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { CATEGORIES, PRODUCTS, SERIES, formatTL, getProduct } from "@/data/products";
+import { useState } from "react";
+import { CATEGORIES, SERIES, formatTL } from "@/data/products";
 import type { Product, GlassesDetails, WalletDetails } from "@/data/products";
+import { fetchProductsServer } from "@/data/adminProducts";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { CashOnDeliveryForm } from "@/components/CashOnDeliveryForm";
 import { ProductCard } from "@/components/ProductCard";
 
 export const Route = createFileRoute("/urun/$slug")({
   head: ({ params }) => {
-    const p = getProduct(params.slug);
-    const title = p ? `${p.name} — TheBullsCraft` : "Ürün — TheBullsCraft";
     return {
       meta: [
-        { title },
-        { name: "description", content: p?.shortDescription ?? "TheBullsCraft ürün detayı." },
-        { property: "og:title", content: title },
-        { property: "og:description", content: p?.shortDescription ?? "" },
-        { property: "og:image", content: p?.image ?? "" },
+        { title: `Ürün — The Bulls` },
+        { property: "og:title", content: `Ürün — The Bulls` },
       ],
     };
   },
-  loader: ({ params }) => {
-    const product: Product | undefined = getProduct(params.slug);
+  loader: async ({ params }) => {
+    const all = await fetchProductsServer();
+    const product = all.find((p) => p.slug === params.slug);
     if (!product) throw notFound();
-    return { product: product as Product };
+    return { product: product as Product, related: all.filter(p => p.category === product.category && p.slug !== params.slug).slice(0, 4) };
   },
   notFoundComponent: () => (
     <div className="mx-auto max-w-3xl px-4 py-20 text-center">
@@ -33,16 +31,15 @@ export const Route = createFileRoute("/urun/$slug")({
   errorComponent: ({ error }) => (
     <div className="mx-auto max-w-3xl px-4 py-20 text-center">
       <h1 className="font-display text-2xl font-bold">Bir hata oluştu</h1>
-      <p className="mt-2 text-muted-foreground">{error.message}</p>
+      <p className="mt-2 text-stone-500">{error.message}</p>
     </div>
   ),
   component: ProductDetail,
 });
 
 function ProductDetail() {
-  const { product } = Route.useLoaderData();
+  const { product, related } = Route.useLoaderData();
   const cat = CATEGORIES.find((c) => c.slug === product.category)!;
-  const related = PRODUCTS.filter((p) => p.category === product.category && p.slug !== product.slug).slice(0, 4);
   const waMsg =
     `Merhaba 👋\n"${product.name}" ürünü (${formatTL(product.price)}) hakkında bilgi almak istiyorum.\n` +
     `Stok durumu ve kargo süreci hakkında bilgi verir misiniz?`;
@@ -50,14 +47,13 @@ function ProductDetail() {
   return (
     <article className="mx-auto max-w-7xl px-4 py-10">
       {/* Breadcrumb */}
-      <nav className="mb-6 text-xs text-muted-foreground">
-        <Link to="/" className="hover:text-primary">Anasayfa</Link>
+      <nav className="mb-6 text-xs text-stone-400">
+        <Link to="/" className="hover:text-primary transition-colors">Anasayfa</Link>
         <span className="mx-2">/</span>
-        <Link to="/kategori/$slug" params={{ slug: cat.slug }} className="hover:text-primary">{cat.label}</Link>
+        <Link to="/kategori/$slug" params={{ slug: cat.slug }} className="hover:text-primary transition-colors">{cat.label}</Link>
         <span className="mx-2">/</span>
-        <span className="text-foreground">{product.name}</span>
+        <span className="text-stone-700">{product.name}</span>
       </nav>
-
       <div className="grid gap-10 lg:grid-cols-2">
         {/* Image gallery */}
         <div className="relative">
@@ -104,12 +100,12 @@ function ProductDetail() {
           </div>
 
           {/* Features */}
-          <div className="mt-8 rounded-2xl border border-border bg-card p-5">
-            <h3 className="font-display text-base font-semibold">Ürün Özellikleri</h3>
+          <div className="mt-8 rounded-2xl border border-stone-100 bg-stone-50 p-5">
+            <h3 className="font-display text-base font-semibold text-stone-900">Ürün Özellikleri</h3>
             <ul className="mt-3 space-y-2 text-sm">
               {product.features.map((f: string) => (
-                <li key={f} className="flex items-start gap-3">
-                  <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground text-[10px]">✓</span>
+                <li key={f} className="flex items-start gap-3 text-stone-700">
+                  <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary/10 text-primary text-[10px] font-bold">✓</span>
                   {f}
                 </li>
               ))}
@@ -118,20 +114,20 @@ function ProductDetail() {
 
           {/* Trust */}
           <div className="mt-5 grid grid-cols-3 gap-3 text-center text-xs">
-            <div className="rounded-xl border border-border bg-card/50 p-3">
+            <div className="rounded-xl border border-stone-100 bg-white p-3 shadow-sm">
               <div className="text-lg">🚚</div>
-              <div className="mt-1 font-semibold">Hızlı Kargo</div>
-              <div className="text-muted-foreground">1-3 iş günü</div>
+              <div className="mt-1 font-semibold text-stone-800">Hızlı Kargo</div>
+              <div className="text-stone-400">1-3 iş günü</div>
             </div>
-            <div className="rounded-xl border border-border bg-card/50 p-3">
+            <div className="rounded-xl border border-stone-100 bg-white p-3 shadow-sm">
               <div className="text-lg">🛡️</div>
-              <div className="mt-1 font-semibold">Güvenli Ödeme</div>
-              <div className="text-muted-foreground">Shopier</div>
+              <div className="mt-1 font-semibold text-stone-800">Güvenli Ödeme</div>
+              <div className="text-stone-400">Shopier</div>
             </div>
-            <div className="rounded-xl border border-border bg-card/50 p-3">
+            <div className="rounded-xl border border-stone-100 bg-white p-3 shadow-sm">
               <div className="text-lg">💵</div>
-              <div className="mt-1 font-semibold">Kapıda Ödeme</div>
-              <div className="text-muted-foreground">Tüm Türkiye</div>
+              <div className="mt-1 font-semibold text-stone-800">Kapıda Ödeme</div>
+              <div className="text-stone-400">Tüm Türkiye</div>
             </div>
           </div>
         </div>
@@ -349,8 +345,8 @@ function WalletInfo({ details }: { details: WalletDetails }) {
         <h2 className="font-display text-2xl font-bold">Kutu İçeriği</h2>
         <ul className="mt-4 grid gap-2 sm:grid-cols-2">
           {details.boxContents.map((b, i) => (
-            <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground text-[10px]">✓</span>
+            <li key={i} className="flex items-start gap-2 text-sm text-stone-600">
+              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary/10 text-primary text-[10px] font-bold">✓</span>
               {b}
             </li>
           ))}
@@ -358,12 +354,12 @@ function WalletInfo({ details }: { details: WalletDetails }) {
       </section>
 
       {/* Summary */}
-      <section className="rounded-2xl border border-primary/30 bg-primary/5 p-6">
+      <section className="rounded-2xl border border-primary/20 bg-amber-50/60 p-6">
         <h2 className="font-display text-xl font-bold">Kısa Teknik Özellikler</h2>
         <ul className="mt-4 grid gap-2 sm:grid-cols-2">
           {details.summary.map((s, i) => (
-            <li key={i} className="flex items-start gap-2 text-sm">
-              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground text-[10px]">✓</span>
+            <li key={i} className="flex items-start gap-2 text-sm text-stone-700">
+              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary/10 text-primary text-[10px] font-bold">✓</span>
               {s}
             </li>
           ))}
@@ -372,32 +368,64 @@ function WalletInfo({ details }: { details: WalletDetails }) {
     </div>
   );
 }
+
 function ProductGallery({ product }: { product: Product }) {
   const images = product.images?.length ? product.images : [product.image];
+  const [active, setActive] = useState(0);
+
   return (
     <div className="flex flex-col gap-3">
-      <img
-        src={images[0]}
-        alt={product.name}
-        width={800}
-        height={800}
-        className="w-full rounded-3xl object-cover shadow-elegant"
-      />
-      {product.badge && (
-        <span className="absolute left-4 top-4 rounded-full bg-gradient-gold px-3 py-1 text-xs font-semibold text-primary-foreground">
-          {product.badge}
-        </span>
-      )}
+      {/* Ana görsel */}
+      <div className="relative overflow-hidden rounded-3xl bg-stone-100 shadow-elegant">
+        <img
+          src={images[active]}
+          alt={product.name}
+          width={800}
+          height={800}
+          className="w-full object-cover aspect-square"
+        />
+        {product.badge && (
+          <span className="absolute left-4 top-4 rounded-full bg-gradient-gold px-3 py-1 text-xs font-semibold text-white shadow-sm">
+            {product.badge}
+          </span>
+        )}
+        {/* Prev/Next */}
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={() => setActive((a) => (a - 1 + images.length) % images.length)}
+              className="absolute left-3 top-1/2 -translate-y-1/2 grid h-9 w-9 place-items-center rounded-full bg-white/90 shadow hover:bg-white transition"
+              aria-label="Önceki"
+            >
+              ‹
+            </button>
+            <button
+              onClick={() => setActive((a) => (a + 1) % images.length)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 grid h-9 w-9 place-items-center rounded-full bg-white/90 shadow hover:bg-white transition"
+              aria-label="Sonraki"
+            >
+              ›
+            </button>
+          </>
+        )}
+      </div>
+
+      {/* Thumbnail şeridi */}
       {images.length > 1 && (
-        <div className="grid grid-cols-4 gap-2">
-          {images.slice(1).map((img, i) => (
-            <img
+        <div className="flex gap-2 overflow-x-auto pb-1">
+          {images.map((img, i) => (
+            <button
               key={i}
-              src={img}
-              alt={`${product.name} ${i + 2}`}
-              loading="lazy"
-              className="aspect-square w-full rounded-xl object-cover"
-            />
+              onClick={() => setActive(i)}
+              className={`shrink-0 h-16 w-16 rounded-xl overflow-hidden border-2 transition ${i === active ? "border-primary" : "border-transparent hover:border-stone-300"}`}
+            >
+              <img
+                src={img}
+                alt={`${product.name} ${i + 1}`}
+                loading="lazy"
+                className="h-full w-full object-cover"
+              />
+            </button>
           ))}
         </div>
       )}

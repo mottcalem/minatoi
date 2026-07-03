@@ -2,29 +2,76 @@ import glassesImg from "@/assets/cat-glasses.jpg";
 import casesImg from "@/assets/cat-cases.jpg";
 import walletsImg from "@/assets/cat-wallets.jpg";
 
-// Cüzdan ürün görselleri
-const walletClosed = "/images/products/wallets/wallet_closed_1264x848.jpg";
-const walletAngle = "/images/products/wallets/wallet_angle_1264x848.jpg";
-const walletModel = "/images/products/wallets/wallet_model_1080x1350.jpg";
-const walletMan = "/images/products/wallets/wallet_man_1080x1350.jpg";
+// ─── Resim yolları ─────────────────────────────────────────────────────────────
+
+// Sokrates — Klasik Erkek Cüzdanı
+const S = "/images/products/sokrates";
+const socratesImages = [
+  `${S}/wa1.jpg`,
+  `${S}/wa2.jpg`,
+  `${S}/wa3.jpg`,
+  `${S}/wa4.jpg`,
+  `${S}/wa5.jpg`,
+  `${S}/angle.jpg`,
+  `${S}/closed.jpg`,
+  `${S}/open.jpg`,
+  `${S}/man.jpg`,
+  `${S}/model.jpg`,
+];
+
+// Frege — Kartlık
+const F = "/images/products/frege-kartlik";
+const fregeImages = [
+  `${F}/front.jpg`,
+  `${F}/angle.jpg`,
+  `${F}/standing.jpg`,
+  `${F}/top.jpg`,
+  `${F}/stitch-detail.jpg`,
+  `${F}/in-hand.jpg`,
+  `${F}/lifestyle.jpg`,
+  `${F}/wa1.jpg`,
+  `${F}/wa2.jpg`,
+  `${F}/wa3.jpg`,
+  `${F}/wa4.jpg`,
+  `${F}/wa5.jpg`,
+];
+
+// Gözlük Kılıfı
+const K = "/images/products/gozluk-kilifi";
+const kilif1Images = [
+  `${K}/kilif1.jpg`,
+  `${K}/kilif2.jpg`,
+  `${K}/kilif3.jpg`,
+  `${K}/kilif4.jpg`,
+  `${K}/kilif5.jpg`,
+  `${K}/kilif6.jpg`,
+  `${K}/kilif7.jpg`,
+  `${K}/kilif8.jpg`,
+  `${K}/kilif9.jpg`,
+  `${K}/kilif10.jpg`,
+];
+
+// ─── Kategoriler ───────────────────────────────────────────────────────────────
 
 export type Category = "gozluk" | "kilif" | "cuzdan";
+
+export const CATEGORIES: { slug: Category; label: string; description: string; image: string }[] = [
+  { slug: "gozluk", label: "Gözlük", description: "UV korumalı, EN ISO 12312-1:2013 standart güneş gözlükleri", image: glassesImg },
+  { slug: "kilif", label: "Gözlük Kılıfı", description: "Tam deri, el yapımı gözlük kılıfları", image: casesImg },
+  { slug: "cuzdan", label: "Cüzdan & Kartlık", description: "El yapımı hakiki deri cüzdan ve kartlık modelleri", image: walletsImg },
+];
+
+// ─── Tip tanımları ─────────────────────────────────────────────────────────────
+
+export type TechSpec = { label: string; value: string };
 
 export type GlassesSeries = "urban" | "heritage" | "modern";
 
 export const SERIES: Record<GlassesSeries, { label: string; description: string }> = {
   urban: { label: "Urban Series", description: "Şehir yaşamına ilham veren modern ve çok yönlü siluetler." },
   heritage: { label: "Heritage Series", description: "Zamansız klasikleri çağdaş detaylarla yeniden yorumlayan seri." },
-  modern: { label: "Modern Series", description: "Cesiz çizgiler ve minimalist formlarla geleceğe bakan koleksiyon." },
+  modern: { label: "Modern Series", description: "Cesur çizgiler ve minimalist formlarla geleceğe bakan koleksiyon." },
 };
-
-export const CATEGORIES: { slug: Category; label: string; description: string; image: string }[] = [
-  { slug: "gozluk", label: "Gözlük", description: "UV korumalı, EN ISO 12312-1:2013 standart güneş gözlükleri", image: glassesImg },
-  { slug: "kilif", label: "Deri Kılıf", description: "Tam deri, el yapımı gözlük kılıfları", image: casesImg },
-  { slug: "cuzdan", label: "Deri Cüzdan", description: "Minimal ve klasik deri cüzdan modelleri", image: walletsImg },
-];
-
-export type TechSpec = { label: string; value: string };
 
 export type GlassesDetails = {
   series: GlassesSeries;
@@ -63,11 +110,10 @@ export type Product = {
   wallet?: WalletDetails;
 };
 
+// ─── Gözlük şablonu ────────────────────────────────────────────────────────────
+
 const SHOPIER = "https://www.shopier.com/thebullscraft";
 
-// ── Gözlük ürün şablonu ──────────────────────────────────────────────
-// Tüm gözlük modelleri aynı teknik özelliklere sahiptir; yalnızca seri ve
-// model adı değişir. makeGlasses() ile tutarlı bir GlassesDetails üretiriz.
 const GLASSES_TECH_SPECS: TechSpec[] = [
   { label: "Ürün Tipi", value: "Güneş Gözlüğü" },
   { label: "Kullanım Amacı", value: "Günlük kullanım" },
@@ -167,7 +213,7 @@ export function makeGlasses(
       boxContents: [
         "1 Adet Güneş Gözlüğü",
         "Koruyucu Gözlük Kılıfı",
-        "Mikrofiber Temizleme Bezi (varsa)",
+        "Mikrofiber Temizleme Bezi",
         "Kullanım ve Bakım Bilgilendirme Kılavuzu",
       ],
       summary: GLASSES_SUMMARY,
@@ -175,80 +221,27 @@ export function makeGlasses(
   };
 }
 
-// Seri → modeller eşleştirmesi. Ürün girişlerini yaparken bu listeyi
-// referans alarak makeGlasses() çağrılarıyla PRODUCTS'a ekleyebilirsiniz.
 export const GLASSES_MODELS: Record<GlassesSeries, string[]> = {
   urban: ["Soho", "Milan", "Monaco", "Chelsea"],
   heritage: ["Atlas", "Heritage", "Sterling", "Raven"],
   modern: ["Orion", "Eclipse", "Nova", "Lumen"],
 };
 
+// ─── Ürün listesi ──────────────────────────────────────────────────────────────
+
 export const PRODUCTS: Product[] = [
-  // ── Gözlükler (Urban Series) ──────────────────────────────────────
-  makeGlasses("urban", "Soho", { price: 1290, badge: "Yeni" }),
-  makeGlasses("urban", "Milan", { price: 1290 }),
-  makeGlasses("urban", "Monaco", { price: 1390, oldPrice: 1690 }),
-  makeGlasses("urban", "Chelsea", { price: 1290 }),
 
-  // ── Gözlükler (Heritage Series) ───────────────────────────────────
-  makeGlasses("heritage", "Atlas", { price: 1490, badge: "Çok Satan" }),
-  makeGlasses("heritage", "Heritage", { price: 1490 }),
-  makeGlasses("heritage", "Sterling", { price: 1590 }),
-  makeGlasses("heritage", "Raven", { price: 1490 }),
+  // ── Cüzdan & Kartlık ──────────────────────────────────────────────────────
 
-  // ── Gözlükler (Modern Series) ─────────────────────────────────────
-  makeGlasses("modern", "Orion", { price: 1390 }),
-  makeGlasses("modern", "Eclipse", { price: 1390, badge: "Yeni" }),
-  makeGlasses("modern", "Nova", { price: 1490, oldPrice: 1790 }),
-  makeGlasses("modern", "Lumen", { price: 1390, badge: "Premium" }),
-
-  // Deri kılıflar
-  {
-    slug: "klasik-deri-kilif-taba",
-    name: "Klasik Deri Kılıf — Taba",
-    category: "kilif",
-    price: 390,
-    image: casesImg,
-    shortDescription: "Tam deri, el dikişli klasik gözlük kılıfı.",
-    description: "Birinci sınıf dana derisinden el dikişiyle üretilmiş, çıt çıt kapaklı klasik gözlük kılıfımız.",
-    features: ["%100 hakiki deri", "El dikişi", "Çıt çıt kapak", "Yumuşak iç astar"],
-    shopierUrl: SHOPIER,
-    badge: "Çok Satan",
-  },
-  {
-    slug: "klasik-deri-kilif-kahve",
-    name: "Klasik Deri Kılıf — Kahve",
-    category: "kilif",
-    price: 390,
-    image: casesImg,
-    shortDescription: "Koyu kahve tonunda el yapımı gözlük kılıfı.",
-    description: "Yıllar geçtikçe güzelleşen patine yapısıyla koyu kahve klasik kılıf.",
-    features: ["%100 hakiki deri", "El dikişi", "Çıt çıt kapak", "Mikrofiber astar"],
-    shopierUrl: SHOPIER,
-  },
-  {
-    slug: "minimal-deri-kilif-siyah",
-    name: "Minimal Deri Kılıf — Siyah",
-    category: "kilif",
-    price: 420,
-    image: casesImg,
-    shortDescription: "İnce ve modern siyah deri gözlük kılıfı.",
-    description: "Minimal kesimi ve ince yapısıyla cep ve çantada yer kaplamayan modern model.",
-    features: ["%100 hakiki deri", "İnce profil", "Manyetik kapak", "Süet astar"],
-    shopierUrl: SHOPIER,
-    badge: "Yeni",
-  },
-
-  // Cüzdanlar
   {
     slug: "sokrates-klasik-cuzdan",
     name: "SOKRATES — El Yapımı Hakiki Deri Klasik Erkek Cüzdanı",
     category: "cuzdan",
     price: 890,
     oldPrice: 1190,
-    image: walletAngle,
-    images: [walletAngle, walletClosed, walletModel, walletMan],
-    shortDescription: "El yapımı hakiki deri, klasik erkek cüzdanı. 6 kart gözü, çıtçıtlı bozuk para, RFID koruma.",
+    image: socratesImages[0],
+    images: socratesImages,
+    shortDescription: "El yapımı hakiki deri klasik erkek cüzdanı. 6 kart gözü, çıtçıtlı bozuk para bölmesi, RFID koruma.",
     description:
       "SOKRATES, birinci sınıf hakiki deriden el işçiliğiyle üretilen klasik bir erkek cüzdanıdır. " +
       "Zamansız tasarımı, el dikişi detayları ve doğal deri dokusuyla her stile uyum sağlar. " +
@@ -262,7 +255,7 @@ export const PRODUCTS: Product[] = [
       "RFID koruma",
       "İki banknot gözü",
     ],
-    shopierUrl: "https://www.shopier.com/sokrates-klasik-cuzdan",
+    shopierUrl: "https://www.shopier.com/ShowProductNew/products.php?id=24888698",
     badge: "Çok Satan",
     wallet: {
       techSpecs: [
@@ -308,139 +301,105 @@ export const PRODUCTS: Product[] = [
       ],
     },
   },
+
   {
-    slug: "aristo-minimal-cuzdan",
-    name: "ARISTO — Minimal Hakiki Deri Kart Cüzdanı",
+    slug: "frege-kartlik",
+    name: "FREGE — El Yapımı Hakiki Deri Kartlık",
     category: "cuzdan",
-    price: 690,
-    image: walletClosed,
-    images: [walletClosed, walletAngle],
-    shortDescription: "İnce profil, 6 kart gözü, çıtçıtsız sade tasarım. Cebinde fark edilmeyen minimal cüzdan.",
+    price: 590,
+    image: fregeImages[0],
+    images: fregeImages,
+    shortDescription: "Slim profil, el dikişi, hakiki deri. Sadece kartlarını tut, cebinde his bile etme.",
     description:
-      "ARISTO, sade hatları ve ince profiliyle günlük taşımacılığı kolaylaştıran minimal bir kart cüzdanıdır. " +
-      "Çıtçıt mekanizması içermez; tamamen düz ve esnek yapısıyla cepte iz bırakmaz.\n\n" +
-      "Hakiki deri yüzeyi kullandıkça yumuşar ve doğal bir patina geliştirir. " +
-      "6 kart gözü ve gizli banknot bölmesiyle pratik kullanım sunar.",
+      "FREGE, minimal yaşam tarzına sahip olanlar için tasarlanmış bir hakiki deri kartlıktır. " +
+      "İnce profili sayesinde cebinizde veya çantanızda neredeyse fark edilmez.\n\n" +
+      "Günlük taşınan 3-6 karta yer açarken, ön bölme sık kullandığınız kartlara hızlı erişim sağlar. " +
+      "Her dikişi elle atılmış, her kenarı elle perdahlanmış. Kullandıkça güzelleşen bir deri ruhu taşır.",
     features: [
-      "%100 hakiki deri",
-      "6 kart gözü",
-      "Çıtçıtsız sade tasarım",
-      "Gizli banknot bölmesi",
-      "İnce profil — iz bırakmaz",
+      "%100 hakiki deri, el dikişi",
+      "Ön açık kart bölmesi",
+      "3-6 kart kapasitesi",
+      "Slim profil — cepte iz bırakmaz",
+      "Kenar perdahı el ile yapılmıştır",
+      "Kullandıkça güzelleşen patina",
     ],
-    shopierUrl: "https://www.shopier.com/aristo-minimal-cuzdan",
+    shopierUrl: SHOPIER,
     badge: "Yeni",
     wallet: {
       techSpecs: [
-        { label: "Ürün Tipi", value: "Kart Cüzdanı" },
-        { label: "Model", value: "ARISTO Minimal" },
+        { label: "Ürün Tipi", value: "Kartlık" },
+        { label: "Model", value: "FREGE Slim" },
         { label: "Malzeme", value: "%100 Hakiki Deri" },
         { label: "İşçilik", value: "El dikişi" },
-        { label: "Kart Gözü Sayısı", value: "6 adet" },
-        { label: "Bozuk Para Bölmesi", value: "Yok" },
-        { label: "Banknot Gözü", value: "1 gizli bölme" },
-        { label: "RFID Koruma", value: "Var" },
-        { label: "Boyut", value: "10 × 8 cm" },
+        { label: "Kart Kapasitesi", value: "3-6 adet" },
+        { label: "Ön Bölme", value: "Var (hızlı erişim)" },
+        { label: "Boyut", value: "10 × 7 cm (yaklaşık)" },
         { label: "Menşei", value: "Türkiye" },
       ],
       materials: [
         "Hakiki dana derisi",
-        "Pamuklu dikiş ipi",
-        "RFID korumalı iç astar",
+        "Pamuklu el dikiş ipi",
+        "Doğal renk kenar perdahı",
       ],
       care: [
-        "Nemli ve yumuşak bir bez ile temizleyiniz.",
-        "Doğrudan güneş ışığından ve ısı kaynaklarından uzak tutunuz.",
-        "Sert kimyasal temizleyiciler kullanmayınız.",
-        "Deri bakım kremi ile düzenli aralıklarla besleyiniz.",
-        "Suda bekletmeyiniz; ıslanırsa doğal olarak kurumaya bırakınız.",
+        "Nemli yumuşak bir bez ile siliniz.",
+        "Deri bakım kremi ile besleyiniz.",
+        "Güneş ışığından uzak tutunuz.",
+        "Sert kimyasallar kullanmayınız.",
+        "Islanırsa doğal havada kurumaya bırakınız.",
       ],
       boxContents: [
-        "1 Adet ARISTO Cüzdan",
+        "1 Adet FREGE Kartlık",
         "Kullanım ve Bakım Bilgilendirme Kılavuzu",
       ],
       summary: [
         "%100 Hakiki Deri",
         "El Dikişi",
-        "6 Kart Gözü",
-        "Çıtçıtsız Sade Tasarım",
-        "RFID Koruma",
-        "İnce Profil",
-        "Gizli Banknot Bölmesi",
+        "3-6 Kart Kapasitesi",
+        "Ön Hızlı Erişim Bölmesi",
+        "Slim Profil",
+        "El Perdahı Kenar",
+        "Kullandıkça Güzelleşen Patina",
         "Türkiye'de Üretilmiştir",
       ],
     },
   },
+
+  // ── Deri Kılıflar ─────────────────────────────────────────────────────────
+
   {
-    slug: "platon-uzun-cuzdan",
-    name: "PLATON — Premium Hakiki Deri Uzun Cüzdan",
-    category: "cuzdan",
-    price: 1190,
-    oldPrice: 1490,
-    image: walletModel,
-    images: [walletModel, walletMan, walletAngle],
-    shortDescription: "Fermuarlı uzun model, 12 kart gözü, bozuk para bölmesi. Hepsibirarada premium cüzdan.",
+    slug: "klasik-deri-gozluk-kilifi",
+    name: "Klasik El Yapımı Deri Gözlük Kılıfı",
+    category: "kilif",
+    price: 490,
+    image: kilif1Images[0],
+    images: kilif1Images,
+    shortDescription: "Tam deri, el dikişi, çıtçıt kapaklı hakiki deri gözlük kılıfı. Her boyut gözlüğe uyar.",
     description:
-      "PLATON, fermuarlı uzun formuyla maksimum kapasite ve düzen sunan premium bir cüzdan modelidir. " +
-      "12 kart gözü, fermuarlı bozuk para bölmesi ve çift banknot gözüyle tüm ihtiyaçlarınızı tek başına karşılar.\n\n" +
-      "Birinci sınıf hakiki deri ve özenli el dikişi, uzun yıllar dayanıklılık ve şıklık garanti eder. " +
-      "Premium sunum kutusuyla hediyelik için de idealdir.",
+      "Hakiki deriden elle üretilen bu gözlük kılıfı, gözlüğünüzü çiziklere ve darbelerere karşı korurken zarafetinden ödün vermez.\n\n" +
+      "Çıtçıt kapak mekanizması sayesinde gözlüğünüz güvenle yerinde kalır. " +
+      "İç kısım yumuşak astar ile kaplanmıştır; lens yüzeylerine zarar vermez. " +
+      "Deri kullandıkça güzelleşir, size özel bir patina geliştirir.",
     features: [
-      "%100 hakiki deri, el dikişi",
-      "12 kart gözü",
-      "Fermuarlı bozuk para bölmesi",
-      "Çift banknot gözü",
-      "RFID koruma",
-      "Premium sunum kutusu",
+      "%100 hakiki deri",
+      "El dikişi",
+      "Çıtçıt kapak mekanizması",
+      "Yumuşak iç astar",
+      "Her boyut gözlüğe uygun",
+      "Kullandıkça güzelleşen patina",
     ],
-    shopierUrl: "https://www.shopier.com/platon-uzun-cuzdan",
-    badge: "Premium",
-    wallet: {
-      techSpecs: [
-        { label: "Ürün Tipi", value: "Uzun Cüzdan" },
-        { label: "Model", value: "PLATON Premium" },
-        { label: "Malzeme", value: "%100 Hakiki Deri" },
-        { label: "İşçilik", value: "El dikişi" },
-        { label: "Kart Gözü Sayısı", value: "12 adet" },
-        { label: "Bozuk Para Bölmesi", value: "Fermuarlı" },
-        { label: "Banknot Gözü", value: "2 adet" },
-        { label: "RFID Koruma", value: "Var" },
-        { label: "Boyut", value: "19 × 10 cm" },
-        { label: "Menşei", value: "Türkiye" },
-      ],
-      materials: [
-        "Birinci sınıf hakiki dana derisi",
-        "Pamuklu dikiş ipi",
-        "Metal fermuar mekanizması",
-        "RFID korumalı iç astar",
-      ],
-      care: [
-        "Nemli ve yumuşak bir bez ile temizleyiniz.",
-        "Doğrudan güneş ışığından ve ısı kaynaklarından uzak tutunuz.",
-        "Sert kimyasal temizleyiciler kullanmayınız.",
-        "Deri bakım kremi ile düzenli aralıklarla besleyiniz.",
-        "Suda bekletmeyiniz; ıslanırsa doğal olarak kurumaya bırakınız.",
-        "Fermuarı düzenli aralıklarla temiz ve kuru tutunuz.",
-      ],
-      boxContents: [
-        "1 Adet PLATON Cüzdan",
-        "Premium Sunum Kutusu",
-        "Koruyucu Bez Kılıf",
-        "Kullanım ve Bakım Bilgilendirme Kılavuzu",
-      ],
-      summary: [
-        "%100 Hakiki Deri",
-        "El Dikişi",
-        "12 Kart Gözü",
-        "Fermuarlı Bozuk Para Bölmesi",
-        "Çift Banknot Gözü",
-        "RFID Koruma",
-        "Premium Sunum Kutusu",
-        "Türkiye'de Üretilmiştir",
-      ],
-    },
+    shopierUrl: SHOPIER,
+    badge: "El Yapımı",
   },
+
+  // ── Gözlükler (henüz eklenmedi — placeholder) ────────────────────────────
+  makeGlasses("urban", "Soho", { price: 1290, badge: "Yakında" }),
+  makeGlasses("urban", "Milan", { price: 1290, badge: "Yakında" }),
+  makeGlasses("heritage", "Atlas", { price: 1490, badge: "Yakında" }),
+  makeGlasses("modern", "Eclipse", { price: 1390, badge: "Yakında" }),
 ];
+
+// ─── Yardımcı fonksiyonlar ────────────────────────────────────────────────────
 
 export function getProduct(slug: string) {
   return PRODUCTS.find((p) => p.slug === slug);

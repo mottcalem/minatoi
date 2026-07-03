@@ -15,6 +15,7 @@ import { Route as KullaniciSozlesmesiRouteImport } from './routes/kullanici-sozl
 import { Route as IptalIadeRouteImport } from './routes/iptal-iade'
 import { Route as IletisimRouteImport } from './routes/iletisim'
 import { Route as GizlilikPolitikasiRouteImport } from './routes/gizlilik-politikasi'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UrunSlugRouteImport } from './routes/urun.$slug'
 import { Route as KategoriSlugRouteImport } from './routes/kategori.$slug'
@@ -49,6 +50,11 @@ const GizlilikPolitikasiRoute = GizlilikPolitikasiRouteImport.update({
   path: '/gizlilik-politikasi',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -67,6 +73,7 @@ const KategoriSlugRoute = KategoriSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/gizlilik-politikasi': typeof GizlilikPolitikasiRoute
   '/iletisim': typeof IletisimRoute
   '/iptal-iade': typeof IptalIadeRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/gizlilik-politikasi': typeof GizlilikPolitikasiRoute
   '/iletisim': typeof IletisimRoute
   '/iptal-iade': typeof IptalIadeRoute
@@ -90,6 +98,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/gizlilik-politikasi': typeof GizlilikPolitikasiRoute
   '/iletisim': typeof IletisimRoute
   '/iptal-iade': typeof IptalIadeRoute
@@ -103,6 +112,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/gizlilik-politikasi'
     | '/iletisim'
     | '/iptal-iade'
@@ -114,6 +124,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
     | '/gizlilik-politikasi'
     | '/iletisim'
     | '/iptal-iade'
@@ -125,6 +136,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/gizlilik-politikasi'
     | '/iletisim'
     | '/iptal-iade'
@@ -137,6 +149,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   GizlilikPolitikasiRoute: typeof GizlilikPolitikasiRoute
   IletisimRoute: typeof IletisimRoute
   IptalIadeRoute: typeof IptalIadeRoute
@@ -191,6 +204,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GizlilikPolitikasiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -217,6 +237,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   GizlilikPolitikasiRoute: GizlilikPolitikasiRoute,
   IletisimRoute: IletisimRoute,
   IptalIadeRoute: IptalIadeRoute,
