@@ -2,7 +2,7 @@
  * GET /sitemap.xml
  * Ürün ve blog slug'larını dinamik olarak okuyarak güncel bir sitemap üretir.
  */
-import { defineEventHandler, send } from "h3";
+import { defineEventHandler, setResponseHeader } from "h3";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
@@ -70,6 +70,6 @@ export default defineEventHandler(async (event) => {
     entries.join("\n\n") +
     "\n\n</urlset>";
 
-  // send() ile raw string döndür — H3'ün JSON serialize etmesini engeller
-  return send(event, xml, "application/xml; charset=utf-8");
+  setResponseHeader(event, "Content-Type", "application/xml; charset=utf-8");
+  return xml;
 });

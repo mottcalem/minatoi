@@ -6,6 +6,9 @@ Disallow: /api/
 # Sitemap
 Sitemap: https://thebullscraft.com/sitemap.xml
 
+# AI / LLM site özeti
+# https://thebullscraft.com/llm.txt
+
 # ── Arama Motorları ───────────────────────────────────────────
 User-agent: Googlebot
 Allow: /
