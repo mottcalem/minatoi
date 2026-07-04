@@ -9,10 +9,24 @@ import { formatTL } from "@/data/products";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "TheBullsCraft — El Yapımı Hakiki Deri Ürünler" },
-      { name: "description", content: "El yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfları. Kapıda ödeme, hızlı kargo. TheBullsCraft — Handcrafted Leather Goods." },
-      { property: "og:title", content: "TheBullsCraft — El Yapımı Hakiki Deri Ürünler" },
+      { title: "TheBullsCraft — El Yapımı Hakiki Deri Cüzdan, Kartlık & Gözlük Kılıfı" },
+      {
+        name: "description",
+        content:
+          "TheBullsCraft el yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfı koleksiyonu. %100 hakiki deri, el dikişi, RFID koruma. Türkiye geneli kapıda ödeme.",
+      },
+      { name: "keywords", content: "hakiki deri cüzdan, el yapımı deri cüzdan, deri kartlık, erkek deri cüzdan, deri gözlük kılıfı, TheBullsCraft" },
+      { property: "og:title", content: "TheBullsCraft — El Yapımı Hakiki Deri Cüzdan & Kartlık" },
+      {
+        property: "og:description",
+        content:
+          "El yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfları. %100 hakiki deri, el dikişi. Kapıda ödeme.",
+      },
+      { property: "og:url", content: "https://thebullscraft.com/" },
+      { property: "og:image", content: "https://thebullscraft.com/images/products/sokrates/man.jpg" },
+      { name: "robots", content: "index, follow" },
     ],
+    links: [{ rel: "canonical", href: "https://thebullscraft.com/" }],
   }),
   loader: async () => {
     const products = await fetchProductsServer();

@@ -77,23 +77,45 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
+    scripts: [
+      {
+        src: "https://www.googletagmanager.com/gtag/js?id=G-R32VEKYQ7R",
+        async: true,
+      },
+      {
+        children: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-R32VEKYQ7R');`,
+      },
+    ],
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "TheBullsCraft — El Yapımı Hakiki Deri Cüzdan, Kartlık & Kılıf" },
+      { name: "description", content: "TheBullsCraft el yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfı koleksiyonu. %100 hakiki deri, el dikişi, Türkiye geneli kapıda ödeme." },
+      { name: "keywords", content: "deri cüzdan, hakiki deri cüzdan, el yapımı deri cüzdan, deri kartlık, erkek deri cüzdan, toptan deri cüzdan, TheBullsCraft" },
+      { name: "author", content: "TheBullsCraft" },
+      { name: "robots", content: "index, follow" },
+      { property: "og:site_name", content: "TheBullsCraft" },
+      { property: "og:title", content: "TheBullsCraft — El Yapımı Hakiki Deri Cüzdan & Kartlık" },
+      { property: "og:description", content: "TheBullsCraft el yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfı koleksiyonu. %100 hakiki deri, el dikişi." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { property: "og:url", content: "https://thebullscraft.com" },
+      { property: "og:image", content: "https://thebullscraft.com/images/og-image.jpg" },
+      { property: "og:locale", content: "tr_TR" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:site", content: "@thebullscraft" },
+      { name: "twitter:title", content: "TheBullsCraft — El Yapımı Hakiki Deri Cüzdan & Kartlık" },
+      { name: "twitter:description", content: "El yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfı koleksiyonu." },
+      { name: "twitter:image", content: "https://thebullscraft.com/images/og-image.jpg" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
+      { rel: "canonical", href: "https://thebullscraft.com" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -110,7 +132,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="tr" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>

@@ -4,6 +4,7 @@ import { useState } from "react";
 type NavItem =
   | { to: "/"; label: string }
   | { to: "/urunler"; label: string }
+  | { to: "/blog"; label: string }
   | { to: "/iletisim"; label: string }
   | { to: "/kategori/$slug"; label: string; slug: string };
 
@@ -12,6 +13,7 @@ const NAV: NavItem[] = [
   { to: "/urunler", label: "Tüm Ürünler" },
   { to: "/kategori/$slug", label: "Deri Kılıf", slug: "kilif" },
   { to: "/kategori/$slug", label: "Cüzdan & Kartlık", slug: "cuzdan" },
+  { to: "/blog", label: "Blog" },
   { to: "/iletisim", label: "İletişim" },
 ];
 
@@ -22,6 +24,18 @@ function NavLink({ item, onClick, className }: { item: NavItem; onClick?: () => 
       <Link
         to="/kategori/$slug"
         params={{ slug: item.slug }}
+        onClick={onClick}
+        className={`${base} ${className ?? ""}`}
+        activeProps={{ className: "text-primary font-semibold" }}
+      >
+        {item.label}
+      </Link>
+    );
+  }
+  if (item.to === "/blog") {
+    return (
+      <Link
+        to="/blog"
         onClick={onClick}
         className={`${base} ${className ?? ""}`}
         activeProps={{ className: "text-primary font-semibold" }}
