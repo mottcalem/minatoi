@@ -6,9 +6,19 @@ import { ProductCard } from "@/components/ProductCard";
 export const Route = createFileRoute("/urunler")({
   head: () => ({
     meta: [
-      { title: "Tüm Ürünler — TheBullsCraft" },
-      { name: "description", content: "TheBullsCraft tüm ürünleri: el yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfları." },
+      { title: "Tüm Ürünler — El Yapımı Hakiki Deri Cüzdan & Kartlık | TheBullsCraft" },
+      {
+        name: "description",
+        content:
+          "TheBullsCraft el yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfları koleksiyonu. %100 hakiki deri, el dikişi, Türkiye geneli kapıda ödeme.",
+      },
+      { name: "keywords", content: "deri cüzdan, hakiki deri kartlık, el yapımı deri, deri gözlük kılıfı, TheBullsCraft ürünler" },
+      { property: "og:title", content: "Tüm Ürünler — TheBullsCraft El Yapımı Deri" },
+      { property: "og:description", content: "El yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfları koleksiyonu." },
+      { property: "og:url", content: "https://thebullscraft.com/urunler" },
+      { name: "robots", content: "index, follow" },
     ],
+    links: [{ rel: "canonical", href: "https://thebullscraft.com/urunler" }],
   }),
   loader: async () => {
     const products = await fetchProductsServer();

@@ -6,12 +6,38 @@ import { ProductCard } from "@/components/ProductCard";
 export const Route = createFileRoute("/kategori/$slug")({
   head: ({ params }) => {
     const cat = CATEGORIES.find((c) => c.slug === params.slug);
-    const title = cat ? `${cat.label} — TheBullsCraft` : "Kategori — TheBullsCraft";
+    const catLabels: Record<string, { title: string; desc: string; keywords: string }> = {
+      cuzdan: {
+        title: "Deri Cüzdan & Kartlık — El Yapımı Hakiki Deri | TheBullsCraft",
+        desc: "El yapımı hakiki deri cüzdan ve kartlık modelleri. SOKRATES, FREGE ve PHILO. %100 hakiki deri, el dikişi, RFID koruma. Kapıda ödeme.",
+        keywords: "deri cüzdan, hakiki deri cüzdan, el yapımı cüzdan, erkek deri cüzdan, deri kartlık, slim kartlık, RFID korumalı cüzdan",
+      },
+      kilif: {
+        title: "Deri Gözlük Kılıfı — El Yapımı Hakiki Deri | TheBullsCraft",
+        desc: "El yapımı hakiki deri gözlük kılıfları. Çıtçıt kapaklı, yumuşak iç astarlı, her boyut gözlüğe uygun. %100 hakiki deri.",
+        keywords: "deri gözlük kılıfı, hakiki deri kılıf, el yapımı gözlük kılıfı, deri aksesuar",
+      },
+      gozluk: {
+        title: "Güneş Gözlüğü — UV Korumalı | TheBullsCraft",
+        desc: "EN ISO 12312-1:2013 standartlarına uygun, CE belgeli, UV korumalı gradient camlı güneş gözlükleri. Urban, Heritage ve Modern seriler.",
+        keywords: "güneş gözlüğü, UV korumalı gözlük, CE belgeli gözlük, gradient cam gözlük",
+      },
+    };
+    const info = catLabels[params.slug];
+    const title = info?.title ?? (cat ? `${cat.label} — TheBullsCraft` : "Kategori — TheBullsCraft");
+    const desc = info?.desc ?? (cat?.description ?? "TheBullsCraft kategori ürünleri.");
+    const canonical = `https://thebullscraft.com/kategori/${params.slug}`;
     return {
       meta: [
         { title },
-        { name: "description", content: cat?.description ?? "TheBullsCraft kategori ürünleri." },
+        { name: "description", content: desc },
+        { name: "keywords", content: info?.keywords ?? "deri ürünler, TheBullsCraft" },
+        { property: "og:title", content: title },
+        { property: "og:description", content: desc },
+        { property: "og:url", content: canonical },
+        { name: "robots", content: "index, follow" },
       ],
+      links: [{ rel: "canonical", href: canonical }],
     };
   },
   loader: async ({ params }) => {

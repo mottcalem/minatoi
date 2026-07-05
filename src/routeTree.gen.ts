@@ -15,10 +15,13 @@ import { Route as KullaniciSozlesmesiRouteImport } from './routes/kullanici-sozl
 import { Route as IptalIadeRouteImport } from './routes/iptal-iade'
 import { Route as IletisimRouteImport } from './routes/iletisim'
 import { Route as GizlilikPolitikasiRouteImport } from './routes/gizlilik-politikasi'
+import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as UrunSlugRouteImport } from './routes/urun.$slug'
 import { Route as KategoriSlugRouteImport } from './routes/kategori.$slug'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
 const UrunlerRoute = UrunlerRouteImport.update({
   id: '/urunler',
@@ -50,6 +53,11 @@ const GizlilikPolitikasiRoute = GizlilikPolitikasiRouteImport.update({
   path: '/gizlilik-politikasi',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -59,6 +67,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BlogRoute,
 } as any)
 const UrunSlugRoute = UrunSlugRouteImport.update({
   id: '/urun/$slug',
@@ -70,18 +83,26 @@ const KategoriSlugRoute = KategoriSlugRouteImport.update({
   path: '/kategori/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/blog': typeof BlogRouteWithChildren
   '/gizlilik-politikasi': typeof GizlilikPolitikasiRoute
   '/iletisim': typeof IletisimRoute
   '/iptal-iade': typeof IptalIadeRoute
   '/kullanici-sozlesmesi': typeof KullaniciSozlesmesiRoute
   '/kvkk': typeof KvkkRoute
   '/urunler': typeof UrunlerRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/kategori/$slug': typeof KategoriSlugRoute
   '/urun/$slug': typeof UrunSlugRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -92,35 +113,43 @@ export interface FileRoutesByTo {
   '/kullanici-sozlesmesi': typeof KullaniciSozlesmesiRoute
   '/kvkk': typeof KvkkRoute
   '/urunler': typeof UrunlerRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/kategori/$slug': typeof KategoriSlugRoute
   '/urun/$slug': typeof UrunSlugRoute
+  '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/blog': typeof BlogRouteWithChildren
   '/gizlilik-politikasi': typeof GizlilikPolitikasiRoute
   '/iletisim': typeof IletisimRoute
   '/iptal-iade': typeof IptalIadeRoute
   '/kullanici-sozlesmesi': typeof KullaniciSozlesmesiRoute
   '/kvkk': typeof KvkkRoute
   '/urunler': typeof UrunlerRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/kategori/$slug': typeof KategoriSlugRoute
   '/urun/$slug': typeof UrunSlugRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/admin'
+    | '/blog'
     | '/gizlilik-politikasi'
     | '/iletisim'
     | '/iptal-iade'
     | '/kullanici-sozlesmesi'
     | '/kvkk'
     | '/urunler'
+    | '/blog/$slug'
     | '/kategori/$slug'
     | '/urun/$slug'
+    | '/blog/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -131,25 +160,31 @@ export interface FileRouteTypes {
     | '/kullanici-sozlesmesi'
     | '/kvkk'
     | '/urunler'
+    | '/blog/$slug'
     | '/kategori/$slug'
     | '/urun/$slug'
+    | '/blog'
   id:
     | '__root__'
     | '/'
     | '/admin'
+    | '/blog'
     | '/gizlilik-politikasi'
     | '/iletisim'
     | '/iptal-iade'
     | '/kullanici-sozlesmesi'
     | '/kvkk'
     | '/urunler'
+    | '/blog/$slug'
     | '/kategori/$slug'
     | '/urun/$slug'
+    | '/blog/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
+  BlogRoute: typeof BlogRouteWithChildren
   GizlilikPolitikasiRoute: typeof GizlilikPolitikasiRoute
   IletisimRoute: typeof IletisimRoute
   IptalIadeRoute: typeof IptalIadeRoute
@@ -204,6 +239,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GizlilikPolitikasiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin': {
       id: '/admin'
       path: '/admin'
@@ -217,6 +259,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof BlogRoute
     }
     '/urun/$slug': {
       id: '/urun/$slug'
@@ -232,12 +281,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KategoriSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof BlogRoute
+    }
   }
 }
+
+interface BlogRouteChildren {
+  BlogSlugRoute: typeof BlogSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogSlugRoute: BlogSlugRoute,
+  BlogIndexRoute: BlogIndexRoute,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
+  BlogRoute: BlogRouteWithChildren,
   GizlilikPolitikasiRoute: GizlilikPolitikasiRoute,
   IletisimRoute: IletisimRoute,
   IptalIadeRoute: IptalIadeRoute,

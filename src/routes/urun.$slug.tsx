@@ -9,11 +9,50 @@ import { ProductCard } from "@/components/ProductCard";
 
 export const Route = createFileRoute("/urun/$slug")({
   head: ({ params }) => {
+    // Loader verisi head()'de mevcut değil; slug'dan anlamlı bir başlık üretelim
+    const slugToTitle: Record<string, { title: string; desc: string; image: string }> = {
+      "sokrates-klasik-cuzdan": {
+        title: "SOKRATES — El Yapımı Hakiki Deri Erkek Cüzdanı | TheBullsCraft",
+        desc: "SOKRATES, %100 hakiki deri el yapımı klasik erkek cüzdanı. 6 kart gözü, RFID koruma, çıtçıtlı bozuk para bölmesi. 749 ₺. Kapıda ödeme.",
+        image: "https://thebullscraft.com/images/products/sokrates/man.jpg",
+      },
+      "frege-kartlik": {
+        title: "FREGE — El Yapımı Hakiki Deri Slim Kartlık | TheBullsCraft",
+        desc: "FREGE hakiki deri slim kartlık. 3-6 kart kapasitesi, ön hızlı erişim bölmesi, el dikişi. 449 ₺. Kapıda ödeme, Türkiye geneli.",
+        image: "https://thebullscraft.com/images/products/frege-kartlik/in-hand.jpg",
+      },
+      "klasik-deri-gozluk-kilifi": {
+        title: "El Yapımı Deri Gözlük Kılıfı | TheBullsCraft",
+        desc: "Hakiki deri el yapımı gözlük kılıfı. Çıtçıt kapaklı, yumuşak iç astarlı. 649 ₺. Türkiye geneli kapıda ödeme.",
+        image: "https://thebullscraft.com/images/products/gozluk-kilifi/kilif7.jpg",
+      },
+      "philo-modern-kartlik": {
+        title: "PHILO — Modern El Yapımı Hakiki Deri Kartlık | TheBullsCraft",
+        desc: "PHILO modern deri kartlık. Balmumu ip, çift iğne saddle stitch, tamamen el işçiliği. 649 ₺. Kapıda ödeme.",
+        image: "https://thebullscraft.com/images/products/philo/wallet-model.jpg",
+      },
+    };
+    const info = slugToTitle[params.slug];
+    const title = info?.title ?? `Ürün Detayı — TheBullsCraft`;
+    const desc = info?.desc ?? "TheBullsCraft el yapımı hakiki deri ürünleri.";
+    const image = info?.image ?? "https://thebullscraft.com/images/og-image.jpg";
+    const canonical = `https://thebullscraft.com/urun/${params.slug}`;
     return {
       meta: [
-        { title: `Ürün — TheBullsCraft` },
-        { property: "og:title", content: `Ürün — TheBullsCraft` },
+        { title },
+        { name: "description", content: desc },
+        { property: "og:title", content: title },
+        { property: "og:description", content: desc },
+        { property: "og:type", content: "product" },
+        { property: "og:url", content: canonical },
+        { property: "og:image", content: image },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: desc },
+        { name: "twitter:image", content: image },
+        { name: "robots", content: "index, follow" },
       ],
+      links: [{ rel: "canonical", href: canonical }],
     };
   },
   loader: async ({ params }) => {
