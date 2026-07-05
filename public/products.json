@@ -14,13 +14,11 @@
       "/images/products/sokrates/open.jpg"
     ],
     "shortDescription": "El yapımı hakiki deri klasik erkek cüzdanı. 6 kart gözü, çıtçıtlı bozuk para bölmesi, RFID koruma.",
-    "description": "SOKRATES, birinci sınıf hakiki deriden el işçiliğiyle üretilen klasik bir erkek cüzdanıdır. Zamansız tasarımı, el dikişi detayları ve doğal deri dokusuyla her stile uyum sağlar. Günlük kullanımda yıpranmaya karşı dayanıklı, kullandıkça güzelleşen bir patina geliştirir.\n\n6 kart gözü, çıtçıtlı bozuk para bölmesi ve iki banknot gözüyle pratik bir organizasyon sunar. RFID koruma teknolojisi ile kartlarınızın bilgilerini güvende tutar.",
+    "description": "SOKRATES, birinci sınıf hakiki deriden el işçiliğiyle üretilen klasik bir erkek cüzdanıdır. Zamansız tasarımı, el dikişi detayları ve doğal deri dokusuyla her stile uyum sağlar. Günlük kullanımda yıpranmaya karşı dayanıklı, kullandıkça güzelleşen bir patina geliştirir.\n\n6 kart gözü ve banknot gözüyle pratik bir organizasyon sunar. RFID koruma teknolojisi ile kartlarınızın bilgilerini güvende tutar.",
     "features": [
       "%100 hakiki deri, el dikişi",
       "6 kart gözü",
-      "Çıtçıtlı bozuk para bölmesi",
-      "RFID koruma",
-      "İki banknot gözü",
+      "Banknot gözü",
       "Kullandıkça güzelleşen patina"
     ],
     "shopierUrl": "https://www.shopier.com/TheBullsCraft/48620514",
@@ -140,5 +138,85 @@
     ],
     "shopierUrl": "https://www.shopier.com/TheBullsCraft/48651012",
     "badge": "Yeni Model"
+  },
+  {
+    "slug": "thales-fermuarli-hakiki-deri-cuzdan-unisex",
+    "name": "THALES - Fermuarlı Hakiki Deri Cüzdan - Unisex",
+    "category": "cuzdan",
+    "price": 1190,
+    "oldPrice": 1790,
+    "image": "/images/products/thales/wallet-open-angle.jpg",
+    "images": [
+      "/images/products/thales/wallet-open-angle.jpg",
+      "/images/products/thales/wallet-open-top.jpg",
+      "/images/products/thales/wallet-detail-zipper.jpg",
+      "/images/products/thales/wallet-front.jpg"
+    ],
+    "shortDescription": "Fermuar detayıyla şık ve işlevsel kullanım",
+    "description": "THALES – El Yapımı Hakiki Deri Fermuarlı Kartlık Cüzdan\n\nMinimal tasarım, gerçek zanaatkârlık ve yıllar içinde karakter kazanan hakiki deri... THALES, günlük hayatta ihtiyaç duyduğunuz kartlarınızı, nakit paranızı ve bozuk paralarınızı tek bir üründe düzenli şekilde taşımanız için tasarlanmıştır.\n\nHer bir THALES cüzdan, geleneksel deri işçiliğiyle elde kesilir, elde dikilir ve tek tek üretilir. Kullanılan hakiki deri, zamanla kullanıcısına özel bir görünüm kazanarak eşsiz bir patina oluşturur. Bu sayede cüzdanınız yıllar geçtikçe daha karakterli ve estetik bir görünüme ulaşır.\n\nOrta bölümde yer alan fermuarlı göz, bozuk para, anahtar veya küçük değerli eşyalarınızı güvenle saklamanıza olanak tanırken; ön ve arka kart bölmeleri kartlarınıza kolay erişim sağlar. İnce yapısı sayesinde cepte hacim oluşturmaz ve günlük kullanım için maksimum konfor sunar.\n\nÜrün Özellikleri\n%100 hakiki dana derisi\nTamamen el yapımı üretim\nElde kesim ve elde dikiş\nDayanıklı ve uzun ömürlü kullanım\nOrta bölümde fermuarlı saklama gözü\nKart ve katlanmış nakit taşıma alanları\nİnce ve ergonomik tasarım\nZamanla doğal patina oluşturarak kendine özgü görünüm kazanır\nHer ürün doğal deri yapısı nedeniyle kendine özgü doku ve renk farklılıklarına sahiptir.\nNeden THALES?\n\n✔ El işçiliğiyle üretilen özgün tasarım\n✔ Günlük kullanım için kompakt ve fonksiyonel yapı\n✔ Yıllarca kullanılabilecek sağlam deri ve kaliteli işçilik\n✔ Zamansız, sade ve şık görünüm\n✔ Kendiniz veya sevdikleriniz için özel bir hediye seçeneği\n\nNot: Ürün tamamen doğal hakiki deriden üretildiği için her cüzdanın damar yapısı, renk geçişleri ve yüzey dokusu birbirinden farklıdır. Bu farklılıklar ürünün doğallığını ve el yapımı olmasının en önemli göstergelerindendir.",
+    "features": [
+      "%100 Hakiki Deri",
+      "Tamamen El İşçiliği",
+      "Balmumu İp / Dikiş",
+      "Dayanıklı Fermuar"
+    ],
+    "shopierUrl": "https://www.shopier.com/TheBullsCraft/48672894",
+    "badge": "Unisex"
+  },
+  {
+    "slug": "frege-minimalist-kartlik-kirmizi-hakiki-tiana-deri-el-yapimi",
+    "name": "FREGE - Minimalist Kartlık | Kırmızı | Hakiki Crazy Deri | El Yapımı",
+    "category": "cuzdan",
+    "price": 449,
+    "oldPrice": 699,
+    "image": "/images/products/frege-kirmizi/kartlik-03-lifestyle.jpg",
+    "images": [
+      "/images/products/frege-kirmizi/kartlik-03-lifestyle.jpg",
+      "/images/products/frege-kirmizi/kartlik-01-studio.jpg",
+      "/images/products/frege-kirmizi/kartlik-02-flatlay.jpg",
+      "/images/products/frege-kirmizi/kartlik-04-macro.jpg"
+    ],
+    "shortDescription": "Kırmızının asaleti Tiana deride buluştu",
+    "description": "FREGE - Minimalist Kartlık | Kırmızı | Hakiki Crazy Deri | El Yapımı\nZamansız Tasarım, Günlük Konfor\n\nFREGE Minimalist Kartlık, gereksiz detaylardan uzak, sade ve şık bir tasarıma sahiptir. %100 hakiki Crazy deri kullanılarak tamamen el işçiliğiyle üretilmiştir. Her parçası tek tek kesilmiş, özenle elde dikilmiş ve uzun yıllar keyifle kullanmanız için hazırlanmıştır.\n\nCanlı kırmızı rengi ile klasik deri ürünlere modern bir dokunuş katan FREGE, ince yapısı sayesinde cebinizde veya çantanızda hacim oluşturmaz. Günlük kullanım için ideal olan bu kartlık; kredi kartlarınızı, kimlik kartınızı ve sık kullandığınız kartları güvenle taşımanıza yardımcı olur.\n\nHakiki Crazy deri, doğal yapısı sayesinde zamanla kendine özgü bir görünüm kazanır. Kullanıldıkça karakteri oturur ve size özel bir ürüne dönüşür.\n\nÖne Çıkan Özellikler\n%100 hakiki Crazy deri\nTamamen el yapımı üretim\nEl dikişi ile uzun ömürlü kullanım\nMinimal ve ince tasarım\nGünlük kullanım için ideal\nZamanla doğal patina oluşturan hakiki deri\nKırmızı renk seçeneği\nKart Kapasitesi\n\nKartların kalınlığına bağlı olarak 4-6 kart rahatlıkla taşınabilir. İlk kullanımlarda deri daha sıkı hissedilebilir; kullanım süresiyle birlikte kartlığınız formunu alarak daha konforlu hale gelir.\n\nNeden Hakiki Deri?\n\nHakiki deri, sentetik malzemeler gibi zamanla yıpranıp dökülmez. Aksine kullanıldıkça güzelleşir, doğal dokusunu korur ve yıllarca size eşlik eder. Her deri parçasının kendine özgü damar yapısı ve dokusu bulunduğundan, üretilen her FREGE kartlık tamamen benzersizdir.\n\nNot: Hakiki derinin doğal yapısından kaynaklanan damar izleri, ton farklılıkları ve küçük doğal izler ürünün kusuru değil, gerçek deri olduğunun göstergesidir. Bu nedenle her ürün kendine özgü bir karakter taşır.",
+    "features": [
+      "%100 hakiki Crazy deri",
+      "Tamamen el yapımı üretim",
+      "El dikişi ile uzun ömürlü kullanım",
+      "Minimal ve ince tasarım",
+      "Günlük kullanım için ideal",
+      "Zamanla doğal patina oluşturan hakiki deri",
+      "Kırmızı renk seçeneği"
+    ],
+    "shopierUrl": "https://www.shopier.com/TheBullsCraft/48678846",
+    "badge": "Yeni Renk"
+  },
+  {
+    "slug": "frege-minimalist-haki-yesili-kartlik",
+    "name": "FREGE - Minimalist Haki Yeşili Kartlık",
+    "category": "cuzdan",
+    "price": 449,
+    "oldPrice": 699,
+    "image": "/images/products/frege-haki/cardholder-model.jpg",
+    "images": [
+      "/images/products/frege-haki/cardholder-model.jpg",
+      "/images/products/frege-haki/kartlik-1-marble-flatlay.jpg",
+      "/images/products/frege-haki/kartlik-2-hand-outdoor.jpg",
+      "/images/products/frege-haki/kartlik-3-cafe.jpg",
+      "/images/products/frege-haki/kartlik-4-slate-moody.jpg",
+      "/images/products/frege-haki/kartlik-5-linen-natural.jpg"
+    ],
+    "shortDescription": "Haki yeşilinin muazzam görünümü ile tanışın",
+    "description": "FREGE - Minimalist Haki Yeşili Kartlık\n\nDoğallığın ve zarafetin buluştuğu minimalist tasarım.\n\nFREGE Minimalist Kartlık, doğal haki yeşili tonu ve el işçiliğiyle günlük kullanım için hem şık hem de işlevsel bir alternatif sunar. Her bir kartlık, %100 hakiki Tiana deri kullanılarak elde kesilir ve tek tek elde dikilir. Derinin doğal dokusu sayesinde her ürün kendine özgü izler ve karakter taşır.\n\nİnce yapısı sayesinde cebinizde gereksiz hacim oluşturmazken, ihtiyaç duyduğunuz kartları düzenli bir şekilde yanınızda taşımanıza olanak sağlar. Zamanla oluşan doğal patina ile deri daha da güzelleşir ve size özel bir görünüm kazanır.\n\nÖne Çıkan Özellikler\n%100 hakiki Tiana deri\nTamamen el kesimi ve el dikişi\nMinimalist ve ince tasarım\nYaklaşık 6-8 kart taşıma kapasitesi\nGünlük kullanım için hafif ve ergonomik\nZamanla karakter kazanan doğal deri yüzey\nUzun ömürlü ve sağlam el işçiliği\n\nFREGE, yalnızca bir kartlık değil; geleneksel deri işçiliğini modern tasarımla buluşturan, yıllarca keyifle kullanabileceğiniz zamansız bir aksesuardır.\n\nNot: Hakiki derinin doğal yapısı nedeniyle her ürünün damar yapısı, ton geçişleri ve yüzey dokusu birbirinden farklıdır. Bu farklılıklar ürünün tamamen doğal ve benzersiz olduğunun göstergesidir.",
+    "features": [
+      "%100 hakiki Tiana deri",
+      "Tamamen el kesimi ve el dikişi",
+      "Minimalist ve ince tasarım",
+      "Yaklaşık 6-8 kart taşıma kapasitesi",
+      "Günlük kullanım için hafif ve ergonomik",
+      "Zamanla karakter kazanan doğal deri yüzey",
+      "Uzun ömürlü ve sağlam el işçiliği"
+    ],
+    "shopierUrl": "https://www.shopier.com/TheBullsCraft/48683845",
+    "badge": "Yeni Renk"
   }
 ]
