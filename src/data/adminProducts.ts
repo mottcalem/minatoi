@@ -59,7 +59,7 @@ export async function fetchProductsServer(): Promise<Product[]> {
   // Sunucu ortamı: doğrudan diskten oku (relative fetch SSR'de çalışmaz)
   if (typeof window === "undefined") {
     const fromDisk = await readProductsFromDisk();
-    if (fromDisk !== null) return [...fromDisk].reverse();
+    if (fromDisk !== null) return fromDisk;
     console.warn("[fetchProductsServer] Disk read failed, falling back to empty list");
     return [];
   }
@@ -84,7 +84,7 @@ async function fetchProductsClient(): Promise<Product[]> {
       if (text && text.trim().startsWith("[")) {
         const data = JSON.parse(text);
         if (Array.isArray(data) && data.length > 0) {
-          return [...(data as Product[])].reverse();
+          return data as Product[];
         }
       }
     }
@@ -102,7 +102,7 @@ async function fetchProductsClient(): Promise<Product[]> {
       const text = await res.text();
       if (text && text.trim().startsWith("[")) {
         const data = JSON.parse(text);
-        if (Array.isArray(data)) return [...(data as Product[])].reverse();
+        if (Array.isArray(data)) return data as Product[];
       }
     }
   } catch (err) {

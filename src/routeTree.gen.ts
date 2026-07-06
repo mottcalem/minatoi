@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UrunlerRouteImport } from './routes/urunler'
+import { Route as MesafeliSatisSozlesmesiRouteImport } from './routes/mesafeli-satis-sozlesmesi'
 import { Route as KvkkRouteImport } from './routes/kvkk'
 import { Route as KullaniciSozlesmesiRouteImport } from './routes/kullanici-sozlesmesi'
 import { Route as IptalIadeRouteImport } from './routes/iptal-iade'
@@ -26,6 +27,11 @@ import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 const UrunlerRoute = UrunlerRouteImport.update({
   id: '/urunler',
   path: '/urunler',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MesafeliSatisSozlesmesiRoute = MesafeliSatisSozlesmesiRouteImport.update({
+  id: '/mesafeli-satis-sozlesmesi',
+  path: '/mesafeli-satis-sozlesmesi',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KvkkRoute = KvkkRouteImport.update({
@@ -98,6 +104,7 @@ export interface FileRoutesByFullPath {
   '/iptal-iade': typeof IptalIadeRoute
   '/kullanici-sozlesmesi': typeof KullaniciSozlesmesiRoute
   '/kvkk': typeof KvkkRoute
+  '/mesafeli-satis-sozlesmesi': typeof MesafeliSatisSozlesmesiRoute
   '/urunler': typeof UrunlerRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/kategori/$slug': typeof KategoriSlugRoute
@@ -112,6 +119,7 @@ export interface FileRoutesByTo {
   '/iptal-iade': typeof IptalIadeRoute
   '/kullanici-sozlesmesi': typeof KullaniciSozlesmesiRoute
   '/kvkk': typeof KvkkRoute
+  '/mesafeli-satis-sozlesmesi': typeof MesafeliSatisSozlesmesiRoute
   '/urunler': typeof UrunlerRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/kategori/$slug': typeof KategoriSlugRoute
@@ -128,6 +136,7 @@ export interface FileRoutesById {
   '/iptal-iade': typeof IptalIadeRoute
   '/kullanici-sozlesmesi': typeof KullaniciSozlesmesiRoute
   '/kvkk': typeof KvkkRoute
+  '/mesafeli-satis-sozlesmesi': typeof MesafeliSatisSozlesmesiRoute
   '/urunler': typeof UrunlerRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/kategori/$slug': typeof KategoriSlugRoute
@@ -145,6 +154,7 @@ export interface FileRouteTypes {
     | '/iptal-iade'
     | '/kullanici-sozlesmesi'
     | '/kvkk'
+    | '/mesafeli-satis-sozlesmesi'
     | '/urunler'
     | '/blog/$slug'
     | '/kategori/$slug'
@@ -159,6 +169,7 @@ export interface FileRouteTypes {
     | '/iptal-iade'
     | '/kullanici-sozlesmesi'
     | '/kvkk'
+    | '/mesafeli-satis-sozlesmesi'
     | '/urunler'
     | '/blog/$slug'
     | '/kategori/$slug'
@@ -174,6 +185,7 @@ export interface FileRouteTypes {
     | '/iptal-iade'
     | '/kullanici-sozlesmesi'
     | '/kvkk'
+    | '/mesafeli-satis-sozlesmesi'
     | '/urunler'
     | '/blog/$slug'
     | '/kategori/$slug'
@@ -190,6 +202,7 @@ export interface RootRouteChildren {
   IptalIadeRoute: typeof IptalIadeRoute
   KullaniciSozlesmesiRoute: typeof KullaniciSozlesmesiRoute
   KvkkRoute: typeof KvkkRoute
+  MesafeliSatisSozlesmesiRoute: typeof MesafeliSatisSozlesmesiRoute
   UrunlerRoute: typeof UrunlerRoute
   KategoriSlugRoute: typeof KategoriSlugRoute
   UrunSlugRoute: typeof UrunSlugRoute
@@ -202,6 +215,13 @@ declare module '@tanstack/react-router' {
       path: '/urunler'
       fullPath: '/urunler'
       preLoaderRoute: typeof UrunlerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mesafeli-satis-sozlesmesi': {
+      id: '/mesafeli-satis-sozlesmesi'
+      path: '/mesafeli-satis-sozlesmesi'
+      fullPath: '/mesafeli-satis-sozlesmesi'
+      preLoaderRoute: typeof MesafeliSatisSozlesmesiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kvkk': {
@@ -312,6 +332,7 @@ const rootRouteChildren: RootRouteChildren = {
   IptalIadeRoute: IptalIadeRoute,
   KullaniciSozlesmesiRoute: KullaniciSozlesmesiRoute,
   KvkkRoute: KvkkRoute,
+  MesafeliSatisSozlesmesiRoute: MesafeliSatisSozlesmesiRoute,
   UrunlerRoute: UrunlerRoute,
   KategoriSlugRoute: KategoriSlugRoute,
   UrunSlugRoute: UrunSlugRoute,

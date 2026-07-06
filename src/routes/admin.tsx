@@ -298,6 +298,11 @@ function AdminPage({ initialProducts, onLogout }: { initialProducts: Product[]; 
     setConfirmDelete(null);
   }
 
+  async function handleSetFeatured(slug: string) {
+    const updated = products.map(p => ({ ...p, featured: p.slug === slug ? true : undefined }));
+    await persist(updated, "Öne çıkan ürün güncellendi.");
+  }
+
   const filtered = filterCat === "all" ? products : products.filter(p => p.category === filterCat);
 
   return (
@@ -390,6 +395,7 @@ function AdminPage({ initialProducts, onLogout }: { initialProducts: Product[]; 
                   <th className="px-4 py-3">Kategori</th>
                   <th className="px-4 py-3 text-right">Fiyat</th>
                   <th className="px-4 py-3 text-center">Badge</th>
+                  <th className="px-4 py-3 text-center">Öne Çıkan</th>
                   <th className="px-4 py-3 text-right">İşlemler</th>
                 </tr>
               </thead>
@@ -413,6 +419,20 @@ function AdminPage({ initialProducts, onLogout }: { initialProducts: Product[]; 
                     </td>
                     <td className="px-4 py-3 text-center">
                       {p.badge ? <Badge color="amber">{p.badge}</Badge> : <span className="text-stone-300">—</span>}
+                    </td>
+                    <td className="px-4 py-3 text-center">
+                      {p.featured ? (
+                        <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold text-amber-800">
+                          ★ Öne Çıkan
+                        </span>
+                      ) : (
+                        <button
+                          onClick={() => handleSetFeatured(p.slug)}
+                          className="rounded-full border border-stone-200 px-3 py-1 text-xs font-medium text-stone-400 hover:border-amber-300 hover:text-amber-700 hover:bg-amber-50 transition"
+                        >
+                          Seç
+                        </button>
+                      )}
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-end gap-2">

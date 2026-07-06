@@ -49,6 +49,7 @@ export function Footer() {
           <h4 className="mt-5 text-sm font-semibold text-stone-800">Mevzuat</h4>
           <ul className="mt-3 space-y-2 text-sm text-stone-500">
             <li><Link to="/kullanici-sozlesmesi" className="hover:text-primary transition-colors">Kullanıcı Sözleşmesi</Link></li>
+            <li><Link to="/mesafeli-satis-sozlesmesi" className="hover:text-primary transition-colors">Mesafeli Satış Sözleşmesi</Link></li>
             <li><Link to="/iptal-iade" className="hover:text-primary transition-colors">İptal & İade</Link></li>
             <li><Link to="/gizlilik-politikasi" className="hover:text-primary transition-colors">Gizlilik Politikası</Link></li>
             <li><Link to="/kvkk" className="hover:text-primary transition-colors">KVKK Aydınlatma Metni</Link></li>

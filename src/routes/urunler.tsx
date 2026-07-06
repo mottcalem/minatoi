@@ -21,7 +21,8 @@ export const Route = createFileRoute("/urunler")({
     links: [{ rel: "canonical", href: "https://thebullscraft.com/urunler" }],
   }),
   loader: async () => {
-    const products = await fetchProductsServer();
+    const all = await fetchProductsServer();
+    const products = [...all].reverse();
     return { products };
   },
   component: AllProducts,

@@ -57,8 +57,9 @@ export default defineEventHandler(async (event) => {
     urlEntry("/iletisim",            { changefreq: "yearly",  priority: 0.6  }),
     urlEntry("/kvkk",                { changefreq: "yearly",  priority: 0.3  }),
     urlEntry("/gizlilik-politikasi", { changefreq: "yearly",  priority: 0.3  }),
-    urlEntry("/kullanici-sozlesmesi",{ changefreq: "yearly",  priority: 0.3  }),
-    urlEntry("/iptal-iade",          { changefreq: "yearly",  priority: 0.3  }),
+    urlEntry("/kullanici-sozlesmesi",      { changefreq: "yearly",  priority: 0.3  }),
+    urlEntry("/mesafeli-satis-sozlesmesi", { changefreq: "yearly",  priority: 0.3  }),
+    urlEntry("/iptal-iade",                { changefreq: "yearly",  priority: 0.3  }),
     ...productSlugs.map((s) => urlEntry(`/urun/${s}`,  { changefreq: "monthly", priority: 0.8  })),
     ...BLOG_SLUGS.map((s)   => urlEntry(`/blog/${s}`,  { changefreq: "monthly", priority: 0.75 })),
   ];

@@ -44,7 +44,7 @@ export const Route = createFileRoute("/kategori/$slug")({
     const cat = CATEGORIES.find((c) => c.slug === params.slug);
     if (!cat) throw notFound();
     const all = await fetchProductsServer();
-    const products = all.filter((p) => p.category === (params.slug as Category));
+    const products = [...all].reverse().filter((p) => p.category === (params.slug as Category));
     return { cat, products };
   },
   notFoundComponent: () => (

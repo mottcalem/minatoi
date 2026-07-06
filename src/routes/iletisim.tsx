@@ -19,6 +19,7 @@ function Contact() {
       <p className="mt-3 max-w-2xl text-muted-foreground">
         Soruların, özel sipariş talepleri veya toptan alışveriş için en hızlı yol WhatsApp. Genellikle aynı gün dönüş yapıyoruz.
       </p>
+
       <div className="mt-8 grid gap-5 sm:grid-cols-2">
         <div className="rounded-2xl border border-border bg-card p-6">
           <div className="text-3xl">💬</div>
@@ -62,6 +63,24 @@ function Contact() {
           <div><dt className="inline font-medium text-foreground">E-posta: </dt><dd className="inline">{SITE.email}</dd></div>
           <div><dt className="inline font-medium text-foreground">Telefon: </dt><dd className="inline">{SITE.phone}</dd></div>
         </dl>
+
+        <div className="mt-4 border-t border-border pt-4 grid gap-3 sm:grid-cols-2">
+          <div>
+            <p className="font-medium text-foreground">📍 Merkez Adres</p>
+            <p className="mt-0.5">
+              Cemil Meriç Mah. Ocak Sk. No: 18 D: 4<br />
+              Ümraniye / İstanbul
+            </p>
+          </div>
+          <div>
+            <p className="font-medium text-foreground">🏭 Üretim Adresi</p>
+            <p className="mt-0.5">
+              Değirmenaltı Mah. Adnan Karaevli Sk. No: 7-9B<br />
+              Süleymanpaşa / Tekirdağ
+            </p>
+          </div>
+        </div>
+
         <div className="mt-4 border-t border-border pt-4">
           <strong className="text-foreground">Çalışma saatleri:</strong> Hafta içi 09:00 – 19:00 · Cumartesi 10:00 – 17:00<br />
           <strong className="text-foreground">Kargo:</strong> Aynı gün kargolama (saat 15:00'e kadar olan siparişler).<br />

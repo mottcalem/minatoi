@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import craftImg from "@/assets/craft.jpg";
-import { CATEGORIES, type Product } from "@/data/products";
+import { CATEGORIES } from "@/data/products";
 import { fetchProductsServer } from "@/data/adminProducts";
 import { ProductCard } from "@/components/ProductCard";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -39,6 +39,7 @@ function Index() {
   const { products } = Route.useLoaderData();
   const cuzdanlar = products.filter((p) => p.category === "cuzdan");
   const kiliflar  = products.filter((p) => p.category === "kilif");
+  const featuredProduct = products.find((p) => p.featured) ?? cuzdanlar[0] ?? products[0];
 
   return (
     <>
@@ -87,10 +88,10 @@ function Index() {
           {/* Hero görsel */}
           <div className="relative hidden lg:block">
             <div className="absolute -inset-8 -z-10 rounded-[3rem] bg-gradient-gold opacity-10 blur-3xl" />
-            {cuzdanlar[0] ? (
+            {featuredProduct ? (
               <div className="relative">
                 <img
-                  src={cuzdanlar[0].images?.[8] ?? cuzdanlar[0].image}
+                  src={featuredProduct.images?.[8] ?? featuredProduct.images?.[0] ?? featuredProduct.image}
                   alt="El yapımı deri cüzdan"
                   className="w-full rounded-[2rem] object-cover shadow-elegant max-h-[560px]"
                   loading="eager"
@@ -105,9 +106,9 @@ function Index() {
                   }}
                 />
                 <div className="absolute -bottom-5 -left-6 rounded-2xl bg-white px-5 py-3.5 shadow-elegant">
-                  <p className="text-xs text-stone-400">En Çok Satan</p>
-                  <p className="mt-0.5 font-display text-sm font-bold text-stone-900">{cuzdanlar[0].name.split("—")[0].trim()}</p>
-                  <p className="text-sm font-semibold text-primary">{formatTL(cuzdanlar[0].price)}</p>
+                  <p className="text-xs text-stone-400">{featuredProduct.badge ?? "Öne Çıkan"}</p>
+                  <p className="mt-0.5 font-display text-sm font-bold text-stone-900">{featuredProduct.name.split("—")[0].trim()}</p>
+                  <p className="text-sm font-semibold text-primary">{formatTL(featuredProduct.price)}</p>
                 </div>
               </div>
             ) : (

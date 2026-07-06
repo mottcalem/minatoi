@@ -106,6 +106,7 @@ export type Product = {
   features: string[];
   shopierUrl: string;
   badge?: string;
+  featured?: boolean;
   glasses?: GlassesDetails;
   wallet?: WalletDetails;
 };
