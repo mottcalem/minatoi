@@ -86,7 +86,7 @@ function Index() {
           </div>
 
           {/* Hero görsel */}
-          <div className="relative hidden lg:block">
+          <div className="relative">
             <div className="absolute -inset-8 -z-10 rounded-[3rem] bg-gradient-gold opacity-10 blur-3xl" />
             {featuredProduct ? (
               <div className="relative">
