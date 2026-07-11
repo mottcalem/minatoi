@@ -151,6 +151,17 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen flex-col overflow-x-hidden">
         <Header />
+        <div className="w-full bg-stone-900 text-white">
+          <div className="mx-auto flex max-w-7xl items-center justify-center gap-2 px-4 py-2 text-center">
+            <span className="text-sm font-semibold tracking-wide">
+              Kapıda Ödeme · Tüm Türkiye
+            </span>
+            <span className="hidden sm:inline text-stone-400">|</span>
+            <span className="hidden sm:inline text-sm text-stone-300">
+              2. Üründe %25 İndirim
+            </span>
+          </div>
+        </div>
         <main className="flex-1">
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
           <Outlet />

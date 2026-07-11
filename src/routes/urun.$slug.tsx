@@ -8,35 +8,31 @@ import { CashOnDeliveryForm } from "@/components/CashOnDeliveryForm";
 import { ProductCard } from "@/components/ProductCard";
 
 export const Route = createFileRoute("/urun/$slug")({
-  head: ({ params }) => {
-    // Loader verisi head()'de mevcut değil; slug'dan anlamlı bir başlık üretelim
-    const slugToTitle: Record<string, { title: string; desc: string; image: string }> = {
-      "sokrates-klasik-cuzdan": {
-        title: "SOKRATES — El Yapımı Hakiki Deri Erkek Cüzdanı | TheBullsCraft",
-        desc: "SOKRATES, %100 hakiki deri el yapımı klasik erkek cüzdanı. 6 kart gözü, RFID koruma, çıtçıtlı bozuk para bölmesi. 749 ₺. Kapıda ödeme.",
-        image: "https://thebullscraft.com/images/products/sokrates/man.jpg",
-      },
-      "frege-kartlik": {
-        title: "FREGE — El Yapımı Hakiki Deri Slim Kartlık | TheBullsCraft",
-        desc: "FREGE hakiki deri slim kartlık. 3-6 kart kapasitesi, ön hızlı erişim bölmesi, el dikişi. 449 ₺. Kapıda ödeme, Türkiye geneli.",
-        image: "https://thebullscraft.com/images/products/frege-kartlik/in-hand.jpg",
-      },
-      "klasik-deri-gozluk-kilifi": {
-        title: "El Yapımı Deri Gözlük Kılıfı | TheBullsCraft",
-        desc: "Hakiki deri el yapımı gözlük kılıfı. Çıtçıt kapaklı, yumuşak iç astarlı. 649 ₺. Türkiye geneli kapıda ödeme.",
-        image: "https://thebullscraft.com/images/products/gozluk-kilifi/kilif7.jpg",
-      },
-      "philo-modern-kartlik": {
-        title: "PHILO — Modern El Yapımı Hakiki Deri Kartlık | TheBullsCraft",
-        desc: "PHILO modern deri kartlık. Balmumu ip, çift iğne saddle stitch, tamamen el işçiliği. 649 ₺. Kapıda ödeme.",
-        image: "https://thebullscraft.com/images/products/philo/wallet-model.jpg",
-      },
-    };
-    const info = slugToTitle[params.slug];
-    const title = info?.title ?? `Ürün Detayı — TheBullsCraft`;
-    const desc = info?.desc ?? "TheBullsCraft el yapımı hakiki deri ürünleri.";
-    const image = info?.image ?? "https://thebullscraft.com/images/og-image.jpg";
-    const canonical = `https://thebullscraft.com/urun/${params.slug}`;
+  head: ({ loaderData, params }) => {
+    const product = loaderData?.product;
+    const SITE = "https://thebullscraft.com";
+    const canonical = `${SITE}/urun/${params.slug}`;
+
+    if (!product) {
+      return {
+        meta: [
+          { title: "Ürün Bulunamadı — TheBullsCraft" },
+          { name: "robots", content: "noindex, follow" },
+        ],
+        links: [{ rel: "canonical", href: canonical }],
+      };
+    }
+
+    const catLabel =
+      CATEGORIES.find((c) => c.slug === product.category)?.label ?? "";
+    const title = `${product.name} | TheBullsCraft`;
+    const desc = product.shortDescription
+      ? `${product.shortDescription} ${formatTL(product.price)}. Kapıda ödeme, Türkiye geneli kargo.`
+      : `${catLabel} — ${formatTL(product.price)}. Kapıda ödeme, Türkiye geneli kargo.`;
+    const image = product.images?.[0]
+      ? `${SITE}${product.images[0]}`
+      : `${SITE}${product.image}`;
+
     return {
       meta: [
         { title },
