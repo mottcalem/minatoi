@@ -140,30 +140,6 @@
     "badge": "Yeni Model"
   },
   {
-    "slug": "thales-fermuarli-hakiki-deri-cuzdan-unisex",
-    "name": "THALES - Fermuarlı Hakiki Deri Cüzdan - Unisex",
-    "category": "cuzdan",
-    "price": 1190,
-    "oldPrice": 1790,
-    "image": "/images/products/thales/wallet-open-angle.jpg",
-    "images": [
-      "/images/products/thales/wallet-open-angle.jpg",
-      "/images/products/thales/wallet-open-top.jpg",
-      "/images/products/thales/wallet-detail-zipper.jpg",
-      "/images/products/thales/wallet-front.jpg"
-    ],
-    "shortDescription": "Fermuar detayıyla şık ve işlevsel kullanım",
-    "description": "THALES – El Yapımı Hakiki Deri Fermuarlı Kartlık Cüzdan\n\nMinimal tasarım, gerçek zanaatkârlık ve yıllar içinde karakter kazanan hakiki deri... THALES, günlük hayatta ihtiyaç duyduğunuz kartlarınızı, nakit paranızı ve bozuk paralarınızı tek bir üründe düzenli şekilde taşımanız için tasarlanmıştır.\n\nHer bir THALES cüzdan, geleneksel deri işçiliğiyle elde kesilir, elde dikilir ve tek tek üretilir. Kullanılan hakiki deri, zamanla kullanıcısına özel bir görünüm kazanarak eşsiz bir patina oluşturur. Bu sayede cüzdanınız yıllar geçtikçe daha karakterli ve estetik bir görünüme ulaşır.\n\nOrta bölümde yer alan fermuarlı göz, bozuk para, anahtar veya küçük değerli eşyalarınızı güvenle saklamanıza olanak tanırken; ön ve arka kart bölmeleri kartlarınıza kolay erişim sağlar. İnce yapısı sayesinde cepte hacim oluşturmaz ve günlük kullanım için maksimum konfor sunar.\n\nÜrün Özellikleri\n%100 hakiki dana derisi\nTamamen el yapımı üretim\nElde kesim ve elde dikiş\nDayanıklı ve uzun ömürlü kullanım\nOrta bölümde fermuarlı saklama gözü\nKart ve katlanmış nakit taşıma alanları\nİnce ve ergonomik tasarım\nZamanla doğal patina oluşturarak kendine özgü görünüm kazanır\nHer ürün doğal deri yapısı nedeniyle kendine özgü doku ve renk farklılıklarına sahiptir.\nNeden THALES?\n\n✔ El işçiliğiyle üretilen özgün tasarım\n✔ Günlük kullanım için kompakt ve fonksiyonel yapı\n✔ Yıllarca kullanılabilecek sağlam deri ve kaliteli işçilik\n✔ Zamansız, sade ve şık görünüm\n✔ Kendiniz veya sevdikleriniz için özel bir hediye seçeneği\n\nNot: Ürün tamamen doğal hakiki deriden üretildiği için her cüzdanın damar yapısı, renk geçişleri ve yüzey dokusu birbirinden farklıdır. Bu farklılıklar ürünün doğallığını ve el yapımı olmasının en önemli göstergelerindendir.",
-    "features": [
-      "%100 Hakiki Deri",
-      "Tamamen El İşçiliği",
-      "Balmumu İp / Dikiş",
-      "Dayanıklı Fermuar"
-    ],
-    "shopierUrl": "https://www.shopier.com/TheBullsCraft/48672894",
-    "badge": "Unisex"
-  },
-  {
     "slug": "frege-minimalist-kartlik-kirmizi-hakiki-tiana-deri-el-yapimi",
     "name": "FREGE - Minimalist Kartlık | Kırmızı | Hakiki Crazy Deri | El Yapımı",
     "category": "cuzdan",
@@ -218,5 +194,85 @@
     ],
     "shopierUrl": "https://www.shopier.com/TheBullsCraft/48683845",
     "badge": "Yeni Renk"
+  },
+  {
+    "slug": "philo-modern-v2-hakiki-deri-kartlik",
+    "name": "Philo Modern v2 Hakiki Deri Kartlık",
+    "category": "cuzdan",
+    "price": 790,
+    "oldPrice": 990,
+    "image": "/images/products/philo-modern/01.png",
+    "images": [
+      "/images/products/philo-modern/01.png",
+      "/images/products/philo-modern/wallet_scene2.jpg",
+      "/images/products/philo-modern/wallet_scene3.jpg",
+      "/images/products/philo-modern/wallet_scene4.jpg"
+    ],
+    "shortDescription": "Kırmızı ile haki yeşilinin kusursuz uyumu",
+    "description": "PHILO MODERN – Tiana & Crazy Derinin Kusursuz Uyumu\n\nTiana derinin pürüzsüz ve rafine dokusu ile Crazy Horse derinin karakter kazanan doğal yüzeyi, PHILO MODERN modelinde benzersiz bir uyumla bir araya geliyor. Her detayında ustalık barındıran bu model, yalnızca bir cüzdan değil; zamanla size özel bir kimlik kazanan el yapımı bir deri aksesuar.\n\nBirinci sınıf hakiki dana derisinden üretilen PHILO MODERN, tamamen elde kesilir, kenarları tek tek işlenir ve çift iğne el dikişi tekniğiyle dikilir. Makine dikişine kıyasla çok daha dayanıklı olan bu geleneksel işçilik, uzun yıllar güvenle kullanabileceğiniz sağlam bir yapı sunar.\n\nKompakt tasarımı sayesinde cebinizde minimum yer kaplarken, kartlarınızı ve nakit paranızı düzenli şekilde taşımanıza olanak tanır. Günlük kullanım için tasarlanan sade çizgileri, premium malzeme kalitesiyle birleşerek zamansız bir şıklık sunar.\n\nHer PHILO MODERN, seri üretim anlayışından uzak; ustasının emeğini, derinin doğallığını ve yıllar boyunca güzelleşecek karakterini taşıyan özel bir parçadır.\n\nEl yapımı. Hakiki deri. Zamana meydan okuyan işçilik.",
+    "features": [
+      "%100 el işçiliği",
+      "Hakiki dana derisi",
+      "Minimal ve fonksiyonel tasarım",
+      "Uzun ömürlü kullanım"
+    ],
+    "shopierUrl": "https://www.shopier.com/TheBullsCraft/48793253",
+    "badge": "Yeni",
+    "featured": true
+  },
+  {
+    "slug": "sokrates-modern-hakiki-erkek-deri-cuzdani",
+    "name": "SOKRATES Modern - Hakiki Erkek Deri Cüzdanı",
+    "category": "cuzdan",
+    "price": 749,
+    "oldPrice": 1390,
+    "image": "/images/products/sokrates-modern/wallet-3-open-flat.jpg",
+    "images": [
+      "/images/products/sokrates-modern/wallet-3-open-flat.jpg",
+      "/images/products/sokrates-modern/wallet-1-front.jpg",
+      "/images/products/sokrates-modern/wallet-4-open-standing.jpg",
+      "/images/products/sokrates-modern/wallet-2-side.jpg",
+      "/images/products/sokrates-modern/man2.png"
+    ],
+    "shortDescription": "Renklerin muhteşem uyumu crazy deride birleşti",
+    "description": "Sadeliğin zamansız şıklıkla buluştuğu bir tasarım.\n\nTamamen hakiki dana derisinden üretilen bu el yapımı erkek cüzdanı, ustalıkla tek tek kesilip geleneksel çift iğne (saddle stitch) tekniğiyle elde dikilmiştir. Makine dikişine göre çok daha dayanıklı olan bu teknik, yıllar boyunca güvenle kullanabileceğiniz sağlam bir yapı sunar.\n\nDoğal deri yüzeyi zamanla kullanıcısına özel bir karakter kazanır. Her iz, her renk geçişi ve oluşan doğal patina, cüzdanınızı benzersiz hale getirir. Minimal tasarımı sayesinde cebinizde gereksiz hacim oluşturmazken, günlük ihtiyaçlarınızı rahatlıkla karşılayacak kullanım alanı sunar.\n\nKaliteli malzeme, özenli işçilik ve zamansız tasarım anlayışıyla üretilen bu model, hem günlük kullanım hem de uzun yıllar değerini koruyacak özel bir aksesuar arayanlar için tasarlanmıştır.\n\nÜrün Özellikleri\n\n%100 hakiki dana derisi\nTamamen el yapımı üretim\nGeleneksel çift iğne el dikişi\nDayanıklı ve uzun ömürlü yapı\nİnce, ergonomik ve minimal tasarım\nZamanla doğal patina kazanarak kişiye özel bir görünüm oluşturur\nGünlük kullanıma uygun kart ve nakit taşıma kapasitesi\n\nEl işçiliğinin ve hakiki derinin karakterini taşıyan, yıllar geçtikçe daha da güzelleşen bir cüzdan.",
+    "features": [
+      "%100 hakiki dana derisi",
+      "Tamamen el yapımı üretim",
+      "Geleneksel çift iğne el dikişi",
+      "Dayanıklı ve uzun ömürlü yapı",
+      "İnce, ergonomik ve minimal tasarım",
+      "Zamanla doğal patina kazanarak kişiye özel bir görünüm oluşturur",
+      "Günlük kullanıma uygun kart ve nakit taşıma kapasitesi"
+    ],
+    "shopierUrl": "https://www.shopier.com/TheBullsCraft/48865574",
+    "badge": "Modern"
+  },
+  {
+    "slug": "urban-serisi-sport-model-gunes-gozlugu",
+    "name": "Urban Serisi Sport Model Güneş Gözlüğü",
+    "category": "gozluk",
+    "price": 990,
+    "oldPrice": 1290,
+    "image": "/images/products/urban-sport/2.png",
+    "images": [
+      "/images/products/urban-sport/2.png",
+      "/images/products/urban-sport/1.png",
+      "/images/products/urban-sport/3.png",
+      "/images/products/urban-sport/4.png",
+      "/images/products/urban-sport/5.png"
+    ],
+    "shortDescription": "UV400 Korumalı Güneş Gözlüğü",
+    "description": "Modern çizgileri zamansız bir tasarımla buluşturan Modern Lens, güçlü duruşu ve hafif yapısıyla günlük stilinizi tamamlamak için tasarlandı. Geometrik çerçevesi, zarif metal detayları ve UV400 korumalı camları sayesinde hem şıklık hem de göz sağlığı bir arada sunulur.\n\nGünlük kullanımdan şehir hayatına, tatilden özel davetlere kadar her kombine modern bir dokunuş katan bu model, uzun süreli kullanımda konfor sağlayan hafif yapısı ve dayanıklı çerçevesiyle öne çıkar.\n\nÜrün Özellikleri\n\n🕶️ UV400 korumalı camlar ile zararlı UVA ve UVB ışınlarına karşı etkili koruma\n✨ Modern ve zamansız geometrik çerçeve tasarımı\n🪶 Hafif yapı sayesinde gün boyu konforlu kullanım\n🛡️ Dayanıklı metal çerçeve ve kaliteli işçilik\n👤 Kadın ve unisex kullanıma uygun şık tasarım\n🌞 Günlük kullanım, seyahat ve özel kombinler için ideal\n\nModern Lens, yalnızca bir güneş gözlüğü değil; stilinizi tamamlayan, kaliteyi ve zarafeti bir araya getiren bir aksesuardır.\n\nTarzını yansıt. Işığa güvenle bak.",
+    "features": [
+      "UV400 korumalı camlar ile zararlı UVA ve UVB ışınlarına karşı etkili koruma",
+      "Modern ve zamansız geometrik çerçeve tasarımı",
+      "Hafif yapı sayesinde gün boyu konforlu kullanım",
+      "Dayanıklı metal çerçeve ve kaliteli işçilik",
+      "Kadın ve unisex kullanıma uygun şık tasarım",
+      "Günlük kullanım, seyahat ve özel kombinler için ideal"
+    ],
+    "shopierUrl": "https://www.shopier.com/TheBullsCraft/48867078",
+    "badge": "UV400 Korumalı"
   }
 ]
