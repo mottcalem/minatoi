@@ -23,11 +23,11 @@ export function ProductCard({ product }: { product: Product }) {
               {product.badge}
             </span>
           )}
-          {product.oldPrice && product.oldPrice > product.price && (
+          {/* {product.oldPrice && product.oldPrice > product.price && (
             <span className="rounded-lg bg-red-600 px-3 py-1.5 text-sm font-extrabold text-white shadow-md ring-2 ring-white/40 drop-shadow-lg">
               %{Math.round((1 - product.price / product.oldPrice) * 100)} İndirim
             </span>
-          )}
+          )} */}
         </div>
       </div>
       <div className="flex flex-1 flex-col p-4">
