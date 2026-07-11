@@ -17,14 +17,14 @@ export function ProductCard({ product }: { product: Product }) {
           height={600}
           className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
         />
-        <div className="absolute left-3 top-3 flex flex-col gap-1.5">
+        <div className="absolute left-3 top-3 flex flex-col gap-2">
           {product.badge && (
-            <span className="rounded-full bg-gradient-gold px-2.5 py-0.5 text-[11px] font-semibold text-white shadow-sm">
+            <span className="rounded-full bg-gradient-gold px-3 py-1 text-[11px] font-semibold text-white shadow-sm">
               {product.badge}
             </span>
           )}
           {product.oldPrice && product.oldPrice > product.price && (
-            <span className="rounded-full bg-red-500 px-2.5 py-0.5 text-[11px] font-bold text-white shadow-sm">
+            <span className="rounded-lg bg-red-600 px-3 py-1.5 text-sm font-extrabold text-white shadow-md ring-2 ring-white/40 drop-shadow-lg">
               %{Math.round((1 - product.price / product.oldPrice) * 100)} İndirim
             </span>
           )}
