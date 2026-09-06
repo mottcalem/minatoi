@@ -3,10 +3,9 @@
  * Ürün ve blog slug'larını dinamik olarak okuyarak güncel bir sitemap üretir.
  */
 import { defineEventHandler, setResponseHeader } from "h3";
-import { readFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { readProducts } from "../utils/productStore";
 
-const SITE = "https://thebullscraft.com";
+const SITE = "https://minatoi.com";
 const TODAY = new Date().toISOString().split("T")[0];
 
 const BLOG_SLUGS = [
@@ -32,20 +31,7 @@ function urlEntry(
 }
 
 export default defineEventHandler(async (event) => {
-  // Ürün slug'larını products.json'dan oku
-  let productSlugs: string[] = [];
-  try {
-    const raw = await readFile(resolve(process.cwd(), "public", "products.json"), "utf-8");
-    const products = JSON.parse(raw) as Array<{ slug: string }>;
-    productSlugs = products.map((p) => p.slug).filter(Boolean);
-  } catch {
-    productSlugs = [
-      "sokrates-klasik-cuzdan",
-      "frege-kartlik",
-      "klasik-deri-gozluk-kilifi",
-      "philo-modern-kartlik",
-    ];
-  }
+  const productSlugs = (await readProducts()).map((product) => product.slug).filter(Boolean);
 
   const entries = [
     urlEntry("/",                    { changefreq: "weekly",  priority: 1.0  }),

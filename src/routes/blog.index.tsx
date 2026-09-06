@@ -4,23 +4,23 @@ import { BLOG_POSTS } from "@/data/blog";
 export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
-      { title: "Blog — Deri Cüzdan & Aksesuar Rehberleri | TheBullsCraft" },
+      { title: "Blog — Deri Cüzdan & Aksesuar Rehberleri | MinaToi" },
       {
         name: "description",
         content:
           "Hakiki deri cüzdan, kartlık ve deri aksesuar hakkında uzman rehberler. Deri seçimi, bakım, el yapımı üretim ve toptan satın alma konularında kapsamlı makaleler.",
       },
       { name: "keywords", content: "deri cüzdan blog, hakiki deri rehber, deri kartlık seçimi, deri bakım, el yapımı deri" },
-      { property: "og:title", content: "Blog — Deri Cüzdan & Aksesuar Rehberleri | TheBullsCraft" },
+      { property: "og:title", content: "Blog — Deri Cüzdan & Aksesuar Rehberleri | MinaToi" },
       {
         property: "og:description",
         content: "Hakiki deri cüzdan, kartlık ve deri aksesuar hakkında uzman rehberler ve makaleler.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://thebullscraft.com/blog" },
+      { property: "og:url", content: "https://minatoi.com/blog" },
       { name: "robots", content: "index, follow" },
     ],
-    links: [{ rel: "canonical", href: "https://thebullscraft.com/blog" }],
+    links: [{ rel: "canonical", href: "https://minatoi.com/blog" }],
   }),
   component: BlogIndex,
 });
@@ -111,18 +111,18 @@ function BlogIndex() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    name: "TheBullsCraft Blog",
+    name: "MinaToi Blog",
     description: "Hakiki deri cüzdan, kartlık ve deri aksesuar hakkında uzman rehberler",
-    url: "https://thebullscraft.com/blog",
+    url: "https://minatoi.com/blog",
     publisher: {
       "@type": "Organization",
-      name: "TheBullsCraft",
-      url: "https://thebullscraft.com",
+      name: "MinaToi",
+      url: "https://minatoi.com",
     },
     blogPost: BLOG_POSTS.map((p) => ({
       "@type": "BlogPosting",
       headline: p.title,
-      url: `https://thebullscraft.com/blog/${p.slug}`,
+      url: `https://minatoi.com/blog/${p.slug}`,
       datePublished: p.publishedAt,
       dateModified: p.updatedAt,
       description: p.metaDescription,
@@ -150,7 +150,7 @@ function BlogIndex() {
           </h1>
           <p className="mt-4 max-w-2xl text-stone-500 text-base leading-relaxed">
             Hakiki deri cüzdan ve kartlık seçimi, bakımı, el yapımı üretim sırları ve toptan satın
-            alma rehberleri. TheBullsCraft atölyesinden uzman içerikler.
+            alma rehberleri. MinaToi atölyesinden uzman içerikler.
           </p>
         </div>
       </section>

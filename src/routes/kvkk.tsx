@@ -5,8 +5,8 @@ import { SITE } from "@/data/site";
 export const Route = createFileRoute("/kvkk")({
   head: () => ({
     meta: [
-      { title: "KVKK Aydınlatma Metni — TheBullsCraft" },
-      { name: "description", content: "TheBullsCraft KVKK aydınlatma metni: kişisel verilerin işlenmesi ve veri sahibi hakları." },
+      { title: "KVKK Aydınlatma Metni — MinaToi" },
+      { name: "description", content: "MinaToi KVKK aydınlatma metni: kişisel verilerin işlenmesi ve veri sahibi hakları." },
     ],
   }),
   component: Page,

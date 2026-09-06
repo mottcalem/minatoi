@@ -9,6 +9,8 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
+import { AnnouncementBar } from "@/components/AnnouncementBar";
+
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "@/components/Header";
@@ -92,30 +94,46 @@ gtag('config', 'G-R32VEKYQ7R');`,
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "TheBullsCraft — El Yapımı Hakiki Deri Cüzdan, Kartlık & Kılıf" },
-      { name: "description", content: "TheBullsCraft el yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfı koleksiyonu. %100 hakiki deri, el dikişi, Türkiye geneli kapıda ödeme." },
-      { name: "keywords", content: "deri cüzdan, hakiki deri cüzdan, el yapımı deri cüzdan, deri kartlık, erkek deri cüzdan, toptan deri cüzdan, TheBullsCraft" },
-      { name: "author", content: "TheBullsCraft" },
+      { title: "MinaToi — El Yapımı Hakiki Deri Cüzdan, Kartlık & Kılıf" },
+      {
+        name: "description",
+        content:
+          "MinaToi el yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfı koleksiyonu. %100 hakiki deri, el dikişi, Türkiye geneli kapıda ödeme.",
+      },
+      {
+        name: "keywords",
+        content:
+          "deri cüzdan, hakiki deri cüzdan, el yapımı deri cüzdan, deri kartlık, erkek deri cüzdan, toptan deri cüzdan, MinaToi",
+      },
+      { name: "author", content: "MinaToi" },
       { name: "robots", content: "index, follow" },
-      { property: "og:site_name", content: "TheBullsCraft" },
-      { property: "og:title", content: "TheBullsCraft — El Yapımı Hakiki Deri Cüzdan & Kartlık" },
-      { property: "og:description", content: "TheBullsCraft el yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfı koleksiyonu. %100 hakiki deri, el dikişi." },
+      { property: "og:site_name", content: "MinaToi" },
+      { property: "og:title", content: "MinaToi — El Yapımı Hakiki Deri Cüzdan & Kartlık" },
+      {
+        property: "og:description",
+        content:
+          "MinaToi el yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfı koleksiyonu. %100 hakiki deri, el dikişi.",
+      },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://thebullscraft.com" },
-      { property: "og:image", content: "https://thebullscraft.com/images/og-image.jpg" },
+      { property: "og:url", content: "https://minatoi.com" },
+      { property: "og:image", content: "https://minatoi.com/images/og-image.jpg" },
       { property: "og:locale", content: "tr_TR" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@thebullscraft" },
-      { name: "twitter:title", content: "TheBullsCraft — El Yapımı Hakiki Deri Cüzdan & Kartlık" },
-      { name: "twitter:description", content: "El yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfı koleksiyonu." },
-      { name: "twitter:image", content: "https://thebullscraft.com/images/og-image.jpg" },
+      { name: "twitter:site", content: "@minatoi" },
+      { name: "twitter:title", content: "MinaToi — El Yapımı Hakiki Deri Cüzdan & Kartlık" },
+      {
+        name: "twitter:description",
+        content: "El yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfı koleksiyonu.",
+      },
+      { name: "twitter:image", content: "https://minatoi.com/images/og-image.jpg" },
     ],
     links: [
+      { rel: "icon", type: "image/png", href: "/favicon.png" },
       {
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "canonical", href: "https://thebullscraft.com" },
+      { rel: "canonical", href: "https://minatoi.com" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -151,17 +169,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen flex-col overflow-x-hidden">
         <Header />
-        <div className="w-full bg-stone-900 text-white">
-          <div className="mx-auto flex max-w-7xl items-center justify-center gap-2 px-4 py-2 text-center">
-            <span className="text-sm font-semibold tracking-wide">
-              Kapıda Ödeme · Tüm Türkiye
-            </span>
-            <span className="hidden sm:inline text-stone-400">|</span>
-            <span className="hidden sm:inline text-sm text-stone-300">
-              2. Üründe %25 İndirim
-            </span>
-          </div>
-        </div>
+        <AnnouncementBar />
         <main className="flex-1">
           {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
           <Outlet />

@@ -5,15 +5,15 @@ import { SITE } from "@/data/site";
 export const Route = createFileRoute("/mesafeli-satis-sozlesmesi")({
   head: () => ({
     meta: [
-      { title: "Mesafeli Satış Sözleşmesi — TheBullsCraft" },
+      { title: "Mesafeli Satış Sözleşmesi — MinaToi" },
       {
         name: "description",
         content:
-          "TheBullsCraft mesafeli satış sözleşmesi: sipariş, ödeme, teslimat, cayma hakkı ve iade koşulları.",
+          "MinaToi mesafeli satış sözleşmesi: sipariş, ödeme, teslimat, cayma hakkı ve iade koşulları.",
       },
       { name: "robots", content: "index, follow" },
     ],
-    links: [{ rel: "canonical", href: "https://thebullscraft.com/mesafeli-satis-sozlesmesi" }],
+    links: [{ rel: "canonical", href: "https://minatoi.com/mesafeli-satis-sozlesmesi" }],
   }),
   component: Page,
 });
@@ -45,7 +45,7 @@ function Page() {
                   <li><strong>Vergi Dairesi / No:</strong> {SITE.taxOffice} / {SITE.taxNumber}</li>
                   <li><strong>E-posta:</strong> {SITE.email}</li>
                   <li><strong>Telefon / WhatsApp:</strong> {SITE.phone}</li>
-                  <li><strong>Web Sitesi:</strong> https://thebullscraft.com</li>
+                  <li><strong>Web Sitesi:</strong> https://minatoi.com</li>
                 </ul>
               </div>
               <div>
@@ -62,7 +62,7 @@ function Page() {
           heading: "Madde 2 — Sözleşmenin Konusu",
           body: (
             <p>
-              Bu Sözleşme; ALICI'nın https://thebullscraft.com adresinden veya Shopier mağazası üzerinden elektronik
+              Bu Sözleşme; ALICI'nın https://minatoi.com adresinden veya Shopier mağazası üzerinden elektronik
               ortamda sipariş verdiği ürünlerin satışı ve teslimatına ilişkin tarafların hak ve yükümlülüklerini
               6502 sayılı Kanun ve ilgili yönetmelikler çerçevesinde düzenler.
             </p>

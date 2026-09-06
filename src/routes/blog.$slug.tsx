@@ -8,7 +8,7 @@ export const Route = createFileRoute("/blog/$slug")({
     if (!post) {
       return {
         meta: [
-          { title: "Yazı Bulunamadı | TheBullsCraft Blog" },
+          { title: "Yazı Bulunamadı | MinaToi Blog" },
           { name: "robots", content: "noindex" },
         ],
       };
@@ -18,23 +18,23 @@ export const Route = createFileRoute("/blog/$slug")({
         { title: post.metaTitle },
         { name: "description", content: post.metaDescription },
         { name: "keywords", content: post.tags.join(", ") },
-        { name: "author", content: "TheBullsCraft" },
+        { name: "author", content: "MinaToi" },
         { name: "robots", content: "index, follow" },
         { property: "og:title", content: post.metaTitle },
         { property: "og:description", content: post.metaDescription },
         { property: "og:type", content: "article" },
-        { property: "og:url", content: `https://thebullscraft.com/blog/${post.slug}` },
-        { property: "og:image", content: `https://thebullscraft.com${post.coverImage}` },
+        { property: "og:url", content: `https://minatoi.com/blog/${post.slug}` },
+        { property: "og:image", content: `https://minatoi.com${post.coverImage}` },
         { property: "article:published_time", content: post.publishedAt },
         { property: "article:modified_time", content: post.updatedAt },
-        { property: "article:author", content: "TheBullsCraft" },
+        { property: "article:author", content: "MinaToi" },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: post.metaTitle },
         { name: "twitter:description", content: post.metaDescription },
-        { name: "twitter:image", content: `https://thebullscraft.com${post.coverImage}` },
+        { name: "twitter:image", content: `https://minatoi.com${post.coverImage}` },
       ],
       links: [
-        { rel: "canonical", href: `https://thebullscraft.com/blog/${post.slug}` },
+        { rel: "canonical", href: `https://minatoi.com/blog/${post.slug}` },
       ],
     };
   },
@@ -75,30 +75,30 @@ function BlogDetail() {
     "@type": "BlogPosting",
     headline: post.title,
     description: post.metaDescription,
-    image: `https://thebullscraft.com${post.coverImage}`,
+    image: `https://minatoi.com${post.coverImage}`,
     datePublished: post.publishedAt,
     dateModified: post.updatedAt,
     author: {
       "@type": "Organization",
-      name: "TheBullsCraft",
-      url: "https://thebullscraft.com",
+      name: "MinaToi",
+      url: "https://minatoi.com",
     },
     publisher: {
       "@type": "Organization",
-      name: "TheBullsCraft",
-      url: "https://thebullscraft.com",
+      name: "MinaToi",
+      url: "https://minatoi.com",
       logo: {
         "@type": "ImageObject",
-        url: "https://thebullscraft.com/images/logo-thebulls.png",
+        url: "https://minatoi.com/images/logo-minatoi.jpg",
       },
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://thebullscraft.com/blog/${post.slug}`,
+      "@id": `https://minatoi.com/blog/${post.slug}`,
     },
     keywords: post.tags.join(", "),
     inLanguage: "tr-TR",
-    url: `https://thebullscraft.com/blog/${post.slug}`,
+    url: `https://minatoi.com/blog/${post.slug}`,
   };
 
   // JSON-LD: BreadcrumbList
@@ -106,9 +106,9 @@ function BlogDetail() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Anasayfa", item: "https://thebullscraft.com/" },
-      { "@type": "ListItem", position: 2, name: "Blog", item: "https://thebullscraft.com/blog" },
-      { "@type": "ListItem", position: 3, name: post.title, item: `https://thebullscraft.com/blog/${post.slug}` },
+      { "@type": "ListItem", position: 1, name: "Anasayfa", item: "https://minatoi.com/" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://minatoi.com/blog" },
+      { "@type": "ListItem", position: 3, name: post.title, item: `https://minatoi.com/blog/${post.slug}` },
     ],
   };
 

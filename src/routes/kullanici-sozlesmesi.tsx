@@ -5,8 +5,8 @@ import { SITE } from "@/data/site";
 export const Route = createFileRoute("/kullanici-sozlesmesi")({
   head: () => ({
     meta: [
-      { title: "Kullanıcı Sözleşmesi — TheBullsCraft" },
-      { name: "description", content: "TheBullsCraft kullanıcı sözleşmesi: üyelik, sipariş, ödeme ve teslimat koşulları." },
+      { title: "Kullanıcı Sözleşmesi — MinaToi" },
+      { name: "description", content: "MinaToi kullanıcı sözleşmesi: üyelik, sipariş, ödeme ve teslimat koşulları." },
     ],
   }),
   component: Page,
@@ -30,7 +30,7 @@ function Page() {
           body: (
             <ul className="list-disc space-y-2 pl-5">
               <li><strong>İşletme:</strong> {SITE.name} ({SITE.owner}, {SITE.companyType}).</li>
-              <li><strong>Site:</strong> thebullscraft.com alan adı altında sunulan web platformu.</li>
+              <li><strong>Site:</strong> minatoi.com alan adı altında sunulan web platformu.</li>
               <li><strong>Ürün:</strong> Sitede satışa sunulan gözlük, el yapımı deri gözlük kılıfı ve deri cüzdanlar.</li>
               <li><strong>Sipariş:</strong> Kullanıcının seçtiği ürünlerin elektronik ortamda satın alınması talebi.</li>
             </ul>

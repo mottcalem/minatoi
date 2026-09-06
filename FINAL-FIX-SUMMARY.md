@@ -118,7 +118,7 @@ veya
 
 ### Adım 4: Admin Panelde Test Et
 
-1. Tarayıcıda admin paneli aç: `https://thebullscraft.com/admin`
+1. Tarayıcıda admin paneli aç: `https://minatoi.com/admin`
 2. **Çıkış yapıp tekrar giriş yap** (eski token'ı temizlemek için)
 3. F12 ile console'u aç
 4. Bir ürün düzenle → "Ana Görsel URL" değiştir → "Kaydet"
@@ -207,7 +207,7 @@ Yerel makineden sunucu API'sini test edin:
 HASH=$(node -e "console.log(require('crypto').createHash('sha256').update('SIFRENIZ').digest('hex'))")
 
 # Test POST isteği
-curl -X POST https://thebullscraft.com/api/products \
+curl -X POST https://minatoi.com/api/products \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $HASH" \
   -d '[]'
@@ -254,7 +254,7 @@ Sunucuda deploy sonrası kontrol edin:
 
 3. **API'yi manuel test edin:**
    ```bash
-   curl -v https://thebullscraft.com/api/products
+   curl -v https://minatoi.com/api/products
    ```
 
 4. **.env içeriğini kontrol edin** (değerleri gizli tutun):

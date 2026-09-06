@@ -5,8 +5,8 @@ import { WhatsAppButton } from "@/components/WhatsAppButton";
 export const Route = createFileRoute("/iletisim")({
   head: () => ({
     meta: [
-      { title: "İletişim — TheBullsCraft" },
-      { name: "description", content: "TheBullsCraft ile iletişime geçin: WhatsApp, e-posta ve sosyal medya." },
+      { title: "İletişim — MinaToi" },
+      { name: "description", content: "MinaToi ile iletişime geçin: WhatsApp, e-posta ve sosyal medya." },
     ],
   }),
   component: Contact,

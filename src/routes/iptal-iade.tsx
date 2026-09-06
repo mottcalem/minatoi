@@ -5,8 +5,8 @@ import { SITE } from "@/data/site";
 export const Route = createFileRoute("/iptal-iade")({
   head: () => ({
     meta: [
-      { title: "İptal, İade ve Değişim Koşulları — TheBullsCraft" },
-      { name: "description", content: "TheBullsCraft iptal, iade ve değişim koşulları: cayma hakkı, iade süresi ve şartları." },
+      { title: "İptal, İade ve Değişim Koşulları — MinaToi" },
+      { name: "description", content: "MinaToi iptal, iade ve değişim koşulları: cayma hakkı, iade süresi ve şartları." },
     ],
   }),
   component: Page,

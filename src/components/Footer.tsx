@@ -9,21 +9,17 @@ export function Footer() {
         <div>
           <div className="flex items-center gap-3">
             <img
-              src="/images/products/wallets/TheBullsCraft_Damga.png"
-              alt="TheBullsCraft"
-              width={40}
-              height={40}
-              className="h-10 w-10 object-contain"
+              src="/images/logo-minatoi.jpg"
+              alt="MinaToi"
+              width={600}
+              height={155}
+              className="h-auto w-48 object-contain"
             />
-            <div className="flex flex-col leading-tight">
-              <span className="font-display text-base font-bold text-stone-900">TheBullsCraft</span>
-              <span className="text-[10px] uppercase tracking-widest text-stone-500">Handcrafted Leather Goods</span>
-            </div>
           </div>
           <p className="mt-3 text-sm text-stone-500">{SITE.tagline}</p>
           <p className="mt-3 text-xs text-stone-400">
             {SITE.owner} · {SITE.companyType}<br />
-            {SITE.taxOffice} / {SITE.taxNumber}
+            {SITE.taxOffice} {SITE.taxNumber}
           </p>
         </div>
 
@@ -77,7 +73,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-stone-200 py-5 text-center text-xs text-stone-400">
-        © {new Date().getFullYear()} TheBullsCraft — Tüm hakları saklıdır.
+        © {new Date().getFullYear()} MinaToi — Tüm hakları saklıdır.
       </div>
     </footer>
   );

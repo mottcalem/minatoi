@@ -4,6 +4,16 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --animate-marquee: marquee 30s linear infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -38,21 +48,21 @@
 
 :root {
   --radius: 0.75rem;
-  /* TheBullsCraft — beyaz, ferah, hakiki deri sıcaklığı */
+  /* MinaToi — beyaz, ferah, hakiki deri sıcaklığı */
   --background: oklch(0.995 0.002 75);
-  --foreground: oklch(0.18 0.010 50);
+  --foreground: oklch(0.18 0.01 50);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.010 50);
+  --card-foreground: oklch(0.18 0.01 50);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.010 50);
+  --popover-foreground: oklch(0.18 0.01 50);
   --primary: oklch(0.52 0.13 52);
   --primary-foreground: oklch(0.99 0 0);
   --secondary: oklch(0.96 0.006 65);
-  --secondary-foreground: oklch(0.25 0.010 50);
+  --secondary-foreground: oklch(0.25 0.01 50);
   --muted: oklch(0.96 0.006 65);
   --muted-foreground: oklch(0.52 0.012 58);
   --accent: oklch(0.68 0.12 62);
-  --accent-foreground: oklch(0.14 0.010 50);
+  --accent-foreground: oklch(0.14 0.01 50);
   --destructive: oklch(0.56 0.22 27);
   --destructive-foreground: oklch(0.99 0 0);
   --border: oklch(0.91 0.008 68);
@@ -61,9 +71,15 @@
   --whatsapp: oklch(0.68 0.17 150);
   --whatsapp-foreground: oklch(0.99 0 0);
   /* Gradient: sıcak krem → derin deri kahvesi */
-  --gradient-hero: linear-gradient(150deg, oklch(0.995 0.002 75) 0%, oklch(0.975 0.018 72) 50%, oklch(0.94 0.04 62) 100%);
+  --gradient-hero: linear-gradient(
+    150deg,
+    oklch(0.995 0.002 75) 0%,
+    oklch(0.975 0.018 72) 50%,
+    oklch(0.94 0.04 62) 100%
+  );
   --gradient-gold: linear-gradient(135deg, oklch(0.52 0.14 50) 0%, oklch(0.38 0.12 44) 100%);
-  --shadow-elegant: 0 20px 54px -22px oklch(0.35 0.04 52 / 0.24), 0 6px 16px -8px oklch(0.35 0.04 52 / 0.14);
+  --shadow-elegant:
+    0 20px 54px -22px oklch(0.35 0.04 52 / 0.24), 0 6px 16px -8px oklch(0.35 0.04 52 / 0.14);
   --shadow-glow: 0 0 40px -10px oklch(0.52 0.13 52 / 0.28);
 }
 
@@ -73,14 +89,23 @@
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
-  html, body {
+  * {
+    border-color: var(--color-border);
+  }
+  html,
+  body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
 }
 
 @utility text-gradient-gold {
@@ -108,7 +133,7 @@
 
 /* ── Blog makale içerik stilleri ─────────────────────────────── */
 .blog-content {
-  color: oklch(0.40 0.012 58);
+  color: oklch(0.4 0.012 58);
   font-size: 1.0625rem;
   line-height: 1.75;
 }
@@ -117,7 +142,7 @@
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 700;
-  color: oklch(0.18 0.010 50);
+  color: oklch(0.18 0.01 50);
   margin-top: 2.5rem;
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
@@ -127,7 +152,7 @@
   font-family: var(--font-display);
   font-size: 1.2rem;
   font-weight: 600;
-  color: oklch(0.22 0.010 50);
+  color: oklch(0.22 0.01 50);
   margin-top: 1.75rem;
   margin-bottom: 0.6rem;
 }
@@ -148,7 +173,7 @@
 
 .blog-content strong {
   font-weight: 700;
-  color: oklch(0.22 0.010 50);
+  color: oklch(0.22 0.01 50);
 }
 
 .blog-content em {

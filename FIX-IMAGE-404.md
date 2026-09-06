@@ -4,7 +4,7 @@
 Browser console'da şu hata görünüyor:
 
 ```
-GET https://thebullscraft.com/images/products/sokrates/m.jpg 404 (Not Found)
+GET https://minatoi.com/images/products/sokrates/m.jpg 404 (Not Found)
 ```
 
 **Neden:** `m.jpg` yerine `man.jpg` olmalı. Sunucudaki `products.json` dosyası güncel değil veya admin panelden yanlış path girilmiş.
@@ -15,7 +15,7 @@ GET https://thebullscraft.com/images/products/sokrates/m.jpg 404 (Not Found)
 
 ### Seçenek 1: Admin Panelden Düzelt (Önerilen)
 
-1. Admin panele giriş yap: `https://thebullscraft.com/admin`
+1. Admin panele giriş yap: `https://minatoi.com/admin`
 
 2. SOKRATES ürününü düzenle
 
@@ -123,7 +123,7 @@ Düzeltme sonrası kontrol edin:
 
 ### 1. Browser'da Test
 
-1. `https://thebullscraft.com` sayfasını açın
+1. `https://minatoi.com` sayfasını açın
 2. `Ctrl+Shift+R` ile hard refresh
 3. Hero bölümündeki görseli kontrol edin
 4. `F12` → Console → Hata yok mu?
@@ -131,7 +131,7 @@ Düzeltme sonrası kontrol edin:
 ### 2. API'yi Kontrol Edin
 
 ```bash
-curl https://thebullscraft.com/api/products | grep "sokrates" -A 5
+curl https://minatoi.com/api/products | grep "sokrates" -A 5
 ```
 
 **Beklenen:**

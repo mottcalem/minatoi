@@ -1,4 +1,4 @@
-# TheBullsCraft — Windows Sunucu Kurulum Rehberi
+# MinaToi — Windows Sunucu Kurulum Rehberi
 
 ## Gereksinimler
 

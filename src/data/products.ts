@@ -96,7 +96,8 @@ export type WalletDetails = {
 export type Product = {
   slug: string;
   name: string;
-  category: Category;
+  /** Yönetim panelinden yönetilen kategorinin adresi; "cuzdan" | "kilif" | "gozluk" ile sınırlı değildir. */
+  category: string;
   price: number;
   oldPrice?: number;
   image: string;
@@ -113,7 +114,7 @@ export type Product = {
 
 // ─── Gözlük şablonu ────────────────────────────────────────────────────────────
 
-const SHOPIER = "https://www.shopier.com/thebullscraft";
+const SHOPIER = "https://www.shopier.com/minatoi";
 
 const GLASSES_TECH_SPECS: TechSpec[] = [
   { label: "Ürün Tipi", value: "Güneş Gözlüğü" },

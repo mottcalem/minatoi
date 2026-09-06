@@ -10,9 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UrunlerRouteImport } from './routes/urunler'
+import { Route as PatiliDosyalaraOzelRouteImport } from './routes/patili-dosyalara-ozel'
 import { Route as MesafeliSatisSozlesmesiRouteImport } from './routes/mesafeli-satis-sozlesmesi'
 import { Route as KvkkRouteImport } from './routes/kvkk'
 import { Route as KullaniciSozlesmesiRouteImport } from './routes/kullanici-sozlesmesi'
+import { Route as KisiyeOzelRouteImport } from './routes/kisiye-ozel'
 import { Route as IptalIadeRouteImport } from './routes/iptal-iade'
 import { Route as IletisimRouteImport } from './routes/iletisim'
 import { Route as GizlilikPolitikasiRouteImport } from './routes/gizlilik-politikasi'
@@ -29,6 +31,11 @@ const UrunlerRoute = UrunlerRouteImport.update({
   path: '/urunler',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PatiliDosyalaraOzelRoute = PatiliDosyalaraOzelRouteImport.update({
+  id: '/patili-dosyalara-ozel',
+  path: '/patili-dosyalara-ozel',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MesafeliSatisSozlesmesiRoute = MesafeliSatisSozlesmesiRouteImport.update({
   id: '/mesafeli-satis-sozlesmesi',
   path: '/mesafeli-satis-sozlesmesi',
@@ -42,6 +49,11 @@ const KvkkRoute = KvkkRouteImport.update({
 const KullaniciSozlesmesiRoute = KullaniciSozlesmesiRouteImport.update({
   id: '/kullanici-sozlesmesi',
   path: '/kullanici-sozlesmesi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KisiyeOzelRoute = KisiyeOzelRouteImport.update({
+  id: '/kisiye-ozel',
+  path: '/kisiye-ozel',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IptalIadeRoute = IptalIadeRouteImport.update({
@@ -102,9 +114,11 @@ export interface FileRoutesByFullPath {
   '/gizlilik-politikasi': typeof GizlilikPolitikasiRoute
   '/iletisim': typeof IletisimRoute
   '/iptal-iade': typeof IptalIadeRoute
+  '/kisiye-ozel': typeof KisiyeOzelRoute
   '/kullanici-sozlesmesi': typeof KullaniciSozlesmesiRoute
   '/kvkk': typeof KvkkRoute
   '/mesafeli-satis-sozlesmesi': typeof MesafeliSatisSozlesmesiRoute
+  '/patili-dosyalara-ozel': typeof PatiliDosyalaraOzelRoute
   '/urunler': typeof UrunlerRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/kategori/$slug': typeof KategoriSlugRoute
@@ -117,9 +131,11 @@ export interface FileRoutesByTo {
   '/gizlilik-politikasi': typeof GizlilikPolitikasiRoute
   '/iletisim': typeof IletisimRoute
   '/iptal-iade': typeof IptalIadeRoute
+  '/kisiye-ozel': typeof KisiyeOzelRoute
   '/kullanici-sozlesmesi': typeof KullaniciSozlesmesiRoute
   '/kvkk': typeof KvkkRoute
   '/mesafeli-satis-sozlesmesi': typeof MesafeliSatisSozlesmesiRoute
+  '/patili-dosyalara-ozel': typeof PatiliDosyalaraOzelRoute
   '/urunler': typeof UrunlerRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/kategori/$slug': typeof KategoriSlugRoute
@@ -134,9 +150,11 @@ export interface FileRoutesById {
   '/gizlilik-politikasi': typeof GizlilikPolitikasiRoute
   '/iletisim': typeof IletisimRoute
   '/iptal-iade': typeof IptalIadeRoute
+  '/kisiye-ozel': typeof KisiyeOzelRoute
   '/kullanici-sozlesmesi': typeof KullaniciSozlesmesiRoute
   '/kvkk': typeof KvkkRoute
   '/mesafeli-satis-sozlesmesi': typeof MesafeliSatisSozlesmesiRoute
+  '/patili-dosyalara-ozel': typeof PatiliDosyalaraOzelRoute
   '/urunler': typeof UrunlerRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/kategori/$slug': typeof KategoriSlugRoute
@@ -152,9 +170,11 @@ export interface FileRouteTypes {
     | '/gizlilik-politikasi'
     | '/iletisim'
     | '/iptal-iade'
+    | '/kisiye-ozel'
     | '/kullanici-sozlesmesi'
     | '/kvkk'
     | '/mesafeli-satis-sozlesmesi'
+    | '/patili-dosyalara-ozel'
     | '/urunler'
     | '/blog/$slug'
     | '/kategori/$slug'
@@ -167,9 +187,11 @@ export interface FileRouteTypes {
     | '/gizlilik-politikasi'
     | '/iletisim'
     | '/iptal-iade'
+    | '/kisiye-ozel'
     | '/kullanici-sozlesmesi'
     | '/kvkk'
     | '/mesafeli-satis-sozlesmesi'
+    | '/patili-dosyalara-ozel'
     | '/urunler'
     | '/blog/$slug'
     | '/kategori/$slug'
@@ -183,9 +205,11 @@ export interface FileRouteTypes {
     | '/gizlilik-politikasi'
     | '/iletisim'
     | '/iptal-iade'
+    | '/kisiye-ozel'
     | '/kullanici-sozlesmesi'
     | '/kvkk'
     | '/mesafeli-satis-sozlesmesi'
+    | '/patili-dosyalara-ozel'
     | '/urunler'
     | '/blog/$slug'
     | '/kategori/$slug'
@@ -200,9 +224,11 @@ export interface RootRouteChildren {
   GizlilikPolitikasiRoute: typeof GizlilikPolitikasiRoute
   IletisimRoute: typeof IletisimRoute
   IptalIadeRoute: typeof IptalIadeRoute
+  KisiyeOzelRoute: typeof KisiyeOzelRoute
   KullaniciSozlesmesiRoute: typeof KullaniciSozlesmesiRoute
   KvkkRoute: typeof KvkkRoute
   MesafeliSatisSozlesmesiRoute: typeof MesafeliSatisSozlesmesiRoute
+  PatiliDosyalaraOzelRoute: typeof PatiliDosyalaraOzelRoute
   UrunlerRoute: typeof UrunlerRoute
   KategoriSlugRoute: typeof KategoriSlugRoute
   UrunSlugRoute: typeof UrunSlugRoute
@@ -215,6 +241,13 @@ declare module '@tanstack/react-router' {
       path: '/urunler'
       fullPath: '/urunler'
       preLoaderRoute: typeof UrunlerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/patili-dosyalara-ozel': {
+      id: '/patili-dosyalara-ozel'
+      path: '/patili-dosyalara-ozel'
+      fullPath: '/patili-dosyalara-ozel'
+      preLoaderRoute: typeof PatiliDosyalaraOzelRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mesafeli-satis-sozlesmesi': {
@@ -236,6 +269,13 @@ declare module '@tanstack/react-router' {
       path: '/kullanici-sozlesmesi'
       fullPath: '/kullanici-sozlesmesi'
       preLoaderRoute: typeof KullaniciSozlesmesiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kisiye-ozel': {
+      id: '/kisiye-ozel'
+      path: '/kisiye-ozel'
+      fullPath: '/kisiye-ozel'
+      preLoaderRoute: typeof KisiyeOzelRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/iptal-iade': {
@@ -330,9 +370,11 @@ const rootRouteChildren: RootRouteChildren = {
   GizlilikPolitikasiRoute: GizlilikPolitikasiRoute,
   IletisimRoute: IletisimRoute,
   IptalIadeRoute: IptalIadeRoute,
+  KisiyeOzelRoute: KisiyeOzelRoute,
   KullaniciSozlesmesiRoute: KullaniciSozlesmesiRoute,
   KvkkRoute: KvkkRoute,
   MesafeliSatisSozlesmesiRoute: MesafeliSatisSozlesmesiRoute,
+  PatiliDosyalaraOzelRoute: PatiliDosyalaraOzelRoute,
   UrunlerRoute: UrunlerRoute,
   KategoriSlugRoute: KategoriSlugRoute,
   UrunSlugRoute: UrunSlugRoute,

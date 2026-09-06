@@ -5,8 +5,8 @@ import { SITE } from "@/data/site";
 export const Route = createFileRoute("/gizlilik-politikasi")({
   head: () => ({
     meta: [
-      { title: "Gizlilik Politikası — TheBullsCraft" },
-      { name: "description", content: "TheBullsCraft gizlilik politikası: kişisel verilerin toplanması, kullanılması ve korunması." },
+      { title: "Gizlilik Politikası — MinaToi" },
+      { name: "description", content: "MinaToi gizlilik politikası: kişisel verilerin toplanması, kullanılması ve korunması." },
     ],
   }),
   component: Page,

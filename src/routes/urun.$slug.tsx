@@ -1,7 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
-import { CATEGORIES, SERIES, formatTL } from "@/data/products";
+import { SERIES, formatTL } from "@/data/products";
 import type { Product, GlassesDetails, WalletDetails } from "@/data/products";
+import { getCategories } from "@/data/categoryActions";
 import { fetchProductsServer } from "@/data/adminProducts";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { CashOnDeliveryForm } from "@/components/CashOnDeliveryForm";
@@ -10,28 +11,25 @@ import { ProductCard } from "@/components/ProductCard";
 export const Route = createFileRoute("/urun/$slug")({
   head: ({ loaderData, params }) => {
     const product = loaderData?.product;
-    const SITE = "https://thebullscraft.com";
+    const SITE = "https://minatoi.com";
     const canonical = `${SITE}/urun/${params.slug}`;
 
     if (!product) {
       return {
         meta: [
-          { title: "Ürün Bulunamadı — TheBullsCraft" },
+          { title: "Ürün Bulunamadı — MinaToi" },
           { name: "robots", content: "noindex, follow" },
         ],
         links: [{ rel: "canonical", href: canonical }],
       };
     }
 
-    const catLabel =
-      CATEGORIES.find((c) => c.slug === product.category)?.label ?? "";
-    const title = `${product.name} | TheBullsCraft`;
+    const catLabel = loaderData?.categories?.find((c) => c.slug === product.category)?.label ?? "";
+    const title = `${product.name} | MinaToi`;
     const desc = product.shortDescription
       ? `${product.shortDescription} ${formatTL(product.price)}. Kapıda ödeme, Türkiye geneli kargo.`
       : `${catLabel} — ${formatTL(product.price)}. Kapıda ödeme, Türkiye geneli kargo.`;
-    const image = product.images?.[0]
-      ? `${SITE}${product.images[0]}`
-      : `${SITE}${product.image}`;
+    const image = product.images?.[0] ? `${SITE}${product.images[0]}` : `${SITE}${product.image}`;
 
     return {
       meta: [
@@ -52,15 +50,23 @@ export const Route = createFileRoute("/urun/$slug")({
     };
   },
   loader: async ({ params }) => {
-    const all = await fetchProductsServer();
+    const [all, categories] = await Promise.all([fetchProductsServer(), getCategories()]);
     const product = all.find((p) => p.slug === params.slug);
     if (!product) throw notFound();
-    return { product: product as Product, related: all.filter(p => p.category === product.category && p.slug !== params.slug).slice(0, 4) };
+    return {
+      product: product as Product,
+      categories,
+      related: all
+        .filter((p) => p.category === product.category && p.slug !== params.slug)
+        .slice(0, 4),
+    };
   },
   notFoundComponent: () => (
     <div className="mx-auto max-w-3xl px-4 py-20 text-center">
       <h1 className="font-display text-3xl font-bold">Ürün bulunamadı</h1>
-      <Link to="/urunler" className="mt-6 inline-block text-primary hover:underline">Tüm ürünlere dön</Link>
+      <Link to="/urunler" className="mt-6 inline-block text-primary hover:underline">
+        Tüm ürünlere dön
+      </Link>
     </div>
   ),
   errorComponent: ({ error }) => (
@@ -73,8 +79,11 @@ export const Route = createFileRoute("/urun/$slug")({
 });
 
 function ProductDetail() {
-  const { product, related } = Route.useLoaderData();
-  const cat = CATEGORIES.find((c) => c.slug === product.category)!;
+  const { product, categories, related } = Route.useLoaderData();
+  const cat = categories.find((c) => c.slug === product.category) ?? {
+    slug: product.category,
+    label: product.category,
+  };
   const waMsg =
     `Merhaba 👋\n"${product.name}" ürünü (${formatTL(product.price)}) hakkında bilgi almak istiyorum.\n` +
     `Stok durumu ve kargo süreci hakkında bilgi verir misiniz?`;
@@ -83,9 +92,17 @@ function ProductDetail() {
     <article className="mx-auto max-w-7xl px-4 py-10 overflow-x-hidden">
       {/* Breadcrumb */}
       <nav className="mb-6 text-xs text-stone-400 overflow-hidden">
-        <Link to="/" className="hover:text-primary transition-colors">Anasayfa</Link>
+        <Link to="/" className="hover:text-primary transition-colors">
+          Anasayfa
+        </Link>
         <span className="mx-2">/</span>
-        <Link to="/kategori/$slug" params={{ slug: cat.slug }} className="hover:text-primary transition-colors">{cat.label}</Link>
+        <Link
+          to="/kategori/$slug"
+          params={{ slug: cat.slug }}
+          className="hover:text-primary transition-colors"
+        >
+          {cat.label}
+        </Link>
         <span className="mx-2">/</span>
         <span className="text-stone-700 break-words">{product.name}</span>
       </nav>
@@ -98,8 +115,12 @@ function ProductDetail() {
 
         {/* Info */}
         <div className="min-w-0">
-          <p className="text-xs font-semibold uppercase tracking-widest text-primary">{cat.label}</p>
-          <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl break-words">{product.name}</h1>
+          <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+            {cat.label}
+          </p>
+          <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl break-words">
+            {product.name}
+          </h1>
           {product.glasses && (
             <p className="mt-1 text-xs font-medium uppercase tracking-widest text-accent">
               {SERIES[product.glasses.series].label}
@@ -108,10 +129,14 @@ function ProductDetail() {
           <p className="mt-3 text-muted-foreground">{product.shortDescription}</p>
 
           <div className="mt-5 flex items-baseline gap-3">
-            <span className="font-display text-3xl font-bold text-primary">{formatTL(product.price)}</span>
+            <span className="font-display text-3xl font-bold text-primary">
+              {formatTL(product.price)}
+            </span>
             {product.oldPrice && (
               <>
-                <span className="text-base text-muted-foreground line-through">{formatTL(product.oldPrice)}</span>
+                <span className="text-base text-muted-foreground line-through">
+                  {formatTL(product.oldPrice)}
+                </span>
                 <span className="rounded-full bg-accent/20 px-2 py-0.5 text-xs font-semibold text-accent">
                   %{Math.round((1 - product.price / product.oldPrice) * 100)} indirim
                 </span>
@@ -136,11 +161,15 @@ function ProductDetail() {
 
           {/* Features */}
           <div className="mt-8 rounded-2xl border border-stone-100 bg-stone-50 p-5">
-            <h3 className="font-display text-base font-semibold text-stone-900">Ürün Özellikleri</h3>
+            <h3 className="font-display text-base font-semibold text-stone-900">
+              Ürün Özellikleri
+            </h3>
             <ul className="mt-3 space-y-2 text-sm">
               {product.features.map((f: string) => (
                 <li key={f} className="flex items-start gap-3 text-stone-700">
-                  <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary/10 text-primary text-[10px] font-bold">✓</span>
+                  <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary/10 text-primary text-[10px] font-bold">
+                    ✓
+                  </span>
                   {f}
                 </li>
               ))}
@@ -168,14 +197,13 @@ function ProductDetail() {
         </div>
       </div>
 
-      {/* Description */}
+      {/* Description — rich text (sunucuda sanitize edilir) */}
       <section className="mt-16">
         <h2 className="font-display text-2xl font-bold">Ürün Açıklaması</h2>
-        <div className="mt-3 max-w-3xl space-y-4 text-muted-foreground">
-          {product.description.split("\n\n").map((para, i) => (
-            <p key={i}>{para}</p>
-          ))}
-        </div>
+        <div
+          className="blog-content mt-3 max-w-3xl"
+          dangerouslySetInnerHTML={{ __html: product.description }}
+        />
       </section>
 
       {/* Glasses details */}
@@ -189,7 +217,9 @@ function ProductDetail() {
         <section className="mt-16">
           <h2 className="font-display text-2xl font-bold">Benzer Ürünler</h2>
           <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {related.map((p) => <ProductCard key={p.slug} product={p} />)}
+            {related.map((p) => (
+              <ProductCard key={p.slug} product={p} />
+            ))}
           </div>
         </section>
       )}
@@ -208,8 +238,12 @@ function GlassesInfo({ details }: { details: GlassesDetails }) {
             <tbody>
               {details.techSpecs.map((s, i) => (
                 <tr key={s.label} className={i % 2 === 0 ? "bg-card/50" : ""}>
-                  <th className="w-1/3 border-b border-border px-4 py-3 text-left font-medium text-foreground">{s.label}</th>
-                  <td className="border-b border-border px-4 py-3 text-muted-foreground">{s.value}</td>
+                  <th className="w-1/3 border-b border-border px-4 py-3 text-left font-medium text-foreground">
+                    {s.label}
+                  </th>
+                  <td className="border-b border-border px-4 py-3 text-muted-foreground">
+                    {s.value}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -222,7 +256,9 @@ function GlassesInfo({ details }: { details: GlassesDetails }) {
         <h2 className="font-display text-2xl font-bold">Filtre Bilgisi</h2>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <div className="rounded-2xl border border-border bg-card p-5">
-            <h3 className="font-display text-base font-semibold">Filtre Tipi: {details.filterInfo.type}</h3>
+            <h3 className="font-display text-base font-semibold">
+              Filtre Tipi: {details.filterInfo.type}
+            </h3>
             <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
               {details.filterInfo.notes.map((n, i) => (
                 <li key={i} className="flex items-start gap-2">
@@ -233,12 +269,16 @@ function GlassesInfo({ details }: { details: GlassesDetails }) {
             </ul>
           </div>
           <div className="rounded-2xl border border-border bg-card p-5">
-            <h3 className="font-display text-base font-semibold">Filtre Kategorisi: {details.filterInfo.category}</h3>
+            <h3 className="font-display text-base font-semibold">
+              Filtre Kategorisi: {details.filterInfo.category}
+            </h3>
             <p className="mt-3 text-sm text-muted-foreground">
-              Işık geçirgenliği: <strong className="text-foreground">{details.filterInfo.lightTransmission}</strong>
+              Işık geçirgenliği:{" "}
+              <strong className="text-foreground">{details.filterInfo.lightTransmission}</strong>
             </p>
             <p className="mt-2 text-sm text-muted-foreground">
-              Güçlü güneş ışığında, yaz aylarında sahil, şehir ve açık hava aktivitelerinde ideal koruma sağlar.
+              Güçlü güneş ışığında, yaz aylarında sahil, şehir ve açık hava aktivitelerinde ideal
+              koruma sağlar.
             </p>
           </div>
         </div>
@@ -251,7 +291,9 @@ function GlassesInfo({ details }: { details: GlassesDetails }) {
         <ul className="mt-3 grid gap-2 sm:grid-cols-2">
           {details.materials.map((m, i) => (
             <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground text-[10px]">✓</span>
+              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground text-[10px]">
+                ✓
+              </span>
               {m}
             </li>
           ))}
@@ -262,7 +304,9 @@ function GlassesInfo({ details }: { details: GlassesDetails }) {
       <div className="grid gap-8 lg:grid-cols-2">
         <section>
           <h2 className="font-display text-2xl font-bold">Bakım ve Temizlik</h2>
-          <p className="mt-2 text-sm text-muted-foreground">Gözlüğünüzün uzun ömürlü olması için aşağıdaki önerilere dikkat ediniz.</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Gözlüğünüzün uzun ömürlü olması için aşağıdaki önerilere dikkat ediniz.
+          </p>
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
             {details.care.map((c, i) => (
               <li key={i} className="flex items-start gap-2">
@@ -304,7 +348,9 @@ function GlassesInfo({ details }: { details: GlassesDetails }) {
         <ul className="mt-4 grid gap-2 sm:grid-cols-2">
           {details.boxContents.map((b, i) => (
             <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground text-[10px]">✓</span>
+              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground text-[10px]">
+                ✓
+              </span>
               {b}
             </li>
           ))}
@@ -317,7 +363,9 @@ function GlassesInfo({ details }: { details: GlassesDetails }) {
         <ul className="mt-4 grid gap-2 sm:grid-cols-2">
           {details.summary.map((s, i) => (
             <li key={i} className="flex items-start gap-2 text-sm">
-              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground text-[10px]">✓</span>
+              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground text-[10px]">
+                ✓
+              </span>
               {s}
             </li>
           ))}
@@ -338,8 +386,12 @@ function WalletInfo({ details }: { details: WalletDetails }) {
             <tbody>
               {details.techSpecs.map((s, i) => (
                 <tr key={s.label} className={i % 2 === 0 ? "bg-card/50" : ""}>
-                  <th className="w-1/3 border-b border-border px-4 py-3 text-left font-medium text-foreground">{s.label}</th>
-                  <td className="border-b border-border px-4 py-3 text-muted-foreground">{s.value}</td>
+                  <th className="w-1/3 border-b border-border px-4 py-3 text-left font-medium text-foreground">
+                    {s.label}
+                  </th>
+                  <td className="border-b border-border px-4 py-3 text-muted-foreground">
+                    {s.value}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -354,7 +406,9 @@ function WalletInfo({ details }: { details: WalletDetails }) {
         <ul className="mt-3 grid gap-2 sm:grid-cols-2">
           {details.materials.map((m, i) => (
             <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground text-[10px]">✓</span>
+              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground text-[10px]">
+                ✓
+              </span>
               {m}
             </li>
           ))}
@@ -364,7 +418,9 @@ function WalletInfo({ details }: { details: WalletDetails }) {
       {/* Care */}
       <section>
         <h2 className="font-display text-2xl font-bold">Bakım ve Temizlik</h2>
-        <p className="mt-2 text-sm text-muted-foreground">Cüzdanınızın uzun ömürlü olması için aşağıdaki önerilere dikkat ediniz.</p>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Cüzdanınızın uzun ömürlü olması için aşağıdaki önerilere dikkat ediniz.
+        </p>
         <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
           {details.care.map((c, i) => (
             <li key={i} className="flex items-start gap-2">
@@ -381,7 +437,9 @@ function WalletInfo({ details }: { details: WalletDetails }) {
         <ul className="mt-4 grid gap-2 sm:grid-cols-2">
           {details.boxContents.map((b, i) => (
             <li key={i} className="flex items-start gap-2 text-sm text-stone-600">
-              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary/10 text-primary text-[10px] font-bold">✓</span>
+              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary/10 text-primary text-[10px] font-bold">
+                ✓
+              </span>
               {b}
             </li>
           ))}
@@ -394,7 +452,9 @@ function WalletInfo({ details }: { details: WalletDetails }) {
         <ul className="mt-4 grid gap-2 sm:grid-cols-2">
           {details.summary.map((s, i) => (
             <li key={i} className="flex items-start gap-2 text-sm text-stone-700">
-              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary/10 text-primary text-[10px] font-bold">✓</span>
+              <span className="mt-1 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary/10 text-primary text-[10px] font-bold">
+                ✓
+              </span>
               {s}
             </li>
           ))}
@@ -447,7 +507,10 @@ function ProductGallery({ product }: { product: Product }) {
 
       {/* Thumbnail şeridi */}
       {images.length > 1 && (
-        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide" style={{ WebkitOverflowScrolling: 'touch' }}>
+        <div
+          className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide"
+          style={{ WebkitOverflowScrolling: "touch" }}
+        >
           {images.map((img, i) => (
             <button
               key={i}

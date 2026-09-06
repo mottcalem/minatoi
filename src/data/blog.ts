@@ -1,4 +1,4 @@
-// Blog yazıları veri dosyası — TheBullsCraft SEO içerikleri
+// Blog yazıları veri dosyası — MinaToi SEO içerikleri
 
 export type BlogPost = {
   slug: string;
@@ -19,7 +19,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "hakiki-deri-cuzdan-rehberi",
     title: "Hakiki Deri Cüzdan Rehberi: Satın Almadan Önce Bilmeniz Gereken Her Şey",
-    metaTitle: "Hakiki Deri Cüzdan Rehberi 2026 | TheBullsCraft",
+    metaTitle: "Hakiki Deri Cüzdan Rehberi 2026 | MinaToi",
     metaDescription: "Hakiki deri cüzdan satın alırken nelere dikkat etmelisiniz? Tam grain, top grain, split leather farkları, fiyat-kalite dengesi ve en iyi modeller bu rehberde.",
     excerpt: "Hakiki deri cüzdan almayı düşünüyorsunuz ancak tam grain, top grain, split leather gibi terimler kafanızı karıştırıyor mu? Bu rehber piyasada satılan her deri türünü, kalite kriterlerini ve doğru seçim yapmanın yollarını açıklıyor.",
     coverImage: "/images/products/sokrates/man.jpg",
@@ -33,7 +33,7 @@ export const BLOG_POSTS: BlogPost[] = [
   <p>Deri ürün alırken karşılaşacağınız en önemli kavram <strong>hakiki deri</strong> meselesidir. Ancak "hakiki deri" ibaresi tek başına yeterli değildir; zira derinin hangi tabakasından elde edildiği kaliteyi doğrudan belirler.</p>
 
   <h3>Full Grain (Tam Tane) Deri</h3>
-  <p>Hayvan derisinin en üst, en sağlam tabakasıdır. Hiçbir zımparalama veya düzeltme yapılmaz; derinin doğal dokusu, damarları ve karakteri korunur. <strong>Full grain deri cüzdanlar</strong> yıllar içinde güzel bir patina (renk derinliği) geliştirir ve onlarca yıl kullanılabilir. TheBullsCraft ürünleri full grain hakiki dana derisinden üretilmektedir.</p>
+  <p>Hayvan derisinin en üst, en sağlam tabakasıdır. Hiçbir zımparalama veya düzeltme yapılmaz; derinin doğal dokusu, damarları ve karakteri korunur. <strong>Full grain deri cüzdanlar</strong> yıllar içinde güzel bir patina (renk derinliği) geliştirir ve onlarca yıl kullanılabilir. MinaToi ürünleri full grain hakiki dana derisinden üretilmektedir.</p>
 
   <h3>Top Grain (Üst Tane) Deri</h3>
   <p>Derinin üst tabakasına hafif zımparalama uygulanarak düzeltilmiş halidir. Full grain kadar dayanıklı olmasa da piyasada sıkça kullanılan kaliteli bir deri türüdür. Çoğu orta-üst segment cüzdanda kullanılır.</p>
@@ -66,8 +66,8 @@ export const BLOG_POSTS: BlogPost[] = [
 
   <p>Yüksek kaliteli el yapımı bir cüzdan 10–20 yıl rahatlıkla kullanılabilir. Bu perspektiften bakıldığında, ucuz bir cüzdanı her 2–3 yılda bir değiştirmek, kaliteli bir ürün almaktan daha pahalıya gelmektedir.</p>
 
-  <h2>TheBullsCraft Cüzdanlarında Kullanılan Deri</h2>
-  <p>TheBullsCraft olarak tüm ürünlerimizde birinci sınıf full grain hakiki dana derisi kullanıyoruz. Her cüzdan atölyemizde tek tek elle kesilir, çift iğne el dikiş yöntemiyle dikilir ve kenarları elle perdahlanır. Hiçbir ürünümüzde suni deri, PU kaplama veya split leather kullanılmamaktadır.</p>
+  <h2>MinaToi Cüzdanlarında Kullanılan Deri</h2>
+  <p>MinaToi olarak tüm ürünlerimizde birinci sınıf full grain hakiki dana derisi kullanıyoruz. Her cüzdan atölyemizde tek tek elle kesilir, çift iğne el dikiş yöntemiyle dikilir ve kenarları elle perdahlanır. Hiçbir ürünümüzde suni deri, PU kaplama veya split leather kullanılmamaktadır.</p>
 
   <p><a href="/urunler">Tüm deri cüzdan ve kartlık modellerimizi inceleyebilirsiniz →</a></p>
 </article>
@@ -78,7 +78,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "deri-kartlik-nasil-secilir",
     title: "Deri Kartlık Nasıl Seçilir? 2026 Alıcı Rehberi",
-    metaTitle: "Deri Kartlık Nasıl Seçilir? | Hakiki Deri Kartlık Modelleri | TheBullsCraft",
+    metaTitle: "Deri Kartlık Nasıl Seçilir? | Hakiki Deri Kartlık Modelleri | MinaToi",
     metaDescription: "Hakiki deri kartlık seçerken kapasite, boyut, dikiş kalitesi ve RFID koruma kriterlerine dikkat edin. En iyi deri kartlık modelleri ve fiyatları bu rehberde.",
     excerpt: "Cüzdansız yaşayan, sadece birkaç kart ve belki biraz nakit taşıyan minimalist bir hayat mı istiyorsunuz? Doğru deri kartlık seçimi için bu rehberi okuyun.",
     coverImage: "/images/products/frege-kartlik/in-hand.jpg",
@@ -127,7 +127,7 @@ export const BLOG_POSTS: BlogPost[] = [
   <h3>6. Boyut ve Kalınlık</h3>
   <p>Ön cep mi, arka cep mi, yoksa ceket iç cebi mi kullanacaksınız? Buna göre boyut belirleyin. Ön cep için maksimum 8×11 cm ve dolmamış halde 5 mm altı kalınlık idealdir.</p>
 
-  <h2>TheBullsCraft Kartlık Modelleri</h2>
+  <h2>MinaToi Kartlık Modelleri</h2>
 
   <h3>FREGE — Slim Deri Kartlık</h3>
   <p>Sleeve tarzda, ön hızlı erişim bölmesiyle 3–6 kart kapasiteli ultra-slim bir kartlıktır. Full grain hakiki dana derisi, el dikişi ve elle perdahlanmış kenarlarıyla uzun yıllar kullanılabilir. Cepte his vermez.</p>
@@ -144,7 +144,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "el-yapimi-deri-cuzdan-vs-makine-uretimi",
     title: "El Yapımı Deri Cüzdan mı, Makine Üretimi mi? Farkları ve Hangisini Seçmeli",
-    metaTitle: "El Yapımı Deri Cüzdan vs Makine Üretimi | TheBullsCraft Blog",
+    metaTitle: "El Yapımı Deri Cüzdan vs Makine Üretimi | MinaToi Blog",
     metaDescription: "El yapımı deri cüzdan ile makine üretimi arasındaki gerçek farklar neler? Dikiş teknikleri, dayanıklılık, fiyat ve estetik açısından kapsamlı karşılaştırma.",
     excerpt: "El yapımı deri cüzdan ile fabrika üretimi bir cüzdan arasındaki fark sadece fiyat değil. Dikiş tekniği, malzeme kalitesi ve uzun vadeli dayanıklılık açısından iki dünya arasındaki gerçek ayrım nedir?",
     coverImage: "/images/products/sokrates/open.jpg",
@@ -192,8 +192,8 @@ export const BLOG_POSTS: BlogPost[] = [
   </ul>
   <p>Üstelik iyi el yapımı deri zamanla güzelleşir. Kullanıldıkça geliştirilen <strong>patina</strong>, her kullanıcıya özgü bir renk derinliği oluşturur ve cüzdanı kişisel bir nesneye dönüştürür.</p>
 
-  <h2>TheBullsCraft'ın El Yapımı Üretim Süreci</h2>
-  <p>TheBullsCraft atölyesinde her ürün şu adımlardan geçer:</p>
+  <h2>MinaToi'ın El Yapımı Üretim Süreci</h2>
+  <p>MinaToi atölyesinde her ürün şu adımlardan geçer:</p>
   <ol>
     <li>Full grain hakiki deri seçimi ve kalite kontrolü</li>
     <li>Şablona göre elle kesim (clicker press değil, elle bıçak)</li>
@@ -213,8 +213,8 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "toptan-deri-cuzdan-tedarikci-rehberi",
     title: "Toptan Deri Cüzdan: Kurumsal ve Toplu Sipariş Rehberi",
-    metaTitle: "Toptan Deri Cüzdan | Kurumsal Hediye ve Toplu Sipariş | TheBullsCraft",
-    metaDescription: "Toptan deri cüzdan ve deri aksesuar siparişi için tedarikçi seçim kriterleri, kurumsal hediyecilik avantajları ve TheBullsCraft toplu sipariş süreci hakkında kapsamlı rehber.",
+    metaTitle: "Toptan Deri Cüzdan | Kurumsal Hediye ve Toplu Sipariş | MinaToi",
+    metaDescription: "Toptan deri cüzdan ve deri aksesuar siparişi için tedarikçi seçim kriterleri, kurumsal hediyecilik avantajları ve MinaToi toplu sipariş süreci hakkında kapsamlı rehber.",
     excerpt: "Kurumsal hediye olarak veya bayilik amacıyla toptan deri cüzdan almayı mı düşünüyorsunuz? Tedarikçi seçimi, minimum sipariş miktarları ve kişiselleştirme seçenekleri hakkında bilmeniz gereken her şey bu yazıda.",
     coverImage: "/images/products/sokrates/angle.jpg",
     publishedAt: "2026-06-30",
@@ -263,8 +263,8 @@ export const BLOG_POSTS: BlogPost[] = [
     <li><strong>Kişiselleştirme:</strong> Logo veya isim kazıma, hediyeyi özel ve hatırlanabilir kılar.</li>
   </ol>
 
-  <h2>TheBullsCraft ile Toptan ve Kurumsal Sipariş</h2>
-  <p>TheBullsCraft olarak kurumsal ve toplu siparişlere özel fiyatlandırma ve kişiselleştirme hizmetleri sunuyoruz. Minimum sipariş miktarı esnektir; logo debossing, isim kazıma ve özel renk seçenekleri mevcuttur.</p>
+  <h2>MinaToi ile Toptan ve Kurumsal Sipariş</h2>
+  <p>MinaToi olarak kurumsal ve toplu siparişlere özel fiyatlandırma ve kişiselleştirme hizmetleri sunuyoruz. Minimum sipariş miktarı esnektir; logo debossing, isim kazıma ve özel renk seçenekleri mevcuttur.</p>
   <p>Toptan sipariş için WhatsApp veya e-posta üzerinden iletişime geçebilirsiniz. Siparişinizi birlikte planlayalım.</p>
 
   <p><a href="/iletisim">Kurumsal sipariş için iletişime geçin →</a></p>
@@ -276,7 +276,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "deri-cuzdan-bakim-rehberi",
     title: "Deri Cüzdan Bakım Rehberi: Ömrünü İkiye Katlayacak 10 Adım",
-    metaTitle: "Deri Cüzdan Bakımı Nasıl Yapılır? | TheBullsCraft Blog",
+    metaTitle: "Deri Cüzdan Bakımı Nasıl Yapılır? | MinaToi Blog",
     metaDescription: "Hakiki deri cüzdanınızı uzun yıllar güzel tutmanın sırları: temizleme, besleme, nemlendirme, depolama ve patina oluşturma hakkında eksiksiz bakım rehberi.",
     excerpt: "İyi bir deri cüzdan bakımı yapılmadığında bile yıllarca kullanılabilir. Ama düzenli bakım yapıldığında onlarca yıl sürer ve zamanla daha güzel bir hal alır. İşte hakiki deri cüzdanınızı mükemmel tutacak 10 adımlı bakım rehberi.",
     coverImage: "/images/products/sokrates/closed.jpg",
@@ -337,8 +337,8 @@ export const BLOG_POSTS: BlogPost[] = [
   <h2>Hangi Deri Bakım Ürünleri Önerilir?</h2>
   <p>Türkiye'de kolayca bulabileceğiniz deri bakım ürünleri arasında Saphir, Collonil, Tarrago ve Fiebing's markaları güvenilir tercihlerdir. Eczanelerden bulabileceğiniz kokusuz lanolin bazlı ürünler de işe yarar.</p>
 
-  <h2>TheBullsCraft Ürünleri için Bakım Notu</h2>
-  <p>Tüm TheBullsCraft deri ürünleri ürün teslimatında bakım ve kullanım bilgilendirme kılavuzuyla birlikte gelmektedir. Herhangi bir bakım sorunuzda WhatsApp üzerinden destek alabilirsiniz.</p>
+  <h2>MinaToi Ürünleri için Bakım Notu</h2>
+  <p>Tüm MinaToi deri ürünleri ürün teslimatında bakım ve kullanım bilgilendirme kılavuzuyla birlikte gelmektedir. Herhangi bir bakım sorunuzda WhatsApp üzerinden destek alabilirsiniz.</p>
 
   <p><a href="/urunler">Uzun ömürlü hakiki deri ürünlerimizi keşfedin →</a></p>
 </article>

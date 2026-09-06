@@ -34,7 +34,7 @@ export function WhatsAppButton({ message, className = "", children, size = "md",
 }
 
 export function WhatsAppFloating() {
-  const msg = "Merhaba, TheBullsCraft web sitesinden yazıyorum. Ürünleriniz hakkında bilgi alabilir miyim?";
+  const msg = "Merhaba, MinaToi web sitesinden yazıyorum. Ürünleriniz hakkında bilgi alabilir miyim?";
   return (
     <a
       href={waLink(msg)}
