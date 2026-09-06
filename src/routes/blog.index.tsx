@@ -10,11 +10,14 @@ export const Route = createFileRoute("/blog/")({
         content:
           "Hakiki deri cüzdan, kartlık ve deri aksesuar hakkında uzman rehberler. Deri seçimi, bakım, el yapımı üretim ve toptan satın alma konularında kapsamlı makaleler.",
       },
-      { name: "keywords", content: "deri cüzdan blog, hakiki deri rehber, deri kartlık seçimi, deri bakım, el yapımı deri" },
-      { property: "og:title", content: "Blog — Deri Cüzdan & Aksesuar Rehberleri | MinaToi" },
+      {
+        name: "keywords",
+        content: "cam tablo blog, kişiye özel tasarım, duvar dekorasyonu, MinaToi",
+      },
+      { property: "og:title", content: "Blog — MinaToi" },
       {
         property: "og:description",
-        content: "Hakiki deri cüzdan, kartlık ve deri aksesuar hakkında uzman rehberler ve makaleler.",
+        content: "MinaToi cam tablo ve kişiye özel tasarım dünyasından yazılar.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://minatoi.com/blog" },
@@ -36,13 +39,21 @@ const TAG_COLORS: Record<string, string> = {
 function TagBadge({ tag }: { tag: string }) {
   const cls = TAG_COLORS[tag] ?? "bg-stone-100 text-stone-600 border-stone-200";
   return (
-    <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium ${cls}`}>
+    <span
+      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium ${cls}`}
+    >
       {tag}
     </span>
   );
 }
 
-function BlogCard({ post, featured = false }: { post: (typeof BLOG_POSTS)[0]; featured?: boolean }) {
+function BlogCard({
+  post,
+  featured = false,
+}: {
+  post: (typeof BLOG_POSTS)[0];
+  featured?: boolean;
+}) {
   return (
     <Link
       to="/blog/$slug"
@@ -103,7 +114,7 @@ function BlogCard({ post, featured = false }: { post: (typeof BLOG_POSTS)[0]; fe
 
 function BlogIndex() {
   const sorted = [...BLOG_POSTS].sort(
-    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
   );
   const [featured, ...rest] = sorted;
 
@@ -112,7 +123,7 @@ function BlogIndex() {
     "@context": "https://schema.org",
     "@type": "Blog",
     name: "MinaToi Blog",
-    description: "Hakiki deri cüzdan, kartlık ve deri aksesuar hakkında uzman rehberler",
+    description: "MinaToi cam tablo ve kişiye özel tasarım dünyasından yazılar",
     url: "https://minatoi.com/blog",
     publisher: {
       "@type": "Organization",
@@ -139,35 +150,52 @@ function BlogIndex() {
       {/* ── Başlık ── */}
       <section className="bg-stone-50 border-b border-stone-100 py-14">
         <div className="mx-auto max-w-7xl px-4">
-          <nav className="mb-4 flex items-center gap-2 text-xs text-stone-400" aria-label="Breadcrumb">
-            <Link to="/" className="hover:text-stone-600 transition-colors">Anasayfa</Link>
+          <nav
+            className="mb-4 flex items-center gap-2 text-xs text-stone-400"
+            aria-label="Breadcrumb"
+          >
+            <Link to="/" className="hover:text-stone-600 transition-colors">
+              Anasayfa
+            </Link>
             <span>/</span>
             <span className="text-stone-600">Blog</span>
           </nav>
-          <p className="text-xs font-semibold uppercase tracking-widest text-primary">Bilgi & Rehber</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+            MinaToi Blog
+          </p>
           <h1 className="mt-2 font-display text-4xl font-bold text-stone-900 sm:text-5xl">
-            Deri Dünyasından<br className="hidden sm:block" /> Rehberler
+            Yeni yazılar
+            <br className="hidden sm:block" /> yakında burada.
           </h1>
           <p className="mt-4 max-w-2xl text-stone-500 text-base leading-relaxed">
-            Hakiki deri cüzdan ve kartlık seçimi, bakımı, el yapımı üretim sırları ve toptan satın
-            alma rehberleri. MinaToi atölyesinden uzman içerikler.
+            Cam tablo modelleri, kişiye özel tasarımlar ve yaşam alanlarınıza ilham verecek
+            içerikler üzerinde çalışıyoruz.
           </p>
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-14">
-        {/* Öne çıkan yazı */}
-        {featured && (
+        {featured ? (
           <div className="mb-10">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-primary">Öne Çıkan</p>
+            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-primary">
+              Öne Çıkan
+            </p>
             <BlogCard post={featured} featured />
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-stone-100 bg-stone-50 px-6 py-12 text-center">
+            <h2 className="font-display text-2xl font-bold text-stone-900">Henüz yazı yok</h2>
+            <p className="mx-auto mt-3 max-w-xl text-stone-500">
+              MinaToi blogunda yeni yazılar yayınlandığında burada bulabilirsiniz.
+            </p>
           </div>
         )}
 
-        {/* Kalan yazılar */}
         {rest.length > 0 && (
           <>
-            <p className="mb-6 text-xs font-semibold uppercase tracking-widest text-stone-400">Tüm Yazılar</p>
+            <p className="mb-6 text-xs font-semibold uppercase tracking-widest text-stone-400">
+              Tüm Yazılar
+            </p>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
               {rest.map((p) => (
                 <BlogCard key={p.slug} post={p} />

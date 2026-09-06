@@ -3,10 +3,11 @@ import { useState } from "react";
 import { SERIES, formatTL } from "@/data/products";
 import type { Product, GlassesDetails, WalletDetails } from "@/data/products";
 import { getCategories } from "@/data/categoryActions";
+import { getHeroContent } from "@/data/heroActions";
 import { fetchProductsServer } from "@/data/adminProducts";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
-import { CashOnDeliveryForm } from "@/components/CashOnDeliveryForm";
-import { ProductCard } from "@/components/ProductCard";
+import { ProductCarousel } from "@/components/ProductCarousel";
+import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
 
 export const Route = createFileRoute("/urun/$slug")({
   head: ({ loaderData, params }) => {
@@ -50,15 +51,20 @@ export const Route = createFileRoute("/urun/$slug")({
     };
   },
   loader: async ({ params }) => {
-    const [all, categories] = await Promise.all([fetchProductsServer(), getCategories()]);
+    const [all, categories, hero] = await Promise.all([
+      fetchProductsServer(),
+      getCategories(),
+      getHeroContent(),
+    ]);
     const product = all.find((p) => p.slug === params.slug);
     if (!product) throw notFound();
     return {
       product: product as Product,
       categories,
+      hero,
       related: all
         .filter((p) => p.category === product.category && p.slug !== params.slug)
-        .slice(0, 4),
+        .slice(0, 10),
     };
   },
   notFoundComponent: () => (
@@ -79,7 +85,7 @@ export const Route = createFileRoute("/urun/$slug")({
 });
 
 function ProductDetail() {
-  const { product, categories, related } = Route.useLoaderData();
+  const { product, categories, related, hero } = Route.useLoaderData();
   const [selectedSize, setSelectedSize] = useState<string>(product.sizes?.[0] ?? "");
   const cat = categories.find((c) => c.slug === product.category) ?? {
     slug: product.category,
@@ -181,12 +187,11 @@ function ProductDetail() {
               rel="noreferrer"
               className="block w-full rounded-full bg-gradient-gold px-6 py-4 text-center text-sm font-semibold text-primary-foreground shadow-glow transition hover:brightness-110"
             >
-              🛍️ Shopier ile Hemen Satın Al
+              🛍️ Hemen Satın Al
             </a>
             <WhatsAppButton message={waMsg} size="lg" className="w-full">
               WhatsApp'tan Bu Ürünü Sor
             </WhatsAppButton>
-            <CashOnDeliveryForm product={product} />
           </div>
 
           {/* Features */}
@@ -207,23 +212,20 @@ function ProductDetail() {
           </div>
 
           {/* Trust */}
-          <div className="mt-5 grid grid-cols-3 gap-3 text-center text-xs">
-            <div className="rounded-xl border border-stone-100 bg-white p-3 shadow-sm">
-              <div className="text-lg">🚚</div>
-              <div className="mt-1 font-semibold text-stone-800">Hızlı Kargo</div>
-              <div className="text-stone-400">1-3 iş günü</div>
+          {hero.stats.length > 0 && (
+            <div className="mt-5 grid grid-cols-3 gap-3 text-center text-xs">
+              {hero.stats.slice(0, 3).map((stat, index) => (
+                <div
+                  key={`${stat.label}-${index}`}
+                  className="rounded-xl border border-stone-100 bg-white p-3 shadow-sm"
+                >
+                  <div className="text-lg">{["🚚", "🛡️", "💵"][index]}</div>
+                  <div className="mt-1 font-semibold text-stone-800">{stat.label}</div>
+                  <div className="text-stone-400">{stat.value}</div>
+                </div>
+              ))}
             </div>
-            <div className="rounded-xl border border-stone-100 bg-white p-3 shadow-sm">
-              <div className="text-lg">🛡️</div>
-              <div className="mt-1 font-semibold text-stone-800">Güvenli Ödeme</div>
-              <div className="text-stone-400">Shopier</div>
-            </div>
-            <div className="rounded-xl border border-stone-100 bg-white p-3 shadow-sm">
-              <div className="text-lg">💵</div>
-              <div className="mt-1 font-semibold text-stone-800">Kapıda Ödeme</div>
-              <div className="text-stone-400">Tüm Türkiye</div>
-            </div>
-          </div>
+          )}
         </div>
       </div>
 
@@ -236,23 +238,23 @@ function ProductDetail() {
         />
       </section>
 
+      <TestimonialsCarousel />
+
+      {related.length > 0 && (
+        <ProductCarousel
+          products={related}
+          eyebrow="Koleksiyondan"
+          title="Bunlar da ilginizi çekebilir"
+          description="Aynı kategoriden diğer ürünlerimizi keşfedin."
+          viewAllSlug={product.category}
+        />
+      )}
+
       {/* Glasses details */}
       {product.glasses && <GlassesInfo details={product.glasses} />}
 
       {/* Wallet details */}
       {product.wallet && <WalletInfo details={product.wallet} />}
-
-      {/* Related */}
-      {related.length > 0 && (
-        <section className="mt-16">
-          <h2 className="font-display text-2xl font-bold">Benzer Ürünler</h2>
-          <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {related.map((p) => (
-              <ProductCard key={p.slug} product={p} />
-            ))}
-          </div>
-        </section>
-      )}
     </article>
   );
 }

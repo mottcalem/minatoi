@@ -1,9 +1,11 @@
 import { CategoryCarousel } from "@/components/CategoryCarousel";
 import { getBanners } from "@/data/bannerActions";
 import { getHeroContent } from "@/data/heroActions";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { getAboutContent } from "@/data/aboutActions";
+import { type AboutContent } from "@/data/about";
 import craftImg from "@/assets/craft.jpg";
 import glassesImg from "@/assets/cat-glasses.jpg";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import casesImg from "@/assets/cat-cases.jpg";
 import walletsImg from "@/assets/cat-wallets.jpg";
 import { getCategories } from "@/data/categoryActions";
@@ -57,21 +59,30 @@ export const Route = createFileRoute("/")({
     links: [{ rel: "canonical", href: "https://minatoi.com/" }],
   }),
   loader: async () => {
-    const [products, banners, categories, hero] = await Promise.all([
+    const [products, banners, categories, hero, about] = await Promise.all([
       fetchProductsServer(),
       getBanners(),
       getCategories(),
       getHeroContent(),
+      getAboutContent(),
     ]);
-    return { products, banners, categories, hero };
+    return { products, banners, categories, hero, about };
   },
   component: Index,
 });
 
 function Index() {
-  const { products, banners, categories, hero } = Route.useLoaderData();
+  const { products, banners, categories, hero, about } = Route.useLoaderData();
+  const featuredProducts = products.filter((product) => product.featured);
   const cuzdanlar = products.filter((p) => p.category === "cuzdan");
   const kiliflar = products.filter((p) => p.category === "kilif");
+  const additionalCategorySections = categories
+    .filter((category) => category.slug !== "cuzdan" && category.slug !== "kilif")
+    .map((category) => ({
+      category,
+      products: products.filter((product) => product.category === category.slug),
+    }))
+    .filter(({ products: categoryProducts }) => categoryProducts.length > 0);
   const sliderProducts = [...products]
     .sort((a, b) => Number(!!b.featured) - Number(!!a.featured))
     .slice(0, 5);
@@ -165,6 +176,12 @@ function Index() {
           image: categoryImage(category.slug, category.image),
         }))}
       />
+      <ProductCarousel
+        products={featuredProducts}
+        eyebrow="Seçtiklerimiz"
+        title="Öne Çıkan Ürünler"
+        description="MinaToi koleksiyonundan öne çıkan tasarımlar."
+      />
       {/* ─── CÜZDAN & KARTLIK ─────────────────────────────────────── */}
       <ProductCarousel
         products={cuzdanlar}
@@ -173,51 +190,8 @@ function Index() {
         description="Birinci sınıf hakiki deri, sabırlı el dikişi."
         viewAllSlug="cuzdan"
       />
-      {/* ─── ZANAAT ───────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-7xl px-4 py-20">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
-          <div className="relative">
-            <div className="absolute -inset-4 -z-10 rounded-3xl bg-amber-50 blur-2xl opacity-70" />
-            <img
-              src={craftImg}
-              alt="El yapımı deri işçiliği"
-              loading="lazy"
-              className="w-full rounded-3xl object-cover shadow-elegant"
-            />
-          </div>
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-primary">MinaToi</p>
-            <h2 className="mt-3 font-display text-3xl font-bold text-stone-900 sm:text-4xl">
-              Minatoi Cam Tablo
-            </h2>
-            <p className="mt-4 leading-relaxed text-stone-500">
-Minatoi, yaşam alanlarına modern, estetik ve kişisel bir dokunuş katmak için hazırlanan dekoratif cam tablo koleksiyonları sunar. 4 mm temperli cam üzerine UV baskı teknolojisiyle hazırlanan cam tablolar; parlak yüzey etkisi, canlı renkleri ve dayanıklı yapısıyla ev, ofis ve hediye dekorasyonunda dikkat çekici bir seçenek oluşturur.
-
-
-            </p>
-            <p className="mt-4 leading-relaxed text-stone-500">
-Koleksiyonlarımızda kedi temalı cam tablolar, göz ve nazar tasarımları, zen ve doğa esintili çalışmalar, sanatçı albümü seçkileri, afiş tarzı modern tasarımlar, gerçek üstü kompozisyonlar ve hayvan figürlü dekoratif tablolar yer alır. Ayrıca kişiye özel cam tablo seçenekleriyle kendi fotoğrafınızı ya da sevdiğiniz bir görseli cam yüzeye taşıyabilir; patili dostlara özel tasarımlarla kedi veya köpeğiniz için özel bir tablo hazırlatabilirsiniz.
-
-
-            </p>
-<p className="mt-4 leading-relaxed text-stone-500">
-  Minatoi cam tablolar, çerçevesiz ve modern görünümüyle duvar dekorasyonunda sade ama güçlü bir etki oluşturur. Ürünlerimiz 4 mm temperli cam üzerine basılır, kolay temizlenebilir parlak yüzeyiyle uzun süre canlı görünümünü korur. Türkiye’nin her yerine ücretsiz kargo ve hasarsız teslimat garantisiyle hazırlanan koleksiyonlarımızı inceleyerek yaşam alanınıza uygun cam tablo modelini seçebilirsiniz.
-
-            </p>
-            <p className="mt-4 leading-relaxed text-stone-500">
-Cam tablo hakkında daha ayrıntılı bilgi için Cam Tablo Nedir? Özellikleri, Avantajları ve Kullanım Alanları rehberimizi inceleyin.
-            </p>
-            <div className="mt-8">
-              <Link
-                to="/urunler"
-                className="inline-flex items-center justify-center rounded-full bg-gradient-gold px-7 py-3.5 text-sm font-semibold text-white shadow-glow transition hover:brightness-110"
-              >
-                Tüm Ürünleri Gör
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ─── TANITIM BÖLÜMÜ ───────────────────────────────────────── */}
+      <AboutSection content={about} />
       {/* ─── MÜŞTERİ YORUMLARI ───────────────────────────────────── */}
       <TestimonialsCarousel />
       {/* ─── GÖZLÜK KILIFLAR ──────────────────────────────────────── */}
@@ -228,6 +202,16 @@ Cam tablo hakkında daha ayrıntılı bilgi için Cam Tablo Nedir? Özellikleri,
         description="Gözlüğünü hakiki deriyle koruyun."
         viewAllSlug="kilif"
       />
+      {additionalCategorySections.map(({ category, products: categoryProducts }) => (
+        <ProductCarousel
+          key={category.slug}
+          products={categoryProducts}
+          eyebrow="Koleksiyon"
+          title={category.label}
+          description={category.description}
+          viewAllSlug={category.slug}
+        />
+      ))}
       {/* ─── CTA ──────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-4 py-20">
         <div className="rounded-3xl border border-stone-100 bg-gradient-to-br from-stone-50 to-amber-50/60 px-8 py-16 text-center shadow-sm md:px-16">
@@ -251,5 +235,78 @@ Cam tablo hakkında daha ayrıntılı bilgi için Cam Tablo Nedir? Özellikleri,
         </div>
       </section>
     </>
+  );
+}
+
+/**
+ * Anasayfadaki tanıtım bölümü: görsel + başlık + zengin metin + buton.
+ * İçerik yönetim panelindeki "Tanıtım Bölümü" sekmesinden düzenlenir.
+ */
+function AboutSection({ content }: { content: AboutContent }) {
+  const image = content.imageUrl || craftImg;
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-20">
+      <div className="grid items-center gap-12 lg:grid-cols-2">
+        <div className="relative">
+          <div className="absolute -inset-4 -z-10 rounded-3xl bg-amber-50 blur-2xl opacity-70" />
+          {content.videoUrl ? (
+            <video
+              src={content.videoUrl}
+              className="w-full rounded-3xl object-cover shadow-elegant"
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls
+              aria-label={content.title}
+            />
+          ) : (
+            <img
+              src={image}
+              alt={content.imageAlt || "Bölüm görseli"}
+              loading="lazy"
+              className="w-full rounded-3xl object-cover shadow-elegant"
+            />
+          )}
+        </div>
+        <div>
+          {content.eyebrow && (
+            <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+              {content.eyebrow}
+            </p>
+          )}
+          <h2 className="mt-3 font-display text-3xl font-bold text-stone-900 sm:text-4xl">
+            {content.title}
+          </h2>
+          {content.bodyHtml && (
+            <div
+              className="blog-content mt-4 max-w-xl"
+              dangerouslySetInnerHTML={{ __html: content.bodyHtml }}
+            />
+          )}
+          {content.ctaLabel && (
+            <div className="mt-8">
+              {content.ctaHref.startsWith("http") ? (
+                <a
+                  href={content.ctaHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center rounded-full bg-gradient-gold px-7 py-3.5 text-sm font-semibold text-white shadow-glow transition hover:brightness-110"
+                >
+                  {content.ctaLabel}
+                </a>
+              ) : (
+                <Link
+                  to={content.ctaHref}
+                  className="inline-flex items-center justify-center rounded-full bg-gradient-gold px-7 py-3.5 text-sm font-semibold text-white shadow-glow transition hover:brightness-110"
+                >
+                  {content.ctaLabel}
+                </Link>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
   );
 }

@@ -2,6 +2,7 @@ import { BannerManager } from "@/components/BannerManager";
 import { AnnouncementManager } from "@/components/AnnouncementManager";
 import { CategoryManager } from "@/components/CategoryManager";
 import { HeroManager } from "@/components/HeroManager";
+import { AboutManager } from "@/components/AboutManager";
 import { RichTextEditor } from "@/components/RichTextEditor";
 import { ImageUploader } from "@/components/ImageUploader";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -26,7 +27,7 @@ export const Route = createFileRoute("/admin")({
   component: AdminRoot,
 });
 
-type AdminTab = "products" | "categories" | "announcements" | "banners" | "hero";
+type AdminTab = "products" | "categories" | "announcements" | "banners" | "hero" | "about";
 
 const ADMIN_TABS: { id: AdminTab; label: string }[] = [
   { id: "products", label: "Ürün Yönetimi" },
@@ -34,6 +35,7 @@ const ADMIN_TABS: { id: AdminTab; label: string }[] = [
   { id: "announcements", label: "Duyuru Bandı" },
   { id: "banners", label: "Anasayfa Slider" },
   { id: "hero", label: "Hero Bölümü" },
+  { id: "about", label: "Tanıtım Bölümü" },
 ];
 
 /** Kategori listesi yüklenene kadar kullanılan yedek seçenekler. */
@@ -252,6 +254,7 @@ function inputCls(error?: string) {
 
 type FormState = {
   name: string;
+  slug: string;
   category: string;
   price: string;
   oldPrice: string;
@@ -265,11 +268,12 @@ type FormState = {
   badge: string;
 };
 
-function productToForm(p: Partial<Product>): FormState {
+function productToForm(p: Partial<Product>, isNew = false): FormState {
   const gallery = p.images?.length ? p.images : p.image ? [p.image] : [];
   return {
     name: p.name ?? "",
-    category: p.category ?? "cuzdan",
+    slug: p.slug ?? "",
+    category: isNew ? "" : (p.category ?? ""),
     price: p.price ? String(p.price) : "",
     oldPrice: p.oldPrice ? String(p.oldPrice) : "",
     images: gallery,
@@ -282,10 +286,10 @@ function productToForm(p: Partial<Product>): FormState {
   };
 }
 
-function formToProduct(form: FormState, existingSlug?: string): Product {
+function formToProduct(form: FormState, existingFeatured?: boolean): Product {
   const images = form.images.filter(Boolean);
   return {
-    slug: existingSlug ?? generateSlug(form.name),
+    slug: generateSlug(form.slug.trim() || form.name),
     name: form.name.trim(),
     category: form.category,
     price: Number(form.price) || 0,
@@ -304,6 +308,7 @@ function formToProduct(form: FormState, existingSlug?: string): Product {
       .filter(Boolean),
     shopierUrl: form.shopierUrl.trim(),
     badge: form.badge.trim() || undefined,
+    featured: existingFeatured,
   };
 }
 
@@ -316,7 +321,7 @@ function ProductForm({
   onSave: (p: Product) => void;
   onCancel: () => void;
 }) {
-  const [form, setForm] = useState<FormState>(productToForm(initial ?? EMPTY_PRODUCT));
+  const [form, setForm] = useState<FormState>(productToForm(initial ?? EMPTY_PRODUCT, !initial));
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [categories, setCategories] =
     useState<{ slug: string; label: string }[]>(FALLBACK_CATEGORIES);
@@ -337,6 +342,8 @@ function ProductForm({
   function validate(): boolean {
     const e: Partial<Record<keyof FormState, string>> = {};
     if (!form.name.trim()) e.name = "İsim zorunludur.";
+    if (!form.slug.trim() && !form.name.trim()) e.slug = "URL adresi için ürün adı giriniz.";
+    if (!form.category) e.category = "Kategori seçiniz.";
     if (!form.price || Number(form.price) <= 0) e.price = "Geçerli bir fiyat giriniz.";
     if (!form.images.length) e.images = "En az bir görsel yükleyin.";
     if (!form.shortDescription.trim()) e.shortDescription = "Kısa açıklama zorunludur.";
@@ -345,7 +352,7 @@ function ProductForm({
   }
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (validate()) onSave(formToProduct(form, initial?.slug));
+    if (validate()) onSave(formToProduct(form, initial?.featured));
   }
 
   return (
@@ -359,12 +366,26 @@ function ProductForm({
             placeholder="ör. SOKRATES — Klasik Deri Cüzdan"
           />
         </FormField>
-        <FormField label="Kategori *">
+        <FormField label="URL adresi" error={errors.slug}>
+          <input
+            className={inputCls(errors.slug)}
+            value={form.slug}
+            onChange={(e) => set("slug", generateSlug(e.target.value))}
+            placeholder="ör. miki-fare-afis-cam-tablo-af114"
+          />
+          <p className="mt-1 text-xs text-stone-400">
+            Ürün bağlantısında kullanılacak adres. Boş bırakılırsa ürün adından oluşturulur.
+          </p>
+        </FormField>
+        <FormField label="Kategori *" error={errors.category}>
           <select
-            className={inputCls()}
+            className={inputCls(errors.category)}
             value={form.category}
             onChange={(e) => set("category", e.target.value)}
           >
+            <option value="" disabled>
+              Seçiniz
+            </option>
             {categories.map((c) => (
               <option key={c.slug} value={c.slug}>
                 {c.label}
@@ -490,6 +511,7 @@ function AdminPage({
   const [tab, setTab] = useState<AdminTab>("products");
   const [mode, setMode] = useState<"list" | "add" | "edit">("list");
   const [editing, setEditing] = useState<Product | null>(null);
+  const [formInitial, setFormInitial] = useState<Product | null>(null);
   const [filterCat, setFilterCat] = useState<string>("all");
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
   const [pageCategories, setPageCategories] =
@@ -547,6 +569,13 @@ function AdminPage({
   }
 
   async function handleSave(p: Product) {
+    const slugConflict = products.some(
+      (product) => product.slug === p.slug && product.slug !== editing?.slug,
+    );
+    if (slugConflict) {
+      showToast("Bu URL adresi başka bir üründe kullanılıyor.", "err");
+      return;
+    }
     let updated: Product[];
     if (editing) {
       updated = products.map((x) => (x.slug === editing.slug ? p : x));
@@ -556,6 +585,7 @@ function AdminPage({
     await persist(updated, editing ? `"${p.name}" güncellendi.` : `"${p.name}" eklendi.`);
     setMode("list");
     setEditing(null);
+    setFormInitial(null);
   }
 
   async function handleDelete(slug: string) {
@@ -567,6 +597,20 @@ function AdminPage({
   async function handleSetFeatured(slug: string) {
     const updated = products.map((p) => ({ ...p, featured: p.slug === slug ? true : undefined }));
     await persist(updated, "Öne çıkan ürün güncellendi.");
+  }
+
+  function handleClone(product: Product) {
+    const cloneName = `${product.name} - Kopya`;
+    const baseSlug = generateSlug(cloneName);
+    let cloneSlug = baseSlug;
+    let suffix = 2;
+    while (products.some((item) => item.slug === cloneSlug)) {
+      cloneSlug = `${baseSlug}-${suffix}`;
+      suffix += 1;
+    }
+    setEditing(null);
+    setFormInitial({ ...product, name: cloneName, slug: cloneSlug });
+    setMode("add");
   }
 
   const filtered =
@@ -608,12 +652,7 @@ function AdminPage({
               >
                 Evet, Sil
               </button>
-              <button
-                onClick={() => setConfirmDelete(null)}
-                className="rounded-full border border-stone-200 px-5 py-2.5 text-sm font-medium hover:bg-stone-50 transition"
-              >
-                İptal
-              </button>
+              <button onClick={() => setConfirmDelete(null)}>İptal</button>
             </div>
           </div>
         </div>
@@ -658,6 +697,7 @@ function AdminPage({
         {tab === "products" && mode === "list" && (
           <button
             onClick={() => {
+              setFormInitial(null);
               setEditing(null);
               setMode("add");
             }}
@@ -712,6 +752,7 @@ function AdminPage({
                   onClick={() => {
                     setMode("list");
                     setEditing(null);
+                    setFormInitial(null);
                   }}
                   className="shrink-0 text-xs text-stone-400 hover:text-primary transition-colors"
                 >
@@ -719,11 +760,12 @@ function AdminPage({
                 </button>
               </div>
               <ProductForm
-                initial={editing ?? undefined}
+                initial={editing ?? formInitial ?? undefined}
                 onSave={handleSave}
                 onCancel={() => {
                   setMode("list");
                   setEditing(null);
+                  setFormInitial(null);
                 }}
               />
             </div>
@@ -847,11 +889,18 @@ function AdminPage({
                             <button
                               onClick={() => {
                                 setEditing(p);
+                                setFormInitial(null);
                                 setMode("edit");
                               }}
                               className="rounded-lg border border-stone-200 px-3 py-1.5 text-xs font-medium text-stone-600 hover:bg-stone-100 transition"
                             >
                               Düzenle
+                            </button>
+                            <button
+                              onClick={() => handleClone(p)}
+                              className="rounded-lg border border-amber-200 px-3 py-1.5 text-xs font-medium text-amber-700 hover:bg-amber-50 transition"
+                            >
+                              Klonla
                             </button>
                             <button
                               onClick={() => setConfirmDelete(p.slug)}
@@ -889,6 +938,7 @@ function AdminPage({
       {/* Slider sekmesi */}
       {tab === "banners" && <BannerManager />}
       {tab === "hero" && <HeroManager />}
+      {tab === "about" && <AboutManager />}
     </div>
   );
 }
