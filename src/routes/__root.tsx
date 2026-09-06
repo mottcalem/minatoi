@@ -15,7 +15,6 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { WhatsAppFloating } from "@/components/WhatsAppButton";
 
 function NotFoundComponent() {
   return (
@@ -89,6 +88,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-R32VEKYQ7R');`,
+      },
+      {
+        children: `window.chatwootSettings = {"position":"right","type":"expanded_bubble","launcherTitle":"Canlı Destek"};
+(function(d,t) {
+  var BASE_URL="https://login.engagemetriq.com";
+  var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=BASE_URL+"/packs/js/sdk.js";
+  g.async = true;
+  s.parentNode.insertBefore(g,s);
+  g.onload=function(){
+    window.chatwootSDK.run({
+      websiteToken: '8mw3b8PoA96aKEA72uXqZpwE',
+      baseUrl: BASE_URL
+    })
+  }
+})(document,"script");`,
       },
     ],
     meta: [
@@ -175,7 +190,6 @@ function RootComponent() {
           <Outlet />
         </main>
         <Footer />
-        <WhatsAppFloating />
       </div>
     </QueryClientProvider>
   );

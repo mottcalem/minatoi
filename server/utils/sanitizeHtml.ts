@@ -27,6 +27,10 @@ const ALLOWED_ATTRIBUTES: Record<string, Set<string>> = {
   a: new Set(["href", "rel", "target"]),
 };
 
+// Bu etiketlerin içeriği de atılmalı; yalnızca etiketleri kaldırmak,
+// script içindeki JavaScript metnini dangerouslySetInnerHTML'e bırakır.
+const BLOCKED_CONTENT_TAGS = new Set(["script", "style", "iframe", "object", "embed", "template"]);
+
 /** etiket adı → {keep: nitelikler, dropIçerik: etiketle birlikte içeriği de at} */
 type TagToken =
   { type: "text"; value: string } | { type: "tag"; name: string; closing: boolean; attrs: string };
@@ -77,7 +81,18 @@ export function sanitizeRichText(html: string): string {
   const tokens = tokenize(html);
   let output = "";
   const openTags: string[] = [];
+  const blockedTags: string[] = [];
   for (const token of tokens) {
+    if (token.type === "tag" && BLOCKED_CONTENT_TAGS.has(token.name)) {
+      if (token.closing) {
+        const last = blockedTags.lastIndexOf(token.name);
+        if (last !== -1) blockedTags.splice(last, 1);
+      } else {
+        blockedTags.push(token.name);
+      }
+      continue;
+    }
+    if (blockedTags.length) continue;
     if (token.type === "text") {
       output += token.value;
       continue;
