@@ -46,6 +46,10 @@ try {
   await client.query("LOCK TABLE minatoi_content IN SHARE ROW EXCLUSIVE MODE");
   await client.query(PRODUCT_SCHEMA);
   await client.query("ALTER TABLE products DROP CONSTRAINT IF EXISTS products_category_check");
+  // Ölçü varyasyonları: products tablosuna text[] kolonu (idempotent).
+  await client.query(
+    "ALTER TABLE products ADD COLUMN IF NOT EXISTS sizes text[] NOT NULL DEFAULT '{}'",
+  );
   await client.query(ANNOUNCEMENT_SCHEMA);
   await client.query(CATEGORY_SCHEMA);
   await client.query(CATEGORY_IMAGE_MIGRATION);

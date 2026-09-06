@@ -56,9 +56,24 @@ const kilif1Images = [
 export type Category = "gozluk" | "kilif" | "cuzdan";
 
 export const CATEGORIES: { slug: Category; label: string; description: string; image: string }[] = [
-  { slug: "gozluk", label: "Gözlük", description: "UV korumalı, EN ISO 12312-1:2013 standart güneş gözlükleri", image: glassesImg },
-  { slug: "kilif", label: "Gözlük Kılıfı", description: "Tam deri, el yapımı gözlük kılıfları", image: casesImg },
-  { slug: "cuzdan", label: "Cüzdan & Kartlık", description: "El yapımı hakiki deri cüzdan ve kartlık modelleri", image: walletsImg },
+  {
+    slug: "gozluk",
+    label: "Gözlük",
+    description: "UV korumalı, EN ISO 12312-1:2013 standart güneş gözlükleri",
+    image: glassesImg,
+  },
+  {
+    slug: "kilif",
+    label: "Gözlük Kılıfı",
+    description: "Tam deri, el yapımı gözlük kılıfları",
+    image: casesImg,
+  },
+  {
+    slug: "cuzdan",
+    label: "Cüzdan & Kartlık",
+    description: "El yapımı hakiki deri cüzdan ve kartlık modelleri",
+    image: walletsImg,
+  },
 ];
 
 // ─── Tip tanımları ─────────────────────────────────────────────────────────────
@@ -68,9 +83,18 @@ export type TechSpec = { label: string; value: string };
 export type GlassesSeries = "urban" | "heritage" | "modern";
 
 export const SERIES: Record<GlassesSeries, { label: string; description: string }> = {
-  urban: { label: "Urban Series", description: "Şehir yaşamına ilham veren modern ve çok yönlü siluetler." },
-  heritage: { label: "Heritage Series", description: "Zamansız klasikleri çağdaş detaylarla yeniden yorumlayan seri." },
-  modern: { label: "Modern Series", description: "Cesur çizgiler ve minimalist formlarla geleceğe bakan koleksiyon." },
+  urban: {
+    label: "Urban Series",
+    description: "Şehir yaşamına ilham veren modern ve çok yönlü siluetler.",
+  },
+  heritage: {
+    label: "Heritage Series",
+    description: "Zamansız klasikleri çağdaş detaylarla yeniden yorumlayan seri.",
+  },
+  modern: {
+    label: "Modern Series",
+    description: "Cesur çizgiler ve minimalist formlarla geleceğe bakan koleksiyon.",
+  },
 };
 
 export type GlassesDetails = {
@@ -105,6 +129,8 @@ export type Product = {
   shortDescription: string;
   description: string;
   features: string[];
+  /** Ölçü varyasyonları (ör. "25*35 cm"); boşsa ürün tek ölçüdür. */
+  sizes?: string[];
   shopierUrl: string;
   badge?: string;
   featured?: boolean;
@@ -232,7 +258,6 @@ export const GLASSES_MODELS: Record<GlassesSeries, string[]> = {
 // ─── Ürün listesi ──────────────────────────────────────────────────────────────
 
 export const PRODUCTS: Product[] = [
-
   // ── Cüzdan & Kartlık ──────────────────────────────────────────────────────
 
   {
@@ -243,7 +268,8 @@ export const PRODUCTS: Product[] = [
     oldPrice: 1190,
     image: socratesImages[0],
     images: socratesImages,
-    shortDescription: "El yapımı hakiki deri klasik erkek cüzdanı. 6 kart gözü, çıtçıtlı bozuk para bölmesi, RFID koruma.",
+    shortDescription:
+      "El yapımı hakiki deri klasik erkek cüzdanı. 6 kart gözü, çıtçıtlı bozuk para bölmesi, RFID koruma.",
     description:
       "SOKRATES, birinci sınıf hakiki deriden el işçiliğiyle üretilen klasik bir erkek cüzdanıdır. " +
       "Zamansız tasarımı, el dikişi detayları ve doğal deri dokusuyla her stile uyum sağlar. " +
@@ -311,7 +337,8 @@ export const PRODUCTS: Product[] = [
     price: 590,
     image: fregeImages[0],
     images: fregeImages,
-    shortDescription: "Slim profil, el dikişi, hakiki deri. Sadece kartlarını tut, cebinde his bile etme.",
+    shortDescription:
+      "Slim profil, el dikişi, hakiki deri. Sadece kartlarını tut, cebinde his bile etme.",
     description:
       "FREGE, minimal yaşam tarzına sahip olanlar için tasarlanmış bir hakiki deri kartlıktır. " +
       "İnce profili sayesinde cebinizde veya çantanızda neredeyse fark edilmez.\n\n" +
@@ -338,11 +365,7 @@ export const PRODUCTS: Product[] = [
         { label: "Boyut", value: "10 × 7 cm (yaklaşık)" },
         { label: "Menşei", value: "Türkiye" },
       ],
-      materials: [
-        "Hakiki dana derisi",
-        "Pamuklu el dikiş ipi",
-        "Doğal renk kenar perdahı",
-      ],
+      materials: ["Hakiki dana derisi", "Pamuklu el dikiş ipi", "Doğal renk kenar perdahı"],
       care: [
         "Nemli yumuşak bir bez ile siliniz.",
         "Deri bakım kremi ile besleyiniz.",
@@ -350,10 +373,7 @@ export const PRODUCTS: Product[] = [
         "Sert kimyasallar kullanmayınız.",
         "Islanırsa doğal havada kurumaya bırakınız.",
       ],
-      boxContents: [
-        "1 Adet FREGE Kartlık",
-        "Kullanım ve Bakım Bilgilendirme Kılavuzu",
-      ],
+      boxContents: ["1 Adet FREGE Kartlık", "Kullanım ve Bakım Bilgilendirme Kılavuzu"],
       summary: [
         "%100 Hakiki Deri",
         "El Dikişi",
@@ -376,7 +396,8 @@ export const PRODUCTS: Product[] = [
     price: 490,
     image: kilif1Images[0],
     images: kilif1Images,
-    shortDescription: "Tam deri, el dikişi, çıtçıt kapaklı hakiki deri gözlük kılıfı. Her boyut gözlüğe uyar.",
+    shortDescription:
+      "Tam deri, el dikişi, çıtçıt kapaklı hakiki deri gözlük kılıfı. Her boyut gözlüğe uyar.",
     description:
       "Hakiki deriden elle üretilen bu gözlük kılıfı, gözlüğünüzü çiziklere ve darbelerere karşı korurken zarafetinden ödün vermez.\n\n" +
       "Çıtçıt kapak mekanizması sayesinde gözlüğünüz güvenle yerinde kalır. " +
@@ -412,5 +433,9 @@ export function productsByCategory(cat?: Category) {
 }
 
 export function formatTL(n: number) {
-  return new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", maximumFractionDigits: 0 }).format(n);
+  return new Intl.NumberFormat("tr-TR", {
+    style: "currency",
+    currency: "TRY",
+    maximumFractionDigits: 0,
+  }).format(n);
 }

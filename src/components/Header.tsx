@@ -42,12 +42,14 @@ export function Header() {
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const matchRoute = useMatchRoute();
 
-  // Kategoriler DB'den okunur; hata durumunda varsayılan liste kalır.
+  // Kategoriler DB'den okunur; boş liste yöneticinin tüm kategorileri silmiş
+  // olabileceği için olduğu gibi gösterilir (varsayılanla değiştirilmez).
+  // Yalnızca istek başarısızsa varsayılan liste devreye girer.
   useEffect(() => {
     let active = true;
     getCategories()
       .then((data) => {
-        if (active && data.length) setCategories(data);
+        if (active) setCategories(data);
       })
       .catch(() => {
         /* varsayılan liste kalır */
@@ -137,6 +139,9 @@ export function Header() {
             </button>
             {dropdownOpen && (
               <div className="absolute left-1/2 top-full z-50 mt-3 w-60 -translate-x-1/2 overflow-hidden rounded-xl border border-stone-200 bg-white py-1.5 shadow-lg">
+                {categories.length === 0 && (
+                  <p className="px-4 py-2.5 text-xs text-stone-400">Henüz kategori eklenmemiş.</p>
+                )}
                 {categories.map((category) => (
                   <Link
                     key={category.slug}

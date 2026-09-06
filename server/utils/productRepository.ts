@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS products (
   featured boolean,
   sort_order integer NOT NULL CHECK (sort_order >= 0),
   images_present boolean NOT NULL DEFAULT true,
+  sizes text[] NOT NULL DEFAULT '{}',
   wallet_details jsonb CHECK (jsonb_typeof(wallet_details) = 'object'),
   glasses_details jsonb CHECK (jsonb_typeof(glasses_details) = 'object'),
   created_at timestamptz NOT NULL DEFAULT now(),
@@ -55,6 +56,7 @@ const supportedFields = new Set([
   "shortDescription",
   "description",
   "features",
+  "sizes",
   "shopierUrl",
   "badge",
   "featured",
@@ -105,6 +107,11 @@ export function validateProducts(data: unknown): asserts data is Product[] {
       throw new Error("Ürün etiketi geçersiz.");
     if (item.featured !== undefined && typeof item.featured !== "boolean")
       throw new Error("Öne çıkan ürün bilgisi geçersiz.");
+    if (
+      item.sizes !== undefined &&
+      (!Array.isArray(item.sizes) || item.sizes.some((s: unknown) => typeof s !== "string"))
+    )
+      throw new Error("Ölçü varyasyonları geçersiz.");
     for (const field of ["wallet", "glasses"]) {
       if (
         item[field] !== undefined &&
@@ -136,6 +143,7 @@ export async function readProductRows(db: Database): Promise<Product[]> {
     ...(row.old_price !== null ? { oldPrice: Number(row.old_price) } : {}),
     ...(row.badge !== null ? { badge: row.badge } : {}),
     ...(row.featured !== null ? { featured: row.featured } : {}),
+    ...(Array.isArray(row.sizes) && row.sizes.length ? { sizes: row.sizes } : {}),
     ...(row.wallet_details !== null ? { wallet: row.wallet_details } : {}),
     ...(row.glasses_details !== null ? { glasses: row.glasses_details } : {}),
   }));
@@ -149,13 +157,14 @@ export async function writeProductRows(db: Database, data: unknown): Promise<voi
     const result = await db.query(
       `
       INSERT INTO products (slug, name, category, price, old_price, image, short_description, description,
-        shopier_url, badge, featured, sort_order, images_present, wallet_details, glasses_details)
-      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14::jsonb,$15::jsonb)
+        shopier_url, badge, featured, sort_order, images_present, sizes, wallet_details, glasses_details)
+      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14::text[],$15::jsonb,$16::jsonb)
       ON CONFLICT (slug) DO UPDATE SET name=EXCLUDED.name, category=EXCLUDED.category,
         price=EXCLUDED.price, old_price=EXCLUDED.old_price, image=EXCLUDED.image,
         short_description=EXCLUDED.short_description, description=EXCLUDED.description,
         shopier_url=EXCLUDED.shopier_url, badge=EXCLUDED.badge, featured=EXCLUDED.featured,
         sort_order=EXCLUDED.sort_order, images_present=EXCLUDED.images_present,
+        sizes=EXCLUDED.sizes,
         wallet_details=EXCLUDED.wallet_details, glasses_details=EXCLUDED.glasses_details, updated_at=now()
       RETURNING id
     `,
@@ -173,6 +182,7 @@ export async function writeProductRows(db: Database, data: unknown): Promise<voi
         product.featured ?? null,
         position,
         product.images !== undefined,
+        product.sizes ?? [],
         product.wallet ? JSON.stringify(product.wallet) : null,
         product.glasses ? JSON.stringify(product.glasses) : null,
       ],

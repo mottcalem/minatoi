@@ -80,12 +80,15 @@ export const Route = createFileRoute("/urun/$slug")({
 
 function ProductDetail() {
   const { product, categories, related } = Route.useLoaderData();
+  const [selectedSize, setSelectedSize] = useState<string>(product.sizes?.[0] ?? "");
   const cat = categories.find((c) => c.slug === product.category) ?? {
     slug: product.category,
     label: product.category,
   };
   const waMsg =
-    `Merhaba 👋\n"${product.name}" ürünü (${formatTL(product.price)}) hakkında bilgi almak istiyorum.\n` +
+    `Merhaba 👋\n"${product.name}" ürünü (${formatTL(product.price)}${
+      selectedSize ? `, ölçü: ${selectedSize}` : ""
+    }) hakkında bilgi almak istiyorum.\n` +
     `Stok durumu ve kargo süreci hakkında bilgi verir misiniz?`;
 
   return (
@@ -127,6 +130,33 @@ function ProductDetail() {
             </p>
           )}
           <p className="mt-3 text-muted-foreground">{product.shortDescription}</p>
+
+          {/* Ölçü varyasyonları — admin panelden tanımlanır */}
+          {product.sizes && product.sizes.length > 0 && (
+            <div className="mt-6">
+              <p className="text-sm font-semibold text-stone-700">
+                Ölçü: <span className="font-normal text-stone-500">{selectedSize}</span>
+              </p>
+              <div className="mt-2 flex flex-wrap gap-2" role="radiogroup" aria-label="Ölçü seçimi">
+                {product.sizes.map((size: string) => (
+                  <button
+                    key={size}
+                    type="button"
+                    role="radio"
+                    aria-checked={selectedSize === size}
+                    onClick={() => setSelectedSize(size)}
+                    className={`rounded-lg border px-4 py-2 text-sm font-medium transition ${
+                      selectedSize === size
+                        ? "border-stone-900 bg-stone-900 text-white"
+                        : "border-stone-300 bg-white text-stone-700 hover:border-stone-500"
+                    }`}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="mt-5 flex items-baseline gap-3">
             <span className="font-display text-3xl font-bold text-primary">

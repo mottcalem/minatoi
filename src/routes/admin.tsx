@@ -259,6 +259,8 @@ type FormState = {
   shortDescription: string;
   description: string;
   features: string;
+  /** Ölçü varyasyonları; her satır bir ölçü (ör. "25*35 cm"). */
+  sizes: string;
   shopierUrl: string;
   badge: string;
 };
@@ -274,6 +276,7 @@ function productToForm(p: Partial<Product>): FormState {
     shortDescription: p.shortDescription ?? "",
     description: p.description ?? "",
     features: p.features?.join("\n") ?? "",
+    sizes: p.sizes?.join("\n") ?? "",
     shopierUrl: p.shopierUrl ?? "https://www.shopier.com/minatoi",
     badge: p.badge ?? "",
   };
@@ -292,6 +295,10 @@ function formToProduct(form: FormState, existingSlug?: string): Product {
     shortDescription: form.shortDescription.trim(),
     description: form.description.trim(),
     features: form.features
+      .split("\n")
+      .map((s) => s.trim())
+      .filter(Boolean),
+    sizes: form.sizes
       .split("\n")
       .map((s) => s.trim())
       .filter(Boolean),
@@ -401,6 +408,19 @@ function ProductForm({
           />
         </FormField>
       </div>
+      <FormField label="Ölçü Varyasyonları — opsiyonel">
+        <textarea
+          className={inputCls()}
+          rows={3}
+          value={form.sizes}
+          onChange={(e) => set("sizes", e.target.value)}
+          placeholder={"Her satıra bir ölçü yazın, örn.:\n25*35 cm\n35*50 cm\n50*70 cm"}
+        />
+        <p className="mt-1 text-xs text-stone-400">
+          Girildiğinde ürün sayfasında seçilebilir ölçü butonları görünür; boşsa ürün tek ölçü kabul
+          edilir.
+        </p>
+      </FormField>
       <FormField label="Görseller *" error={errors.images}>
         <ImageUploader
           value={form.images}
@@ -481,7 +501,9 @@ function AdminPage({
   const reloadCategories = useCallback(async () => {
     try {
       const data = await getCategories();
-      if (data.length) setPageCategories(data.map(({ slug, label }) => ({ slug, label })));
+      // Boş liste meşru bir durumdur (tüm kategoriler silinmiş olabilir);
+      // yalnızca istek hata verirse yedek liste kalır.
+      setPageCategories(data.map(({ slug, label }) => ({ slug, label })));
     } catch {
       /* yedek liste kalır */
     }

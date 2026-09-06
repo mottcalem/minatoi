@@ -9,6 +9,7 @@ import walletsImg from "@/assets/cat-wallets.jpg";
 import { getCategories } from "@/data/categoryActions";
 import { fetchProductsServer } from "@/data/adminProducts";
 import { ProductCarousel } from "@/components/ProductCarousel";
+import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { HomeBannerSlider } from "@/components/HomeBannerSlider";
 
@@ -26,7 +27,10 @@ function categoryImage(slug: string, uploaded?: string): string {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MinaToi — Cam Tablo Modelleri - Minatoi -Temperli cam duvar tabloları ve kişiye özel tasarımlar" },
+      {
+        title:
+          "MinaToi — Cam Tablo Modelleri - Minatoi -Temperli cam duvar tabloları ve kişiye özel tasarımlar",
+      },
       {
         name: "description",
         content:
@@ -34,10 +38,13 @@ export const Route = createFileRoute("/")({
       },
       {
         name: "keywords",
-        content:
-          "cam tablo, minatoi, temperli cam, duvar tablosu, kişiye özel tablo",
+        content: "cam tablo, minatoi, temperli cam, duvar tablosu, kişiye özel tablo",
       },
-      { property: "og:title", content: "MinaToi — Cam Tablo Modelleri - Minatoi -Temperli cam duvar tabloları ve kişiye özel tasarımlar" },
+      {
+        property: "og:title",
+        content:
+          "MinaToi — Cam Tablo Modelleri - Minatoi -Temperli cam duvar tabloları ve kişiye özel tasarımlar",
+      },
       {
         property: "og:description",
         content:
@@ -179,31 +186,27 @@ function Index() {
             />
           </div>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-primary">
-              Atölyemiz
-            </p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-primary">MinaToi</p>
             <h2 className="mt-3 font-display text-3xl font-bold text-stone-900 sm:text-4xl">
-              Her ürün tek tek, elle üretilir.
+              Minatoi Cam Tablo
             </h2>
-            <p className="mt-4 text-stone-500 leading-relaxed">
-              Birinci sınıf dana derisi, sabırlı el dikişi ve detaylara verilen özen — MinaToi el
-              yapımı deri koleksiyonunun farkı budur.
+            <p className="mt-4 leading-relaxed text-stone-500">
+Minatoi, yaşam alanlarına modern, estetik ve kişisel bir dokunuş katmak için hazırlanan dekoratif cam tablo koleksiyonları sunar. 4 mm temperli cam üzerine UV baskı teknolojisiyle hazırlanan cam tablolar; parlak yüzey etkisi, canlı renkleri ve dayanıklı yapısıyla ev, ofis ve hediye dekorasyonunda dikkat çekici bir seçenek oluşturur.
+
+
             </p>
-            <ul className="mt-6 space-y-3">
-              {[
-                "%100 hakiki deri, el dikişi",
-                "Kenar perdahı elle yapılır",
-                "Türkiye geneli kapıda ödeme",
-                "WhatsApp'tan birebir destek",
-              ].map((t) => (
-                <li key={t} className="flex items-center gap-3 text-sm text-stone-700">
-                  <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary/10 text-primary text-[11px] font-bold">
-                    ✓
-                  </span>
-                  {t}
-                </li>
-              ))}
-            </ul>
+            <p className="mt-4 leading-relaxed text-stone-500">
+Koleksiyonlarımızda kedi temalı cam tablolar, göz ve nazar tasarımları, zen ve doğa esintili çalışmalar, sanatçı albümü seçkileri, afiş tarzı modern tasarımlar, gerçek üstü kompozisyonlar ve hayvan figürlü dekoratif tablolar yer alır. Ayrıca kişiye özel cam tablo seçenekleriyle kendi fotoğrafınızı ya da sevdiğiniz bir görseli cam yüzeye taşıyabilir; patili dostlara özel tasarımlarla kedi veya köpeğiniz için özel bir tablo hazırlatabilirsiniz.
+
+
+            </p>
+<p className="mt-4 leading-relaxed text-stone-500">
+  Minatoi cam tablolar, çerçevesiz ve modern görünümüyle duvar dekorasyonunda sade ama güçlü bir etki oluşturur. Ürünlerimiz 4 mm temperli cam üzerine basılır, kolay temizlenebilir parlak yüzeyiyle uzun süre canlı görünümünü korur. Türkiye’nin her yerine ücretsiz kargo ve hasarsız teslimat garantisiyle hazırlanan koleksiyonlarımızı inceleyerek yaşam alanınıza uygun cam tablo modelini seçebilirsiniz.
+
+            </p>
+            <p className="mt-4 leading-relaxed text-stone-500">
+Cam tablo hakkında daha ayrıntılı bilgi için Cam Tablo Nedir? Özellikleri, Avantajları ve Kullanım Alanları rehberimizi inceleyin.
+            </p>
             <div className="mt-8">
               <Link
                 to="/urunler"
@@ -215,6 +218,8 @@ function Index() {
           </div>
         </div>
       </section>
+      {/* ─── MÜŞTERİ YORUMLARI ───────────────────────────────────── */}
+      <TestimonialsCarousel />
       {/* ─── GÖZLÜK KILIFLAR ──────────────────────────────────────── */}
       <ProductCarousel
         products={kiliflar}
