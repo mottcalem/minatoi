@@ -37,7 +37,7 @@ function Page() {
                 <strong>İşletme:</strong> {SITE.name} ({SITE.owner}, {SITE.companyType}).
               </li>
               <li>
-                <strong>Site:</strong> minatoi.dijitalpanter.com alan adı altında sunulan web platformu.
+                <strong>Site:</strong> minatoi.ugurdogan.net alan adı altında sunulan web platformu.
               </li>
               <li>
                 <strong>Ürün:</strong> 4 mm temperli cam üzerine UV baskıyla hazırlanan dekoratif

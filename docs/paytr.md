@@ -21,7 +21,7 @@ Node.js 22.18+ ve PostgreSQL gerekir. `.env` dosyası Git dışındadır. Anahta
 - `PAYTR_ENABLED=0`: geliştirme sırasında yeni PayTR ödeme oturumu açılmaz. Sepet ve indirim hesabı çalışır. Mevcut bildirimlerin alınması bu anahtardan bağımsızdır.
 - `PAYTR_ENABLED=1`: yalnızca son test/yayın adımında ödeme başlatmayı açar.
 - `PAYTR_TEST_MODE=0`: PayTR'de gerçek tahsilat modudur; etkinleştirme anahtarından ayrıdır.
-- `PAYTR_PUBLIC_URL=https://minatoi.dijitalpanter.com`: yeni uygulamanın yayın adresi. PayTR panelini değiştirmez.
+- `PAYTR_PUBLIC_URL=https://minatoi.ugurdogan.net`: yeni uygulamanın yayın adresi. PayTR panelini değiştirmez.
 - `PAYTR_MERCHANT_ID`, `PAYTR_MERCHANT_KEY`, `PAYTR_MERCHANT_SALT`: sadece sunucuda okunur.
 - `PAYTR_TRUST_PROXY=1`: Ubuntu'da yalnızca güvenilir reverse proxy arkasında. Nginx `proxy_set_header X-Real-IP $remote_addr;` ile başlığı yeniden yazmalı; Node portu internete doğrudan açık olmamalı.
 - `PAYTR_LOCAL_IP`: sadece geliştirmede dış IP için kullanılabilir; üretimde bu değer dikkate alınmaz.

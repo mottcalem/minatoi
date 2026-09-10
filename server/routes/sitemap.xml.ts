@@ -5,7 +5,7 @@
 import { defineEventHandler, setResponseHeader } from "h3";
 import { readProducts } from "../utils/productStore";
 
-const SITE = "https://minatoi.dijitalpanter.com";
+const SITE = "https://minatoi.ugurdogan.net";
 const TODAY = new Date().toISOString().split("T")[0];
 
 const BLOG_SLUGS = [

@@ -23,18 +23,18 @@ export const Route = createFileRoute("/blog/$slug")({
         { property: "og:title", content: post.metaTitle },
         { property: "og:description", content: post.metaDescription },
         { property: "og:type", content: "article" },
-        { property: "og:url", content: `https://minatoi.dijitalpanter.com/blog/${post.slug}` },
-        { property: "og:image", content: `https://minatoi.dijitalpanter.com${post.coverImage}` },
+        { property: "og:url", content: `https://minatoi.ugurdogan.net/blog/${post.slug}` },
+        { property: "og:image", content: `https://minatoi.ugurdogan.net${post.coverImage}` },
         { property: "article:published_time", content: post.publishedAt },
         { property: "article:modified_time", content: post.updatedAt },
         { property: "article:author", content: "MinaToi" },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: post.metaTitle },
         { name: "twitter:description", content: post.metaDescription },
-        { name: "twitter:image", content: `https://minatoi.dijitalpanter.com${post.coverImage}` },
+        { name: "twitter:image", content: `https://minatoi.ugurdogan.net${post.coverImage}` },
       ],
       links: [
-        { rel: "canonical", href: `https://minatoi.dijitalpanter.com/blog/${post.slug}` },
+        { rel: "canonical", href: `https://minatoi.ugurdogan.net/blog/${post.slug}` },
       ],
     };
   },
@@ -75,30 +75,30 @@ function BlogDetail() {
     "@type": "BlogPosting",
     headline: post.title,
     description: post.metaDescription,
-    image: `https://minatoi.dijitalpanter.com${post.coverImage}`,
+    image: `https://minatoi.ugurdogan.net${post.coverImage}`,
     datePublished: post.publishedAt,
     dateModified: post.updatedAt,
     author: {
       "@type": "Organization",
       name: "MinaToi",
-      url: "https://minatoi.dijitalpanter.com",
+      url: "https://minatoi.ugurdogan.net",
     },
     publisher: {
       "@type": "Organization",
       name: "MinaToi",
-      url: "https://minatoi.dijitalpanter.com",
+      url: "https://minatoi.ugurdogan.net",
       logo: {
         "@type": "ImageObject",
-        url: "https://minatoi.dijitalpanter.com/images/logo-minatoi.jpg",
+        url: "https://minatoi.ugurdogan.net/images/logo-minatoi.jpg",
       },
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://minatoi.dijitalpanter.com/blog/${post.slug}`,
+      "@id": `https://minatoi.ugurdogan.net/blog/${post.slug}`,
     },
     keywords: post.tags.join(", "),
     inLanguage: "tr-TR",
-    url: `https://minatoi.dijitalpanter.com/blog/${post.slug}`,
+    url: `https://minatoi.ugurdogan.net/blog/${post.slug}`,
   };
 
   // JSON-LD: BreadcrumbList
@@ -106,9 +106,9 @@ function BlogDetail() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Anasayfa", item: "https://minatoi.dijitalpanter.com/" },
-      { "@type": "ListItem", position: 2, name: "Blog", item: "https://minatoi.dijitalpanter.com/blog" },
-      { "@type": "ListItem", position: 3, name: post.title, item: `https://minatoi.dijitalpanter.com/blog/${post.slug}` },
+      { "@type": "ListItem", position: 1, name: "Anasayfa", item: "https://minatoi.ugurdogan.net/" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://minatoi.ugurdogan.net/blog" },
+      { "@type": "ListItem", position: 3, name: post.title, item: `https://minatoi.ugurdogan.net/blog/${post.slug}` },
     ],
   };
 

@@ -13,7 +13,7 @@ import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
 export const Route = createFileRoute("/urun/$slug")({
   head: ({ loaderData, params }) => {
     const product = loaderData?.product;
-    const SITE = "https://minatoi.dijitalpanter.com";
+    const SITE = "https://minatoi.ugurdogan.net";
     const canonical = `${SITE}/urun/${params.slug}`;
 
     if (!product) {

@@ -4,10 +4,10 @@ Disallow: /admin
 Disallow: /api/
 
 # Sitemap
-Sitemap: https://minatoi.dijitalpanter.com/sitemap.xml
+Sitemap: https://minatoi.ugurdogan.net/sitemap.xml
 
 # AI / LLM site özeti
-# https://minatoi.dijitalpanter.com/llm.txt
+# https://minatoi.ugurdogan.net/llm.txt
 
 # ── Arama Motorları ───────────────────────────────────────────
 User-agent: Googlebot
