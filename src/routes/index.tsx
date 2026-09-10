@@ -52,11 +52,11 @@ export const Route = createFileRoute("/")({
         content:
           "Minatoi, yaşam alanlarınıza estetik ve modern bir dokunuş katmak için özenle hazırlanmış cam tablo koleksiyonları sunar.",
       },
-      { property: "og:url", content: "https://minatoi.com/" },
-      { property: "og:image", content: "https://minatoi.com/images/products/sokrates/man.jpg" },
+      { property: "og:url", content: "https://minatoi.dijitalpanter.com/" },
+      { property: "og:image", content: "https://minatoi.dijitalpanter.com/images/products/sokrates/man.jpg" },
       { name: "robots", content: "index, follow" },
     ],
-    links: [{ rel: "canonical", href: "https://minatoi.com/" }],
+    links: [{ rel: "canonical", href: "https://minatoi.dijitalpanter.com/" }],
   }),
   loader: async () => {
     const [products, banners, categories, hero, about] = await Promise.all([

@@ -5,7 +5,7 @@ import { ProductCard } from "@/components/ProductCard";
 
 export const Route = createFileRoute("/kategori/$slug")({
   head: ({ params }) => {
-    const canonical = `https://minatoi.com/kategori/${params.slug}`;
+    const canonical = `https://minatoi.dijitalpanter.com/kategori/${params.slug}`;
     return {
       meta: [{ title: `${params.slug} — MinaToi` }, { name: "robots", content: "index, follow" }],
       links: [{ rel: "canonical", href: canonical }],

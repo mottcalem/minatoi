@@ -86,7 +86,7 @@ export function createPaymentAPI({
   }
   function checkOrigin(request: Request) {
     const origin = request.headers.get("origin");
-    const allowed = [env.PAYTR_PUBLIC_URL?.replace(/\/$/, ""), "https://www.minatoi.com"];
+    const allowed = [env.PAYTR_PUBLIC_URL?.replace(/\/$/, "")];
     if (env.NODE_ENV !== "production")
       allowed.push("http://localhost:8080", "http://127.0.0.1:8080");
     if (!origin || !allowed.includes(origin))

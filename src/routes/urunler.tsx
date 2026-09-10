@@ -22,10 +22,10 @@ export const Route = createFileRoute("/urunler")({
         property: "og:description",
         content: "El yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfları koleksiyonu.",
       },
-      { property: "og:url", content: "https://minatoi.com/urunler" },
+      { property: "og:url", content: "https://minatoi.dijitalpanter.com/urunler" },
       { name: "robots", content: "index, follow" },
     ],
-    links: [{ rel: "canonical", href: "https://minatoi.com/urunler" }],
+    links: [{ rel: "canonical", href: "https://minatoi.dijitalpanter.com/urunler" }],
   }),
   loader: async () => {
     const [all, categories] = await Promise.all([fetchProductsServer(), getCategories()]);

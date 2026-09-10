@@ -8,7 +8,7 @@
 - **Tür:** El yapımı deri aksesuar markası (şahıs şirketi)
 - **Konum:** Türkiye
 - **Kurucu:** Uğur Doğan
-- **Web Sitesi:** https://minatoi.com
+- **Web Sitesi:** https://minatoi.dijitalpanter.com
 - **E-posta:** hello@minatoi.com
 - **Instagram:** https://instagram.com/minatoi
 - **Shopier Mağaza:** https://www.shopier.com/minatoi
@@ -67,11 +67,11 @@ Evet, kurumsal ve toptan siparişler için WhatsApp veya e-posta üzerinden ilet
 
 Site, deri ürünler hakkında bilgilendirici makaleler içermektedir:
 
-- [Hakiki Deri Cüzdan Rehberi](https://minatoi.com/blog/hakiki-deri-cuzdan-rehberi)
-- [Deri Kartlık Nasıl Seçilir?](https://minatoi.com/blog/deri-kartlik-nasil-secilir)
-- [El Yapımı vs Makine Üretimi Deri Cüzdan](https://minatoi.com/blog/el-yapimi-deri-cuzdan-vs-makine-uretimi)
-- [Toptan Deri Cüzdan Tedarikçi Rehberi](https://minatoi.com/blog/toptan-deri-cuzdan-tedarikci-rehberi)
-- [Deri Cüzdan Bakım Rehberi](https://minatoi.com/blog/deri-cuzdan-bakim-rehberi)
+- [Hakiki Deri Cüzdan Rehberi](https://minatoi.dijitalpanter.com/blog/hakiki-deri-cuzdan-rehberi)
+- [Deri Kartlık Nasıl Seçilir?](https://minatoi.dijitalpanter.com/blog/deri-kartlik-nasil-secilir)
+- [El Yapımı vs Makine Üretimi Deri Cüzdan](https://minatoi.dijitalpanter.com/blog/el-yapimi-deri-cuzdan-vs-makine-uretimi)
+- [Toptan Deri Cüzdan Tedarikçi Rehberi](https://minatoi.dijitalpanter.com/blog/toptan-deri-cuzdan-tedarikci-rehberi)
+- [Deri Cüzdan Bakım Rehberi](https://minatoi.dijitalpanter.com/blog/deri-cuzdan-bakim-rehberi)
 
 ## İletişim
 
