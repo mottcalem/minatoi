@@ -1,7 +1,8 @@
 // Integration smoke checks: no token request and no real order/payment is created.
 import assert from "node:assert/strict";
-const base = "http://localhost:8080";
-async function post(path, data, origin = base) {
+const base = process.env.SMOKE_BASE_URL ?? "http://localhost:8080";
+const allowedOrigin = process.env.SMOKE_ORIGIN ?? base;
+async function post(path, data, origin = allowedOrigin) {
   return fetch(base + path, {
     method: "POST",
     headers: { "Content-Type": "application/json", Origin: origin },
