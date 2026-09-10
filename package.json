@@ -2,7 +2,7 @@
   "name": "tanstack_start_ts",
   "private": true,
   "engines": {
-    "node": ">=20.19"
+    "node": ">=22.12"
   },
   "sideEffects": false,
   "type": "module",
