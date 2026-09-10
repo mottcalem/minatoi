@@ -40,6 +40,16 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const url = new URL(request.url);
+      const path = url.pathname;
+      if (
+        path.startsWith("/api/checkout/") ||
+        path === "/api/paytr/callback" ||
+        (path === "/index.php" && url.searchParams.get("wc-api") === "wc_gateway_paytrcheckout")
+      ) {
+        const { paymentAPI } = await import("../server/payments/index");
+        return await paymentAPI(request);
+      }
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);

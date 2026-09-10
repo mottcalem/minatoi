@@ -114,9 +114,9 @@ function Page() {
                 </li>
               </ul>
               <p className="mt-2">
-                Tüm fiyatlar Türk Lirası (₺) cinsinden olup KDV dahildir. Kargo ücreti, 999 ₺ ve
-                üzeri siparişlerde ücretsizdir; altındaki siparişler için kargo tutarı sipariş
-                özetinde gösterilir.
+                Tüm fiyatlar Türk Lirası (₺) cinsinden olup KDV dahildir. Kargo tüm siparişlerde
+                ücretsizdir. En az iki ürün içeren sepetlerde en ucuz ürünün bir adedine %25 indirim
+                uygulanır. Bu indirim sepet başına bir kez uygulanır ve sipariş özetinde gösterilir.
               </p>
             </>
           ),
@@ -128,8 +128,13 @@ function Page() {
               <p>Ödeme aşağıdaki yöntemlerle yapılabilir:</p>
               <ul className="list-disc space-y-2 pl-5 mt-2">
                 <li>
-                  <strong>Kredi kartı / banka kartı:</strong> Shopier ödeme altyapısı üzerinden
-                  güvenli şekilde tahsil edilir. Kart bilgileri {SITE.name} tarafından saklanmaz.
+                  <strong>Kredi kartı / banka kartı:</strong> PayTR ödeme altyapısı üzerinden tek
+                  çekim olarak tahsil edilir. Kart bilgileri {SITE.name} tarafından saklanmaz.
+                </li>
+                <li>
+                  <strong>Havale / EFT:</strong> Sipariş oluşturulduktan sonra gösterilen banka
+                  hesabına, sipariş numarası açıklamaya yazılarak gönderilir. Sipariş, ödemenin
+                  hesaba geçtiği doğrulandıktan sonra hazırlanır.
                 </li>
                 <li>
                   <strong>Kapıda ödeme:</strong> ALICI, teslimat sırasında kargo görevlisine nakit

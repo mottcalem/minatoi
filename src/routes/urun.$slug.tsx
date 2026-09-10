@@ -1,4 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useCart } from "@/components/CartProvider";
 import { useState } from "react";
 import { SERIES, formatTL } from "@/data/products";
 import type { Product, GlassesDetails, WalletDetails } from "@/data/products";
@@ -85,6 +86,8 @@ export const Route = createFileRoute("/urun/$slug")({
 });
 
 function ProductDetail() {
+  const { add, ready } = useCart();
+  const [added, setAdded] = useState(false);
   const { product, categories, related, hero } = Route.useLoaderData();
   const [selectedSize, setSelectedSize] = useState<string>(product.sizes?.[0] ?? "");
   const cat = categories.find((c) => c.slug === product.category) ?? {
@@ -181,14 +184,15 @@ function ProductDetail() {
           </div>
 
           <div className="mt-7 space-y-3">
-            <a
-              href={product.shopierUrl}
-              target="_blank"
-              rel="noreferrer"
+            <button
+              type="button"
+              disabled={!ready}
+              onClick={() => { add(product, selectedSize); setAdded(true); }}
               className="block w-full rounded-full bg-gradient-gold px-6 py-4 text-center text-sm font-semibold text-primary-foreground shadow-glow transition hover:brightness-110"
             >
-              🛍️ Hemen Satın Al
-            </a>
+              {added ? "✓ Sepete eklendi — Tekrar ekle" : "Sepete ekle"}
+            </button>
+            {added && <a href="/sepet" className="block text-center text-sm underline">Sepetime git →</a>}
             <WhatsAppButton message={waMsg} size="lg" className="w-full">
               WhatsApp'tan Bu Ürünü Sor
             </WhatsAppButton>

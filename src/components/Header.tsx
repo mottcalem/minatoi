@@ -1,3 +1,4 @@
+import { CartLink } from "./CartProvider";
 import { Link, useMatchRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { getCategories } from "@/data/categoryActions";
@@ -177,6 +178,7 @@ export function Header() {
           ))}
         </nav>
 
+        <CartLink />
         {/* Mobile hamburger */}
         <button
           onClick={() => setOpen((o) => !o)}

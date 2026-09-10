@@ -10,7 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UrunlerRouteImport } from './routes/urunler'
+import { Route as SepetRouteImport } from './routes/sepet'
 import { Route as PatiliDosyalaraOzelRouteImport } from './routes/patili-dosyalara-ozel'
+import { Route as OdemeSonucuRouteImport } from './routes/odeme-sonucu'
 import { Route as MesafeliSatisSozlesmesiRouteImport } from './routes/mesafeli-satis-sozlesmesi'
 import { Route as KvkkRouteImport } from './routes/kvkk'
 import { Route as KullaniciSozlesmesiRouteImport } from './routes/kullanici-sozlesmesi'
@@ -31,9 +33,19 @@ const UrunlerRoute = UrunlerRouteImport.update({
   path: '/urunler',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SepetRoute = SepetRouteImport.update({
+  id: '/sepet',
+  path: '/sepet',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PatiliDosyalaraOzelRoute = PatiliDosyalaraOzelRouteImport.update({
   id: '/patili-dosyalara-ozel',
   path: '/patili-dosyalara-ozel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OdemeSonucuRoute = OdemeSonucuRouteImport.update({
+  id: '/odeme-sonucu',
+  path: '/odeme-sonucu',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MesafeliSatisSozlesmesiRoute = MesafeliSatisSozlesmesiRouteImport.update({
@@ -118,7 +130,9 @@ export interface FileRoutesByFullPath {
   '/kullanici-sozlesmesi': typeof KullaniciSozlesmesiRoute
   '/kvkk': typeof KvkkRoute
   '/mesafeli-satis-sozlesmesi': typeof MesafeliSatisSozlesmesiRoute
+  '/odeme-sonucu': typeof OdemeSonucuRoute
   '/patili-dosyalara-ozel': typeof PatiliDosyalaraOzelRoute
+  '/sepet': typeof SepetRoute
   '/urunler': typeof UrunlerRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/kategori/$slug': typeof KategoriSlugRoute
@@ -135,7 +149,9 @@ export interface FileRoutesByTo {
   '/kullanici-sozlesmesi': typeof KullaniciSozlesmesiRoute
   '/kvkk': typeof KvkkRoute
   '/mesafeli-satis-sozlesmesi': typeof MesafeliSatisSozlesmesiRoute
+  '/odeme-sonucu': typeof OdemeSonucuRoute
   '/patili-dosyalara-ozel': typeof PatiliDosyalaraOzelRoute
+  '/sepet': typeof SepetRoute
   '/urunler': typeof UrunlerRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/kategori/$slug': typeof KategoriSlugRoute
@@ -154,7 +170,9 @@ export interface FileRoutesById {
   '/kullanici-sozlesmesi': typeof KullaniciSozlesmesiRoute
   '/kvkk': typeof KvkkRoute
   '/mesafeli-satis-sozlesmesi': typeof MesafeliSatisSozlesmesiRoute
+  '/odeme-sonucu': typeof OdemeSonucuRoute
   '/patili-dosyalara-ozel': typeof PatiliDosyalaraOzelRoute
+  '/sepet': typeof SepetRoute
   '/urunler': typeof UrunlerRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/kategori/$slug': typeof KategoriSlugRoute
@@ -174,7 +192,9 @@ export interface FileRouteTypes {
     | '/kullanici-sozlesmesi'
     | '/kvkk'
     | '/mesafeli-satis-sozlesmesi'
+    | '/odeme-sonucu'
     | '/patili-dosyalara-ozel'
+    | '/sepet'
     | '/urunler'
     | '/blog/$slug'
     | '/kategori/$slug'
@@ -191,7 +211,9 @@ export interface FileRouteTypes {
     | '/kullanici-sozlesmesi'
     | '/kvkk'
     | '/mesafeli-satis-sozlesmesi'
+    | '/odeme-sonucu'
     | '/patili-dosyalara-ozel'
+    | '/sepet'
     | '/urunler'
     | '/blog/$slug'
     | '/kategori/$slug'
@@ -209,7 +231,9 @@ export interface FileRouteTypes {
     | '/kullanici-sozlesmesi'
     | '/kvkk'
     | '/mesafeli-satis-sozlesmesi'
+    | '/odeme-sonucu'
     | '/patili-dosyalara-ozel'
+    | '/sepet'
     | '/urunler'
     | '/blog/$slug'
     | '/kategori/$slug'
@@ -228,7 +252,9 @@ export interface RootRouteChildren {
   KullaniciSozlesmesiRoute: typeof KullaniciSozlesmesiRoute
   KvkkRoute: typeof KvkkRoute
   MesafeliSatisSozlesmesiRoute: typeof MesafeliSatisSozlesmesiRoute
+  OdemeSonucuRoute: typeof OdemeSonucuRoute
   PatiliDosyalaraOzelRoute: typeof PatiliDosyalaraOzelRoute
+  SepetRoute: typeof SepetRoute
   UrunlerRoute: typeof UrunlerRoute
   KategoriSlugRoute: typeof KategoriSlugRoute
   UrunSlugRoute: typeof UrunSlugRoute
@@ -243,11 +269,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UrunlerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sepet': {
+      id: '/sepet'
+      path: '/sepet'
+      fullPath: '/sepet'
+      preLoaderRoute: typeof SepetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/patili-dosyalara-ozel': {
       id: '/patili-dosyalara-ozel'
       path: '/patili-dosyalara-ozel'
       fullPath: '/patili-dosyalara-ozel'
       preLoaderRoute: typeof PatiliDosyalaraOzelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/odeme-sonucu': {
+      id: '/odeme-sonucu'
+      path: '/odeme-sonucu'
+      fullPath: '/odeme-sonucu'
+      preLoaderRoute: typeof OdemeSonucuRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mesafeli-satis-sozlesmesi': {
@@ -374,7 +414,9 @@ const rootRouteChildren: RootRouteChildren = {
   KullaniciSozlesmesiRoute: KullaniciSozlesmesiRoute,
   KvkkRoute: KvkkRoute,
   MesafeliSatisSozlesmesiRoute: MesafeliSatisSozlesmesiRoute,
+  OdemeSonucuRoute: OdemeSonucuRoute,
   PatiliDosyalaraOzelRoute: PatiliDosyalaraOzelRoute,
+  SepetRoute: SepetRoute,
   UrunlerRoute: UrunlerRoute,
   KategoriSlugRoute: KategoriSlugRoute,
   UrunSlugRoute: UrunSlugRoute,

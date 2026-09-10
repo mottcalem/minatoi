@@ -90,9 +90,11 @@ function Page() {
           body: (
             <>
               <p>
-                Kullanıcı, ürün sayfasındaki Shopier bağlantısı üzerinden sipariş ve ödeme adımını
-                tamamladığında sipariş talebi oluşturur. Ödeme Shopier üzerinden kredi kartı/banka
-                kartı ile veya sunulan ürünlerde kapıda ödeme yöntemiyle yapılabilir.
+                Kullanıcı, ürünleri sepete ekleyip teslimat bilgilerini girerek sipariş talebi
+                oluşturur. Kart ödemeleri PayTR üzerinden tek çekim olarak yapılır; ödeme sonucu
+                doğrulandığında sipariş onaylanır. Havale/EFT siparişleri ödemenin banka hesabına
+                geçtiği doğrulandıktan sonra onaylanır. Sunulan ürünlerde kapıda ödeme talebi
+                WhatsApp üzerinden iletilebilir.
               </p>
               <p>
                 Kapıda ödeme siparişleri, Kullanıcı’nın WhatsApp üzerinden ilettiği teslimat

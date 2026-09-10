@@ -13,6 +13,7 @@ import { AnnouncementBar } from "@/components/AnnouncementBar";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { CartProvider } from "@/components/CartProvider";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
@@ -182,6 +183,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <CartProvider>
       <div className="flex min-h-screen flex-col overflow-x-hidden">
         <Header />
         <AnnouncementBar />
@@ -191,6 +193,7 @@ function RootComponent() {
         </main>
         <Footer />
       </div>
+    </CartProvider>
     </QueryClientProvider>
   );
 }

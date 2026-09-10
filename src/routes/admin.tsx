@@ -1,3 +1,4 @@
+import { OrderManager } from "@/components/OrderManager";
 import { BannerManager } from "@/components/BannerManager";
 import { AnnouncementManager } from "@/components/AnnouncementManager";
 import { CategoryManager } from "@/components/CategoryManager";
@@ -27,9 +28,10 @@ export const Route = createFileRoute("/admin")({
   component: AdminRoot,
 });
 
-type AdminTab = "products" | "categories" | "announcements" | "banners" | "hero" | "about";
+type AdminTab = "orders" | "products" | "categories" | "announcements" | "banners" | "hero" | "about";
 
 const ADMIN_TABS: { id: AdminTab; label: string }[] = [
+  { id: "orders", label: "Siparişler" },
   { id: "products", label: "Ürün Yönetimi" },
   { id: "categories", label: "Kategoriler" },
   { id: "announcements", label: "Duyuru Bandı" },
@@ -738,6 +740,7 @@ function AdminPage({
         ))}
       </div>
 
+      {tab === "orders" && <OrderManager />}
       {/* Ürün yönetimi sekmesi */}
       {tab === "products" && (
         <>

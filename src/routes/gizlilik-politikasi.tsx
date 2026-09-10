@@ -78,9 +78,9 @@ function Page() {
           heading: "Verilerin Aktarımı",
           body: (
             <p>
-              Kişisel veriler; kargo firmaları, ödeme hizmet sağlayıcıları (Shopier, bankalar) ve
-              yasal mercilerle, siparişin yerine getirilmesi ve yasal yükümlülüklerin yerine
-              getirilmesi amacıyla paylaşılabilir. Veriler, yurt dışına aktarılırken uygun
+              Kişisel veriler; kargo firmaları, ödeme hizmet sağlayıcıları (PayTR, Shopier,
+              bankalar) ve yasal mercilerle, siparişin yerine getirilmesi ve yasal yükümlülüklerin
+              yerine getirilmesi amacıyla paylaşılabilir. Veriler, yurt dışına aktarılırken uygun
               güvenceler sağlanır.
             </p>
           ),

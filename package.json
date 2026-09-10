@@ -1,6 +1,9 @@
 {
   "name": "tanstack_start_ts",
   "private": true,
+  "engines": {
+    "node": ">=20.19"
+  },
   "sideEffects": false,
   "type": "module",
   "scripts": {
@@ -11,7 +14,9 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "db:init": "node scripts/init-db.mjs",
-    "db:test-products": "node scripts/test-products-db.mjs"
+    "db:test-products": "node scripts/test-products-db.mjs",
+    "db:orders": "node scripts/init-orders.mjs",
+    "test:payments": "node --test server/payments/*.test.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
