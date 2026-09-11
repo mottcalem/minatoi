@@ -1,4 +1,5 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
+import { priceForSize, type SizePrice } from "../../src/data/productPricing.ts";
 import { z } from "zod";
 
 export const cartSchema = z
@@ -45,7 +46,14 @@ export type OrderItem = {
 };
 export function priceCart(
   input: unknown,
-  products: { slug: string; name: string; price: number; image: string; sizes?: string[] }[],
+  products: {
+    slug: string;
+    name: string;
+    price: number;
+    image: string;
+    sizes?: string[];
+    sizePrices?: SizePrice[];
+  }[],
 ) {
   const cart = cartSchema.parse(input);
   const seen = new Set<string>();
@@ -58,7 +66,7 @@ export function priceCart(
       throw new Error("Sepetteki bir ürün artık satışta değil. Lütfen sepetinizi güncelleyin.");
     if (p.sizes?.length ? !p.sizes.includes(item.size) : item.size !== "")
       throw new Error("Ürün ölçüsü geçersiz. Lütfen ürünü yeniden ekleyin.");
-    const unitAmount = Math.round(p.price * 100);
+    const unitAmount = Math.round(priceForSize(p, item.size).price * 100);
     if (!Number.isSafeInteger(unitAmount) || unitAmount <= 0)
       throw new Error("Ürün fiyatı geçersiz.");
     return { ...item, name: p.name, unitAmount, image: p.image, discount: 0 };

@@ -1,3 +1,4 @@
+import { productInCategory } from "@/data/productCategories";
 import { OrderManager } from "@/components/OrderManager";
 import { BannerManager } from "@/components/BannerManager";
 import { AnnouncementManager } from "@/components/AnnouncementManager";
@@ -28,7 +29,8 @@ export const Route = createFileRoute("/admin")({
   component: AdminRoot,
 });
 
-type AdminTab = "orders" | "products" | "categories" | "announcements" | "banners" | "hero" | "about";
+type AdminTab =
+  "orders" | "products" | "categories" | "announcements" | "banners" | "hero" | "about";
 
 const ADMIN_TABS: { id: AdminTab; label: string }[] = [
   { id: "orders", label: "Siparişler" },
@@ -266,6 +268,7 @@ type FormState = {
   features: string;
   /** Ölçü varyasyonları; her satır bir ölçü (ör. "25*35 cm"). */
   sizes: string;
+  sizePrices: string;
   shopierUrl: string;
   badge: string;
 };
@@ -283,6 +286,8 @@ function productToForm(p: Partial<Product>, isNew = false): FormState {
     description: p.description ?? "",
     features: p.features?.join("\n") ?? "",
     sizes: p.sizes?.join("\n") ?? "",
+    sizePrices:
+      p.sizePrices?.map((v) => `${v.size} | ${v.price} | ${v.oldPrice ?? ""}`).join("\n") ?? "",
     shopierUrl: p.shopierUrl ?? "https://www.shopier.com/minatoi",
     badge: p.badge ?? "",
   };
@@ -308,6 +313,21 @@ function formToProduct(form: FormState, existingFeatured?: boolean): Product {
       .split("\n")
       .map((s) => s.trim())
       .filter(Boolean),
+    ...(form.sizePrices.trim()
+      ? {
+          sizePrices: form.sizePrices
+            .trim()
+            .split("\n")
+            .map((line) => {
+              const [size, price, oldPrice] = line.split("|").map((s) => s.trim());
+              return {
+                size,
+                price: Number(price),
+                ...(oldPrice ? { oldPrice: Number(oldPrice) } : {}),
+              };
+            }),
+        }
+      : {}),
     shopierUrl: form.shopierUrl.trim(),
     badge: form.badge.trim() || undefined,
     featured: existingFeatured,
@@ -349,6 +369,31 @@ function ProductForm({
     if (!form.price || Number(form.price) <= 0) e.price = "Geçerli bir fiyat giriniz.";
     if (!form.images.length) e.images = "En az bir görsel yükleyin.";
     if (!form.shortDescription.trim()) e.shortDescription = "Kısa açıklama zorunludur.";
+    if (form.sizePrices.trim()) {
+      const sizes = form.sizes
+        .split("\n")
+        .map((s) => s.trim())
+        .filter(Boolean);
+      const variants = formToProduct(form).sizePrices!;
+      if (
+        variants.length !== sizes.length ||
+        new Set(sizes).size !== sizes.length ||
+        variants.some(
+          (v, i) =>
+            v.size !== sizes[i] ||
+            !Number.isFinite(v.price) ||
+            v.price <= 0 ||
+            (v.oldPrice !== undefined && (!Number.isFinite(v.oldPrice) || v.oldPrice < v.price)),
+        )
+      )
+        e.sizePrices = "Her ölçüyü aynı sırada, geçerli satış ve eski fiyatıyla giriniz.";
+      if (
+        variants[0] &&
+        (variants[0].price !== Number(form.price) ||
+          variants[0].oldPrice !== (form.oldPrice ? Number(form.oldPrice) : undefined))
+      )
+        e.sizePrices = "Ürün fiyatı ve eski fiyatı ilk ölçünün fiyatlarıyla aynı olmalı.";
+    }
     setErrors(e);
     return Object.keys(e).length === 0;
   }
@@ -442,6 +487,19 @@ function ProductForm({
         <p className="mt-1 text-xs text-stone-400">
           Girildiğinde ürün sayfasında seçilebilir ölçü butonları görünür; boşsa ürün tek ölçü kabul
           edilir.
+        </p>
+      </FormField>
+      <FormField label="Ölçü Fiyatları — opsiyonel" error={errors.sizePrices}>
+        <textarea
+          className={inputCls(errors.sizePrices)}
+          rows={4}
+          value={form.sizePrices}
+          onChange={(e) => set("sizePrices", e.target.value)}
+          placeholder={"25*35 cm | 610 | 920\n35*50 cm | 990 | 1250"}
+        />
+        <p className="mt-1 text-xs text-stone-400">
+          Her satır: ölçü | satış fiyatı | eski fiyat. Ölçülerle aynı sırada giriniz. Boşsa tüm
+          ölçüler ürün fiyatını kullanır.
         </p>
       </FormField>
       <FormField label="Görseller *" error={errors.images}>
@@ -616,7 +674,7 @@ function AdminPage({
   }
 
   const filtered =
-    filterCat === "all" ? products : products.filter((p) => p.category === filterCat);
+    filterCat === "all" ? products : products.filter((p) => productInCategory(p, filterCat));
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
@@ -786,7 +844,7 @@ function AdminPage({
                   {`Tümü (${products.length})`}
                 </button>
                 {pageCategories.map((c) => {
-                  const label = `${CAT_LABELS[c.slug] ?? c.label} (${products.filter((p) => p.category === c.slug).length})`;
+                  const label = `${CAT_LABELS[c.slug] ?? c.label} (${products.filter((p) => productInCategory(p, c.slug)).length})`;
                   return (
                     <button
                       key={c.slug}

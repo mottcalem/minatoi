@@ -1,3 +1,4 @@
+import { productInCategory } from "@/data/productCategories";
 import { CategoryCarousel } from "@/components/CategoryCarousel";
 import { getBanners } from "@/data/bannerActions";
 import { getHeroContent } from "@/data/heroActions";
@@ -53,7 +54,10 @@ export const Route = createFileRoute("/")({
           "Minatoi, yaşam alanlarınıza estetik ve modern bir dokunuş katmak için özenle hazırlanmış cam tablo koleksiyonları sunar.",
       },
       { property: "og:url", content: "https://minatoi.ugurdogan.net/" },
-      { property: "og:image", content: "https://minatoi.ugurdogan.net/images/products/sokrates/man.jpg" },
+      {
+        property: "og:image",
+        content: "https://minatoi.ugurdogan.net/images/products/sokrates/man.jpg",
+      },
       { name: "robots", content: "index, follow" },
     ],
     links: [{ rel: "canonical", href: "https://minatoi.ugurdogan.net/" }],
@@ -80,7 +84,7 @@ function Index() {
     .filter((category) => category.slug !== "cuzdan" && category.slug !== "kilif")
     .map((category) => ({
       category,
-      products: products.filter((product) => product.category === category.slug),
+      products: products.filter((product) => productInCategory(product, category.slug)),
     }))
     .filter(({ products: categoryProducts }) => categoryProducts.length > 0);
   const sliderProducts = [...products]

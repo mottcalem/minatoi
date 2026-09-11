@@ -1,0 +1,4220 @@
+{
+  "sourceRows": 244,
+  "uniqueProducts": 243,
+  "newArrivals": 84,
+  "categoryCounts": {
+    "genel": 9,
+    "kisiye-ozel": 2,
+    "patili-dostalara-ozel": 13,
+    "kedi": 23,
+    "hayvanlar-alemi": 20,
+    "zen-koleksiyonu": 19,
+    "goz-ve-nazar-boncugu": 16,
+    "isik-ve-renk": 20,
+    "gercekustu": 21,
+    "tasarimcinin-listesi": 48,
+    "sanatci-albumu": 12,
+    "manzara": 8,
+    "mustafa-kemal-ataturk": 12,
+    "afis": 20
+  },
+  "rows": [
+    {
+      "sourceId": "3855",
+      "title": "Nedret Beni Darlama",
+      "sourceCategories": [
+        "Genel"
+      ],
+      "slug": "nedret-beni-darlama",
+      "category": "genel",
+      "selectedImageNumbers": [
+        1,
+        4
+      ],
+      "availableImageCount": 5,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "3914",
+      "title": "Pekmez Bana Bakma",
+      "sourceCategories": [
+        "Genel"
+      ],
+      "slug": "pekmez-bana-bakma",
+      "category": "genel",
+      "selectedImageNumbers": [
+        1,
+        4
+      ],
+      "availableImageCount": 28,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "3984",
+      "title": "Sema Delirdi",
+      "sourceCategories": [
+        "Genel"
+      ],
+      "slug": "sema-delirdi",
+      "category": "genel",
+      "selectedImageNumbers": [
+        3,
+        1
+      ],
+      "availableImageCount": 3,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "3988",
+      "title": "Yemeksiz Olmaz",
+      "sourceCategories": [
+        "Genel"
+      ],
+      "slug": "yemeksiz-olmaz",
+      "category": "genel",
+      "selectedImageNumbers": [
+        1
+      ],
+      "availableImageCount": 13,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "4667",
+      "title": "Lolipope",
+      "sourceCategories": [
+        "Genel"
+      ],
+      "slug": "lolipope",
+      "category": "genel",
+      "selectedImageNumbers": [
+        1
+      ],
+      "availableImageCount": 3,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "4676",
+      "title": "Atamatom",
+      "sourceCategories": [
+        "Genel"
+      ],
+      "slug": "atamatom",
+      "category": "genel",
+      "selectedImageNumbers": [
+        1
+      ],
+      "availableImageCount": 3,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "4683",
+      "title": "Beğenmediydik",
+      "sourceCategories": [
+        "Genel"
+      ],
+      "slug": "begenmediydik",
+      "category": "genel",
+      "selectedImageNumbers": [
+        1
+      ],
+      "availableImageCount": 3,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "5173",
+      "title": "Doğrudan Baskı",
+      "sourceCategories": [
+        "Kişiye Özel>Doğrudan Baskı"
+      ],
+      "slug": "dogrudan-baski",
+      "category": "kisiye-ozel",
+      "selectedImageNumbers": [
+        1
+      ],
+      "availableImageCount": 1,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "5273",
+      "title": "İllüstrasyonlu baskı",
+      "sourceCategories": [
+        "Kişiye Özel>İllüstrasyonlu Baskı"
+      ],
+      "slug": "i-llustrasyonlu-baski",
+      "category": "kisiye-ozel",
+      "selectedImageNumbers": [
+        1
+      ],
+      "availableImageCount": 1,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "5336",
+      "title": "İllüstrasyonlu Portre",
+      "sourceCategories": [
+        "Patili Dostlara Özel>İllüstrasyonlu Portre"
+      ],
+      "slug": "i-llustrasyonlu-portre",
+      "category": "patili-dostalara-ozel",
+      "selectedImageNumbers": [
+        1
+      ],
+      "availableImageCount": 1,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "5439",
+      "title": "Kostümlü Portre",
+      "sourceCategories": [
+        "Patili Dostlara Özel>Kostümlü Portre"
+      ],
+      "slug": "kostumlu-portre",
+      "category": "patili-dostalara-ozel",
+      "selectedImageNumbers": [
+        1
+      ],
+      "availableImageCount": 1,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "5813",
+      "title": "cafcaf",
+      "sourceCategories": [
+        "Genel"
+      ],
+      "slug": "cafcaf",
+      "category": "genel",
+      "selectedImageNumbers": [
+        1
+      ],
+      "availableImageCount": 3,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "5820",
+      "title": "Etnik Kedi Grubu Cam Tablo KD101",
+      "sourceCategories": [
+        "Kedi"
+      ],
+      "slug": "etnik-kedi-grubu-cam-tablo-kd101",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 62,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "5888",
+      "title": "Yaprak Kedisi Cam Tablo KD102",
+      "sourceCategories": [
+        "Genel"
+      ],
+      "slug": "yaprak-kedisi-cam-tablo-kd102",
+      "category": "genel",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "5895",
+      "title": "Keyif Kedisi Cam Tablo KD103",
+      "sourceCategories": [
+        "Kedi"
+      ],
+      "slug": "keyif-kedisi-cam-tablo-kd103",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "5901",
+      "title": "Renkli Kedi Yüzleri Cam Tablo KD104",
+      "sourceCategories": [
+        "Kedi"
+      ],
+      "slug": "renkli-kedi-yuzleri-cam-tablo-kd104",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        2,
+        1,
+        3
+      ],
+      "availableImageCount": 3,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "5907",
+      "title": "Pop Art Sokak Kedisi KD105",
+      "sourceCategories": [
+        "Kedi",
+        "Yeni Gelenler"
+      ],
+      "slug": "pop-art-sokak-kedisi-kd105",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "5936",
+      "title": "Graffitici Kedi Cam Tablo KD106",
+      "sourceCategories": [
+        "Kedi"
+      ],
+      "slug": "graffitici-kedi-cam-tablo-kd106",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "5942",
+      "title": "Şaşkın Kediler Grubu Cam Tablo KD107",
+      "sourceCategories": [
+        "Kedi",
+        "Yeni Gelenler"
+      ],
+      "slug": "saskin-kediler-grubu-cam-tablo-kd107",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "5948",
+      "title": "Minimalist Kara Kedi Cam Tablo KD108",
+      "sourceCategories": [
+        "Kedi"
+      ],
+      "slug": "minimalist-kara-kedi-cam-tablo-kd108",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "5954",
+      "title": "Şaşkın Kedi Cam Tablo KD109",
+      "sourceCategories": [
+        "Kedi",
+        "Yeni Gelenler"
+      ],
+      "slug": "saskin-kedi-cam-tablo-kd109",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "5960",
+      "title": "Makarnacı Kedi Cam Tablo KD110",
+      "sourceCategories": [
+        "Kedi",
+        "Yeni Gelenler"
+      ],
+      "slug": "makarnaci-kedi-cam-tablo-kd110",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "5966",
+      "title": "Avangart Kediler Cam Tablo KD111",
+      "sourceCategories": [
+        "Kedi"
+      ],
+      "slug": "avangart-kediler-cam-tablo-kd111",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "5972",
+      "title": "Bakarken Kedi Cam Tablo KD112",
+      "sourceCategories": [
+        "Kedi"
+      ],
+      "slug": "bakarken-kedi-cam-tablo-kd112",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "5978",
+      "title": "Şaşkın Kediler Cam Tablo KD113",
+      "sourceCategories": [
+        "Kedi",
+        "Yeni Gelenler"
+      ],
+      "slug": "saskin-kediler-cam-tablo-kd113",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "5984",
+      "title": "Anime Sokak Kedileri Cam Tablo KD114",
+      "sourceCategories": [
+        "Kedi",
+        "Yeni Gelenler"
+      ],
+      "slug": "anime-sokak-kedileri-cam-tablo-kd114",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "5990",
+      "title": "Turuncu İnce Kara Kedi Cam Tablo KD115",
+      "sourceCategories": [
+        "Kedi"
+      ],
+      "slug": "turuncu-i-nce-kara-kedi-cam-tablo-kd115",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "5996",
+      "title": "Turuncu Tombul Kara Kedi Cam Tablo KD116",
+      "sourceCategories": [
+        "Kedi"
+      ],
+      "slug": "turuncu-tombul-kara-kedi-cam-tablo-kd116",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6002",
+      "title": "Turuncu Sakin Kara Kedi Cam Tablo KD117",
+      "sourceCategories": [
+        "Kedi"
+      ],
+      "slug": "turuncu-sakin-kara-kedi-cam-tablo-kd117",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6008",
+      "title": "Turuncu Kara Kedi Cam Tablo KD118",
+      "sourceCategories": [
+        "Kedi",
+        "Yeni Gelenler"
+      ],
+      "slug": "turuncu-kara-kedi-cam-tablo-kd118",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6014",
+      "title": "Ayda Kedi Cam Tablo KD119",
+      "sourceCategories": [
+        "Kedi",
+        "Yeni Gelenler"
+      ],
+      "slug": "ayda-kedi-cam-tablo-kd119",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6061",
+      "title": "Nazarlı Kara Karga HY101",
+      "sourceCategories": [
+        "Hayvanlar Alemi",
+        "Yeni Gelenler"
+      ],
+      "slug": "nazarli-kara-karga-hy101",
+      "category": "hayvanlar-alemi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 61,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6128",
+      "title": "Mr.Şempanze Cam Tablo HY102",
+      "sourceCategories": [
+        "Hayvanlar Alemi",
+        "Yeni Gelenler"
+      ],
+      "slug": "mr-sempanze-cam-tablo-hy102",
+      "category": "hayvanlar-alemi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6138",
+      "title": "Bauhaus Geometrik At Cam Tablo HY103",
+      "sourceCategories": [
+        "Hayvanlar Alemi"
+      ],
+      "slug": "bauhaus-geometrik-at-cam-tablo-hy103",
+      "category": "hayvanlar-alemi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6144",
+      "title": "Retro Renkli Tukan Kuşu Cam Tablo HY104",
+      "sourceCategories": [
+        "Hayvanlar Alemi",
+        "Yeni Gelenler"
+      ],
+      "slug": "retro-renkli-tukan-kusu-cam-tablo-hy104",
+      "category": "hayvanlar-alemi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6150",
+      "title": "Kristal Işıklı Geyik Cam Tablo HY105",
+      "sourceCategories": [
+        "Hayvanlar Alemi"
+      ],
+      "slug": "kristal-isikli-geyik-cam-tablo-hy105",
+      "category": "hayvanlar-alemi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6156",
+      "title": "Koyun Kurt Cam Tablo HY106",
+      "sourceCategories": [
+        "Hayvanlar Alemi",
+        "Yeni Gelenler"
+      ],
+      "slug": "koyun-kurt-cam-tablo-hy106",
+      "category": "hayvanlar-alemi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6162",
+      "title": "Renkli Geometrik Fil Cam Tablo HY107",
+      "sourceCategories": [
+        "Hayvanlar Alemi",
+        "Yeni Gelenler"
+      ],
+      "slug": "renkli-geometrik-fil-cam-tablo-hy107",
+      "category": "hayvanlar-alemi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6168",
+      "title": "Renkli Sıçramalı Kartal Cam Tablo HY108",
+      "sourceCategories": [
+        "Hayvanlar Alemi"
+      ],
+      "slug": "renkli-sicramali-kartal-cam-tablo-hy108",
+      "category": "hayvanlar-alemi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6177",
+      "title": "Geometrik Mozaik Deve Cam Tablo HY109",
+      "sourceCategories": [
+        "Hayvanlar Alemi",
+        "Yeni Gelenler"
+      ],
+      "slug": "geometrik-mozaik-deve-cam-tablo-hy109",
+      "category": "hayvanlar-alemi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6183",
+      "title": "Çizgisel İllüzyon Deve Yüzü Cam Tablo HY110",
+      "sourceCategories": [
+        "Hayvanlar Alemi"
+      ],
+      "slug": "cizgisel-i-lluzyon-deve-yuzu-cam-tablo-hy110",
+      "category": "hayvanlar-alemi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6189",
+      "title": "Pembe Mozaik Yürüyen Leopar Cam Tablo HY111",
+      "sourceCategories": [
+        "Hayvanlar Alemi"
+      ],
+      "slug": "pembe-mozaik-yuruyen-leopar-cam-tablo-hy111",
+      "category": "hayvanlar-alemi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6195",
+      "title": "Pembe Mozaik Leopar Yüzü Cam Tablo HY112",
+      "sourceCategories": [
+        "Hayvanlar Alemi"
+      ],
+      "slug": "pembe-mozaik-leopar-yuzu-cam-tablo-hy112",
+      "category": "hayvanlar-alemi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6201",
+      "title": "Pembe Mozaik Oturan Leopar Cam Tablo HY113",
+      "sourceCategories": [
+        "Hayvanlar Alemi",
+        "Yeni Gelenler"
+      ],
+      "slug": "pembe-mozaik-oturan-leopar-cam-tablo-hy113",
+      "category": "hayvanlar-alemi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6207",
+      "title": "Pembe Mozaik Leopar Cam Tablo HY114",
+      "sourceCategories": [
+        "Hayvanlar Alemi"
+      ],
+      "slug": "pembe-mozaik-leopar-cam-tablo-hy114",
+      "category": "hayvanlar-alemi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6213",
+      "title": "Renklerin Kralı Aslan Cam Tablo HY115",
+      "sourceCategories": [
+        "Hayvanlar Alemi"
+      ],
+      "slug": "renklerin-krali-aslan-cam-tablo-hy115",
+      "category": "hayvanlar-alemi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6219",
+      "title": "Mistik Çöl Yengeci Can Tablo HY116",
+      "sourceCategories": [
+        "Hayvanlar Alemi",
+        "Yeni Gelenler"
+      ],
+      "slug": "mistik-col-yengeci-can-tablo-hy116",
+      "category": "hayvanlar-alemi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6225",
+      "title": "Kiss Me Kurbağa Prens Cam Tablo HY117",
+      "sourceCategories": [
+        "Hayvanlar Alemi",
+        "Yeni Gelenler"
+      ],
+      "slug": "kiss-me-kurbaga-prens-cam-tablo-hy117",
+      "category": "hayvanlar-alemi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6231",
+      "title": "Beyaz Koyun Cam Tablo HY118",
+      "sourceCategories": [
+        "Hayvanlar Alemi",
+        "Yeni Gelenler"
+      ],
+      "slug": "beyaz-koyun-cam-tablo-hy118",
+      "category": "hayvanlar-alemi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6237",
+      "title": "Neon Kedi Panter Cam Tablo HY119",
+      "sourceCategories": [
+        "Hayvanlar Alemi",
+        "Yeni Gelenler"
+      ],
+      "slug": "neon-kedi-panter-cam-tablo-hy119",
+      "category": "hayvanlar-alemi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6243",
+      "title": "Neon Çizgili Kaplan Cam Tablo HY120",
+      "sourceCategories": [
+        "Hayvanlar Alemi"
+      ],
+      "slug": "neon-cizgili-kaplan-cam-tablo-hy120",
+      "category": "hayvanlar-alemi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6249",
+      "title": "Kırmızı Güneş Vadisi Cam Tablo ZN101",
+      "sourceCategories": [
+        "Yeni Gelenler",
+        "Zen Koleksiyonu"
+      ],
+      "slug": "kirmizi-gunes-vadisi-cam-tablo-zn101",
+      "category": "zen-koleksiyonu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 58,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6316",
+      "title": "Altın Dolunay Manzaralı Cam Tablo ZN102",
+      "sourceCategories": [
+        "Zen Koleksiyonu"
+      ],
+      "slug": "altin-dolunay-manzarali-cam-tablo-zn102",
+      "category": "zen-koleksiyonu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6322",
+      "title": "Turkuaz Dalgalı Vadi Cam Tablo ZN103",
+      "sourceCategories": [
+        "Zen Koleksiyonu"
+      ],
+      "slug": "turkuaz-dalgali-vadi-cam-tablo-zn103",
+      "category": "zen-koleksiyonu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6328",
+      "title": "Kırmızı Güneş Kiraz Çiçeği Cam Tablo ZN104",
+      "sourceCategories": [
+        "Yeni Gelenler",
+        "Zen Koleksiyonu"
+      ],
+      "slug": "kirmizi-gunes-kiraz-cicegi-cam-tablo-zn104",
+      "category": "zen-koleksiyonu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6334",
+      "title": "Siyah Güneş Kiraz Çiçeği Cam Tablo ZN105",
+      "sourceCategories": [
+        "Zen Koleksiyonu"
+      ],
+      "slug": "siyah-gunes-kiraz-cicegi-cam-tablo-zn105",
+      "category": "zen-koleksiyonu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6340",
+      "title": "Altın Güneş Kiraz Çiçeği Cam Tablo ZN106",
+      "sourceCategories": [
+        "Zen Koleksiyonu"
+      ],
+      "slug": "altin-gunes-kiraz-cicegi-cam-tablo-zn106",
+      "category": "zen-koleksiyonu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6346",
+      "title": "Pembe Sakura Ağacı Cam Tablo ZN107",
+      "sourceCategories": [
+        "Zen Koleksiyonu"
+      ],
+      "slug": "pembe-sakura-agaci-cam-tablo-zn107",
+      "category": "zen-koleksiyonu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6352",
+      "title": "Tarzı Kiraz Çiçeği Ve Dağlar Cam Tablo ZN108",
+      "sourceCategories": [
+        "Yeni Gelenler",
+        "Zen Koleksiyonu"
+      ],
+      "slug": "tarzi-kiraz-cicegi-ve-daglar-cam-tablo-zn108",
+      "category": "zen-koleksiyonu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6358",
+      "title": "Yeşili Fondaki Bahar Dalı Cam Tablo ZN109",
+      "sourceCategories": [
+        "Zen Koleksiyonu"
+      ],
+      "slug": "yesili-fondaki-bahar-dali-cam-tablo-zn109",
+      "category": "zen-koleksiyonu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6364",
+      "title": "Dalgalı Koi Balıkları Cam Tablo ZN110",
+      "sourceCategories": [
+        "Zen Koleksiyonu"
+      ],
+      "slug": "dalgali-koi-baliklari-cam-tablo-zn110",
+      "category": "zen-koleksiyonu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6370",
+      "title": "Suda Süzülen Kırmızı Koi Cam Tablo ZN111",
+      "sourceCategories": [
+        "Zen Koleksiyonu"
+      ],
+      "slug": "suda-suzulen-kirmizi-koi-cam-tablo-zn111",
+      "category": "zen-koleksiyonu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6376",
+      "title": "Etnik Pembe Flamingo Cam Tablo ZN112",
+      "sourceCategories": [
+        "Zen Koleksiyonu"
+      ],
+      "slug": "etnik-pembe-flamingo-cam-tablo-zn112",
+      "category": "zen-koleksiyonu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6382",
+      "title": "Kozmik Işıklı Meditasyon Cam Tablo ZN113",
+      "sourceCategories": [
+        "Yeni Gelenler",
+        "Zen Koleksiyonu"
+      ],
+      "slug": "kozmik-isikli-meditasyon-cam-tablo-zn113",
+      "category": "zen-koleksiyonu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6388",
+      "title": "Japon Doğa Sanatı Cam Tablo ZN114",
+      "sourceCategories": [
+        "Zen Koleksiyonu"
+      ],
+      "slug": "japon-doga-sanati-cam-tablo-zn114",
+      "category": "zen-koleksiyonu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6394",
+      "title": "Kağıt Rölyef Zen Cam Tablo ZN115",
+      "sourceCategories": [
+        "Zen Koleksiyonu"
+      ],
+      "slug": "kagit-rolyef-zen-cam-tablo-zn115",
+      "category": "zen-koleksiyonu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6400",
+      "title": "Pembe Güneş Zen Cam Tablo ZN116",
+      "sourceCategories": [
+        "Zen Koleksiyonu"
+      ],
+      "slug": "pembe-gunes-zen-cam-tablo-zn116",
+      "category": "zen-koleksiyonu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6406",
+      "title": "Beyaz Dağlar Sarı Güneş Cam Tablo ZN117",
+      "sourceCategories": [
+        "Zen Koleksiyonu"
+      ],
+      "slug": "beyaz-daglar-sari-gunes-cam-tablo-zn117",
+      "category": "zen-koleksiyonu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6412",
+      "title": "Kırmızı Güneş Ve Sakuralar Cam Tablo ZN118",
+      "sourceCategories": [
+        "Zen Koleksiyonu"
+      ],
+      "slug": "kirmizi-gunes-ve-sakuralar-cam-tablo-zn118",
+      "category": "zen-koleksiyonu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6418",
+      "title": "Turuncu Güneş Zen Cam Tablo ZN119",
+      "sourceCategories": [
+        "Yeni Gelenler",
+        "Zen Koleksiyonu"
+      ],
+      "slug": "turuncu-gunes-zen-cam-tablo-zn119",
+      "category": "zen-koleksiyonu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6451",
+      "title": "Horus'un Gözü Cam Tablo GZ101",
+      "sourceCategories": [
+        "Göz ve Nazar Boncuğu"
+      ],
+      "slug": "horus-un-gozu-cam-tablo-gz101",
+      "category": "goz-ve-nazar-boncugu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 49,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6505",
+      "title": "Soyut Nazar Gözü Cam Tablo GZ102",
+      "sourceCategories": [
+        "Göz ve Nazar Boncuğu",
+        "Yeni Gelenler"
+      ],
+      "slug": "soyut-nazar-gozu-cam-tablo-gz102",
+      "category": "goz-ve-nazar-boncugu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6511",
+      "title": "Soyut Turuncu Göz Cam Tablo GZ103",
+      "sourceCategories": [
+        "Göz ve Nazar Boncuğu"
+      ],
+      "slug": "soyut-turuncu-goz-cam-tablo-gz103",
+      "category": "goz-ve-nazar-boncugu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6517",
+      "title": "Makro Su Gözü Cam Tablo GZ104",
+      "sourceCategories": [
+        "Göz ve Nazar Boncuğu"
+      ],
+      "slug": "makro-su-gozu-cam-tablo-gz104",
+      "category": "goz-ve-nazar-boncugu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6523",
+      "title": "Akıcı Soyut Göz Cam Tablo GZ105",
+      "sourceCategories": [
+        "Göz ve Nazar Boncuğu",
+        "Yeni Gelenler"
+      ],
+      "slug": "akici-soyut-goz-cam-tablo-gz105",
+      "category": "goz-ve-nazar-boncugu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6529",
+      "title": "Altın Parıltılı Mavi Göz Cam Tablo GZ106",
+      "sourceCategories": [
+        "Göz ve Nazar Boncuğu"
+      ],
+      "slug": "altin-pariltili-mavi-goz-cam-tablo-gz106",
+      "category": "goz-ve-nazar-boncugu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6535",
+      "title": "Boho Işınlı Göz Cam Tablo GZ107",
+      "sourceCategories": [
+        "Göz ve Nazar Boncuğu",
+        "Yeni Gelenler"
+      ],
+      "slug": "boho-isinli-goz-cam-tablo-gz107",
+      "category": "goz-ve-nazar-boncugu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6541",
+      "title": "Altın Göz Portresi Cam Tablo GZ108",
+      "sourceCategories": [
+        "Göz ve Nazar Boncuğu"
+      ],
+      "slug": "altin-goz-portresi-cam-tablo-gz108",
+      "category": "goz-ve-nazar-boncugu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6547",
+      "title": "Okyanus Göz Nazar Cam Tablo GZ109",
+      "sourceCategories": [
+        "Göz ve Nazar Boncuğu"
+      ],
+      "slug": "okyanus-goz-nazar-cam-tablo-gz109",
+      "category": "goz-ve-nazar-boncugu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6553",
+      "title": "Mavi 3D Nazar Boncuk Cam Tablo GZ110",
+      "sourceCategories": [
+        "Göz ve Nazar Boncuğu",
+        "Yeni Gelenler"
+      ],
+      "slug": "mavi-3d-nazar-boncuk-cam-tablo-gz110",
+      "category": "goz-ve-nazar-boncugu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6559",
+      "title": "Derin Lacivert Nazar Boncuk Cam Tablo GZ111",
+      "sourceCategories": [
+        "Göz ve Nazar Boncuğu"
+      ],
+      "slug": "derin-lacivert-nazar-boncuk-cam-tablo-gz111",
+      "category": "goz-ve-nazar-boncugu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6565",
+      "title": "Cam Bilye Nazar Boncuğu Cam Tablo GZ112",
+      "sourceCategories": [
+        "Göz ve Nazar Boncuğu"
+      ],
+      "slug": "cam-bilye-nazar-boncugu-cam-tablo-gz112",
+      "category": "goz-ve-nazar-boncugu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6571",
+      "title": "Murano Tarzı Nazar Kuşu Cam Tablo GZ113",
+      "sourceCategories": [
+        "Göz ve Nazar Boncuğu"
+      ],
+      "slug": "murano-tarzi-nazar-kusu-cam-tablo-gz113",
+      "category": "goz-ve-nazar-boncugu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6577",
+      "title": "Çağdaş Nazar Gözü Cam Tablo GZ114",
+      "sourceCategories": [
+        "Göz ve Nazar Boncuğu",
+        "Yeni Gelenler"
+      ],
+      "slug": "cagdas-nazar-gozu-cam-tablo-gz114",
+      "category": "goz-ve-nazar-boncugu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6583",
+      "title": "Cam Küre Göz Cam Tablo GZ115",
+      "sourceCategories": [
+        "Göz ve Nazar Boncuğu",
+        "Yeni Gelenler"
+      ],
+      "slug": "cam-kure-goz-cam-tablo-gz115",
+      "category": "goz-ve-nazar-boncugu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6589",
+      "title": "Kozmik Göz İrisi Cam Tablo GZ116",
+      "sourceCategories": [
+        "Göz ve Nazar Boncuğu"
+      ],
+      "slug": "kozmik-goz-i-risi-cam-tablo-gz116",
+      "category": "goz-ve-nazar-boncugu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6749",
+      "title": "Yaramaz Kedi Cam Tablo KD120",
+      "sourceCategories": [
+        "Kedi",
+        "Yeni Gelenler"
+      ],
+      "slug": "yaramaz-kedi-cam-tablo-kd120",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 16,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6770",
+      "title": "Karakalem Kedi illüstrasyonu Cam Tablo KD121",
+      "sourceCategories": [
+        "Kedi",
+        "Yeni Gelenler"
+      ],
+      "slug": "karakalem-kedi-illustrasyonu-cam-tablo-kd121",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6776",
+      "title": "Eskiz Kedi Tasarımı Cam Tablo KD122",
+      "sourceCategories": [
+        "Kedi",
+        "Yeni Gelenler"
+      ],
+      "slug": "eskiz-kedi-tasarimi-cam-tablo-kd122",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6782",
+      "title": "Karakalem Kara Kedi Cam Tablo KD123",
+      "sourceCategories": [
+        "Kedi",
+        "Yeni Gelenler"
+      ],
+      "slug": "karakalem-kara-kedi-cam-tablo-kd123",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6788",
+      "title": "Israrcı Kedi Cam Tablo KD124",
+      "sourceCategories": [
+        "Kedi"
+      ],
+      "slug": "israrci-kedi-cam-tablo-kd124",
+      "category": "kedi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6840",
+      "title": "Işıkla Çizilmiş Keman Cam Tablo AR101",
+      "sourceCategories": [
+        "Işık ve Renk"
+      ],
+      "slug": "isikla-cizilmis-keman-cam-tablo-ar101",
+      "category": "isik-ve-renk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 61,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6912",
+      "title": "Neon Yusufcuk Cam Tablo AR102",
+      "sourceCategories": [
+        "Işık ve Renk"
+      ],
+      "slug": "neon-yusufcuk-cam-tablo-ar102",
+      "category": "isik-ve-renk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6918",
+      "title": "Soyut Çiçek Patlaması Cam Tablo AR103",
+      "sourceCategories": [
+        "Işık ve Renk"
+      ],
+      "slug": "soyut-cicek-patlamasi-cam-tablo-ar103",
+      "category": "isik-ve-renk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6927",
+      "title": "Okyanusta Alev Bulutları Cam Tablo AR104",
+      "sourceCategories": [
+        "Işık ve Renk",
+        "Yeni Gelenler"
+      ],
+      "slug": "okyanusta-alev-bulutlari-cam-tablo-ar104",
+      "category": "isik-ve-renk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6933",
+      "title": "Soyut Baloncuklar Cam Tablo AR105",
+      "sourceCategories": [
+        "Işık ve Renk"
+      ],
+      "slug": "soyut-baloncuklar-cam-tablo-ar105",
+      "category": "isik-ve-renk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6939",
+      "title": "Akıcı Çizgisel Dalgalar Cam Tablo AR106",
+      "sourceCategories": [
+        "Işık ve Renk"
+      ],
+      "slug": "akici-cizgisel-dalgalar-cam-tablo-ar106",
+      "category": "isik-ve-renk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6945",
+      "title": "Sakin Zen Taşları Cam Tablo AR107",
+      "sourceCategories": [
+        "Işık ve Renk"
+      ],
+      "slug": "sakin-zen-taslari-cam-tablo-ar107",
+      "category": "isik-ve-renk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6951",
+      "title": "Derin Mavi Deniz Anaları Cam Tablo AR108",
+      "sourceCategories": [
+        "Işık ve Renk"
+      ],
+      "slug": "derin-mavi-deniz-analari-cam-tablo-ar108",
+      "category": "isik-ve-renk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6957",
+      "title": "Altın Işıltılı Hayat Ağacı Cam Tablo AR109",
+      "sourceCategories": [
+        "Işık ve Renk"
+      ],
+      "slug": "altin-isiltili-hayat-agaci-cam-tablo-ar109",
+      "category": "isik-ve-renk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6963",
+      "title": "Altın Kar Tanesi Cam Tablo AR110",
+      "sourceCategories": [
+        "Işık ve Renk"
+      ],
+      "slug": "altin-kar-tanesi-cam-tablo-ar110",
+      "category": "isik-ve-renk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6969",
+      "title": "Mor Mistik Hayat Ağacı Cam Tablo AR111",
+      "sourceCategories": [
+        "Işık ve Renk"
+      ],
+      "slug": "mor-mistik-hayat-agaci-cam-tablo-ar111",
+      "category": "isik-ve-renk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6975",
+      "title": "Renk Patlaması Cam Tablo AR112",
+      "sourceCategories": [
+        "Işık ve Renk"
+      ],
+      "slug": "renk-patlamasi-cam-tablo-ar112",
+      "category": "isik-ve-renk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6981",
+      "title": "Renkli Duman Patlaması Cam Tablo AR113",
+      "sourceCategories": [
+        "Işık ve Renk",
+        "Yeni Gelenler"
+      ],
+      "slug": "renkli-duman-patlamasi-cam-tablo-ar113",
+      "category": "isik-ve-renk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6987",
+      "title": "Altın Hayat Ağacı Cam Tablo AR114",
+      "sourceCategories": [
+        "Işık ve Renk"
+      ],
+      "slug": "altin-hayat-agaci-cam-tablo-ar114",
+      "category": "isik-ve-renk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6993",
+      "title": "Palet Dokulu Renkler Cam Tablo AR115",
+      "sourceCategories": [
+        "Işık ve Renk"
+      ],
+      "slug": "palet-dokulu-renkler-cam-tablo-ar115",
+      "category": "isik-ve-renk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "6999",
+      "title": "Yelpaze Gökkuşağı Cam Tablo AR116",
+      "sourceCategories": [
+        "Işık ve Renk"
+      ],
+      "slug": "yelpaze-gokkusagi-cam-tablo-ar116",
+      "category": "isik-ve-renk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7005",
+      "title": "Fırtına Bulutları Cam Tablo AR117",
+      "sourceCategories": [
+        "Işık ve Renk"
+      ],
+      "slug": "firtina-bulutlari-cam-tablo-ar117",
+      "category": "isik-ve-renk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7011",
+      "title": "Fırtına Bulutları Cam Tablo AR117",
+      "sourceCategories": [
+        "Işık ve Renk",
+        "Yeni Gelenler"
+      ],
+      "slug": "firtina-bulutlari-cam-tablo-ar117",
+      "category": "isik-ve-renk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": true
+    },
+    {
+      "sourceId": "7016",
+      "title": "Renkli Bulut Kümesi Cam Tablo AR118",
+      "sourceCategories": [
+        "Işık ve Renk"
+      ],
+      "slug": "renkli-bulut-kumesi-cam-tablo-ar118",
+      "category": "isik-ve-renk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7022",
+      "title": "Gün Batımı Bulutları Cam Tablo AR119",
+      "sourceCategories": [
+        "Işık ve Renk"
+      ],
+      "slug": "gun-batimi-bulutlari-cam-tablo-ar119",
+      "category": "isik-ve-renk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7028",
+      "title": "Altın Işıklı Bulut Cam Tablo AR120",
+      "sourceCategories": [
+        "Işık ve Renk"
+      ],
+      "slug": "altin-isikli-bulut-cam-tablo-ar120",
+      "category": "isik-ve-renk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7053",
+      "title": "Gülün Fütüristik Şehri Cam Tablo GU101",
+      "sourceCategories": [
+        "Gerçeküstü"
+      ],
+      "slug": "gulun-futuristik-sehri-cam-tablo-gu101",
+      "category": "gercekustu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 64,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7143",
+      "title": "Sürreal Adam Cam Tablo GU102",
+      "sourceCategories": [
+        "Gerçeküstü"
+      ],
+      "slug": "surreal-adam-cam-tablo-gu102",
+      "category": "gercekustu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7152",
+      "title": "Mistik Mantar Büyücüsü Cam Tablo GU103",
+      "sourceCategories": [
+        "Gerçeküstü",
+        "Yeni Gelenler"
+      ],
+      "slug": "mistik-mantar-buyucusu-cam-tablo-gu103",
+      "category": "gercekustu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7158",
+      "title": "Alice Mantar Vadisi Cam Tablo GU104",
+      "sourceCategories": [
+        "Gerçeküstü"
+      ],
+      "slug": "alice-mantar-vadisi-cam-tablo-gu104",
+      "category": "gercekustu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7164",
+      "title": "Pembe Hayat Ağacı Cam Tablo GU105",
+      "sourceCategories": [
+        "Gerçeküstü"
+      ],
+      "slug": "pembe-hayat-agaci-cam-tablo-gu105",
+      "category": "gercekustu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7170",
+      "title": "Su Altı Adası Cam Tablo GU106",
+      "sourceCategories": [
+        "Gerçeküstü"
+      ],
+      "slug": "su-alti-adasi-cam-tablo-gu106",
+      "category": "gercekustu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7176",
+      "title": "Kozmik Ağaç Ada Cam Tablo GU107",
+      "sourceCategories": [
+        "Gerçeküstü"
+      ],
+      "slug": "kozmik-agac-ada-cam-tablo-gu107",
+      "category": "gercekustu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7182",
+      "title": "Havada Süzülen Ada Cam Tablo GU108",
+      "sourceCategories": [
+        "Gerçeküstü"
+      ],
+      "slug": "havada-suzulen-ada-cam-tablo-gu108",
+      "category": "gercekustu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7188",
+      "title": "Bulutların Üzerinde Yaşam Can Tablo GU109",
+      "sourceCategories": [
+        "Gerçeküstü",
+        "Yeni Gelenler"
+      ],
+      "slug": "bulutlarin-uzerinde-yasam-can-tablo-gu109",
+      "category": "gercekustu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7194",
+      "title": "Büyülü Dolunay Cam Tablo GU110",
+      "sourceCategories": [
+        "Gerçeküstü"
+      ],
+      "slug": "buyulu-dolunay-cam-tablo-gu110",
+      "category": "gercekustu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7200",
+      "title": "Okyanus Balinaları Cam Tablo GU111",
+      "sourceCategories": [
+        "Gerçeküstü"
+      ],
+      "slug": "okyanus-balinalari-cam-tablo-gu111",
+      "category": "gercekustu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7206",
+      "title": "Kozmik Sakura Nehri Cam Tablo GU112",
+      "sourceCategories": [
+        "Gerçeküstü"
+      ],
+      "slug": "kozmik-sakura-nehri-cam-tablo-gu112",
+      "category": "gercekustu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7212",
+      "title": "Harlequin Jester Mask Cam Tablo GU113",
+      "sourceCategories": [
+        "Gerçeküstü"
+      ],
+      "slug": "harlequin-jester-mask-cam-tablo-gu113",
+      "category": "gercekustu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7220",
+      "title": "Kuş Tüylü Kraliçe Maskesi Cam Tablo GU114",
+      "sourceCategories": [
+        "Gerçeküstü"
+      ],
+      "slug": "kus-tuylu-kralice-maskesi-cam-tablo-gu114",
+      "category": "gercekustu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7227",
+      "title": "Canlı Renklerin Maskesi Cam Tablo GU115",
+      "sourceCategories": [
+        "Gerçeküstü",
+        "Yeni Gelenler"
+      ],
+      "slug": "canli-renklerin-maskesi-cam-tablo-gu115",
+      "category": "gercekustu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7233",
+      "title": "Japon Oni Maskesi Cam Tablo GU116",
+      "sourceCategories": [
+        "Gerçeküstü"
+      ],
+      "slug": "japon-oni-maskesi-cam-tablo-gu116",
+      "category": "gercekustu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7239",
+      "title": "Venedik Karnavalı Cam Tablo GU117",
+      "sourceCategories": [
+        "Gerçeküstü"
+      ],
+      "slug": "venedik-karnavali-cam-tablo-gu117",
+      "category": "gercekustu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7245",
+      "title": "Venedik Maskesi Cam Tablo GU118",
+      "sourceCategories": [
+        "Gerçeküstü",
+        "Yeni Gelenler"
+      ],
+      "slug": "venedik-maskesi-cam-tablo-gu118",
+      "category": "gercekustu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7251",
+      "title": "Zümrüdüanka Phoenix Cam Tablo GU119",
+      "sourceCategories": [
+        "Gerçeküstü"
+      ],
+      "slug": "zumruduanka-phoenix-cam-tablo-gu119",
+      "category": "gercekustu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7257",
+      "title": "Mikro Mimari Gül Cam Tablo GU120",
+      "sourceCategories": [
+        "Gerçeküstü",
+        "Yeni Gelenler"
+      ],
+      "slug": "mikro-mimari-gul-cam-tablo-gu120",
+      "category": "gercekustu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7263",
+      "title": "Tapınak Başlıklı Gül Cam Tablo GU121",
+      "sourceCategories": [
+        "Gerçeküstü"
+      ],
+      "slug": "tapinak-baslikli-gul-cam-tablo-gu121",
+      "category": "gercekustu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7280",
+      "title": "Kübik Akdeniz Evleri Cam Tablo TL101",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "kubik-akdeniz-evleri-cam-tablo-tl101",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 145,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7445",
+      "title": "Kırmızı Lolipop Cam Tablo TL102",
+      "sourceCategories": [
+        "Tasarımcının Listesi",
+        "Yeni Gelenler"
+      ],
+      "slug": "kirmizi-lolipop-cam-tablo-tl102",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7451",
+      "title": "Renkli Sokak Dansçıları Cam Tablo TL103",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "renkli-sokak-danscilari-cam-tablo-tl103",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7457",
+      "title": "Retro Çizgi Roman Kadın Cam Tablo TL104",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "retro-cizgi-roman-kadin-cam-tablo-tl104",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7488",
+      "title": "Dokulu Sarılan Çift Cam Tablo TL105",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "dokulu-sarilan-cift-cam-tablo-tl105",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7494",
+      "title": "Avangart Organik Soyut Cam Tablo TL106",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "avangart-organik-soyut-cam-tablo-tl106",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7500",
+      "title": "Vitray Renk Senfonisi Cam Tablo TL107",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "vitray-renk-senfonisi-cam-tablo-tl107",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7506",
+      "title": "Renkli Mozaik Soyut Cam Tablo TL108",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "renkli-mozaik-soyut-cam-tablo-tl108",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7512",
+      "title": "Çizgisel Soyut Geometri Cam Tablo TL109",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "cizgisel-soyut-geometri-cam-tablo-tl109",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7518",
+      "title": "Kübik Geometrik Göz Cam Tablo TL110",
+      "sourceCategories": [
+        "Tasarımcının Listesi",
+        "Yeni Gelenler"
+      ],
+      "slug": "kubik-geometrik-goz-cam-tablo-tl110",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7525",
+      "title": "Geometrik Sanat Cam Tablo TL111",
+      "sourceCategories": [
+        "Tasarımcının Listesi",
+        "Yeni Gelenler"
+      ],
+      "slug": "geometrik-sanat-cam-tablo-tl111",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7531",
+      "title": "Boya Dokulu Flamenkocu Cam Tablo TL112",
+      "sourceCategories": [
+        "Tasarımcının Listesi",
+        "Yeni Gelenler"
+      ],
+      "slug": "boya-dokulu-flamenkocu-cam-tablo-tl112",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7537",
+      "title": "Soyut Geometri Cam Tablo TL113",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "soyut-geometri-cam-tablo-tl113",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7543",
+      "title": "Rüzgar Danslı Kadın Cam Tablo TL114",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "ruzgar-dansli-kadin-cam-tablo-tl114",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7549",
+      "title": "Romantik Dans Modern Cam Tablo TL115",
+      "sourceCategories": [
+        "Tasarımcının Listesi",
+        "Yeni Gelenler"
+      ],
+      "slug": "romantik-dans-modern-cam-tablo-tl115",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7555",
+      "title": "Dans Figürleri Cam Tablo TL116",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "dans-figurleri-cam-tablo-tl116",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7561",
+      "title": "Dokulu Soyut Dans Cam Tablo TL117",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "dokulu-soyut-dans-cam-tablo-tl117",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7567",
+      "title": "Beya Dalgalı Kadın Cam Tablo TL118",
+      "sourceCategories": [
+        "Tasarımcının Listesi",
+        "Yeni Gelenler"
+      ],
+      "slug": "beya-dalgali-kadin-cam-tablo-tl118",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7573",
+      "title": "Kırmızı Şapkalı Kadın Cam Tablo TL119",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "kirmizi-sapkali-kadin-cam-tablo-tl119",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7579",
+      "title": "Boya Sıçramalı Kadın Cam Tablo TL120",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "boya-sicramali-kadin-cam-tablo-tl120",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7585",
+      "title": "Soyut Baykuş illüstrasyonu Cam Tablo TL121",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "soyut-baykus-illustrasyonu-cam-tablo-tl121",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7591",
+      "title": "Op Art İllüzyon Zebra Cam Tablo TL122",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "op-art-i-lluzyon-zebra-cam-tablo-tl122",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7597",
+      "title": "Ahşap Kübik Yüz Cam Tablo TL123",
+      "sourceCategories": [
+        "Tasarımcının Listesi",
+        "Yeni Gelenler"
+      ],
+      "slug": "ahsap-kubik-yuz-cam-tablo-tl123",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7603",
+      "title": "Renk Patlamalı Michael Jackson Cam Tablo TL124",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "renk-patlamali-michael-jackson-cam-tablo-tl124",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7609",
+      "title": "Kübik Müzik Kompozisyonu Cam Tablo TL125",
+      "sourceCategories": [
+        "Tasarımcının Listesi",
+        "Yeni Gelenler"
+      ],
+      "slug": "kubik-muzik-kompozisyonu-cam-tablo-tl125",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7615",
+      "title": "Kağıt Dokulu Balon Cam Tablo TL126",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "kagit-dokulu-balon-cam-tablo-tl126",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7621",
+      "title": "tl127",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "tl127",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7627",
+      "title": "tl128",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "tl128",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7633",
+      "title": "Vintage Jimi Hendrix Cam Tablo TL129",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "vintage-jimi-hendrix-cam-tablo-tl129",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7639",
+      "title": "Neon Renkli Müzisyen Cam Tablo TL130",
+      "sourceCategories": [
+        "Tasarımcının Listesi",
+        "Yeni Gelenler"
+      ],
+      "slug": "neon-renkli-muzisyen-cam-tablo-tl130",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7645",
+      "title": "Op Art Kadın Büstü Cam Tablo TL131",
+      "sourceCategories": [
+        "Tasarımcının Listesi",
+        "Yeni Gelenler"
+      ],
+      "slug": "op-art-kadin-bustu-cam-tablo-tl131",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7651",
+      "title": "Op Art Figür Cam Tablo TL132",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "op-art-figur-cam-tablo-tl132",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7657",
+      "title": "Pop Art Renkli Elvis Cam Tablo TL133",
+      "sourceCategories": [
+        "Tasarımcının Listesi",
+        "Yeni Gelenler"
+      ],
+      "slug": "pop-art-renkli-elvis-cam-tablo-tl133",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7663",
+      "title": "Pop Art Marlon Brando Cam Tablo TL134",
+      "sourceCategories": [
+        "Tasarımcının Listesi",
+        "Yeni Gelenler"
+      ],
+      "slug": "pop-art-marlon-brando-cam-tablo-tl134",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7669",
+      "title": "Eskitme Marilyn Cam Tablo TL 135",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "eskitme-marilyn-cam-tablo-tl-135",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7675",
+      "title": "İkonik Marilyn Retro Cam Tablo TL136",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "i-konik-marilyn-retro-cam-tablo-tl136",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7681",
+      "title": "Neon Marilyn Monroe Cam Tablo TL137",
+      "sourceCategories": [
+        "Tasarımcının Listesi",
+        "Yeni Gelenler"
+      ],
+      "slug": "neon-marilyn-monroe-cam-tablo-tl137",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7687",
+      "title": "Prince Yağlıboya Portre Cam Tablo TL138",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "prince-yagliboya-portre-cam-tablo-tl138",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7693",
+      "title": "Çiçek Açan Balerin Cam Tablo TL139",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "cicek-acan-balerin-cam-tablo-tl139",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7699",
+      "title": "Art Deco Tel Sanatı Cam Tablo TL140",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "art-deco-tel-sanati-cam-tablo-tl140",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7705",
+      "title": "Kristal Küpler Minimalist Cam Tablo TL141",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "kristal-kupler-minimalist-cam-tablo-tl141",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7711",
+      "title": "Geometrik Cam Katmanlar Cam Tablo TL142",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "geometrik-cam-katmanlar-cam-tablo-tl142",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7717",
+      "title": "Geometrik Soyut Modern Cam Tablo TL143",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "geometrik-soyut-modern-cam-tablo-tl143",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7723",
+      "title": "Geometrik Soyut Suluboya Cam Tablo TL144",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "geometrik-soyut-suluboya-cam-tablo-tl144",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7729",
+      "title": "Akıcı Elbiseli Kadın Cam Tablo TL145",
+      "sourceCategories": [
+        "Tasarımcının Listesi",
+        "Yeni Gelenler"
+      ],
+      "slug": "akici-elbiseli-kadin-cam-tablo-tl145",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7735",
+      "title": "Neon Kadın Figürü Cam Tablo TL146",
+      "sourceCategories": [
+        "Tasarımcının Listesi",
+        "Yeni Gelenler"
+      ],
+      "slug": "neon-kadin-figuru-cam-tablo-tl146",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7741",
+      "title": "3D Boya Dokulu Kadın Cam Tablo TL147",
+      "sourceCategories": [
+        "Tasarımcının Listesi"
+      ],
+      "slug": "3d-boya-dokulu-kadin-cam-tablo-tl147",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7747",
+      "title": "Dalgalardan Elbise Dokulu Cam Tablo TL148",
+      "sourceCategories": [
+        "Tasarımcının Listesi",
+        "Yeni Gelenler"
+      ],
+      "slug": "dalgalardan-elbise-dokulu-cam-tablo-tl148",
+      "category": "tasarimcinin-listesi",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7799",
+      "title": "Yayoi Kusama İlhamı Lotus Cam Tablo ST101",
+      "sourceCategories": [
+        "Sanatçı Albümü"
+      ],
+      "slug": "yayoi-kusama-i-lhami-lotus-cam-tablo-st101",
+      "category": "sanatci-albumu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 37,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7841",
+      "title": "Yayoi Kusama İlhamı Lotus ST102",
+      "sourceCategories": [
+        "Sanatçı Albümü",
+        "Yeni Gelenler"
+      ],
+      "slug": "yayoi-kusama-i-lhami-lotus-st102",
+      "category": "sanatci-albumu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7847",
+      "title": "Yayoi Kusama İlhamı Cam Tablo",
+      "sourceCategories": [
+        "Sanatçı Albümü",
+        "Yeni Gelenler"
+      ],
+      "slug": "yayoi-kusama-i-lhami-cam-tablo",
+      "category": "sanatci-albumu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7853",
+      "title": "Modigliani Ressamlar Cam Tablo ST104",
+      "sourceCategories": [
+        "Sanatçı Albümü",
+        "Yeni Gelenler"
+      ],
+      "slug": "modigliani-ressamlar-cam-tablo-st104",
+      "category": "sanatci-albumu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7859",
+      "title": "Egon Schiele Eskiz Cam Tablo ST105",
+      "sourceCategories": [
+        "Sanatçı Albümü"
+      ],
+      "slug": "egon-schiele-eskiz-cam-tablo-st105",
+      "category": "sanatci-albumu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7865",
+      "title": "Egon Schiele Figür Cam Tablo ST106",
+      "sourceCategories": [
+        "Sanatçı Albümü",
+        "Yeni Gelenler"
+      ],
+      "slug": "egon-schiele-figur-cam-tablo-st106",
+      "category": "sanatci-albumu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7871",
+      "title": "Yayoi Kusama İlhamı Cam Tablo ST107",
+      "sourceCategories": [
+        "Sanatçı Albümü",
+        "Yeni Gelenler"
+      ],
+      "slug": "yayoi-kusama-i-lhami-cam-tablo-st107",
+      "category": "sanatci-albumu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7877",
+      "title": "Egon Schiele Desen Cam Tablo ST108",
+      "sourceCategories": [
+        "Sanatçı Albümü"
+      ],
+      "slug": "egon-schiele-desen-cam-tablo-st108",
+      "category": "sanatci-albumu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7883",
+      "title": "Gustav Klimt Ressamlar Cam Tablo ST109",
+      "sourceCategories": [
+        "Sanatçı Albümü"
+      ],
+      "slug": "gustav-klimt-ressamlar-cam-tablo-st109",
+      "category": "sanatci-albumu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7889",
+      "title": "Van Gogh Ayçiçek Cam Tablo ST110",
+      "sourceCategories": [
+        "Sanatçı Albümü"
+      ],
+      "slug": "van-gogh-aycicek-cam-tablo-st110",
+      "category": "sanatci-albumu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7895",
+      "title": "Hokusai Büyük Dalga Cam Tablo ST111",
+      "sourceCategories": [
+        "Sanatçı Albümü"
+      ],
+      "slug": "hokusai-buyuk-dalga-cam-tablo-st111",
+      "category": "sanatci-albumu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "7901",
+      "title": "Mondrian Ressamlar Cam Tablo ST112",
+      "sourceCategories": [
+        "Sanatçı Albümü",
+        "Yeni Gelenler"
+      ],
+      "slug": "mondrian-ressamlar-cam-tablo-st112",
+      "category": "sanatci-albumu",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8106",
+      "title": "Hilal Ay Manzara Cam Tablo MA101",
+      "sourceCategories": [
+        "Manzara"
+      ],
+      "slug": "hilal-ay-manzara-cam-tablo-ma101",
+      "category": "manzara",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 25,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8142",
+      "title": "Modern Cam Mimari Cam Tablo MA102",
+      "sourceCategories": [
+        "Manzara",
+        "Yeni Gelenler"
+      ],
+      "slug": "modern-cam-mimari-cam-tablo-ma102",
+      "category": "manzara",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8148",
+      "title": "Akşam Nehir Vadisi Manzara Cam Tablo MA103",
+      "sourceCategories": [
+        "Manzara"
+      ],
+      "slug": "aksam-nehir-vadisi-manzara-cam-tablo-ma103",
+      "category": "manzara",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8154",
+      "title": "Galata Kulesi Manzara Cam Tablo MA104",
+      "sourceCategories": [
+        "Manzara",
+        "Yeni Gelenler"
+      ],
+      "slug": "galata-kulesi-manzara-cam-tablo-ma104",
+      "category": "manzara",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8160",
+      "title": "Denizde Kayık Manzara Cam Tablo MA105",
+      "sourceCategories": [
+        "Manzara"
+      ],
+      "slug": "denizde-kayik-manzara-cam-tablo-ma105",
+      "category": "manzara",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8166",
+      "title": "Gölde İskele Manzara Cam Tablo MA106",
+      "sourceCategories": [
+        "Manzara"
+      ],
+      "slug": "golde-i-skele-manzara-cam-tablo-ma106",
+      "category": "manzara",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8172",
+      "title": "Yeşil Vadi Manzara Cam Tablo MA107",
+      "sourceCategories": [
+        "Manzara"
+      ],
+      "slug": "yesil-vadi-manzara-cam-tablo-ma107",
+      "category": "manzara",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8178",
+      "title": "Nehir Vadisi Manzara Cam Tablo MA108",
+      "sourceCategories": [
+        "Manzara"
+      ],
+      "slug": "nehir-vadisi-manzara-cam-tablo-ma108",
+      "category": "manzara",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8208",
+      "title": "Siyah Beyaz Atatürk Cam Tablo MK101",
+      "sourceCategories": [
+        "Mustafa Kemal Atatürk"
+      ],
+      "slug": "siyah-beyaz-ataturk-cam-tablo-mk101",
+      "category": "mustafa-kemal-ataturk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 37,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8253",
+      "title": "Neon Fraklı Atatürk Cam Tablo MK102",
+      "sourceCategories": [
+        "Mustafa Kemal Atatürk"
+      ],
+      "slug": "neon-frakli-ataturk-cam-tablo-mk102",
+      "category": "mustafa-kemal-ataturk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8265",
+      "title": "Kalpaklı Atatürk Cam Tablo MK103",
+      "sourceCategories": [
+        "Mustafa Kemal Atatürk"
+      ],
+      "slug": "kalpakli-ataturk-cam-tablo-mk103",
+      "category": "mustafa-kemal-ataturk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8271",
+      "title": "Neon Atatürk Cam Tablo MK104",
+      "sourceCategories": [
+        "Mustafa Kemal Atatürk"
+      ],
+      "slug": "neon-ataturk-cam-tablo-mk104",
+      "category": "mustafa-kemal-ataturk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8277",
+      "title": "Kübik Atatürk Portre Cam Tablo MK105",
+      "sourceCategories": [
+        "Mustafa Kemal Atatürk"
+      ],
+      "slug": "kubik-ataturk-portre-cam-tablo-mk105",
+      "category": "mustafa-kemal-ataturk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8283",
+      "title": "Kocatepe Atatürk Cam Tablo MK106",
+      "sourceCategories": [
+        "Mustafa Kemal Atatürk"
+      ],
+      "slug": "kocatepe-ataturk-cam-tablo-mk106",
+      "category": "mustafa-kemal-ataturk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8289",
+      "title": "Neon Kocatepe Atatürk Cam Tablo MK107",
+      "sourceCategories": [
+        "Mustafa Kemal Atatürk"
+      ],
+      "slug": "neon-kocatepe-ataturk-cam-tablo-mk107",
+      "category": "mustafa-kemal-ataturk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8295",
+      "title": "Başak Tarlasında Atatürk MK108",
+      "sourceCategories": [
+        "Mustafa Kemal Atatürk"
+      ],
+      "slug": "basak-tarlasinda-ataturk-mk108",
+      "category": "mustafa-kemal-ataturk",
+      "selectedImageNumbers": [
+        2,
+        1,
+        3
+      ],
+      "availableImageCount": 3,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8301",
+      "title": "Pop Art Atatürk Cam Tablo MK109",
+      "sourceCategories": [
+        "Mustafa Kemal Atatürk"
+      ],
+      "slug": "pop-art-ataturk-cam-tablo-mk109",
+      "category": "mustafa-kemal-ataturk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8307",
+      "title": "Vitray Atatürk Cam Tablo MK110",
+      "sourceCategories": [
+        "Mustafa Kemal Atatürk"
+      ],
+      "slug": "vitray-ataturk-cam-tablo-mk110",
+      "category": "mustafa-kemal-ataturk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8313",
+      "title": "Art Deco Atatürk Cam Tablo MK111",
+      "sourceCategories": [
+        "Mustafa Kemal Atatürk"
+      ],
+      "slug": "art-deco-ataturk-cam-tablo-mk111",
+      "category": "mustafa-kemal-ataturk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8319",
+      "title": "Dürbünlü Atatürk Cam Tablo MK112",
+      "sourceCategories": [
+        "Mustafa Kemal Atatürk",
+        "Yeni Gelenler"
+      ],
+      "slug": "durbunlu-ataturk-cam-tablo-mk112",
+      "category": "mustafa-kemal-ataturk",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8335",
+      "title": "Fantastik Kedi Afiş Cam Tablo AF101",
+      "sourceCategories": [
+        "Afiş"
+      ],
+      "slug": "fantastik-kedi-afis-cam-tablo-af101",
+      "category": "afis",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 61,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8411",
+      "title": "Graffiti Kedi Afiş Cam Tablo AF102",
+      "sourceCategories": [
+        "Afiş"
+      ],
+      "slug": "graffiti-kedi-afis-cam-tablo-af102",
+      "category": "afis",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8417",
+      "title": "Şempanze Afiş Cam Tablo AF103",
+      "sourceCategories": [
+        "Afiş",
+        "Yeni Gelenler"
+      ],
+      "slug": "sempanze-afis-cam-tablo-af103",
+      "category": "afis",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8423",
+      "title": "Orta Parmak Afiş Cam Tablo AF104",
+      "sourceCategories": [
+        "Afiş",
+        "Yeni Gelenler"
+      ],
+      "slug": "orta-parmak-afis-cam-tablo-af104",
+      "category": "afis",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8429",
+      "title": "İronik Köpek Afiş Cam Tablo AF105",
+      "sourceCategories": [
+        "Afiş",
+        "Yeni Gelenler"
+      ],
+      "slug": "i-ronik-kopek-afis-cam-tablo-af105",
+      "category": "afis",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8435",
+      "title": "Pride Afiş Cam Tablo AF106",
+      "sourceCategories": [
+        "Afiş",
+        "Yeni Gelenler"
+      ],
+      "slug": "pride-afis-cam-tablo-af106",
+      "category": "afis",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8441",
+      "title": "Motivasyon Afiş Cam Tablo AF107",
+      "sourceCategories": [
+        "Afiş"
+      ],
+      "slug": "motivasyon-afis-cam-tablo-af107",
+      "category": "afis",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8447",
+      "title": "Yazılı Retro Afiş Cam Tablo AF108",
+      "sourceCategories": [
+        "Afiş",
+        "Yeni Gelenler"
+      ],
+      "slug": "yazili-retro-afis-cam-tablo-af108",
+      "category": "afis",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8453",
+      "title": "Ev Sahibi Kedi Afiş Cam Tablo AF109",
+      "sourceCategories": [
+        "Afiş",
+        "Yeni Gelenler"
+      ],
+      "slug": "ev-sahibi-kedi-afis-cam-tablo-af109",
+      "category": "afis",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8459",
+      "title": "Monokrom Kadın Afiş Cam Tablo AF110",
+      "sourceCategories": [
+        "Afiş",
+        "Yeni Gelenler"
+      ],
+      "slug": "monokrom-kadin-afis-cam-tablo-af110",
+      "category": "afis",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8465",
+      "title": "Stalkers Güvercin Afiş Cam Tablo AF111",
+      "sourceCategories": [
+        "Afiş",
+        "Yeni Gelenler"
+      ],
+      "slug": "stalkers-guvercin-afis-cam-tablo-af111",
+      "category": "afis",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8471",
+      "title": "Pop Art Kadın Afiş Cam Tablo AF112",
+      "sourceCategories": [
+        "Afiş",
+        "Yeni Gelenler"
+      ],
+      "slug": "pop-art-kadin-afis-cam-tablo-af112",
+      "category": "afis",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8477",
+      "title": "Bukelemun Afiş Cam Tablo AF113",
+      "sourceCategories": [
+        "Afiş",
+        "Yeni Gelenler"
+      ],
+      "slug": "bukelemun-afis-cam-tablo-af113",
+      "category": "afis",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8483",
+      "title": "Miki Fare Afiş Cam Tablo AF114",
+      "sourceCategories": [
+        "Afiş",
+        "Yeni Gelenler"
+      ],
+      "slug": "miki-fare-afis-cam-tablo-af114",
+      "category": "afis",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8489",
+      "title": "Vintage Kovboy Afiş Cam Tablo AF115",
+      "sourceCategories": [
+        "Afiş",
+        "Yeni Gelenler"
+      ],
+      "slug": "vintage-kovboy-afis-cam-tablo-af115",
+      "category": "afis",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8495",
+      "title": "Neon Cyberpunk Afiş Cam Tablo AF116",
+      "sourceCategories": [
+        "Afiş",
+        "Yeni Gelenler"
+      ],
+      "slug": "neon-cyberpunk-afis-cam-tablo-af116",
+      "category": "afis",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8501",
+      "title": "Sabıkalı Kedi Afiş Cam Tablo AF117",
+      "sourceCategories": [
+        "Afiş",
+        "Yeni Gelenler"
+      ],
+      "slug": "sabikali-kedi-afis-cam-tablo-af117",
+      "category": "afis",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8507",
+      "title": "Pop Art Afiş Cam Tablo AF118",
+      "sourceCategories": [
+        "Afiş",
+        "Yeni Gelenler"
+      ],
+      "slug": "pop-art-afis-cam-tablo-af118",
+      "category": "afis",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8513",
+      "title": "Hızlı Yaşa Afiş Cam Tablo AF119",
+      "sourceCategories": [
+        "Afiş",
+        "Yeni Gelenler"
+      ],
+      "slug": "hizli-yasa-afis-cam-tablo-af119",
+      "category": "afis",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "8519",
+      "title": "Sürreal Afiş Cam Tablo AF120",
+      "sourceCategories": [
+        "Afiş",
+        "Yeni Gelenler"
+      ],
+      "slug": "surreal-afis-cam-tablo-af120",
+      "category": "afis",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "9731",
+      "title": "Korsan",
+      "sourceCategories": [
+        "Patili Dostlara Özel>Kostümlü Portre Yeni Sistem"
+      ],
+      "slug": "korsan",
+      "category": "patili-dostalara-ozel",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "9794",
+      "title": "Prens",
+      "sourceCategories": [
+        "Patili Dostlara Özel>Kostümlü Portre Yeni Sistem"
+      ],
+      "slug": "prens",
+      "category": "patili-dostalara-ozel",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 12,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "9808",
+      "title": "Prenses",
+      "sourceCategories": [
+        "Patili Dostlara Özel>Kostümlü Portre Yeni Sistem"
+      ],
+      "slug": "prenses",
+      "category": "patili-dostalara-ozel",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "9815",
+      "title": "Hırsız",
+      "sourceCategories": [
+        "Patili Dostlara Özel>Kostümlü Portre Yeni Sistem"
+      ],
+      "slug": "hirsiz",
+      "category": "patili-dostalara-ozel",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 18,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "9823",
+      "title": "Kaçak",
+      "sourceCategories": [
+        "Patili Dostlara Özel>Kostümlü Portre Yeni Sistem"
+      ],
+      "slug": "kacak",
+      "category": "patili-dostalara-ozel",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "9829",
+      "title": "Hemşire",
+      "sourceCategories": [
+        "Patili Dostlara Özel>Kostümlü Portre Yeni Sistem"
+      ],
+      "slug": "hemsire",
+      "category": "patili-dostalara-ozel",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 14,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "9835",
+      "title": "Çöpçü",
+      "sourceCategories": [
+        "Patili Dostlara Özel>Kostümlü Portre Yeni Sistem"
+      ],
+      "slug": "copcu",
+      "category": "patili-dostalara-ozel",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 19,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "9842",
+      "title": "Bekçi",
+      "sourceCategories": [
+        "Patili Dostlara Özel>Kostümlü Portre Yeni Sistem"
+      ],
+      "slug": "bekci",
+      "category": "patili-dostalara-ozel",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "9848",
+      "title": "Müdür",
+      "sourceCategories": [
+        "Patili Dostlara Özel>Kostümlü Portre Yeni Sistem"
+      ],
+      "slug": "mudur",
+      "category": "patili-dostalara-ozel",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "9854",
+      "title": "Müdire",
+      "sourceCategories": [
+        "Patili Dostlara Özel>Kostümlü Portre Yeni Sistem"
+      ],
+      "slug": "mudire",
+      "category": "patili-dostalara-ozel",
+      "selectedImageNumbers": [
+        3,
+        1,
+        2,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    },
+    {
+      "sourceId": "9860",
+      "title": "Pasaklı",
+      "sourceCategories": [
+        "Patili Dostlara Özel>Kostümlü Portre Yeni Sistem"
+      ],
+      "slug": "pasakli",
+      "category": "patili-dostalara-ozel",
+      "selectedImageNumbers": [
+        2,
+        1,
+        3,
+        4
+      ],
+      "availableImageCount": 4,
+      "mergedDuplicate": false
+    }
+  ]
+}

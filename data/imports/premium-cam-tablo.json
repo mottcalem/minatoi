@@ -1,0 +1,21 @@
+{
+  "shortDescription": "4 mm temperli cam üzerine yüksek çözünürlüklü UV baskı ile üretilir. Canlı renkler, parlak yüzey ve modern görünüm sunar. Ücretsiz kargo ile gönderilir ve asılmaya hazır şekilde teslim edilir.",
+  "description": "<h2>Premium Cam Tablo Özellikleri</h2><p>4 mm temperli cam üzerine yüksek çözünürlüklü UV baskı ile üretilir. Canlı renkler, parlak yüzey ve modern görünüm sunar. Ücretsiz kargo ile gönderilir ve asılmaya hazır şekilde teslim edilir.</p>",
+  "features": [
+    "4 mm Temperli Cam",
+    "UV Baskı Teknolojisi ile Canlı Renkler",
+    "Ücretsiz Kargo",
+    "Hasarsız Teslimat Garantisi",
+    "PayTR ile Güvenli Ödeme",
+    "Kolay Montaj"
+  ],
+  "price": 610,
+  "oldPrice": 920,
+  "sizes": ["25*35 cm", "35*50 cm", "50*70 cm", "60*90 cm"],
+  "sizePrices": [
+    { "size": "25*35 cm", "price": 610, "oldPrice": 920 },
+    { "size": "35*50 cm", "price": 990, "oldPrice": 1250 },
+    { "size": "50*70 cm", "price": 1450, "oldPrice": 1850 },
+    { "size": "60*90 cm", "price": 1750, "oldPrice": 2250 }
+  ]
+}

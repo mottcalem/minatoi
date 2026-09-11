@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS products (
   sort_order integer NOT NULL CHECK (sort_order >= 0),
   images_present boolean NOT NULL DEFAULT true,
   sizes text[] NOT NULL DEFAULT '{}',
+  size_prices jsonb CHECK (jsonb_typeof(size_prices) = 'array'),
   wallet_details jsonb CHECK (jsonb_typeof(wallet_details) = 'object'),
   glasses_details jsonb CHECK (jsonb_typeof(glasses_details) = 'object'),
   created_at timestamptz NOT NULL DEFAULT now(),
@@ -57,6 +58,7 @@ const supportedFields = new Set([
   "description",
   "features",
   "sizes",
+  "sizePrices",
   "shopierUrl",
   "badge",
   "featured",
@@ -107,6 +109,30 @@ export function validateProducts(data: unknown): asserts data is Product[] {
       throw new Error("Ürün etiketi geçersiz.");
     if (item.featured !== undefined && typeof item.featured !== "boolean")
       throw new Error("Öne çıkan ürün bilgisi geçersiz.");
+    if (item.sizePrices !== undefined) {
+      if (
+        !Array.isArray(item.sizePrices) ||
+        !item.sizePrices.length ||
+        !Array.isArray(item.sizes) ||
+        item.sizePrices.length !== item.sizes.length ||
+        new Set(item.sizes).size !== item.sizes.length
+      )
+        throw new Error("Ölçü fiyatları tüm ölçüler için tanımlanmalı.");
+      for (const [index, variant] of item.sizePrices.entries()) {
+        if (
+          !variant ||
+          variant.size !== item.sizes[index] ||
+          typeof variant.price !== "number" ||
+          !Number.isFinite(variant.price) ||
+          variant.price <= 0 ||
+          (variant.oldPrice !== undefined &&
+            (typeof variant.oldPrice !== "number" ||
+              !Number.isFinite(variant.oldPrice) ||
+              variant.oldPrice < variant.price))
+        )
+          throw new Error("Ölçü fiyatı geçersiz.");
+      }
+    }
     if (
       item.sizes !== undefined &&
       (!Array.isArray(item.sizes) || item.sizes.some((s: unknown) => typeof s !== "string"))
@@ -140,6 +166,7 @@ export async function readProductRows(db: Database): Promise<Product[]> {
     shopierUrl: row.shopier_url,
     features: row.features,
     ...(row.images_present ? { images: row.images } : {}),
+    ...(row.size_prices != null ? { sizePrices: row.size_prices } : {}),
     ...(row.old_price !== null ? { oldPrice: Number(row.old_price) } : {}),
     ...(row.badge !== null ? { badge: row.badge } : {}),
     ...(row.featured !== null ? { featured: row.featured } : {}),
@@ -157,14 +184,14 @@ export async function writeProductRows(db: Database, data: unknown): Promise<voi
     const result = await db.query(
       `
       INSERT INTO products (slug, name, category, price, old_price, image, short_description, description,
-        shopier_url, badge, featured, sort_order, images_present, sizes, wallet_details, glasses_details)
-      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14::text[],$15::jsonb,$16::jsonb)
+        shopier_url, badge, featured, sort_order, images_present, sizes, wallet_details, glasses_details, size_prices)
+      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14::text[],$15::jsonb,$16::jsonb,$17::jsonb)
       ON CONFLICT (slug) DO UPDATE SET name=EXCLUDED.name, category=EXCLUDED.category,
         price=EXCLUDED.price, old_price=EXCLUDED.old_price, image=EXCLUDED.image,
         short_description=EXCLUDED.short_description, description=EXCLUDED.description,
         shopier_url=EXCLUDED.shopier_url, badge=EXCLUDED.badge, featured=EXCLUDED.featured,
         sort_order=EXCLUDED.sort_order, images_present=EXCLUDED.images_present,
-        sizes=EXCLUDED.sizes,
+        sizes=EXCLUDED.sizes, size_prices=EXCLUDED.size_prices,
         wallet_details=EXCLUDED.wallet_details, glasses_details=EXCLUDED.glasses_details, updated_at=now()
       RETURNING id
     `,
@@ -185,6 +212,7 @@ export async function writeProductRows(db: Database, data: unknown): Promise<voi
         product.sizes ?? [],
         product.wallet ? JSON.stringify(product.wallet) : null,
         product.glasses ? JSON.stringify(product.glasses) : null,
+        product.sizePrices ? JSON.stringify(product.sizePrices) : null,
       ],
     );
     const id = result.rows[0].id;

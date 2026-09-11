@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useCart } from "@/components/CartProvider";
+import { priceForSize } from "@/data/productPricing";
 import { useState } from "react";
 import { SERIES, formatTL } from "@/data/products";
 import type { Product, GlassesDetails, WalletDetails } from "@/data/products";
@@ -82,20 +83,26 @@ export const Route = createFileRoute("/urun/$slug")({
       <p className="mt-2 text-stone-500">{error.message}</p>
     </div>
   ),
-  component: ProductDetail,
+  component: ProductDetailRoute,
 });
+
+function ProductDetailRoute() {
+  const { product } = Route.useLoaderData();
+  return <ProductDetail key={product.slug} />;
+}
 
 function ProductDetail() {
   const { add, ready } = useCart();
   const [added, setAdded] = useState(false);
   const { product, categories, related, hero } = Route.useLoaderData();
   const [selectedSize, setSelectedSize] = useState<string>(product.sizes?.[0] ?? "");
+  const selectedPrice = priceForSize(product, selectedSize);
   const cat = categories.find((c) => c.slug === product.category) ?? {
     slug: product.category,
     label: product.category,
   };
   const waMsg =
-    `Merhaba 👋\n"${product.name}" ürünü (${formatTL(product.price)}${
+    `Merhaba 👋\n"${product.name}" ürünü (${formatTL(selectedPrice.price)}${
       selectedSize ? `, ölçü: ${selectedSize}` : ""
     }) hakkında bilgi almak istiyorum.\n` +
     `Stok durumu ve kargo süreci hakkında bilgi verir misiniz?`;
@@ -169,15 +176,15 @@ function ProductDetail() {
 
           <div className="mt-5 flex items-baseline gap-3">
             <span className="font-display text-3xl font-bold text-primary">
-              {formatTL(product.price)}
+              {formatTL(selectedPrice.price)}
             </span>
-            {product.oldPrice && (
+            {selectedPrice.oldPrice && (
               <>
                 <span className="text-base text-muted-foreground line-through">
-                  {formatTL(product.oldPrice)}
+                  {formatTL(selectedPrice.oldPrice)}
                 </span>
                 <span className="rounded-full bg-accent/20 px-2 py-0.5 text-xs font-semibold text-accent">
-                  %{Math.round((1 - product.price / product.oldPrice) * 100)} indirim
+                  %{Math.round((1 - selectedPrice.price / selectedPrice.oldPrice) * 100)} indirim
                 </span>
               </>
             )}
@@ -187,12 +194,19 @@ function ProductDetail() {
             <button
               type="button"
               disabled={!ready}
-              onClick={() => { add(product, selectedSize); setAdded(true); }}
+              onClick={() => {
+                add(product, selectedSize);
+                setAdded(true);
+              }}
               className="block w-full rounded-full bg-gradient-gold px-6 py-4 text-center text-sm font-semibold text-primary-foreground shadow-glow transition hover:brightness-110"
             >
               {added ? "✓ Sepete eklendi — Tekrar ekle" : "Sepete ekle"}
             </button>
-            {added && <a href="/sepet" className="block text-center text-sm underline">Sepetime git →</a>}
+            {added && (
+              <a href="/sepet" className="block text-center text-sm underline">
+                Sepetime git →
+              </a>
+            )}
             <WhatsAppButton message={waMsg} size="lg" className="w-full">
               WhatsApp'tan Bu Ürünü Sor
             </WhatsAppButton>

@@ -1,3 +1,4 @@
+import { productInCategory } from "@/data/productCategories";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { fetchProductsServer } from "@/data/adminProducts";
 import { getCategories } from "@/data/categoryActions";
@@ -16,7 +17,7 @@ export const Route = createFileRoute("/kategori/$slug")({
     const cat = categories.find((c) => c.slug === params.slug);
     if (!cat) throw notFound();
     const all = await fetchProductsServer();
-    const products = [...all].reverse().filter((p) => p.category === params.slug);
+    const products = [...all].reverse().filter((p) => productInCategory(p, params.slug));
     return { cat, categories, products };
   },
   notFoundComponent: () => (

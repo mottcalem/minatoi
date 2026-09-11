@@ -125,3 +125,43 @@ test("cart order does not affect discount and displayed total", () => {
   ];
   assert.equal(priceCart(items, products).amount, priceCart([...items].reverse(), products).amount);
 });
+
+test("glass sizes use database variant prices, including payment basket totals", () => {
+  const sizePrices = [
+    { size: "25*35 cm", price: 610, oldPrice: 920 },
+    { size: "35*50 cm", price: 990, oldPrice: 1250 },
+    { size: "50*70 cm", price: 1450, oldPrice: 1850 },
+    { size: "60*90 cm", price: 1750, oldPrice: 2250 },
+  ];
+  const glass = {
+    slug: "glass",
+    name: "Cam Tablo",
+    image: "/glass.jpg",
+    price: 610,
+    sizes: sizePrices.map((v) => v.size),
+    sizePrices,
+  };
+  for (const v of sizePrices) {
+    const quote = priceCart([{ slug: "glass", size: v.size, quantity: 1 }], [glass]);
+    assert.equal(quote.amount, v.price * 100);
+    assert.equal(paymentBasket(quote.items)[0][1], v.price.toFixed(2));
+  }
+  const quote = priceCart(
+    [
+      { slug: "glass", size: "35*50 cm", quantity: 1 },
+      { slug: "glass", size: "60*90 cm", quantity: 1 },
+    ],
+    [glass],
+  );
+  assert.equal(quote.subtotal, 274000);
+  assert.equal(quote.discount, 24750);
+  assert.equal(quote.amount, 249250);
+  assert.throws(
+    () =>
+      priceCart(
+        [{ slug: "glass", size: "60*90 cm", quantity: 1 }],
+        [{ ...glass, sizePrices: sizePrices.slice(0, 3) }],
+      ),
+    /fiyat/,
+  );
+});

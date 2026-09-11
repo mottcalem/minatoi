@@ -50,6 +50,9 @@ try {
   await client.query(
     "ALTER TABLE products ADD COLUMN IF NOT EXISTS sizes text[] NOT NULL DEFAULT '{}'",
   );
+  await client.query(
+    "ALTER TABLE products ADD COLUMN IF NOT EXISTS size_prices jsonb CHECK (jsonb_typeof(size_prices) = 'array')",
+  );
   await client.query(ANNOUNCEMENT_SCHEMA);
   await client.query(CATEGORY_SCHEMA);
   await client.query(CATEGORY_IMAGE_MIGRATION);

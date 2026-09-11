@@ -131,6 +131,7 @@ export type Product = {
   features: string[];
   /** Ölçü varyasyonları (ör. "25*35 cm"); boşsa ürün tek ölçüdür. */
   sizes?: string[];
+  sizePrices?: import("./productPricing").SizePrice[];
   shopierUrl: string;
   badge?: string;
   featured?: boolean;
