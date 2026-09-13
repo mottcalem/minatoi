@@ -1,4 +1,3 @@
-import { productInCategory } from "@/data/productCategories";
 import { CategoryCarousel } from "@/components/CategoryCarousel";
 import { getBanners } from "@/data/bannerActions";
 import { getHeroContent } from "@/data/heroActions";
@@ -80,13 +79,6 @@ function Index() {
   const featuredProducts = products.filter((product) => product.featured);
   const cuzdanlar = products.filter((p) => p.category === "cuzdan");
   const kiliflar = products.filter((p) => p.category === "kilif");
-  const additionalCategorySections = categories
-    .filter((category) => category.slug !== "cuzdan" && category.slug !== "kilif")
-    .map((category) => ({
-      category,
-      products: products.filter((product) => productInCategory(product, category.slug)),
-    }))
-    .filter(({ products: categoryProducts }) => categoryProducts.length > 0);
   const sliderProducts = [...products]
     .sort((a, b) => Number(!!b.featured) - Number(!!a.featured))
     .slice(0, 5);
@@ -206,16 +198,6 @@ function Index() {
         description="Gözlüğünü hakiki deriyle koruyun."
         viewAllSlug="kilif"
       />
-      {additionalCategorySections.map(({ category, products: categoryProducts }) => (
-        <ProductCarousel
-          key={category.slug}
-          products={categoryProducts}
-          eyebrow="Koleksiyon"
-          title={category.label}
-          description={category.description}
-          viewAllSlug={category.slug}
-        />
-      ))}
       {/* ─── CTA ──────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-4 py-20">
         <div className="rounded-3xl border border-stone-100 bg-gradient-to-br from-stone-50 to-amber-50/60 px-8 py-16 text-center shadow-sm md:px-16">
