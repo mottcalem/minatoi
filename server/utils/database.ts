@@ -22,7 +22,7 @@ export function getPool() {
 }
 
 /** minatoi_content tablosundaki anahtarlar; jsonb sütunda tüm içerikler saklanır. */
-type ContentKey = "banners" | "hero" | "about";
+type ContentKey = "banners" | "hero" | "about" | "promotions";
 
 export async function readCollection<T>(key: ContentKey): Promise<T> {
   const result = await getPool().query("SELECT content FROM minatoi_content WHERE key = $1", [key]);

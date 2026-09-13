@@ -92,7 +92,8 @@ function ProductDetailRoute() {
 }
 
 function ProductDetail() {
-  const { add, ready } = useCart();
+  const { add, ready, promotions } = useCart();
+  const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
   const { product, categories, related, hero } = Route.useLoaderData();
   const [selectedSize, setSelectedSize] = useState<string>(product.sizes?.[0] ?? "");
@@ -160,7 +161,12 @@ function ProductDetail() {
                     type="button"
                     role="radio"
                     aria-checked={selectedSize === size}
-                    onClick={() => setSelectedSize(size)}
+                    onClick={() => {
+                      if (selectedSize === size) return;
+                      setSelectedSize(size);
+                      setQuantity(1);
+                      setAdded(false);
+                    }}
                     className={`rounded-lg border px-4 py-2 text-sm font-medium transition ${
                       selectedSize === size
                         ? "border-stone-900 bg-stone-900 text-white"
@@ -178,34 +184,92 @@ function ProductDetail() {
             <span className="font-display text-3xl font-bold text-primary">
               {formatTL(selectedPrice.price)}
             </span>
-            {selectedPrice.oldPrice && (
-              <>
-                <span className="text-base text-muted-foreground line-through">
-                  {formatTL(selectedPrice.oldPrice)}
-                </span>
-                <span className="rounded-full bg-accent/20 px-2 py-0.5 text-xs font-semibold text-accent">
-                  %{Math.round((1 - selectedPrice.price / selectedPrice.oldPrice) * 100)} indirim
-                </span>
-              </>
-            )}
+            {promotions.showOldPrices &&
+              selectedPrice.oldPrice &&
+              selectedPrice.oldPrice > selectedPrice.price && (
+                <>
+                  <span className="text-base text-muted-foreground line-through">
+                    {formatTL(selectedPrice.oldPrice)}
+                  </span>
+                  <span className="rounded-full bg-accent/20 px-2 py-0.5 text-xs font-semibold text-accent">
+                    %{Math.round((1 - selectedPrice.price / selectedPrice.oldPrice) * 100)} indirim
+                  </span>
+                </>
+              )}
           </div>
 
           <div className="mt-7 space-y-3">
+            <div className="flex items-center gap-4">
+              <span className="text-sm font-semibold">Adet</span>
+              <div className="flex items-center rounded-full border border-stone-300">
+                <button
+                  type="button"
+                  aria-label="Adet azalt"
+                  disabled={quantity <= 1}
+                  onClick={() => {
+                    setQuantity((q) => q - 1);
+                    setAdded(false);
+                  }}
+                  className="h-11 w-11 disabled:opacity-30"
+                >
+                  −
+                </button>
+                <select
+                  aria-label="Ürün adedi"
+                  value={quantity}
+                  onChange={(e) => {
+                    setQuantity(Number(e.target.value));
+                    setAdded(false);
+                  }}
+                  className="bg-transparent p-2 text-center"
+                >
+                  {Array.from({ length: 20 }, (_, i) => (
+                    <option key={i + 1} value={i + 1}>
+                      {i + 1}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  type="button"
+                  aria-label="Adet artır"
+                  disabled={quantity >= 20}
+                  onClick={() => {
+                    setQuantity((q) => q + 1);
+                    setAdded(false);
+                  }}
+                  className="h-11 w-11 disabled:opacity-30"
+                >
+                  +
+                </button>
+              </div>
+            </div>
             <button
               type="button"
               disabled={!ready}
               onClick={() => {
-                add(product, selectedSize);
+                add(product, selectedSize, quantity);
                 setAdded(true);
               }}
               className="block w-full rounded-full bg-gradient-gold px-6 py-4 text-center text-sm font-semibold text-primary-foreground shadow-glow transition hover:brightness-110"
             >
-              {added ? "✓ Sepete eklendi — Tekrar ekle" : "Sepete ekle"}
+              Sepete ekle
             </button>
             {added && (
-              <a href="/sepet" className="block text-center text-sm underline">
-                Sepetime git →
-              </a>
+              <div
+                role="status"
+                aria-live="polite"
+                className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900"
+              >
+                <span className="flex items-center gap-2 font-medium">
+                  <span className="grid h-5 w-5 place-items-center rounded-full bg-emerald-600 text-xs font-bold text-white">
+                    ✓
+                  </span>
+                  {quantity} adet{selectedSize ? ` · ${selectedSize}` : ""} sepete eklendi.
+                </span>
+                <a href="/sepet" className="font-semibold underline underline-offset-2">
+                  Sepete git →
+                </a>
+              </div>
             )}
             <WhatsAppButton message={waMsg} size="lg" className="w-full">
               WhatsApp'tan Bu Ürünü Sor

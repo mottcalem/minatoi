@@ -4,6 +4,9 @@ import { fetchProductsServer } from "@/data/adminProducts";
 import { ProductCard } from "@/components/ProductCard";
 
 export const Route = createFileRoute("/urunler")({
+  validateSearch: (search: Record<string, unknown>): { q?: string } => ({
+    q: typeof search.q === "string" ? search.q.trim().slice(0, 100) : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Tüm Ürünler — El Yapımı Hakiki Deri Cüzdan & Kartlık | MinaToi" },
@@ -36,14 +39,24 @@ export const Route = createFileRoute("/urunler")({
 });
 
 function AllProducts() {
-  const { products, categories } = Route.useLoaderData();
+  const { products: allProducts, categories } = Route.useLoaderData();
+  const { q } = Route.useSearch();
+  const normalize = (value: string) =>
+    value
+      .toLocaleLowerCase("tr-TR")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/ı/g, "i");
+  const products = q
+    ? allProducts.filter((p) => normalize(p.name).includes(normalize(q)))
+    : allProducts;
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-12">
       <header className="mb-8">
         <p className="text-xs font-semibold uppercase tracking-widest text-primary">Koleksiyon</p>
         <h1 className="mt-2 font-display text-3xl font-bold text-stone-900 sm:text-4xl">
-          Tüm Ürünler
+          {q ? `“${q}” için arama sonuçları` : "Tüm Ürünler"}
         </h1>
         <p className="mt-2 text-stone-500">{products.length} ürün listeleniyor.</p>
         <div className="mt-5 flex flex-wrap gap-2">
@@ -66,7 +79,11 @@ function AllProducts() {
         </div>
       </header>
       {products.length === 0 ? (
-        <div className="py-20 text-center text-stone-400">Henüz ürün eklenmemiş.</div>
+        <div className="py-20 text-center text-stone-400">
+          {q
+            ? "Aramanızla eşleşen ürün bulunamadı. Farklı bir ürün adı deneyin."
+            : "Henüz ürün eklenmemiş."}
+        </div>
       ) : (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {products.map((p) => (

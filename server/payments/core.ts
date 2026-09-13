@@ -1,5 +1,10 @@
+import {
+  DEFAULT_PROMOTIONS,
+  promotionsSchema,
+  type Promotions,
+} from "../../src/data/promotions.ts";
 import { createHmac, timingSafeEqual } from "node:crypto";
-import { priceForSize, type SizePrice } from "../../src/data/productPricing.ts";
+import { normalizeSize, priceForSize, type SizePrice } from "../../src/data/productPricing.ts";
 import { z } from "zod";
 
 export const cartSchema = z
@@ -17,6 +22,7 @@ export const cartSchema = z
 export const checkoutSchema = z
   .object({
     items: cartSchema,
+    couponCode: z.string().trim().toUpperCase().max(40).default(""),
     customer: z
       .object({
         name: z.string().trim().min(3).max(60),
@@ -54,17 +60,29 @@ export function priceCart(
     sizes?: string[];
     sizePrices?: SizePrice[];
   }[],
+  settings: Promotions = DEFAULT_PROMOTIONS,
+  couponInput: unknown = "",
 ) {
+  settings = promotionsSchema.parse(settings);
+  const couponCode = z.string().trim().toUpperCase().max(40).parse(couponInput);
+  const coupon = couponCode
+    ? settings.codes.find((c) => c.active && c.code === couponCode)
+    : undefined;
+  if (couponCode && !coupon) throw new Error("İndirim kodu geçersiz veya kullanıma kapalı.");
   const cart = cartSchema.parse(input);
   const seen = new Set<string>();
   const items: OrderItem[] = cart.map((item) => {
-    const key = JSON.stringify([item.slug, item.size]);
+    const key = JSON.stringify([item.slug, normalizeSize(item.size)]);
     if (seen.has(key)) throw new Error("Sepette tekrarlanan ürün var.");
     seen.add(key);
     const p = products.find((p) => p.slug === item.slug);
     if (!p)
       throw new Error("Sepetteki bir ürün artık satışta değil. Lütfen sepetinizi güncelleyin.");
-    if (p.sizes?.length ? !p.sizes.includes(item.size) : item.size !== "")
+    if (
+      p.sizes?.length
+        ? !p.sizes.some((size) => normalizeSize(size) === normalizeSize(item.size))
+        : item.size !== ""
+    )
       throw new Error("Ürün ölçüsü geçersiz. Lütfen ürünü yeniden ekleyin.");
     const unitAmount = Math.round(priceForSize(p, item.size).price * 100);
     if (!Number.isSafeInteger(unitAmount) || unitAmount <= 0)
@@ -74,12 +92,30 @@ export function priceCart(
   const subtotal = items.reduce((n, i) => n + i.unitAmount * i.quantity, 0);
   const quantity = items.reduce((n, i) => n + i.quantity, 0);
   const cheapest = items.reduce((min, item) => (item.unitAmount < min.unitAmount ? item : min));
-  const discount = quantity >= 2 ? Math.round(cheapest.unitAmount / 4) : 0;
-  cheapest.discount = discount;
+  const campaignDiscount =
+    settings.secondProductEnabled && quantity >= 2
+      ? Math.round((cheapest.unitAmount * settings.secondProductPercent) / 100)
+      : 0;
+  const discount = coupon ? Math.round((subtotal * coupon.percent) / 100) : campaignDiscount;
+  if (coupon) {
+    let allocated = 0;
+    let running = 0;
+    for (const item of items) {
+      running += item.unitAmount * item.quantity;
+      const target = Math.round((running * coupon.percent) / 100);
+      item.discount = target - allocated;
+      allocated = target;
+    }
+  } else cheapest.discount = discount;
+  const discountLabel = coupon
+    ? `İndirim kodu: ${coupon.code} (%${coupon.percent})`
+    : campaignDiscount
+      ? `İkinci ürün indirimi (%${settings.secondProductPercent})`
+      : "";
   const amount = subtotal - discount;
   if (!Number.isSafeInteger(amount) || amount > 100000000)
     throw new Error("Sepet tutarı sınırı aşıldı.");
-  return { items, subtotal, discount, amount, shipping: 0 };
+  return { items, subtotal, discount, amount, shipping: 0, discountLabel, couponCode };
 }
 export function sign(value: string, key: string) {
   return createHmac("sha256", key).update(value).digest("base64");
@@ -127,20 +163,18 @@ export function paymentTransition(
   return data.status === "success" ? "paid" : "failed";
 }
 
-/** Split the one discounted unit so PayTR basket arithmetic matches the signed total. */
+/** Distribute kuruş rounding across units so basket and charged total match exactly. */
 export function paymentBasket(items: OrderItem[]): [string, string, number][] {
-  return items.flatMap((item) => {
-    const name = item.name + (item.size ? " — " + item.size : "");
-    if (!item.discount)
-      return [[name, (item.unitAmount / 100).toFixed(2), item.quantity]] as [
-        string,
-        string,
-        number,
-      ][];
-    const rows: [string, string, number][] = [
-      [name + " (%25 indirim)", ((item.unitAmount - item.discount) / 100).toFixed(2), 1],
-    ];
-    if (item.quantity > 1) rows.push([name, (item.unitAmount / 100).toFixed(2), item.quantity - 1]);
+  return items.flatMap((item): [string, string, number][] => {
+    const name =
+      item.name + (item.size ? " — " + item.size : "") + (item.discount ? " (indirim)" : "");
+    const total = item.unitAmount * item.quantity - item.discount;
+    const unit = Math.floor(total / item.quantity);
+    const remainder = total % item.quantity;
+    const rows: [string, string, number][] = [];
+    if (item.quantity > remainder)
+      rows.push([name, (unit / 100).toFixed(2), item.quantity - remainder]);
+    if (remainder) rows.push([name, ((unit + 1) / 100).toFixed(2), remainder]);
     return rows;
   });
 }

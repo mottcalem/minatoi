@@ -10,8 +10,15 @@ export async function checkoutRequest(path: string, data: unknown) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
+    ...(path === "quote" ? { signal: AbortSignal.timeout(15000) } : {}),
+  }).catch((error: unknown) => {
+    if (error instanceof Error && (error.name === "TimeoutError" || error.name === "AbortError"))
+      throw new CheckoutError("Sepet hesaplama isteği zaman aşımına uğradı. Tekrar deneyin.");
+    throw new CheckoutError("Sunucuya bağlanılamadı. Bağlantınızı kontrol edip tekrar deneyin.");
   });
-  const result = await response.json();
+  const result = await response.json().catch(() => {
+    throw new CheckoutError("Sunucudan geçerli yanıt alınamadı. Tekrar deneyin.");
+  });
   if (!response.ok)
     throw new CheckoutError(
       result.error ?? "İşlem tamamlanamadı.",

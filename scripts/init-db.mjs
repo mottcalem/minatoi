@@ -65,7 +65,7 @@ try {
     "ALTER TABLE minatoi_content DROP CONSTRAINT IF EXISTS minatoi_content_content_check",
   );
   await client.query(
-    "ALTER TABLE minatoi_content ADD CONSTRAINT minatoi_content_key_check CHECK (key IN ('products', 'banners', 'hero', 'about'))",
+    "ALTER TABLE minatoi_content ADD CONSTRAINT minatoi_content_key_check CHECK (key IN ('products', 'banners', 'hero', 'about', 'promotions'))",
   );
   await client.query(
     "ALTER TABLE minatoi_content ADD CONSTRAINT minatoi_content_content_check CHECK (jsonb_typeof(content) IN ('array', 'object'))",

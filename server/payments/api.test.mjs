@@ -1,3 +1,4 @@
+import { DEFAULT_PROMOTIONS } from "../../src/data/promotions.ts";
 import test from "node:test";
 import assert from "node:assert/strict";
 import { createHash, randomUUID } from "node:crypto";
@@ -84,6 +85,8 @@ function fixture(options = {}) {
   };
   const api = createPaymentAPI({
     env,
+    readPromotions: async () =>
+      options.promotions ?? { ...DEFAULT_PROMOTIONS, secondProductEnabled: true },
     getPool: () => db,
     withTransaction: async (fn) => {
       const before = lock;
@@ -362,5 +365,56 @@ test("admin can mark only an awaiting bank transfer as paid", async () => {
       })
     ).status,
     409,
+  );
+});
+
+test("default quote and checkout charge full price without a campaign", async () => {
+  const f = fixture({ promotions: DEFAULT_PROMOTIONS });
+  const input = { ...f.input(), expectedAmount: 122000 };
+  const quote = await (await f.request("/api/checkout/quote", { items: input.items })).json();
+  assert.equal(quote.discount, 0);
+  assert.equal(quote.amount, 122000);
+  assert.equal((await f.request("/api/checkout/start", input)).status, 200);
+  assert.equal(f.sent.get("payment_amount"), "122000");
+});
+test("coupon revalidated for both payment methods and rejected after deactivation", async () => {
+  const promotions = {
+    ...DEFAULT_PROMOTIONS,
+    codes: [{ code: "SAVE", percent: 20, active: true }],
+  };
+  const f = fixture({
+    promotions,
+    env: {
+      BANK_TRANSFER_ENABLED: "1",
+      BANK_TRANSFER_IBAN: "TR330006100519786457841326",
+      BANK_TRANSFER_ACCOUNT_HOLDER: "Test",
+      BANK_TRANSFER_BANK_NAME: "Test",
+    },
+  });
+  const input = { ...f.input(), couponCode: "save", expectedAmount: 97600 };
+  const quote = await (
+    await f.request("/api/checkout/quote", { items: input.items, couponCode: "save" })
+  ).json();
+  assert.equal(quote.amount, 97600);
+  assert.equal((await f.request("/api/checkout/start", input)).status, 200);
+  assert.equal(f.sent.get("payment_amount"), "97600");
+  const bank = await f.request("/api/checkout/bank-transfer", {
+    ...input,
+    requestId: randomUUID(),
+  });
+  assert.equal(bank.status, 200);
+  assert.equal((await bank.json()).amount, 97600);
+  promotions.codes[0].active = false;
+  assert.equal(
+    (await f.request("/api/checkout/bank-transfer", { ...input, requestId: randomUUID() })).status,
+    400,
+  );
+  assert.equal(
+    (await f.request("/api/checkout/start", { ...input, requestId: randomUUID() })).status,
+    400,
+  );
+  assert.equal(
+    (await f.request("/api/checkout/quote", { items: input.items, couponCode: "SAVE" })).status,
+    400,
   );
 });

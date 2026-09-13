@@ -1,3 +1,5 @@
+import { Search, ArrowRight } from "lucide-react";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { CartLink } from "./CartProvider";
 import { Link, useMatchRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
@@ -32,7 +34,7 @@ function ChevronDown({ className }: { className?: string }) {
   );
 }
 
-const linkBase = "text-sm font-medium transition-colors hover:text-primary";
+const linkBase = "text-sm font-semibold transition-colors hover:text-primary";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -89,7 +91,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-stone-100 shadow-sm">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
+      <div className="mx-auto flex max-w-7xl items-center gap-2 px-4 py-3">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 shrink-0">
           <img
@@ -97,15 +99,18 @@ export function Header() {
             alt="MinaToi — Handcrafted Leather Goods"
             width={600}
             height={155}
-            className="h-auto w-40 object-contain sm:w-48"
+            className="h-auto w-28 object-contain min-[375px]:w-36 sm:w-48"
           />
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-8" aria-label="Ana menü">
+        <nav
+          className="hidden lg:ml-6 lg:flex items-center gap-5 xl:gap-7 whitespace-nowrap"
+          aria-label="Ana menü"
+        >
           <Link
             to="/"
-            className={`${linkBase} ${isHome ? "text-primary font-semibold" : "text-stone-600"}`}
+            className={`${linkBase} ${isHome ? "text-primary font-semibold" : "text-stone-800"}`}
           >
             Anasayfa
           </Link>
@@ -132,7 +137,7 @@ export function Header() {
               aria-expanded={dropdownOpen}
               aria-haspopup="true"
               className={`${linkBase} flex cursor-pointer items-center gap-1 ${
-                dropdownOpen ? "text-primary" : "text-stone-600"
+                dropdownOpen ? "text-primary" : "text-stone-800"
               }`}
             >
               Kategoriler
@@ -170,7 +175,7 @@ export function Header() {
             <Link
               key={item.to}
               to={item.to}
-              className={`${linkBase} text-stone-600`}
+              className={`${linkBase} text-stone-800`}
               activeProps={{ className: "text-primary font-semibold" }}
             >
               {item.label}
@@ -178,7 +183,57 @@ export function Header() {
           ))}
         </nav>
 
-        <CartLink />
+        <div className="ml-auto flex shrink-0 items-center gap-1 pl-2">
+          <Popover>
+            <PopoverTrigger asChild>
+              <button
+                type="button"
+                aria-label="Ürün ara"
+                className="grid h-10 w-10 place-items-center rounded-full text-stone-600 transition-colors hover:bg-stone-100 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              >
+                <Search size={20} strokeWidth={1.7} aria-hidden="true" />
+              </button>
+            </PopoverTrigger>
+            <PopoverContent
+              align="end"
+              sideOffset={12}
+              collisionPadding={16}
+              aria-label="Ürün arama"
+              className="w-72 max-w-[calc(100vw-2rem)] rounded-2xl border-stone-200 bg-white p-2 shadow-lg"
+            >
+              <form
+                action="/urunler"
+                method="get"
+                role="search"
+                className="flex items-center gap-2"
+              >
+                <Search
+                  size={18}
+                  strokeWidth={1.7}
+                  className="ml-2 shrink-0 text-stone-400"
+                  aria-hidden="true"
+                />
+                <input
+                  type="search"
+                  name="q"
+                  aria-label="Ürün adına göre ara"
+                  placeholder="Ürün ara…"
+                  required
+                  maxLength={100}
+                  className="min-w-0 flex-1 bg-transparent py-2 text-sm outline-none placeholder:text-stone-400"
+                />
+                <button
+                  type="submit"
+                  aria-label="Aramayı başlat"
+                  className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-stone-600 transition-colors hover:bg-stone-100 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                >
+                  <ArrowRight size={18} aria-hidden="true" />
+                </button>
+              </form>
+            </PopoverContent>
+          </Popover>
+          <CartLink />
+        </div>
         {/* Mobile hamburger */}
         <button
           onClick={() => setOpen((o) => !o)}
@@ -215,7 +270,7 @@ export function Header() {
             <Link
               to="/"
               onClick={() => setOpen(false)}
-              className="border-b border-stone-100 py-4 text-sm font-medium text-stone-700"
+              className="border-b border-stone-100 py-4 text-sm font-semibold text-stone-800"
               activeOptions={{ exact: true }}
               activeProps={{ className: "text-primary font-semibold" }}
             >
@@ -228,7 +283,7 @@ export function Header() {
                 to="/kategori/$slug"
                 params={{ slug: category.slug }}
                 onClick={() => setOpen(false)}
-                className="border-b border-stone-100 py-4 pl-4 text-sm font-medium text-stone-600"
+                className="border-b border-stone-100 py-4 pl-4 text-sm font-semibold text-stone-800"
                 activeProps={{ className: "text-primary font-semibold" }}
               >
                 {category.label}
@@ -247,7 +302,7 @@ export function Header() {
                 key={item.to}
                 to={item.to}
                 onClick={() => setOpen(false)}
-                className="border-b border-stone-100 py-4 text-sm font-medium text-stone-700 last:border-0"
+                className="border-b border-stone-100 py-4 text-sm font-semibold text-stone-800 last:border-0"
                 activeProps={{ className: "text-primary font-semibold" }}
               >
                 {item.label}

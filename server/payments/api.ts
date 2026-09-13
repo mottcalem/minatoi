@@ -1,3 +1,4 @@
+import { DEFAULT_PROMOTIONS, type Promotions } from "../../src/data/promotions.ts";
 import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
 import { isIP } from "node:net";
 import type { Pool, PoolClient } from "pg";
@@ -12,6 +13,7 @@ import {
 } from "./core.ts";
 
 type Dependencies = {
+  readPromotions?: () => Promise<Promotions>;
   getPool: () => Pick<Pool, "query">;
   withTransaction: <T>(operation: (client: Pick<PoolClient, "query">) => Promise<T>) => Promise<T>;
   readProducts: () => Promise<Product[]>;
@@ -20,6 +22,7 @@ type Dependencies = {
 };
 export function createPaymentAPI({
   getPool,
+  readPromotions = async () => DEFAULT_PROMOTIONS,
   withTransaction,
   readProducts,
   fetch,
@@ -162,7 +165,7 @@ export function createPaymentAPI({
         const products = await readProducts();
         try {
           return json({
-            ...priceCart(input.items, products),
+            ...priceCart(input.items, products, await readPromotions(), input.couponCode ?? ""),
             paymentAvailable: env.PAYTR_ENABLED === "1",
             bankTransferAvailable: Boolean(bankConfig()),
           });
@@ -204,7 +207,12 @@ export function createPaymentAPI({
         const data = parsed.data;
         let priced;
         try {
-          priced = priceCart(data.items, await readProducts());
+          priced = priceCart(
+            data.items,
+            await readProducts(),
+            await readPromotions(),
+            data.couponCode,
+          );
         } catch {
           throw new PublicError("Sepet doğrulanamadı. Lütfen sepetinizi güncelleyin.");
         }
@@ -264,7 +272,12 @@ export function createPaymentAPI({
         const data = parsed.data;
         let priced;
         try {
-          priced = priceCart(data.items, await readProducts());
+          priced = priceCart(
+            data.items,
+            await readProducts(),
+            await readPromotions(),
+            data.couponCode,
+          );
         } catch {
           throw new PublicError("Sepet doğrulanamadı. Lütfen sepetinizi güncelleyin.");
         }

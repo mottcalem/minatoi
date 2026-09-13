@@ -1,3 +1,5 @@
+import { DEFAULT_PROMOTIONS } from "../../src/data/promotions.ts";
+const campaign = { ...DEFAULT_PROMOTIONS, secondProductEnabled: true };
 import test from "node:test";
 import assert from "node:assert/strict";
 import { createHmac } from "node:crypto";
@@ -19,6 +21,7 @@ test("server pricing includes quantities, exact kuruş and free shipping", () =>
       { slug: "case", quantity: 2 },
     ],
     products,
+    campaign,
   );
   assert.equal(q.subtotal, 41005);
   assert.equal(q.discount, 253);
@@ -102,6 +105,7 @@ test("discount applies once to cheapest single unit, including repeated quantiti
       { slug: "case", quantity: 2 },
     ],
     products,
+    campaign,
   );
   assert.equal(q.discount, 253);
   assert.equal(q.amount, 27757);
@@ -110,11 +114,11 @@ test("discount applies once to cheapest single unit, including repeated quantiti
     basket.reduce((sum, [, price, qty]) => sum + Math.round(Number(price) * 100) * qty, 0),
     q.amount,
   );
-  assert.equal(basket.filter(([name]) => name.includes("%25")).length, 1);
+  assert.ok(basket.some(([name]) => name.includes("indirim")));
 });
 test("one item has no discount; two of the same product get one discount", () => {
   assert.equal(priceCart([{ slug: "case", quantity: 1 }], products).discount, 0);
-  const q = priceCart([{ slug: "case", quantity: 2 }], products);
+  const q = priceCart([{ slug: "case", quantity: 2 }], products, campaign);
   assert.equal(q.discount, 253);
   assert.equal(q.amount, 1767);
 });
@@ -152,6 +156,7 @@ test("glass sizes use database variant prices, including payment basket totals",
       { slug: "glass", size: "60*90 cm", quantity: 1 },
     ],
     [glass],
+    campaign,
   );
   assert.equal(quote.subtotal, 274000);
   assert.equal(quote.discount, 24750);
@@ -163,5 +168,105 @@ test("glass sizes use database variant prices, including payment basket totals",
         [{ ...glass, sizePrices: sizePrices.slice(0, 3) }],
       ),
     /fiyat/,
+  );
+});
+
+test("campaigns are off by default even for multiple units", () => {
+  const quote = priceCart([{ slug: "case", quantity: 3 }], products);
+  assert.equal(quote.discount, 0);
+  assert.equal(quote.amount, 3030);
+});
+test("coupon overrides campaign, normalizes code and allocates exact kuruş", () => {
+  for (const percent of [1, 25, 33, 99]) {
+    const settings = { ...campaign, codes: [{ code: "TEST", percent, active: true }] };
+    const q = priceCart(
+      [
+        { slug: "case", quantity: 3 },
+        { slug: "wallet", size: "M", quantity: 2 },
+      ],
+      products,
+      settings,
+      " test ",
+    );
+    assert.equal(q.discount, Math.round((q.subtotal * percent) / 100));
+    assert.equal(
+      q.items.reduce((n, i) => n + i.discount, 0),
+      q.discount,
+    );
+    assert.equal(
+      paymentBasket(q.items).reduce(
+        (n, [, price, qty]) => n + Math.round(Number(price) * 100) * qty,
+        0,
+      ),
+      q.amount,
+    );
+  }
+});
+test("invalid and disabled coupons cannot discount a cart", () => {
+  const items = [{ slug: "case", quantity: 2 }];
+  assert.throws(() => priceCart(items, products, DEFAULT_PROMOTIONS, "UNKNOWN"), /geçersiz/);
+  assert.throws(
+    () =>
+      priceCart(
+        items,
+        products,
+        { ...campaign, codes: [{ code: "OFF", percent: 20, active: false }] },
+        "OFF",
+      ),
+    /geçersiz/,
+  );
+});
+
+test("saved cart dimension typography resolves to current variant price", () => {
+  const glass = {
+    slug: "glass",
+    name: "Cam Tablo",
+    price: 610,
+    image: "/glass.jpg",
+    sizes: ["25*35 cm", "35*50 cm"],
+    sizePrices: [
+      { size: "25*35 cm", price: 610 },
+      { size: "35*50 cm", price: 990 },
+    ],
+  };
+  const settings = {
+    ...DEFAULT_PROMOTIONS,
+    codes: [{ code: "HOSGELDIN10", percent: 10, active: true }],
+  };
+  for (const size of ["25×35cm", "25 x 35 cm", "25*35 cm"]) {
+    const q = priceCart(
+      [
+        { slug: "glass", size, quantity: 2 },
+        { slug: "glass", size: "35×50cm", quantity: 1 },
+      ],
+      [glass],
+      settings,
+      "hosgeldin10",
+    );
+    assert.equal(q.subtotal, 221000);
+    assert.equal(q.discount, 22100);
+    assert.equal(q.amount, 198900);
+    assert.equal(
+      paymentBasket(q.items).reduce(
+        (n, [, price, qty]) => n + Math.round(Number(price) * 100) * qty,
+        0,
+      ),
+      q.amount,
+    );
+  }
+  assert.throws(
+    () => priceCart([{ slug: "glass", size: "50×35cm", quantity: 1 }], [glass]),
+    /ölçüsü geçersiz/,
+  );
+  assert.throws(
+    () =>
+      priceCart(
+        [
+          { slug: "glass", size: "25×35cm", quantity: 1 },
+          { slug: "glass", size: "25*35 cm", quantity: 1 },
+        ],
+        [glass],
+      ),
+    /tekrarlanan/,
   );
 });

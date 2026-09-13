@@ -1,3 +1,4 @@
+import { PromotionManager } from "@/components/PromotionManager";
 import { productInCategory } from "@/data/productCategories";
 import { OrderManager } from "@/components/OrderManager";
 import { BannerManager } from "@/components/BannerManager";
@@ -30,9 +31,17 @@ export const Route = createFileRoute("/admin")({
 });
 
 type AdminTab =
-  "orders" | "products" | "categories" | "announcements" | "banners" | "hero" | "about";
+  | "promotions"
+  | "orders"
+  | "products"
+  | "categories"
+  | "announcements"
+  | "banners"
+  | "hero"
+  | "about";
 
 const ADMIN_TABS: { id: AdminTab; label: string }[] = [
+  { id: "promotions", label: "Kampanyalar / Kodlar" },
   { id: "orders", label: "Siparişler" },
   { id: "products", label: "Ürün Yönetimi" },
   { id: "categories", label: "Kategoriler" },
@@ -655,7 +664,10 @@ function AdminPage({
   }
 
   async function handleSetFeatured(slug: string) {
-    const updated = products.map((p) => ({ ...p, featured: p.slug === slug ? true : undefined }));
+    if (saving) return;
+    const updated = products.map((p) =>
+      p.slug === slug ? { ...p, featured: !p.featured } : p,
+    );
     await persist(updated, "Öne çıkan ürün güncellendi.");
   }
 
@@ -799,6 +811,7 @@ function AdminPage({
       </div>
 
       {tab === "orders" && <OrderManager />}
+      {tab === "promotions" && <PromotionManager />}
       {/* Ürün yönetimi sekmesi */}
       {tab === "products" && (
         <>
@@ -925,11 +938,22 @@ function AdminPage({
                         </td>
                         <td className="px-4 py-3 text-center">
                           {p.featured ? (
-                            <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold text-amber-800">
+                            <button
+                              type="button"
+                              onClick={() => handleSetFeatured(p.slug)}
+                              disabled={saving}
+                              aria-pressed={true}
+                              aria-label={`${p.name}: öne çıkanlardan kaldır`}
+                              className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold text-amber-800 hover:bg-amber-200 disabled:opacity-50"
+                            >
                               ★ Öne Çıkan
-                            </span>
+                            </button>
                           ) : (
                             <button
+                              type="button"
+                              disabled={saving}
+                              aria-pressed={false}
+                              aria-label={`${p.name}: öne çıkanlara ekle`}
                               onClick={() => handleSetFeatured(p.slug)}
                               className="rounded-full border border-stone-200 px-3 py-1 text-xs font-medium text-stone-400 hover:border-amber-300 hover:text-amber-700 hover:bg-amber-50 transition"
                             >

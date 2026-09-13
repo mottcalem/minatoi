@@ -10,6 +10,7 @@ export const Route = createFileRoute("/sepet")({
   component: CartPage,
 });
 type Quote = {
+  discountLabel: string;
   paymentAvailable: boolean;
   bankTransferAvailable: boolean;
   amount: number;
@@ -20,7 +21,12 @@ type Quote = {
 };
 function CartPage() {
   const { items, ready, update } = useCart();
+  const [couponDraft, setCouponDraft] = useState("");
+  const [couponCode, setCouponCode] = useState("");
   const [quote, setQuote] = useState<Quote | null>(null);
+  const [quoteLoading, setQuoteLoading] = useState(false);
+  const [quoteError, setQuoteError] = useState("");
+  const [quoteAttempt, setQuoteAttempt] = useState(0);
   const [error, setError] = useState("");
   const [pendingOrder, setPendingOrder] = useState<{ id: string; access: string } | null>(null);
   const [paymentMethod, setPaymentMethod] = useState<"card" | "bank_transfer">("card");
@@ -45,19 +51,23 @@ function CartPage() {
   useEffect(() => {
     let active = true;
     setQuote(null);
-    setError("");
+    setQuoteError("");
+    setQuoteLoading(cartJSON !== "[]");
     if (cartJSON !== "[]")
-      checkoutRequest("quote", { items: JSON.parse(cartJSON) })
+      checkoutRequest("quote", { items: JSON.parse(cartJSON), couponCode })
         .then((q) => {
           if (active) setQuote(q);
         })
         .catch((e) => {
-          if (active) setError(e.message);
+          if (active) setQuoteError(e.message);
+        })
+        .finally(() => {
+          if (active) setQuoteLoading(false);
         });
     return () => {
       active = false;
     };
-  }, [cartJSON]);
+  }, [cartJSON, couponCode, quoteAttempt]);
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!quote || busy) return;
@@ -72,6 +82,7 @@ function CartPage() {
     );
     const payload = {
       items: JSON.parse(cartJSON),
+      couponCode,
       customer,
       consent: form.get("consent") === "on",
       expectedAmount: quote.amount,
@@ -274,10 +285,59 @@ function CartPage() {
               </div>
             ))}
             <div className="rounded-2xl bg-stone-50 p-6">
-              <p className="mb-4 text-sm text-stone-600">
-                2 ürün ve üzeri alışverişte, en ucuz ürünün bir adedine %25 indirim. Sepet başına
-                bir kez uygulanır.
-              </p>
+              <form
+                className="mb-5"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (couponDraft.trim().toUpperCase() === couponCode) return;
+                  setQuoteLoading(true);
+                  setQuote(null);
+                  setCouponCode(couponDraft.trim().toUpperCase());
+                }}
+              >
+                <label htmlFor="coupon" className="mb-2 block text-sm font-semibold">
+                  İndirim kodu
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    id="coupon"
+                    value={couponDraft}
+                    onChange={(e) => setCouponDraft(e.target.value)}
+                    maxLength={40}
+                    disabled={busy}
+                    placeholder="Kodunuzu girin"
+                    className="min-w-0 flex-1 rounded-xl border border-stone-300 px-3 py-2"
+                  />
+                  <button
+                    disabled={
+                      busy || !couponDraft.trim() || couponDraft.trim().toUpperCase() === couponCode
+                    }
+                    className="rounded-xl bg-stone-900 px-4 py-2 text-sm text-white disabled:opacity-50"
+                  >
+                    Uygula
+                  </button>
+                  {couponCode && (
+                    <button
+                      type="button"
+                      disabled={busy}
+                      onClick={() => {
+                        setQuoteLoading(true);
+                        setQuote(null);
+                        setCouponCode("");
+                        setCouponDraft("");
+                      }}
+                      className="text-sm underline"
+                    >
+                      Kaldır
+                    </button>
+                  )}
+                </div>
+                {quote && couponCode && (
+                  <p role="status" className="mt-2 text-sm text-green-700">
+                    Kod uygulandı: {couponCode}
+                  </p>
+                )}
+              </form>
               {quote && (
                 <div className="mb-3 flex justify-between">
                   <span>Ara toplam</span>
@@ -286,7 +346,7 @@ function CartPage() {
               )}
               {!!quote?.discount && (
                 <div className="mb-3 flex justify-between text-green-700">
-                  <span>İkinci ürün indirimi (%25)</span>
+                  <span>{quote.discountLabel}</span>
                   <strong>−{formatTL(quote.discount / 100)}</strong>
                 </div>
               )}
@@ -296,8 +356,27 @@ function CartPage() {
               </div>
               <div className="mt-4 flex justify-between text-xl">
                 <strong>Toplam</strong>
-                <strong>{quote ? formatTL(quote.amount / 100) : "Hesaplanıyor…"}</strong>
+                <strong>
+                  {quote
+                    ? formatTL(quote.amount / 100)
+                    : quoteLoading
+                      ? "Hesaplanıyor…"
+                      : "Hesaplanamadı"}
+                </strong>
               </div>
+              {quoteError && (
+                <div role="alert" className="mt-4 rounded-xl bg-red-50 p-3 text-sm text-red-800">
+                  <p>{quoteError}</p>
+                  <button
+                    type="button"
+                    disabled={quoteLoading}
+                    onClick={() => setQuoteAttempt((n) => n + 1)}
+                    className="mt-2 font-semibold underline"
+                  >
+                    Tekrar dene
+                  </button>
+                </div>
+              )}
               <p className="mt-3 text-sm text-stone-500">
                 Kartla tek çekim veya havale/EFT. Üyelik gerekmez.
               </p>

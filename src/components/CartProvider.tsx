@@ -1,3 +1,5 @@
+import { getPublicPromotions } from "@/data/promotionActions";
+import { DEFAULT_PROMOTIONS } from "@/data/promotions";
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import type { Product } from "@/data/products";
 export type CartItem = {
@@ -9,13 +11,28 @@ export type CartItem = {
 };
 const key = "minatoi-cart-v1";
 const CartContext = createContext<{
+  promotions: Omit<typeof DEFAULT_PROMOTIONS, "codes">;
   items: CartItem[];
   ready: boolean;
-  add: (p: Product, size: string) => void;
+  add: (p: Product, size: string, quantity?: number) => void;
   update: (slug: string, size: string, quantity: number) => void;
   clear: (snapshot?: string) => void;
-}>({ items: [], ready: false, add: () => {}, update: () => {}, clear: () => {} });
+}>({
+  promotions: DEFAULT_PROMOTIONS,
+  items: [],
+  ready: false,
+  add: () => {},
+  update: () => {},
+  clear: () => {},
+});
 export function CartProvider({ children }: { children: ReactNode }) {
+  const [promotions, setPromotions] =
+    useState<Omit<typeof DEFAULT_PROMOTIONS, "codes">>(DEFAULT_PROMOTIONS);
+  useEffect(() => {
+    getPublicPromotions()
+      .then(setPromotions)
+      .catch(() => {});
+  }, []);
   const [items, setItems] = useState<CartItem[]>([]);
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -50,16 +67,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
         /* Storage can be unavailable in private browsing. */
       }
   }, [items, ready]);
-  function add(p: Product, size: string) {
+  function add(p: Product, size: string, quantity = 1) {
+    quantity = Number.isFinite(quantity) ? Math.min(20, Math.max(1, Math.floor(quantity))) : 1;
     setItems((prev) => {
       const found = prev.some((i) => i.slug === p.slug && i.size === size);
       return found
         ? prev.map((i) =>
             i.slug === p.slug && i.size === size
-              ? { ...i, quantity: Math.min(20, i.quantity + 1) }
+              ? { ...i, quantity: Math.min(20, i.quantity + quantity) }
               : i,
           )
-        : [...prev, { slug: p.slug, size, quantity: 1, name: p.name, image: p.image }].slice(0, 50);
+        : [...prev, { slug: p.slug, size, quantity, name: p.name, image: p.image }].slice(0, 50);
     });
   }
   function update(slug: string, size: string, quantity: number) {
@@ -83,7 +101,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     );
   }, []);
   return (
-    <CartContext.Provider value={{ items, ready, add, update, clear }}>
+    <CartContext.Provider value={{ promotions, items, ready, add, update, clear }}>
       {children}
     </CartContext.Provider>
   );

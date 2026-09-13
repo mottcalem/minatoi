@@ -81,10 +81,10 @@ function Page() {
           heading: "Madde 2 — Sözleşmenin Konusu",
           body: (
             <p>
-              Bu Sözleşme; ALICI'nın https://minatoi.ugurdogan.net adresinden veya Shopier mağazası üzerinden
-              elektronik ortamda sipariş verdiği ürünlerin satışı ve teslimatına ilişkin tarafların
-              hak ve yükümlülüklerini 6502 sayılı Kanun ve ilgili yönetmelikler çerçevesinde
-              düzenler.
+              Bu Sözleşme; ALICI'nın https://minatoi.ugurdogan.net adresinden veya Shopier mağazası
+              üzerinden elektronik ortamda sipariş verdiği ürünlerin satışı ve teslimatına ilişkin
+              tarafların hak ve yükümlülüklerini 6502 sayılı Kanun ve ilgili yönetmelikler
+              çerçevesinde düzenler.
             </p>
           ),
         },
@@ -115,8 +115,8 @@ function Page() {
               </ul>
               <p className="mt-2">
                 Tüm fiyatlar Türk Lirası (₺) cinsinden olup KDV dahildir. Kargo tüm siparişlerde
-                ücretsizdir. En az iki ürün içeren sepetlerde en ucuz ürünün bir adedine %25 indirim
-                uygulanır. Bu indirim sepet başına bir kez uygulanır ve sipariş özetinde gösterilir.
+                ücretsizdir. Varsa aktif kampanya veya geçerli indirim koduyla hesaplanan indirim
+                sipariş özetinde gösterilir.
               </p>
             </>
           ),
