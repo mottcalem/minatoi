@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
   if (method === "GET") {
     try {
       const data = await readProducts();
-      return data;
+      return data.filter((product) => product.category !== "cuzdan");
     } catch (err) {
       console.error("[api/products GET] Error:", err);
       event.node.res.statusCode = 500;
@@ -30,11 +30,13 @@ export default defineEventHandler(async (event) => {
   // ── POST ────────────────────────────────────────────────────────────────
   if (method === "POST") {
     const expectedHash = await loadPassHash();
-    const auth  = getHeader(event, "authorization") ?? "";
+    const auth = getHeader(event, "authorization") ?? "";
     const token = auth.startsWith("Bearer ") ? auth.slice(7) : "";
 
     if (!safeEqual(token, expectedHash)) {
-      console.error(`[api/products POST] Auth failed. Token length: ${token.length}, Expected hash length: ${expectedHash.length}, Hash found: ${!!expectedHash}`);
+      console.error(
+        `[api/products POST] Auth failed. Token length: ${token.length}, Expected hash length: ${expectedHash.length}, Hash found: ${!!expectedHash}`,
+      );
       event.node.res.statusCode = 401;
       return JSON.stringify({ error: "Unauthorized" });
     }

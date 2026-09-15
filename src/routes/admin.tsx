@@ -53,7 +53,6 @@ const ADMIN_TABS: { id: AdminTab; label: string }[] = [
 
 /** Kategori listesi yüklenene kadar kullanılan yedek seçenekler. */
 const FALLBACK_CATEGORIES: { slug: string; label: string }[] = [
-  { slug: "cuzdan", label: "Cüzdan & Kartlık" },
   { slug: "kilif", label: "Gözlük Kılıfı" },
   { slug: "gozluk", label: "Gözlük" },
 ];
@@ -233,10 +232,9 @@ function Badge({ children, color = "stone" }: { children: React.ReactNode; color
   );
 }
 
-const CAT_COLORS: Record<string, string> = { cuzdan: "amber", kilif: "green", gozluk: "blue" };
+const CAT_COLORS: Record<string, string> = { kilif: "green", gozluk: "blue" };
 /** Bilinen kategorilerin Türkçe etiketleri; dinamik kategoriler doğrudan adıyla gösterilir. */
 const CAT_LABELS: Record<string, string> = {
-  cuzdan: "Cüzdan & Kartlık",
   kilif: "Gözlük Kılıfı",
   gozluk: "Gözlük",
 };
@@ -419,7 +417,7 @@ function ProductForm({
             className={inputCls(errors.name)}
             value={form.name}
             onChange={(e) => set("name", e.target.value)}
-            placeholder="ör. SOKRATES — Klasik Deri Cüzdan"
+            placeholder="ör. Kişiye Özel Cam Tablo"
           />
         </FormField>
         <FormField label="URL adresi" error={errors.slug}>
@@ -665,9 +663,7 @@ function AdminPage({
 
   async function handleSetFeatured(slug: string) {
     if (saving) return;
-    const updated = products.map((p) =>
-      p.slug === slug ? { ...p, featured: !p.featured } : p,
-    );
+    const updated = products.map((p) => (p.slug === slug ? { ...p, featured: !p.featured } : p));
     await persist(updated, "Öne çıkan ürün güncellendi.");
   }
 

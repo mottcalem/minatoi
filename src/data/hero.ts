@@ -22,18 +22,18 @@ export type HeroContent = {
 };
 
 export const DEFAULT_HERO_CONTENT: HeroContent = {
-  badge: "El Yapımı · Hakiki Deri",
-  titleTop: "Derinin",
-  titleHighlight: "elde işlenmiş",
-  titleBottom: "şıklığı.",
+  badge: "Kişiye Özel · Temperli Cam",
+  titleTop: "Anılarınızı",
+  titleHighlight: "sanata",
+  titleBottom: "dönüştürelim.",
   description:
-    "Her cüzdan, her kartlık, her kılıf — sabırlı el işçiliğiyle, birinci sınıf hakiki deriden. Kullandıkça güzelleşir, sizinle birlikte yaşlanır.",
-  ctaPrimaryLabel: "Koleksiyonu Keşfet",
-  ctaPrimaryHref: "/urunler",
-  ctaSecondaryLabel: "Hızlı Sipariş",
+    "Fotoğraflarınızı, sevdiğiniz anları ve patili dostlarınızı size özel cam tablo tasarımlarına dönüştürüyoruz.",
+  ctaPrimaryLabel: "Tasarımını Oluştur",
+  ctaPrimaryHref: "/kisiye-ozel",
+  ctaSecondaryLabel: "Bize Yazın",
   stats: [
-    { label: "Ücretsiz Kargo", value: "999₺ üzeri" },
-    { label: "Kişiselleştirme", value: "Logo & İsim Kazıma" },
-    { label: "Kalite Garantisi", value: "%100 Hakiki Deri" },
+    { label: "Ücretsiz Kargo", value: "Türkiye geneli" },
+    { label: "Kişiselleştirme", value: "Fotoğrafınızdan tasarım" },
+    { label: "Kalite Garantisi", value: "4 mm temperli cam" },
   ],
 };

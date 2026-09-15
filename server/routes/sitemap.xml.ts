@@ -9,16 +9,14 @@ const SITE = "https://minatoi.ugurdogan.net";
 const TODAY = new Date().toISOString().split("T")[0];
 
 const BLOG_SLUGS = [
-  "hakiki-deri-cuzdan-rehberi",
-  "deri-kartlik-nasil-secilir",
-  "el-yapimi-deri-cuzdan-vs-makine-uretimi",
-  "toptan-deri-cuzdan-tedarikci-rehberi",
-  "deri-cuzdan-bakim-rehberi",
+  "fotograftan-kisiye-ozel-cam-tablo-nasil-hazirlanir",
+  "patili-dostunuz-icin-portre-fotografi-secme-rehberi",
+  "anlamli-hediye-fikirleri-kisiye-ozel-tasarimlar",
 ];
 
 function urlEntry(
   loc: string,
-  opts: { lastmod?: string; changefreq?: string; priority?: number } = {}
+  opts: { lastmod?: string; changefreq?: string; priority?: number } = {},
 ): string {
   return [
     "  <url>",
@@ -31,23 +29,25 @@ function urlEntry(
 }
 
 export default defineEventHandler(async (event) => {
-  const productSlugs = (await readProducts()).map((product) => product.slug).filter(Boolean);
+  const productSlugs = (await readProducts())
+    .filter((product) => product.category !== "cuzdan")
+    .map((product) => product.slug)
+    .filter(Boolean);
 
   const entries = [
-    urlEntry("/",                    { changefreq: "weekly",  priority: 1.0  }),
-    urlEntry("/urunler",             { changefreq: "weekly",  priority: 0.9  }),
-    urlEntry("/kategori/cuzdan",     { changefreq: "weekly",  priority: 0.85 }),
-    urlEntry("/kategori/kilif",      { changefreq: "weekly",  priority: 0.85 }),
-    urlEntry("/kategori/gozluk",     { changefreq: "monthly", priority: 0.7  }),
-    urlEntry("/blog",                { changefreq: "weekly",  priority: 0.8  }),
-    urlEntry("/iletisim",            { changefreq: "yearly",  priority: 0.6  }),
-    urlEntry("/kvkk",                { changefreq: "yearly",  priority: 0.3  }),
-    urlEntry("/gizlilik-politikasi", { changefreq: "yearly",  priority: 0.3  }),
-    urlEntry("/kullanici-sozlesmesi",      { changefreq: "yearly",  priority: 0.3  }),
-    urlEntry("/mesafeli-satis-sozlesmesi", { changefreq: "yearly",  priority: 0.3  }),
-    urlEntry("/iptal-iade",                { changefreq: "yearly",  priority: 0.3  }),
-    ...productSlugs.map((s) => urlEntry(`/urun/${s}`,  { changefreq: "monthly", priority: 0.8  })),
-    ...BLOG_SLUGS.map((s)   => urlEntry(`/blog/${s}`,  { changefreq: "monthly", priority: 0.75 })),
+    urlEntry("/", { changefreq: "weekly", priority: 1.0 }),
+    urlEntry("/urunler", { changefreq: "weekly", priority: 0.9 }),
+    urlEntry("/kategori/kilif", { changefreq: "weekly", priority: 0.85 }),
+    urlEntry("/kategori/gozluk", { changefreq: "monthly", priority: 0.7 }),
+    urlEntry("/blog", { changefreq: "weekly", priority: 0.8 }),
+    urlEntry("/iletisim", { changefreq: "yearly", priority: 0.6 }),
+    urlEntry("/kvkk", { changefreq: "yearly", priority: 0.3 }),
+    urlEntry("/gizlilik-politikasi", { changefreq: "yearly", priority: 0.3 }),
+    urlEntry("/kullanici-sozlesmesi", { changefreq: "yearly", priority: 0.3 }),
+    urlEntry("/mesafeli-satis-sozlesmesi", { changefreq: "yearly", priority: 0.3 }),
+    urlEntry("/iptal-iade", { changefreq: "yearly", priority: 0.3 }),
+    ...productSlugs.map((s) => urlEntry(`/urun/${s}`, { changefreq: "monthly", priority: 0.8 })),
+    ...BLOG_SLUGS.map((s) => urlEntry(`/blog/${s}`, { changefreq: "monthly", priority: 0.75 })),
   ];
 
   const xml =

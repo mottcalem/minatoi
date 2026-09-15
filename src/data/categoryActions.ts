@@ -32,7 +32,7 @@ const saveSchema = z.object({
 export const getCategories = createServerFn({ method: "GET" }).handler(
   async (): Promise<CategoryRecord[]> => {
     const { readCategories } = await import("../../server/utils/categoryStore");
-    return readCategories();
+    return (await readCategories()).filter((category) => category.slug !== "cuzdan");
   },
 );
 

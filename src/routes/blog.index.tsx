@@ -4,11 +4,11 @@ import { BLOG_POSTS } from "@/data/blog";
 export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
-      { title: "Blog — Deri Cüzdan & Aksesuar Rehberleri | MinaToi" },
+      { title: "Blog — Kişiye Özel Tasarım Rehberleri | MinaToi" },
       {
         name: "description",
         content:
-          "Hakiki deri cüzdan, kartlık ve deri aksesuar hakkında uzman rehberler. Deri seçimi, bakım, el yapımı üretim ve toptan satın alma konularında kapsamlı makaleler.",
+          "Kişiye özel cam tablo, patili dost portresi ve anlamlı hediye fikirleri hakkında rehberler.",
       },
       {
         name: "keywords",
@@ -29,11 +29,6 @@ export const Route = createFileRoute("/blog/")({
 });
 
 const TAG_COLORS: Record<string, string> = {
-  "hakiki deri cüzdan": "bg-amber-50 text-amber-700 border-amber-200",
-  "deri kartlık": "bg-stone-100 text-stone-700 border-stone-200",
-  "el yapımı deri cüzdan": "bg-orange-50 text-orange-700 border-orange-200",
-  "toptan deri cüzdan": "bg-blue-50 text-blue-700 border-blue-200",
-  "deri cüzdan bakımı": "bg-green-50 text-green-700 border-green-200",
 };
 
 function TagBadge({ tag }: { tag: string }) {
@@ -164,12 +159,12 @@ function BlogIndex() {
             MinaToi Blog
           </p>
           <h1 className="mt-2 font-display text-4xl font-bold text-stone-900 sm:text-5xl">
-            Yeni yazılar
-            <br className="hidden sm:block" /> yakında burada.
+            İlham veren
+            <br className="hidden sm:block" /> MinaToi yazıları.
           </h1>
           <p className="mt-4 max-w-2xl text-stone-500 text-base leading-relaxed">
-            Cam tablo modelleri, kişiye özel tasarımlar ve yaşam alanlarınıza ilham verecek
-            içerikler üzerinde çalışıyoruz.
+            Kişiye özel tasarımlar, patili dost portreleri ve anlamlı hediye fikirleri için
+            rehberlerimizi keşfedin.
           </p>
         </div>
       </section>

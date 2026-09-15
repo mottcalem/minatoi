@@ -8,11 +8,6 @@ export type CategoryRecord = {
 };
 
 export const DEFAULT_CATEGORIES: CategoryRecord[] = [
-  {
-    slug: "cuzdan",
-    label: "Cüzdan & Kartlık",
-    description: "El yapımı hakiki deri cüzdan ve kartlık modelleri",
-  },
   { slug: "kilif", label: "Gözlük Kılıfı", description: "Tam deri, el yapımı gözlük kılıfları" },
   {
     slug: "gozluk",

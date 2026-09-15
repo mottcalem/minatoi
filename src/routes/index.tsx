@@ -7,7 +7,6 @@ import craftImg from "@/assets/craft.jpg";
 import glassesImg from "@/assets/cat-glasses.jpg";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import casesImg from "@/assets/cat-cases.jpg";
-import walletsImg from "@/assets/cat-wallets.jpg";
 import { getCategories } from "@/data/categoryActions";
 import { fetchProductsServer } from "@/data/adminProducts";
 import { ProductCarousel } from "@/components/ProductCarousel";
@@ -17,7 +16,6 @@ import { HomeBannerSlider } from "@/components/HomeBannerSlider";
 
 /** Bilinen kategorilerin varsayılan karusel görselleri; yüklenmiş görsel yoksa kullanılır. */
 const CATEGORY_IMAGES: Record<string, string> = {
-  cuzdan: walletsImg,
   kilif: casesImg,
   gozluk: glassesImg,
 };
@@ -55,7 +53,7 @@ export const Route = createFileRoute("/")({
       { property: "og:url", content: "https://minatoi.ugurdogan.net/" },
       {
         property: "og:image",
-        content: "https://minatoi.ugurdogan.net/images/products/sokrates/man.jpg",
+        content: "https://minatoi.ugurdogan.net/images/kisiye-ozel-ornek.jpg",
       },
       { name: "robots", content: "index, follow" },
     ],
@@ -77,7 +75,6 @@ export const Route = createFileRoute("/")({
 function Index() {
   const { products, banners, categories, hero, about } = Route.useLoaderData();
   const featuredProducts = products.filter((product) => product.featured);
-  const cuzdanlar = products.filter((p) => p.category === "cuzdan");
   const kiliflar = products.filter((p) => p.category === "kilif");
   const sliderProducts = [...products]
     .sort((a, b) => Number(!!b.featured) - Number(!!a.featured))
@@ -177,14 +174,6 @@ function Index() {
         eyebrow="Seçtiklerimiz"
         title="Öne Çıkan Ürünler"
         description="MinaToi koleksiyonundan öne çıkan tasarımlar."
-      />
-      {/* ─── CÜZDAN & KARTLIK ─────────────────────────────────────── */}
-      <ProductCarousel
-        products={cuzdanlar}
-        eyebrow="El Yapımı"
-        title="Cüzdan & Kartlık"
-        description="Birinci sınıf hakiki deri, sabırlı el dikişi."
-        viewAllSlug="cuzdan"
       />
       {/* ─── TANITIM BÖLÜMÜ ───────────────────────────────────────── */}
       <AboutSection content={about} />

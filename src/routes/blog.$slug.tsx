@@ -7,10 +7,7 @@ export const Route = createFileRoute("/blog/$slug")({
     const post = getBlogPost(params.slug);
     if (!post) {
       return {
-        meta: [
-          { title: "Yazı Bulunamadı | MinaToi Blog" },
-          { name: "robots", content: "noindex" },
-        ],
+        meta: [{ title: "Yazı Bulunamadı | MinaToi Blog" }, { name: "robots", content: "noindex" }],
       };
     }
     return {
@@ -33,15 +30,15 @@ export const Route = createFileRoute("/blog/$slug")({
         { name: "twitter:description", content: post.metaDescription },
         { name: "twitter:image", content: `https://minatoi.ugurdogan.net${post.coverImage}` },
       ],
-      links: [
-        { rel: "canonical", href: `https://minatoi.ugurdogan.net/blog/${post.slug}` },
-      ],
+      links: [{ rel: "canonical", href: `https://minatoi.ugurdogan.net/blog/${post.slug}` }],
     };
   },
   loader: ({ params }): { post: BlogPost; related: BlogPost[] } => {
     const post = getBlogPost(params.slug);
     if (!post) throw notFound();
-    const related = getLatestPosts().filter((p) => p.slug !== post.slug).slice(0, 2);
+    const related = getLatestPosts()
+      .filter((p) => p.slug !== post.slug)
+      .slice(0, 2);
     return { post, related };
   },
   component: BlogDetail,
@@ -53,7 +50,9 @@ function BlogNotFound() {
     <div className="flex min-h-[60vh] items-center justify-center px-4">
       <div className="text-center">
         <h1 className="font-display text-4xl font-bold text-stone-900">Yazı bulunamadı</h1>
-        <p className="mt-3 text-stone-500">Aradığınız blog yazısı mevcut değil veya taşınmış olabilir.</p>
+        <p className="mt-3 text-stone-500">
+          Aradığınız blog yazısı mevcut değil veya taşınmış olabilir.
+        </p>
         <Link
           to="/blog"
           className="mt-6 inline-flex items-center rounded-full bg-gradient-gold px-6 py-3 text-sm font-semibold text-white shadow-glow transition hover:brightness-110"
@@ -106,9 +105,24 @@ function BlogDetail() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Anasayfa", item: "https://minatoi.ugurdogan.net/" },
-      { "@type": "ListItem", position: 2, name: "Blog", item: "https://minatoi.ugurdogan.net/blog" },
-      { "@type": "ListItem", position: 3, name: post.title, item: `https://minatoi.ugurdogan.net/blog/${post.slug}` },
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Anasayfa",
+        item: "https://minatoi.ugurdogan.net/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Blog",
+        item: "https://minatoi.ugurdogan.net/blog",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: `https://minatoi.ugurdogan.net/blog/${post.slug}`,
+      },
     ],
   };
 
@@ -151,10 +165,17 @@ function BlogDetail() {
 
       <div className="mx-auto max-w-4xl px-4 py-10">
         {/* Breadcrumb */}
-        <nav className="mb-8 flex items-center gap-2 text-xs text-stone-400" aria-label="Breadcrumb">
-          <Link to="/" className="hover:text-stone-600 transition-colors">Anasayfa</Link>
+        <nav
+          className="mb-8 flex items-center gap-2 text-xs text-stone-400"
+          aria-label="Breadcrumb"
+        >
+          <Link to="/" className="hover:text-stone-600 transition-colors">
+            Anasayfa
+          </Link>
           <span>/</span>
-          <Link to="/blog" className="hover:text-stone-600 transition-colors">Blog</Link>
+          <Link to="/blog" className="hover:text-stone-600 transition-colors">
+            Blog
+          </Link>
           <span>/</span>
           <span className="text-stone-600 truncate max-w-[200px]">{post.title}</span>
         </nav>
@@ -194,14 +215,13 @@ function BlogDetail() {
             </p>
 
             {/* HTML İçerik */}
-            <div
-              className="blog-content"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+            <div className="blog-content" dangerouslySetInnerHTML={{ __html: post.content }} />
 
             {/* Etiketler */}
             <div className="mt-10 pt-6 border-t border-stone-100">
-              <p className="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-3">Etiketler</p>
+              <p className="text-xs font-semibold uppercase tracking-widest text-stone-400 mb-3">
+                Etiketler
+              </p>
               <div className="flex flex-wrap gap-2">
                 {post.tags.map((t: string) => (
                   <span
@@ -220,39 +240,43 @@ function BlogDetail() {
             {/* İlgili ürünler */}
             <div className="rounded-2xl border border-stone-100 bg-stone-50 p-5">
               <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-4">
-                Öne Çıkan Ürünler
+                Özel Tasarım Seçenekleri
               </p>
               <div className="space-y-4">
                 <Link
-                  to="/urun/$slug"
-                  params={{ slug: "sokrates-klasik-cuzdan" }}
+                  to="/kisiye-ozel"
                   className="group flex items-center gap-3 rounded-xl border border-stone-100 bg-white p-3 hover:shadow-sm transition"
                 >
                   <img
-                    src="/images/products/sokrates/man.jpg"
-                    alt="SOKRATES Deri Cüzdan"
+                    src="/images/kisiye-ozel-ornek.jpg"
+                    alt="Kişiye özel tasarım örneği"
                     className="h-14 w-14 rounded-lg object-cover shrink-0"
                   />
                   <div>
-                    <p className="text-sm font-semibold text-stone-800 group-hover:text-primary transition-colors">SOKRATES</p>
-                    <p className="text-xs text-stone-400">Hakiki Deri Erkek Cüzdanı</p>
-                    <p className="mt-1 text-sm font-bold text-primary">749 ₺</p>
+                    <p className="text-sm font-semibold text-stone-800 group-hover:text-primary transition-colors">
+                      Kişiye Özel Tasarım
+                    </p>
+                    <p className="text-xs text-stone-400">
+                      Fotoğrafınızı sanatsal bir tabloya dönüştürün
+                    </p>
                   </div>
                 </Link>
                 <Link
-                  to="/urun/$slug"
-                  params={{ slug: "frege-kartlik" }}
+                  to="/patili-dosyalara-ozel"
                   className="group flex items-center gap-3 rounded-xl border border-stone-100 bg-white p-3 hover:shadow-sm transition"
                 >
                   <img
-                    src="/images/products/frege-kartlik/in-hand.jpg"
-                    alt="FREGE Deri Kartlık"
+                    src="/images/patili-ornek-1.jpg"
+                    alt="Patili dost portresi örneği"
                     className="h-14 w-14 rounded-lg object-cover shrink-0"
                   />
                   <div>
-                    <p className="text-sm font-semibold text-stone-800 group-hover:text-primary transition-colors">FREGE</p>
-                    <p className="text-xs text-stone-400">Slim Hakiki Deri Kartlık</p>
-                    <p className="mt-1 text-sm font-bold text-primary">449 ₺</p>
+                    <p className="text-sm font-semibold text-stone-800 group-hover:text-primary transition-colors">
+                      Patili Dostlara Özel
+                    </p>
+                    <p className="text-xs text-stone-400">
+                      Dostunuz için kostümlü veya illüstrasyonlu portre
+                    </p>
                   </div>
                 </Link>
               </div>

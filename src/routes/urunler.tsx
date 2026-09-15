@@ -9,21 +9,20 @@ export const Route = createFileRoute("/urunler")({
   }),
   head: () => ({
     meta: [
-      { title: "Tüm Ürünler — El Yapımı Hakiki Deri Cüzdan & Kartlık | MinaToi" },
+      { title: "Tüm Ürünler — MinaToi" },
       {
         name: "description",
         content:
-          "MinaToi el yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfları koleksiyonu. %100 hakiki deri, el dikişi, Türkiye geneli kapıda ödeme.",
+          "MinaToi koleksiyonundaki seçili ürünleri ve kişiye özel tasarım seçeneklerini keşfedin.",
       },
       {
         name: "keywords",
-        content:
-          "deri cüzdan, hakiki deri kartlık, el yapımı deri, deri gözlük kılıfı, MinaToi ürünler",
+        content: "MinaToi ürünler, kişiye özel tasarım, gözlük kılıfı",
       },
       { property: "og:title", content: "Tüm Ürünler — MinaToi El Yapımı Deri" },
       {
         property: "og:description",
-        content: "El yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfları koleksiyonu.",
+        content: "MinaToi ürün koleksiyonu ve kişiye özel tasarım seçenekleri.",
       },
       { property: "og:url", content: "https://minatoi.ugurdogan.net/urunler" },
       { name: "robots", content: "index, follow" },

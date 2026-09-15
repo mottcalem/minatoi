@@ -110,25 +110,23 @@ gtag('config', 'G-R32VEKYQ7R');`,
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "MinaToi — El Yapımı Hakiki Deri Cüzdan, Kartlık & Kılıf" },
+      { title: "MinaToi — Kişiye Özel Cam Tablo Tasarımları" },
       {
         name: "description",
         content:
-          "MinaToi el yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfı koleksiyonu. %100 hakiki deri, el dikişi, Türkiye geneli kapıda ödeme.",
+          "MinaToi kişiye özel cam tablo, illüstrasyon ve patili dost portresi tasarımları sunar.",
       },
       {
         name: "keywords",
-        content:
-          "deri cüzdan, hakiki deri cüzdan, el yapımı deri cüzdan, deri kartlık, erkek deri cüzdan, toptan deri cüzdan, MinaToi",
+        content: "kişiye özel cam tablo, patili dost portresi, illüstrasyon, MinaToi",
       },
       { name: "author", content: "MinaToi" },
       { name: "robots", content: "index, follow" },
       { property: "og:site_name", content: "MinaToi" },
-      { property: "og:title", content: "MinaToi — El Yapımı Hakiki Deri Cüzdan & Kartlık" },
+      { property: "og:title", content: "MinaToi — Kişiye Özel Cam Tablo Tasarımları" },
       {
         property: "og:description",
-        content:
-          "MinaToi el yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfı koleksiyonu. %100 hakiki deri, el dikişi.",
+        content: "Kişiye özel cam tablo, illüstrasyon ve patili dost portresi tasarımları.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://minatoi.ugurdogan.net" },
@@ -136,10 +134,10 @@ gtag('config', 'G-R32VEKYQ7R');`,
       { property: "og:locale", content: "tr_TR" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@minatoi" },
-      { name: "twitter:title", content: "MinaToi — El Yapımı Hakiki Deri Cüzdan & Kartlık" },
+      { name: "twitter:title", content: "MinaToi — Kişiye Özel Cam Tablo Tasarımları" },
       {
         name: "twitter:description",
-        content: "El yapımı hakiki deri cüzdan, kartlık ve gözlük kılıfı koleksiyonu.",
+        content: "Kişiye özel cam tablo, illüstrasyon ve patili dost portresi tasarımları.",
       },
       { name: "twitter:image", content: "https://minatoi.ugurdogan.net/images/og-image.jpg" },
     ],
@@ -184,16 +182,16 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <CartProvider>
-      <div className="flex min-h-screen flex-col overflow-x-hidden">
-        <Header />
-        <AnnouncementBar />
-        <main className="flex-1">
-          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-          <Outlet />
-        </main>
-        <Footer />
-      </div>
-    </CartProvider>
+        <div className="flex min-h-screen flex-col overflow-x-hidden">
+          <Header />
+          <AnnouncementBar />
+          <main className="flex-1">
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <Outlet />
+          </main>
+          <Footer />
+        </div>
+      </CartProvider>
     </QueryClientProvider>
   );
 }
