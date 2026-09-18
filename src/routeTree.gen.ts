@@ -11,7 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UrunlerRouteImport } from './routes/urunler'
 import { Route as SepetRouteImport } from './routes/sepet'
-import { Route as PatiliDosyalaraOzelRouteImport } from './routes/patili-dosyalara-ozel'
+import { Route as PatiliDostlaraOzelRouteImport } from './routes/patili-dostlara-ozel'
 import { Route as OdemeSonucuRouteImport } from './routes/odeme-sonucu'
 import { Route as MesafeliSatisSozlesmesiRouteImport } from './routes/mesafeli-satis-sozlesmesi'
 import { Route as KvkkRouteImport } from './routes/kvkk'
@@ -38,9 +38,9 @@ const SepetRoute = SepetRouteImport.update({
   path: '/sepet',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PatiliDosyalaraOzelRoute = PatiliDosyalaraOzelRouteImport.update({
-  id: '/patili-dosyalara-ozel',
-  path: '/patili-dosyalara-ozel',
+const PatiliDostlaraOzelRoute = PatiliDostlaraOzelRouteImport.update({
+  id: '/patili-dostlara-ozel',
+  path: '/patili-dostlara-ozel',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OdemeSonucuRoute = OdemeSonucuRouteImport.update({
@@ -131,7 +131,7 @@ export interface FileRoutesByFullPath {
   '/kvkk': typeof KvkkRoute
   '/mesafeli-satis-sozlesmesi': typeof MesafeliSatisSozlesmesiRoute
   '/odeme-sonucu': typeof OdemeSonucuRoute
-  '/patili-dosyalara-ozel': typeof PatiliDosyalaraOzelRoute
+  '/patili-dostlara-ozel': typeof PatiliDostlaraOzelRoute
   '/sepet': typeof SepetRoute
   '/urunler': typeof UrunlerRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -150,7 +150,7 @@ export interface FileRoutesByTo {
   '/kvkk': typeof KvkkRoute
   '/mesafeli-satis-sozlesmesi': typeof MesafeliSatisSozlesmesiRoute
   '/odeme-sonucu': typeof OdemeSonucuRoute
-  '/patili-dosyalara-ozel': typeof PatiliDosyalaraOzelRoute
+  '/patili-dostlara-ozel': typeof PatiliDostlaraOzelRoute
   '/sepet': typeof SepetRoute
   '/urunler': typeof UrunlerRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -171,7 +171,7 @@ export interface FileRoutesById {
   '/kvkk': typeof KvkkRoute
   '/mesafeli-satis-sozlesmesi': typeof MesafeliSatisSozlesmesiRoute
   '/odeme-sonucu': typeof OdemeSonucuRoute
-  '/patili-dosyalara-ozel': typeof PatiliDosyalaraOzelRoute
+  '/patili-dostlara-ozel': typeof PatiliDostlaraOzelRoute
   '/sepet': typeof SepetRoute
   '/urunler': typeof UrunlerRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -193,7 +193,7 @@ export interface FileRouteTypes {
     | '/kvkk'
     | '/mesafeli-satis-sozlesmesi'
     | '/odeme-sonucu'
-    | '/patili-dosyalara-ozel'
+    | '/patili-dostlara-ozel'
     | '/sepet'
     | '/urunler'
     | '/blog/$slug'
@@ -212,7 +212,7 @@ export interface FileRouteTypes {
     | '/kvkk'
     | '/mesafeli-satis-sozlesmesi'
     | '/odeme-sonucu'
-    | '/patili-dosyalara-ozel'
+    | '/patili-dostlara-ozel'
     | '/sepet'
     | '/urunler'
     | '/blog/$slug'
@@ -232,7 +232,7 @@ export interface FileRouteTypes {
     | '/kvkk'
     | '/mesafeli-satis-sozlesmesi'
     | '/odeme-sonucu'
-    | '/patili-dosyalara-ozel'
+    | '/patili-dostlara-ozel'
     | '/sepet'
     | '/urunler'
     | '/blog/$slug'
@@ -253,7 +253,7 @@ export interface RootRouteChildren {
   KvkkRoute: typeof KvkkRoute
   MesafeliSatisSozlesmesiRoute: typeof MesafeliSatisSozlesmesiRoute
   OdemeSonucuRoute: typeof OdemeSonucuRoute
-  PatiliDosyalaraOzelRoute: typeof PatiliDosyalaraOzelRoute
+  PatiliDostlaraOzelRoute: typeof PatiliDostlaraOzelRoute
   SepetRoute: typeof SepetRoute
   UrunlerRoute: typeof UrunlerRoute
   KategoriSlugRoute: typeof KategoriSlugRoute
@@ -276,11 +276,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SepetRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/patili-dosyalara-ozel': {
-      id: '/patili-dosyalara-ozel'
-      path: '/patili-dosyalara-ozel'
-      fullPath: '/patili-dosyalara-ozel'
-      preLoaderRoute: typeof PatiliDosyalaraOzelRouteImport
+    '/patili-dostlara-ozel': {
+      id: '/patili-dostlara-ozel'
+      path: '/patili-dostlara-ozel'
+      fullPath: '/patili-dostlara-ozel'
+      preLoaderRoute: typeof PatiliDostlaraOzelRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/odeme-sonucu': {
@@ -415,7 +415,7 @@ const rootRouteChildren: RootRouteChildren = {
   KvkkRoute: KvkkRoute,
   MesafeliSatisSozlesmesiRoute: MesafeliSatisSozlesmesiRoute,
   OdemeSonucuRoute: OdemeSonucuRoute,
-  PatiliDosyalaraOzelRoute: PatiliDosyalaraOzelRoute,
+  PatiliDostlaraOzelRoute: PatiliDostlaraOzelRoute,
   SepetRoute: SepetRoute,
   UrunlerRoute: UrunlerRoute,
   KategoriSlugRoute: KategoriSlugRoute,

@@ -12,8 +12,14 @@ import {
 } from "lucide-react";
 import { useEffect, useId, useMemo, useState } from "react";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { ProductCard } from "@/components/ProductCard";
+import { CUSTOM_PRODUCTS } from "@/data/customProducts";
+import { fetchProductsServer } from "@/data/adminProducts";
 
-export const Route = createFileRoute("/patili-dosyalara-ozel")({
+export const Route = createFileRoute("/patili-dostlara-ozel")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    tab: search.tab === "illustration" ? "illustration" : "costume",
+  }),
   head: () => ({
     meta: [
       { title: "Patili Dostlara Özel — MinaToi" },
@@ -24,8 +30,78 @@ export const Route = createFileRoute("/patili-dosyalara-ozel")({
       },
     ],
   }),
-  component: PatiliDosyalaraOzel,
+  loader: () => fetchProductsServer(),
+  component: PatiliProductLanding,
 });
+
+function PatiliProductLanding() {
+  const { tab } = Route.useSearch();
+  const [kind, setKind] = useState<PortraitKind>(tab);
+  useEffect(() => setKind(tab), [tab]);
+  const cmsCostumes = Route.useLoaderData().filter(
+    (product) => product.category === "patili-dostalara-ozel",
+  );
+  const fallbackPetProducts = CUSTOM_PRODUCTS.filter(
+    (product) => product.customization.group === "pet",
+  );
+  const products = (
+    cmsCostumes.length
+      ? [...cmsCostumes, ...fallbackPetProducts.filter((p) => !p.slug.includes("kostumlu"))]
+      : fallbackPetProducts
+  ).filter((product) =>
+    kind === "costume"
+      ? "customization" in product
+        ? product.slug.includes("kostumlu")
+        : true
+      : "customization" in product && !product.slug.includes("kostumlu"),
+  );
+  return (
+    <main>
+      <section className="bg-stone-950 text-white">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:py-14">
+          <p className="text-xs font-bold uppercase tracking-[.24em] text-stone-300">
+            MinaToi patili dostlar
+          </p>
+          <h1 className="mt-3 max-w-3xl font-display text-3xl font-bold sm:text-5xl">
+            Patili dostunuzun portresi, eşsiz bir anıya dönüşsün.
+          </h1>
+          <p className="mt-3 max-w-2xl text-stone-300">
+            Önce tasarım türünü, sonra tarzınızı seçin. Fotoğraf yükleme işlemi seçtiğiniz ürünün
+            sayfasında yapılır.
+          </p>
+        </div>
+      </section>
+      <section className="mx-auto max-w-7xl px-4 py-10 sm:py-14">
+        <h2 className="font-display text-2xl font-bold">Tasarım türünü seçin</h2>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2">
+          <button
+            onClick={() => setKind("costume")}
+            className={`rounded-2xl border p-5 text-left font-semibold ${kind === "costume" ? "border-stone-900 bg-stone-900 text-white" : "border-stone-200 bg-white"}`}
+          >
+            Kostümlü Portre
+            <span className="mt-1 block text-sm font-normal opacity-70">
+              Eğlenceli, karakterli portreler
+            </span>
+          </button>
+          <button
+            onClick={() => setKind("illustration")}
+            className={`rounded-2xl border p-5 text-left font-semibold ${kind === "illustration" ? "border-stone-900 bg-stone-900 text-white" : "border-stone-200 bg-white"}`}
+          >
+            Pati İllüstrasyon
+            <span className="mt-1 block text-sm font-normal opacity-70">
+              Karakalem, sulu boya veya yağlı boya
+            </span>
+          </button>
+        </div>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {products.map((product) => (
+            <ProductCard key={product.slug} product={product} />
+          ))}
+        </div>
+      </section>
+    </main>
+  );
+}
 
 const SIZES = ["25 × 35 cm", "35 × 50 cm", "50 × 70 cm", "60 × 90 cm"];
 const COSTUMES = ["Korsan", "Prens / Prenses", "Bekçi", "Müdür", "Çöpçü"];
@@ -35,6 +111,23 @@ const EXAMPLES = [
   "/images/patili-ornek-2.jpg",
   "/images/patili-ornek-3.jpg",
 ];
+const COSTUME_EXAMPLES = [
+  ["Korsan", "/products/Patili Dostlara Özel_Kostümlü Portre Yeni Sistem/Korsan/Korsan_1.png"],
+  ["Prens", "/products/Patili Dostlara Özel_Kostümlü Portre Yeni Sistem/Prens/Prens_1.png"],
+  ["Prenses", "/products/Patili Dostlara Özel_Kostümlü Portre Yeni Sistem/Prenses/Prenses_1.png"],
+  ["Hemşire", "/products/Patili Dostlara Özel_Kostümlü Portre Yeni Sistem/Hemşire/Hemşire_1.png"],
+  ["Müdür", "/products/Patili Dostlara Özel_Kostümlü Portre Yeni Sistem/Müdür/Müdür_1.png"],
+  ["Çöpçü", "/products/Patili Dostlara Özel_Kostümlü Portre Yeni Sistem/Çöpçü/Çöpçü_1.png"],
+] as const;
+const ILLUSTRATION_EXAMPLES = [
+  [
+    "İllüstrasyonlu Portre",
+    "/products/Patili Dostlara Özel_İllüstrasyonlu Portre/İllüstrasyonlu Portre/İllüstrasyonlu Portre_1.png",
+  ],
+  ["Karakalem", "/images/patili-ornek-1.jpg"],
+  ["Sulu boya", "/images/patili-ornek-2.jpg"],
+  ["Yağlı boya", "/images/patili-ornek-3.jpg"],
+] as const;
 type PortraitKind = "costume" | "illustration";
 
 function PatiliDosyalaraOzel() {
@@ -74,47 +167,28 @@ function PatiliDosyalaraOzel() {
     setKind(next);
     setTreatment(next === "costume" ? COSTUMES[0] : STYLES[0]);
   }
+  const selectedExamples = kind === "costume" ? COSTUME_EXAMPLES : ILLUSTRATION_EXAMPLES;
 
   return (
     <main className="overflow-hidden">
-      <section className="relative bg-stone-950 text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_82%,rgba(185,105,44,.38),transparent_30%),radial-gradient(circle_at_88%_15%,rgba(217,168,86,.3),transparent_28%)]" />
-        <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_.85fr] lg:py-24">
-          <div className="max-w-2xl">
-            <p className="text-xs font-bold uppercase tracking-[.24em] text-amber-300">
+      <section className="border-b border-stone-200 bg-white text-stone-900">
+        <div className="mx-auto max-w-7xl px-4 py-7 sm:px-6 sm:py-8">
+          <div className="max-w-3xl">
+            <p className="text-xs font-bold uppercase tracking-[.24em] text-stone-500">
               MinaToi patili dostlar
             </p>
-            <h1 className="mt-4 font-display text-4xl font-bold leading-tight sm:text-6xl">
+            <h1 className="mt-2 font-display text-2xl font-bold leading-tight sm:text-3xl">
               Patili dostunuzun portresi, eşsiz bir anıya dönüşsün.
             </h1>
-            <p className="mt-5 max-w-xl text-base leading-7 text-stone-300 sm:text-lg">
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-stone-600">
               Fotoğrafını paylaşın; onu ister eğlenceli bir kostümle, ister sanatsal bir
               illüstrasyonla kişiye özel cam tabloya dönüştürelim.
             </p>
-            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-stone-200">
-              <Feature icon={<PawPrint />} text="Patili dosta özel tasarım" />
-              <Feature icon={<ShieldCheck />} text="Tasarım onayı" />
-              <Feature icon={<Check />} text="Ücretsiz kargo" />
-            </div>
-          </div>
-          <div className="relative min-h-80 overflow-hidden rounded-[2rem] border border-white/20 bg-stone-900 shadow-2xl">
-            <img
-              src={EXAMPLES[0]}
-              alt="Kişiye özel patili dost portresi örneği"
-              className="absolute inset-0 h-full w-full object-cover object-center"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/5 to-transparent" />
-            <div className="absolute bottom-6 left-6 rounded-2xl border border-white/20 bg-black/35 px-4 py-3 backdrop-blur-sm">
-              <p className="font-display text-xl">Onun karakteri, onun portresi.</p>
-              <p className="mt-1 text-sm text-stone-300">
-                Fotoğrafını yükle, birlikte tasarlayalım.
-              </p>
-            </div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:py-20">
+      <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:py-12">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-bold uppercase tracking-[.2em] text-primary">
             Tasarım türünü seçin
@@ -262,13 +336,17 @@ function PatiliDosyalaraOzel() {
               <PawPrint className="h-5 w-5 text-amber-300" />
               <h3 className="mt-3 font-display text-xl font-bold">Örnek çalışmalar</h3>
               <div className="mt-4 grid grid-cols-3 gap-2">
-                {EXAMPLES.map((src, index) => (
-                  <img
-                    key={src}
-                    src={src}
-                    alt={`Patili dost portre örneği ${index + 1}`}
-                    className="aspect-[3/4] rounded-lg object-cover"
-                  />
+                {selectedExamples.slice(0, 6).map(([label, src]) => (
+                  <figure key={src}>
+                    <img
+                      src={src}
+                      alt={`${label} patili dost portre örneği`}
+                      className="aspect-[3/4] w-full rounded-lg object-cover"
+                    />
+                    <figcaption className="mt-1 truncate text-center text-[10px] text-stone-300">
+                      {label}
+                    </figcaption>
+                  </figure>
                 ))}
               </div>
               <WhatsAppButton

@@ -10,6 +10,14 @@ import { fetchProductsServer } from "@/data/adminProducts";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ProductCarousel } from "@/components/ProductCarousel";
 import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
+import { isCustomProduct } from "@/data/customProducts";
+
+const PET_EXAMPLES = [
+  ["Korsan", "/products/Patili Dostlara Özel_Kostümlü Portre Yeni Sistem/Korsan/Korsan_1.png"],
+  ["Prens", "/products/Patili Dostlara Özel_Kostümlü Portre Yeni Sistem/Prens/Prens_1.png"],
+  ["Prenses", "/products/Patili Dostlara Özel_Kostümlü Portre Yeni Sistem/Prenses/Prenses_1.png"],
+  ["Sulu boya", "/images/patili-ornek-2.jpg"],
+] as const;
 
 export const Route = createFileRoute("/urun/$slug")({
   head: ({ loaderData, params }) => {
@@ -95,9 +103,13 @@ function ProductDetail() {
   const { add, ready, promotions } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
+  const [upload, setUpload] = useState<File | null>(null);
   const { product, categories, related, hero } = Route.useLoaderData();
   const [selectedSize, setSelectedSize] = useState<string>(product.sizes?.[0] ?? "");
   const selectedPrice = priceForSize(product, selectedSize);
+  const isPetProduct =
+    product.category === "patili-dostalara-ozel" ||
+    (isCustomProduct(product) && product.customization.group === "pet");
   const cat = categories.find((c) => c.slug === product.category) ?? {
     slug: product.category,
     label: product.category,
@@ -106,7 +118,7 @@ function ProductDetail() {
     `Merhaba 👋\n"${product.name}" ürünü (${formatTL(selectedPrice.price)}${
       selectedSize ? `, ölçü: ${selectedSize}` : ""
     }) hakkında bilgi almak istiyorum.\n` +
-    `Stok durumu ve kargo süreci hakkında bilgi verir misiniz?`;
+    `Stok durumu ve kargo süreci hakkında bilgi verir misiniz?${upload ? `\nYüklediğim görsel: ${upload.name}` : ""}`;
 
   return (
     <article className="mx-auto max-w-7xl px-4 py-10 overflow-x-hidden">
@@ -181,9 +193,6 @@ function ProductDetail() {
           )}
 
           <div className="mt-5 flex items-baseline gap-3">
-            <span className="font-display text-3xl font-bold text-primary">
-              {formatTL(selectedPrice.price)}
-            </span>
             {promotions.showOldPrices &&
               selectedPrice.oldPrice &&
               selectedPrice.oldPrice > selectedPrice.price && (
@@ -191,12 +200,76 @@ function ProductDetail() {
                   <span className="text-base text-muted-foreground line-through">
                     {formatTL(selectedPrice.oldPrice)}
                   </span>
+                  <span className="font-display text-3xl font-bold text-primary">
+                    {formatTL(selectedPrice.price)}
+                  </span>
                   <span className="rounded-full bg-accent/20 px-2 py-0.5 text-xs font-semibold text-accent">
                     %{Math.round((1 - selectedPrice.price / selectedPrice.oldPrice) * 100)} indirim
                   </span>
                 </>
               )}
+            {!(
+              promotions.showOldPrices &&
+              selectedPrice.oldPrice &&
+              selectedPrice.oldPrice > selectedPrice.price
+            ) && (
+              <span className="font-display text-3xl font-bold text-primary">
+                {formatTL(selectedPrice.price)}
+              </span>
+            )}
           </div>
+
+          {(isCustomProduct(product) || isPetProduct) && (
+            <div className="mt-6 rounded-2xl border border-stone-200 bg-stone-50 p-4">
+              <label htmlFor="custom-photo" className="block text-sm font-semibold text-stone-900">
+                {isCustomProduct(product)
+                  ? product.customization.uploadLabel
+                  : "Patili dostunuzun fotoğrafı"}{" "}
+                yükleyin
+              </label>
+              <p className="mt-1 text-xs text-stone-500">
+                JPG, PNG veya WebP · en fazla 12 MB. Görseliniz yalnızca siparişiniz için
+                kullanılır.
+              </p>
+              <input
+                id="custom-photo"
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                onChange={(event) => setUpload(event.target.files?.[0] ?? null)}
+                className="mt-3 block w-full text-sm text-stone-600 file:mr-3 file:rounded-full file:border-0 file:bg-stone-900 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white"
+              />
+              {upload && (
+                <p className="mt-2 text-xs font-medium text-stone-700">
+                  Seçilen dosya: {upload.name}
+                </p>
+              )}
+            </div>
+          )}
+
+          {isPetProduct && (
+            <section
+              className="mt-5 overflow-hidden rounded-2xl bg-stone-950 p-4 text-white"
+              aria-label="Örnek çalışmalar"
+            >
+              <p className="text-xs font-bold uppercase tracking-widest text-amber-300">
+                Örnek çalışmalar
+              </p>
+              <div className="mt-3 flex gap-3 overflow-x-auto pb-1">
+                {PET_EXAMPLES.map(([label, src]) => (
+                  <figure key={src} className="w-24 shrink-0">
+                    <img
+                      src={src}
+                      alt={`${label} patili dost portresi`}
+                      className="aspect-[3/4] w-full rounded-xl object-cover"
+                    />
+                    <figcaption className="mt-1 truncate text-center text-[11px] text-stone-300">
+                      {label}
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            </section>
+          )}
 
           <div className="mt-7 space-y-3">
             <div className="flex items-center gap-4">
@@ -579,7 +652,10 @@ function WalletInfo({ details }: { details: WalletDetails }) {
 }
 
 function ProductGallery({ product }: { product: Product }) {
-  const images = product.images?.length ? product.images : [product.image];
+  const images = [
+    ...(product.images?.length ? product.images : [product.image]),
+    "/images/aski-aparati.svg",
+  ];
   const [active, setActive] = useState(0);
 
   return (
@@ -629,7 +705,7 @@ function ProductGallery({ product }: { product: Product }) {
             <button
               key={i}
               onClick={() => setActive(i)}
-              className={`shrink-0 h-16 w-16 rounded-xl overflow-hidden border-2 transition ${i === active ? "border-primary" : "border-transparent hover:border-stone-300"}`}
+              className={`shrink-0 h-20 w-20 rounded-xl overflow-hidden border-2 transition ${i === active ? "border-primary" : "border-transparent hover:border-stone-300"}`}
             >
               <img
                 src={img}

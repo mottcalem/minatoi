@@ -2,9 +2,9 @@ export const SITE = {
   name: "MinaToi",
   tagline: "Cam Tablo Modelleri - Minatoi -Temperli cam duvar tabloları ve kişiye özel tasarımlar",
   // TODO: gerçek bilgilerle güncelleyin
-  whatsappNumber: "905308702060", // başında +/0 olmadan ülke kodu
+  whatsappNumber: "905400250008", // başında +/0 olmadan ülke kodu
   email: "info@minatoi.com",
-  phone: "+90 530 870 20 60",
+  phone: "0540 025 00 08",
   owner: "",
   companyType: "",
   taxOffice: "",

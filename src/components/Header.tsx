@@ -11,7 +11,7 @@ type StaticNavItem = { to: string; label: string };
 /** Açılır menü dışındaki sabit bağlantılar. */
 const NAV_ITEMS: StaticNavItem[] = [
   { to: "/kisiye-ozel", label: "Kişiye Özel" },
-  { to: "/patili-dosyalara-ozel", label: "Patili Dosyalara Özel" },
+  { to: "/patili-dostlara-ozel", label: "Patili Dostlara Özel" },
   { to: "/blog", label: "Blog" },
 ];
 
@@ -91,9 +91,12 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-stone-100 shadow-sm">
-      <div className="mx-auto flex max-w-7xl items-center gap-2 px-4 py-3">
+      <div className="relative mx-auto flex max-w-7xl items-center gap-2 px-4 py-3">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-3 shrink-0">
+        <Link
+          to="/"
+          className="absolute left-1/2 -translate-x-1/2 flex items-center gap-3 shrink-0 lg:static lg:translate-x-0"
+        >
           <img
             src="/images/logo-minatoi.jpg"
             alt="MinaToi — Handcrafted Leather Goods"
@@ -267,6 +270,18 @@ export function Header() {
       {open && (
         <div className="lg:hidden border-t border-stone-100 bg-white">
           <nav className="mx-auto flex max-w-7xl flex-col px-4 py-1" aria-label="Mobil menü">
+            <div className="grid grid-cols-2 gap-2 border-b border-stone-100 py-3">
+              {NAV_ITEMS.slice(0, 2).map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  onClick={() => setOpen(false)}
+                  className="rounded-xl bg-stone-900 px-3 py-3 text-center text-xs font-bold text-white"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
             <Link
               to="/"
               onClick={() => setOpen(false)}
@@ -297,7 +312,7 @@ export function Header() {
             >
               Tüm Ürünler →
             </Link>
-            {NAV_ITEMS.map((item) => (
+            {NAV_ITEMS.slice(2).map((item) => (
               <Link
                 key={item.to}
                 to={item.to}

@@ -55,29 +55,29 @@
   --card-foreground: oklch(0.18 0.01 50);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.18 0.01 50);
-  --primary: oklch(0.52 0.13 52);
+  --primary: oklch(0.23 0.008 60);
   --primary-foreground: oklch(0.99 0 0);
   --secondary: oklch(0.96 0.006 65);
   --secondary-foreground: oklch(0.25 0.01 50);
   --muted: oklch(0.96 0.006 65);
   --muted-foreground: oklch(0.52 0.012 58);
-  --accent: oklch(0.68 0.12 62);
+  --accent: oklch(0.36 0.01 60);
   --accent-foreground: oklch(0.14 0.01 50);
   --destructive: oklch(0.56 0.22 27);
   --destructive-foreground: oklch(0.99 0 0);
   --border: oklch(0.91 0.008 68);
   --input: oklch(0.95 0.006 68);
-  --ring: oklch(0.52 0.13 52);
+  --ring: oklch(0.23 0.008 60);
   --whatsapp: oklch(0.68 0.17 150);
   --whatsapp-foreground: oklch(0.99 0 0);
-  /* Gradient: sıcak krem → derin deri kahvesi */
+  /* Ana aksiyonlar: nötr antrasit */
   --gradient-hero: linear-gradient(
     150deg,
     oklch(0.995 0.002 75) 0%,
     oklch(0.975 0.018 72) 50%,
     oklch(0.94 0.04 62) 100%
   );
-  --gradient-gold: linear-gradient(135deg, oklch(0.52 0.14 50) 0%, oklch(0.38 0.12 44) 100%);
+  --gradient-gold: linear-gradient(135deg, oklch(0.17 0.006 60) 0%, oklch(0.3 0.008 60) 100%);
   --shadow-elegant:
     0 20px 54px -22px oklch(0.35 0.04 52 / 0.24), 0 6px 16px -8px oklch(0.35 0.04 52 / 0.14);
   --shadow-glow: 0 0 40px -10px oklch(0.52 0.13 52 / 0.28);

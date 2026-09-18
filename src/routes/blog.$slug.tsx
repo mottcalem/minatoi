@@ -262,7 +262,7 @@ function BlogDetail() {
                   </div>
                 </Link>
                 <Link
-                  to="/patili-dosyalara-ozel"
+                  to="/patili-dostlara-ozel"
                   className="group flex items-center gap-3 rounded-xl border border-stone-100 bg-white p-3 hover:shadow-sm transition"
                 >
                   <img

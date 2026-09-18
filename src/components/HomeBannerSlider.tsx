@@ -7,8 +7,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { type Banner } from "@/data/banners";
-import { Link } from "@tanstack/react-router";
-import { formatTL, type Product } from "@/data/products";
+import { type Product } from "@/data/products";
 
 export function HomeBannerSlider({ banners }: { banners: (Banner & { product?: Product })[] }) {
   const [api, setApi] = useState<CarouselApi>();
@@ -57,30 +56,29 @@ export function HomeBannerSlider({ banners }: { banners: (Banner & { product?: P
       className="relative min-w-0 w-full rounded-[2rem] bg-stone-100 shadow-elegant"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-
     >
       <div className="overflow-hidden rounded-[2rem]">
-      <CarouselContent className="ml-0">
-        {banners.map((banner, index) => (
-          <CarouselItem
-            key={banner.id}
-            className="pl-0"
-            aria-roledescription="slayt"
-            aria-label={`${index + 1} / ${banners.length}`}
-          >
-            <img
-              src={banner.image}
-              alt={banner.alt}
-              width={banner.width}
-              height={banner.height}
-              loading={index === 0 ? "eager" : "lazy"}
-              fetchPriority={index === 0 ? "high" : "auto"}
-              draggable={false}
-              className="block aspect-square max-h-[560px] w-full object-cover object-center"
-            />
-          </CarouselItem>
-        ))}
-      </CarouselContent>
+        <CarouselContent className="ml-0">
+          {banners.map((banner, index) => (
+            <CarouselItem
+              key={banner.id}
+              className="pl-0"
+              aria-roledescription="slayt"
+              aria-label={`${index + 1} / ${banners.length}`}
+            >
+              <img
+                src={banner.image}
+                alt={banner.alt}
+                width={banner.width}
+                height={banner.height}
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchPriority={index === 0 ? "high" : "auto"}
+                draggable={false}
+                className="block aspect-square max-h-[560px] w-full object-cover object-center"
+              />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
       </div>
       <button
         type="button"
@@ -100,13 +98,6 @@ export function HomeBannerSlider({ banners }: { banners: (Banner & { product?: P
       >
         <ChevronRight className="size-6" />
       </button>
-      {activeProduct && (
-        <Link to="/urun/$slug" params={{ slug: activeProduct.slug }} className="absolute -bottom-5 left-3 z-10 max-w-[75%] rounded-2xl bg-white px-5 py-3.5 shadow-elegant sm:-left-6">
-          <p className="text-xs text-stone-400">{activeProduct.badge ?? "Öne Çıkan"}</p>
-          <p className="mt-0.5 font-display text-sm font-bold text-stone-900">{activeProduct.name.split("—")[0].trim()}</p>
-          <p className="text-sm font-semibold text-primary">{formatTL(activeProduct.price)}</p>
-        </Link>
-      )}
     </Carousel>
   );
 }

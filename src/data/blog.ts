@@ -58,9 +58,9 @@ export const BLOG_POSTS: BlogPost[] = [
       <h2>Işık ve kadraj neden önemli?</h2>
       <p>Doğal gün ışığı tüy, göz ve yüz detaylarını dengeli şekilde gösterir. Çok karanlık ya da arkadan güçlü ışık alan fotoğraflar ayrıntıları kaybettirebilir. Kedinizin veya köpeğinizin yüzü kadrajın merkezinde, kulakları ve çenesi görünür durumdaysa tasarım ekibinin çalışması daha rahat olur.</p>
       <h2>Kostümlü mü, illüstrasyonlu mu?</h2>
-      <p>Onu eğlenceli bir karaktere dönüştürmek istiyorsanız kostümlü portre; daha yumuşak ve sanatsal bir görünüm için illüstrasyon portre uygundur. <a href="/patili-dosyalara-ozel">Patili Dostlara Özel</a> sayfasından her iki türü, ölçüyü ve tasarım stilini seçebilirsiniz.</p>
+      <p>Onu eğlenceli bir karaktere dönüştürmek istiyorsanız kostümlü portre; daha yumuşak ve sanatsal bir görünüm için illüstrasyon portre uygundur. <a href="/patili-dostlara-ozel">Patili Dostlara Özel</a> sayfasından her iki türü, ölçüyü ve tasarım stilini seçebilirsiniz.</p>
       <h2>Hatırayı evinizin en güzel köşesine taşıyın</h2>
-      <p>Özel bir patili dost portresi, yaşam alanında her gün sizi gülümsetecek kişisel bir detay olur. Tasarım türü ve ölçü seçiminizi <a href="/patili-dosyalara-ozel">Patili Dostlara Özel</a> sayfamızdan kolayca belirleyebilirsiniz.</p>
+      <p>Özel bir patili dost portresi, yaşam alanında her gün sizi gülümsetecek kişisel bir detay olur. Tasarım türü ve ölçü seçiminizi <a href="/patili-dostlara-ozel">Patili Dostlara Özel</a> sayfamızdan kolayca belirleyebilirsiniz.</p>
     `,
   },
   {
@@ -83,7 +83,7 @@ export const BLOG_POSTS: BlogPost[] = [
       <p>Minimal ve zamansız detayları sevenler için doğrudan bası; sanatla bağ kuranlar için ise illüstrasyonlu tasarım daha doğru bir seçim olabilir. Evcil hayvan sahipleri için patili dostlarının portresi ise her gün gülümsetecek kişisel bir alternatiftir.</p>
       <h2>Hediyeyi kişiselleştirin</h2>
       <p>Hediye sahibinin sevdiği bir anı, mekân veya patili dostunun fotoğrafı tasarımın merkezine yerleştiğinde ortaya yalnızca ona ait bir çalışma çıkar. Seçtiğiniz kareyi tasarım ekibimizle paylaşarak süreci kolayca başlatabilirsiniz.</p>
-      <p>Kişiye özel cam tablo ve portre seçeneklerini <a href="/kisiye-ozel">Kişiye Özel</a> ya da <a href="/patili-dosyalara-ozel">Patili Dostlara Özel</a> sayfalarımızdan başlatabilirsiniz.</p>
+      <p>Kişiye özel cam tablo ve portre seçeneklerini <a href="/kisiye-ozel">Kişiye Özel</a> ya da <a href="/patili-dostlara-ozel">Patili Dostlara Özel</a> sayfalarımızdan başlatabilirsiniz.</p>
     `,
   },
 ];

@@ -76,6 +76,17 @@ function Index() {
   const { products, banners, categories, hero, about } = Route.useLoaderData();
   const featuredProducts = products.filter((product) => product.featured);
   const kiliflar = products.filter((p) => p.category === "kilif");
+  const artistSlugs = [
+    "egon-schiele-figur-cam-tablo-st106",
+    "mondrian-ressamlar-cam-tablo-st112",
+    "modigliani-ressamlar-cam-tablo-st104",
+    "gustav-klimt-ressamlar-cam-tablo-st109",
+    "yayoi-kusama-i-lhami-lotus-cam-tablo-st101",
+    "yayoi-kusama-i-lhami-cam-tablo-st103",
+  ];
+  const artistProducts = artistSlugs
+    .map((slug) => products.find((product) => product.slug === slug))
+    .filter((product): product is (typeof products)[number] => Boolean(product));
   const sliderProducts = [...products]
     .sort((a, b) => Number(!!b.featured) - Number(!!a.featured))
     .slice(0, 5);
@@ -160,7 +171,9 @@ function Index() {
             )}
           </div>
 
-          <HomeBannerSlider banners={heroSlides} />
+          <div className="hidden lg:block">
+            <HomeBannerSlider banners={heroSlides} />
+          </div>
         </div>
       </section>
       <CategoryCarousel
@@ -168,6 +181,53 @@ function Index() {
           ...category,
           image: categoryImage(category.slug, category.image),
         }))}
+      />
+      <section className="mx-auto max-w-7xl px-4 pb-8" aria-label="Özel koleksiyonlar">
+        <CollectionHeading
+          title="Patili Dostlar"
+          description="Onun karakterini taşıyan kişiye özel portreler"
+        />
+        <div className="grid gap-4 sm:grid-cols-2">
+          <FeatureCollection
+            href="/patili-dostlara-ozel"
+            title="Kostümlü Portreler"
+            text="Eğlenceli ve karakter dolu tasarımlar"
+            image="/images/patili-ornek-1.jpg"
+          />
+          <FeatureCollection
+            href="/patili-dostlara-ozel"
+            search={{ tab: "illustration" }}
+            title="Pati İllüstrasyonları"
+            text="Karakalem, sulu boya ve yağlı boya"
+            image="/images/patili-ornek-2.jpg"
+          />
+        </div>
+        <CollectionHeading
+          title="Kişiye Özel"
+          description="Fotoğrafınızdan hazırlanan, yalnızca size ait tablolar"
+        />
+        <div className="grid gap-4 sm:grid-cols-2">
+          <FeatureCollection
+            href="/kisiye-ozel"
+            title="Doğrudan Baskı"
+            text="Fotoğrafınızın doğal görünümüyle"
+            image="/images/kisiye-ozel-ornek.jpg"
+          />
+          <FeatureCollection
+            href="/kisiye-ozel"
+            title="Kişiye Özel İllüstrasyon"
+            text="Anınızı sanat stilinde yeniden yorumlayın"
+            image="/images/patili-ornek-3.jpg"
+          />
+        </div>
+      </section>
+      <ProductCarousel
+        products={artistProducts}
+        eyebrow="Sanatçılar"
+        title="Sanatçının Albümü"
+        description="Seçili eserleri inceleyin."
+        viewAllSlug="sanatci-albumu"
+        slidesClassName="basis-[72%] pl-4 sm:basis-1/2 lg:basis-1/4"
       />
       <ProductCarousel
         products={featuredProducts}
@@ -210,6 +270,50 @@ function Index() {
         </div>
       </section>
     </>
+  );
+}
+
+function FeatureCollection({
+  href,
+  search,
+  title,
+  text,
+  image,
+}: {
+  href: "/patili-dostlara-ozel" | "/kisiye-ozel" | "/urunler";
+  search?: { tab: "illustration" };
+  title: string;
+  text: string;
+  image: string;
+}) {
+  return (
+    <Link
+      to={href}
+      search={search}
+      className="group relative aspect-square overflow-hidden rounded-2xl bg-stone-900"
+    >
+      <img
+        src={image}
+        alt=""
+        className="h-full w-full object-cover opacity-80 transition duration-500 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 p-6 text-white">
+        <h2 className="font-display text-2xl font-bold">{title}</h2>
+        <p className="mt-1 text-sm text-white/80">{text}</p>
+        <span className="mt-3 inline-block text-sm font-semibold">Keşfet →</span>
+      </div>
+    </Link>
+  );
+}
+
+function CollectionHeading({ title, description }: { title: string; description: string }) {
+  return (
+    <div className="mb-5 mt-14 first:mt-0">
+      <p className="text-xs font-semibold uppercase tracking-widest text-primary">Koleksiyon</p>
+      <h2 className="mt-1 font-display text-3xl font-bold text-stone-900">{title}</h2>
+      <p className="mt-1 text-sm text-stone-500">{description}</p>
+    </div>
   );
 }
 

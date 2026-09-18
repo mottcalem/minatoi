@@ -6,7 +6,11 @@ export type { Product, Category };
 export const fetchProductsServer = createServerFn({ method: "GET" }).handler(
   async (): Promise<Product[]> => {
     const { readProducts } = await import("../../server/utils/productStore");
-    return (await readProducts()).filter((product) => product.category !== "cuzdan");
+    const { CUSTOM_PRODUCTS } = await import("./customProducts");
+    return [
+      ...(await readProducts()).filter((product) => product.category !== "cuzdan"),
+      ...CUSTOM_PRODUCTS,
+    ];
   },
 );
 

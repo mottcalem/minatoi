@@ -17,6 +17,7 @@ type ProductCarouselProps = {
   description?: string;
   /** Category slug for the "Tümünü Gör" link; omit to hide the link. */
   viewAllSlug?: string;
+  slidesClassName?: string;
 };
 
 export function ProductCarousel({
@@ -25,6 +26,7 @@ export function ProductCarousel({
   title,
   description,
   viewAllSlug,
+  slidesClassName = "basis-[85%] pl-4 sm:basis-1/2 lg:basis-1/3",
 }: ProductCarouselProps) {
   const [api, setApi] = useState<CarouselApi>();
   const [scrollable, setScrollable] = useState(false);
@@ -149,7 +151,7 @@ export function ProductCarousel({
             {slides.map((product, index) => (
               <CarouselItem
                 key={`${product.slug}-${index}`}
-                className="basis-[85%] pl-4 sm:basis-1/2 lg:basis-1/3"
+                className={slidesClassName}
                 aria-roledescription="slayt"
                 aria-label={`${(index % products.length) + 1} / ${products.length}`}
               >
