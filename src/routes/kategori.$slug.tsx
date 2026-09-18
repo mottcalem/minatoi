@@ -2,6 +2,7 @@ import { productInCategory } from "@/data/productCategories";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { fetchProductsServer } from "@/data/adminProducts";
 import { getCategories } from "@/data/categoryActions";
+import { mixProducts } from "@/data/productOrder";
 import { ProductCard } from "@/components/ProductCard";
 
 export const Route = createFileRoute("/kategori/$slug")({
@@ -17,7 +18,7 @@ export const Route = createFileRoute("/kategori/$slug")({
     const cat = categories.find((c) => c.slug === params.slug);
     if (!cat) throw notFound();
     const all = await fetchProductsServer();
-    const products = [...all].reverse().filter((p) => productInCategory(p, params.slug));
+    const products = mixProducts(all.filter((p) => productInCategory(p, params.slug)));
     return { cat, categories, products };
   },
   notFoundComponent: () => (

@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { getCategories } from "@/data/categoryActions";
 import { fetchProductsServer } from "@/data/adminProducts";
+import { mixProducts } from "@/data/productOrder";
 import { ProductCard } from "@/components/ProductCard";
 
 export const Route = createFileRoute("/urunler")({
@@ -31,7 +32,7 @@ export const Route = createFileRoute("/urunler")({
   }),
   loader: async () => {
     const [all, categories] = await Promise.all([fetchProductsServer(), getCategories()]);
-    const products = [...all].reverse();
+    const products = mixProducts(all);
     return { products, categories };
   },
   component: AllProducts,
