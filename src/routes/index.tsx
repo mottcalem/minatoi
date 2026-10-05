@@ -1,3 +1,9 @@
+import { productInCategory } from "@/data/productCategories";
+import { isCustomProduct } from "@/data/customProducts";
+import type { Product } from "@/data/products";
+import { ArtistAlbum } from "@/components/ArtistAlbum";
+import { ARTISTS, artistCollections } from "@/data/artists";
+import { visibleCategories, type CategoryRecord } from "@/data/categories";
 import { CategoryCarousel } from "@/components/CategoryCarousel";
 import { getBanners } from "@/data/bannerActions";
 import { getHeroContent } from "@/data/heroActions";
@@ -14,14 +20,36 @@ import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { HomeBannerSlider } from "@/components/HomeBannerSlider";
 
-/** Bilinen kategorilerin varsayılan karusel görselleri; yüklenmiş görsel yoksa kullanılır. */
+/** Ürünü olmayan koleksiyonlar için yedek görseller. */
 const CATEGORY_IMAGES: Record<string, string> = {
   kilif: casesImg,
   gozluk: glassesImg,
+  ressamlar: ARTISTS[0].works[0].image,
 };
 
-function categoryImage(slug: string, uploaded?: string): string {
-  return uploaded ?? CATEGORY_IMAGES[slug] ?? craftImg;
+/** Her kart kendi koleksiyonundan bir ürün gösterir; aynı fotoğrafın tekrarını azaltır. */
+function categoryCovers(categories: CategoryRecord[], products: Product[]) {
+  const usedImages = new Set<string>();
+  return categories.map((category) => {
+    const candidates = products
+      .filter(
+        (product) =>
+          productInCategory(product, category.slug) ||
+          (category.slug === "patili-dostalara-ozel" &&
+            isCustomProduct(product) &&
+            product.customization.group === "pet"),
+      )
+      .sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
+    const representative =
+      candidates.find((product) => product.image && !usedImages.has(product.image)) ??
+      candidates.find((product) => product.image);
+    const image =
+      category.slug === "ressamlar"
+        ? ARTISTS[0].works[0].image
+        : (representative?.image ?? category.image ?? CATEGORY_IMAGES[category.slug] ?? craftImg);
+    usedImages.add(image);
+    return { ...category, image };
+  });
 }
 
 export const Route = createFileRoute("/")({
@@ -76,17 +104,7 @@ function Index() {
   const { products, banners, categories, hero, about } = Route.useLoaderData();
   const featuredProducts = products.filter((product) => product.featured);
   const kiliflar = products.filter((p) => p.category === "kilif");
-  const artistSlugs = [
-    "egon-schiele-figur-cam-tablo-st106",
-    "mondrian-ressamlar-cam-tablo-st112",
-    "modigliani-ressamlar-cam-tablo-st104",
-    "gustav-klimt-ressamlar-cam-tablo-st109",
-    "yayoi-kusama-i-lhami-lotus-cam-tablo-st101",
-    "yayoi-kusama-i-lhami-cam-tablo-st103",
-  ];
-  const artistProducts = artistSlugs
-    .map((slug) => products.find((product) => product.slug === slug))
-    .filter((product): product is (typeof products)[number] => Boolean(product));
+  const artists = artistCollections(categories, products);
   const sliderProducts = [...products]
     .sort((a, b) => Number(!!b.featured) - Number(!!a.featured))
     .slice(0, 5);
@@ -160,9 +178,12 @@ function Index() {
               </WhatsAppButton>
             </div>
             {hero.stats.length > 0 && (
-              <dl className="mt-10 grid grid-cols-3 gap-3 border-t border-stone-100 pt-8">
+              <dl className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-3 border-t border-stone-100 pt-8">
+                <div className="sm:hidden text-center text-xs text-stone-600">
+                  {hero.stats.map(({ label, value }) => `${label} ${value}`).join(" · ")}
+                </div>
                 {hero.stats.map(({ label, value }) => (
-                  <div key={label} className="text-center sm:text-left">
+                  <div key={label} className="hidden sm:block text-center sm:text-left">
                     <dt className="text-xs text-stone-400">{label}</dt>
                     <dd className="font-display text-sm font-bold text-stone-800">{value}</dd>
                   </div>
@@ -176,12 +197,7 @@ function Index() {
           </div>
         </div>
       </section>
-      <CategoryCarousel
-        categories={categories.map((category) => ({
-          ...category,
-          image: categoryImage(category.slug, category.image),
-        }))}
-      />
+      <CategoryCarousel categories={categoryCovers(visibleCategories(categories), products)} />
       <section className="mx-auto max-w-7xl px-4 pb-8" aria-label="Özel koleksiyonlar">
         <CollectionHeading
           title="Patili Dostlar"
@@ -215,20 +231,14 @@ function Index() {
           />
           <FeatureCollection
             href="/kisiye-ozel"
+            search={{ tab: "illustration" }}
             title="Kişiye Özel İllüstrasyon"
             text="Anınızı sanat stilinde yeniden yorumlayın"
             image="/images/patili-ornek-3.jpg"
           />
         </div>
       </section>
-      <ProductCarousel
-        products={artistProducts}
-        eyebrow="Sanatçılar"
-        title="Sanatçının Albümü"
-        description="Seçili eserleri inceleyin."
-        viewAllSlug="sanatci-albumu"
-        slidesClassName="basis-[72%] pl-4 sm:basis-1/2 lg:basis-1/4"
-      />
+      <ArtistAlbum artists={artists} />
       <ProductCarousel
         products={featuredProducts}
         eyebrow="Seçtiklerimiz"

@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import type { CategoryRecord } from "./categories";
+import { ARTISTS } from "./artists";
+import { normalizeCategories, type CategoryRecord } from "./categories";
 
 export type { CategoryRecord };
 
@@ -32,7 +33,17 @@ const saveSchema = z.object({
 export const getCategories = createServerFn({ method: "GET" }).handler(
   async (): Promise<CategoryRecord[]> => {
     const { readCategories } = await import("../../server/utils/categoryStore");
-    return (await readCategories()).filter((category) => category.slug !== "cuzdan");
+    const categories = normalizeCategories(await readCategories());
+    return [
+      ...categories,
+      ...ARTISTS.filter(
+        (artist) => !categories.some((category) => category.slug === artist.slug),
+      ).map((artist) => ({
+        slug: artist.slug,
+        label: artist.name,
+        description: artist.biography ?? "",
+      })),
+    ];
   },
 );
 

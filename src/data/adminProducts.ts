@@ -8,7 +8,11 @@ export const fetchProductsServer = createServerFn({ method: "GET" }).handler(
     const { readProducts } = await import("../../server/utils/productStore");
     const { CUSTOM_PRODUCTS } = await import("./customProducts");
     return [
-      ...(await readProducts()).filter((product) => product.category !== "cuzdan"),
+      ...(await readProducts())
+        .filter((product) => product.category !== "cuzdan")
+        .map((product) =>
+          product.category === "sanatci-albumu" ? { ...product, category: "ressamlar" } : product,
+        ),
       ...CUSTOM_PRODUCTS,
     ];
   },

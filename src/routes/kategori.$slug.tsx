@@ -1,3 +1,8 @@
+import type { Product } from "@/data/products";
+import { ArtistGallery } from "@/components/ArtistGallery";
+import { ArtistCard } from "@/components/ArtistAlbum";
+import { ARTISTS, artistCollections, type ArtistCollection } from "@/data/artists";
+import { visibleCategories, type CategoryRecord } from "@/data/categories";
 import { productInCategory } from "@/data/productCategories";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { fetchProductsServer } from "@/data/adminProducts";
@@ -8,18 +13,36 @@ import { ProductCard } from "@/components/ProductCard";
 export const Route = createFileRoute("/kategori/$slug")({
   head: ({ params }) => {
     const canonical = `https://minatoi.ugurdogan.net/kategori/${params.slug}`;
+    const artist = ARTISTS.find((item) => item.slug === params.slug);
+    const label = artist?.name ?? (params.slug === "ressamlar" ? "Ressamlar" : params.slug);
     return {
-      meta: [{ title: `${params.slug} — MinaToi` }, { name: "robots", content: "index, follow" }],
+      meta: [{ title: `${label} — MinaToi` }, { name: "robots", content: "index, follow" }],
       links: [{ rel: "canonical", href: canonical }],
     };
   },
-  loader: async ({ params }) => {
+  loader: async ({
+    params,
+  }): Promise<{
+    cat: CategoryRecord;
+    categories: CategoryRecord[];
+    products: Product[];
+    artists: ArtistCollection[];
+    artist: ArtistCollection | undefined;
+  }> => {
     const categories = await getCategories();
-    const cat = categories.find((c) => c.slug === params.slug);
+    const categorySlug = params.slug === "sanatci-albumu" ? "ressamlar" : params.slug;
+    const cat = categories.find((c) => c.slug === categorySlug);
     if (!cat) throw notFound();
     const all = await fetchProductsServer();
-    const products = mixProducts(all.filter((p) => productInCategory(p, params.slug)));
-    return { cat, categories, products };
+    const products = mixProducts(all.filter((p) => productInCategory(p, categorySlug)));
+    const artists = artistCollections(categories, all);
+    return {
+      cat,
+      categories,
+      products,
+      artists,
+      artist: artists.find((artist) => artist.slug === categorySlug),
+    };
   },
   notFoundComponent: () => (
     <div className="mx-auto max-w-3xl px-4 py-20 text-center">
@@ -33,7 +56,9 @@ export const Route = createFileRoute("/kategori/$slug")({
 });
 
 function CategoryPage() {
-  const { cat, categories, products } = Route.useLoaderData();
+  const { cat, categories, products, artists, artist } = Route.useLoaderData();
+
+  if (artist) return <ArtistGallery key={artist.slug} artist={artist} />;
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-12">
@@ -57,7 +82,7 @@ function CategoryPage() {
           >
             Tümü
           </Link>
-          {categories
+          {visibleCategories(categories)
             .filter((c) => c.slug !== cat.slug)
             .map((c) => (
               <Link
@@ -71,13 +96,32 @@ function CategoryPage() {
             ))}
         </div>
       </header>
-      {products.length === 0 ? (
+      {cat.slug === "ressamlar" && artists.length > 0 && (
+        <div className="mb-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {artists.map((artist) => (
+            <ArtistCard key={artist.slug} artist={artist} />
+          ))}
+        </div>
+      )}
+      {products.length === 0 && !(cat.slug === "ressamlar" && artists.length > 0) ? (
         <div className="py-20 text-center text-stone-400">Bu kategoride henüz ürün eklenmemiş.</div>
       ) : (
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {products.map((p) => (
-            <ProductCard key={p.slug} product={p} />
-          ))}
+        <div>
+          {cat.slug === "ressamlar" &&
+            products.some((product) => !product.category.startsWith("ressam-")) && (
+              <h2 className="mb-5 font-display text-2xl font-bold text-stone-900">
+                Diğer seçili eserler
+              </h2>
+            )}
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {products
+              .filter(
+                (product) => cat.slug !== "ressamlar" || !product.category.startsWith("ressam-"),
+              )
+              .map((p) => (
+                <ProductCard key={p.slug} product={p} />
+              ))}
+          </div>
         </div>
       )}
     </section>

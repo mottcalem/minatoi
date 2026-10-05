@@ -28,6 +28,7 @@ export function CategoryManager({ onSaved }: { onSaved?: () => void }) {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const [newLabel, setNewLabel] = useState("");
+  const [newArtist, setNewArtist] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -69,7 +70,8 @@ export function CategoryManager({ onSaved }: { onSaved?: () => void }) {
   function handleAdd() {
     const label = newLabel.trim();
     if (!label) return;
-    const slug = generateCategorySlug(label);
+    const baseSlug = generateCategorySlug(label);
+    const slug = newArtist && baseSlug ? `ressam-${baseSlug}` : baseSlug;
     if (!slug) {
       setIsError(true);
       setMessage("Geçerli bir kategori adı girin.");
@@ -148,6 +150,20 @@ export function CategoryManager({ onSaved }: { onSaved?: () => void }) {
         sırasıdır. Görsel yükledikten sonra değişiklikleri kaydedin; görsel yoksa anasayfa
         karuselinde varsayılan görsel kullanılır. En fazla 30 kategori.
       </p>
+      <p className="mt-2 text-sm text-stone-500">
+        Sanatçı koleksiyonu eklemek için aşağıdaki seçeneği işaretleyin. Açıklama alanı kısa
+        biyografidir. Ürünleri sanatçının kategorisine atayın; öne çıkan ilk eser kapak olur. Üretim
+        bilgisini ürünün kısa açıklamasına, adet bilgisini etikete (ör. Sadece 10 adet) yazın. Her
+        eserin ve ölçünün fiyatı ürün formundan ayrı belirlenir.
+      </p>
+      <label className="mt-4 flex items-center gap-2 text-sm">
+        <input
+          type="checkbox"
+          checked={newArtist}
+          onChange={(event) => setNewArtist(event.target.checked)}
+        />
+        Yeni kategori bir sanatçı koleksiyonu
+      </label>
       <fieldset disabled={!ready || busy} className="mt-4 space-y-3 disabled:opacity-60">
         <ol className="space-y-2">
           {items.map((item, index) => (

@@ -1,15 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import {
-  Check,
-  ChevronRight,
-  ImagePlus,
-  Palette,
-  Printer,
-  ShieldCheck,
-  Sparkles,
-  Upload,
-  X,
-} from "lucide-react";
+import { Check, ChevronRight, ImagePlus, ShieldCheck, Sparkles, Upload, X } from "lucide-react";
 import { useEffect, useId, useMemo, useState, type ReactNode } from "react";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ProductCard } from "@/components/ProductCard";
@@ -26,6 +16,9 @@ export const Route = createFileRoute("/kisiye-ozel")({
           "Fotoğrafınızı doğrudan bası veya illüstrasyon tasarıma dönüştürün. Size özel MinaToi tasarımınızı kolayca oluşturun.",
       },
     ],
+  }),
+  validateSearch: (search: Record<string, unknown>): { tab?: DesignKind } => ({
+    tab: search.tab === "illustration" ? "illustration" : "print",
   }),
   component: KisiyeOzel,
 });
@@ -109,7 +102,9 @@ const ILLUSTRATION_PRINT_EXAMPLES = [
 type DesignKind = "print" | "illustration";
 
 function KisiyeOzel() {
-  const [kind, setKind] = useState<DesignKind>("print");
+  const { tab } = Route.useSearch();
+  const [kind, setKind] = useState<DesignKind>(tab ?? "print");
+  useEffect(() => setKind(tab ?? "print"), [tab]);
   const [size, setSize] = useState(SIZES[0]);
   const [orientation, setOrientation] = useState("Dikey");
   const [style, setStyle] = useState(STYLES[0]);
@@ -171,14 +166,12 @@ function KisiyeOzel() {
         <div className="mx-auto mt-10 grid max-w-4xl gap-4 md:grid-cols-2" role="tablist">
           <DesignChoice
             active={kind === "print"}
-            icon={<Printer />}
             title="Doğrudan Bası"
             text="Fotoğrafınızın doğal görünümünü koruyan, net ve canlı baskı."
             onClick={() => setKind("print")}
           />
           <DesignChoice
             active={kind === "illustration"}
-            icon={<Palette />}
             title="İllüstrasyon Tasarım"
             text="Fotoğrafınızı seçtiğiniz sanat stiliyle özel bir illüstrasyona dönüştürelim."
             onClick={() => setKind("illustration")}
@@ -399,13 +392,11 @@ function Feature({ icon, text }: { icon: ReactNode; text: string }) {
 }
 function DesignChoice({
   active,
-  icon,
   title,
   text,
   onClick,
 }: {
   active: boolean;
-  icon: ReactNode;
   title: string;
   text: string;
   onClick: () => void;
@@ -416,14 +407,13 @@ function DesignChoice({
       role="tab"
       aria-selected={active}
       onClick={onClick}
-      className={`rounded-3xl border p-6 text-left transition ${active ? "border-primary bg-primary text-primary-foreground shadow-glow" : "border-stone-200 bg-white hover:border-primary/50"}`}
+      className={`rounded-2xl border p-4 text-left transition ${active ? "border-primary bg-primary text-primary-foreground shadow-glow" : "border-stone-200 bg-white hover:border-primary/50"}`}
     >
-      <span className={active ? "text-amber-200" : "text-primary"}>{icon}</span>
-      <h3 className="mt-4 font-display text-2xl font-bold">{title}</h3>
+      <h3 className="font-display text-xl font-bold">{title}</h3>
       <p className={`mt-2 text-sm leading-6 ${active ? "text-white/80" : "text-muted-foreground"}`}>
         {text}
       </p>
-      <span className="mt-5 flex items-center gap-1 text-sm font-semibold">
+      <span className="mt-3 flex items-center gap-1 text-sm font-semibold">
         Seç <ChevronRight className="h-4 w-4" />
       </span>
     </button>

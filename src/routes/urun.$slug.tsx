@@ -100,7 +100,7 @@ function ProductDetailRoute() {
 }
 
 function ProductDetail() {
-  const { add, ready, promotions } = useCart();
+  const { add, ready } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
   const [upload, setUpload] = useState<File | null>(null);
@@ -193,26 +193,20 @@ function ProductDetail() {
           )}
 
           <div className="mt-5 flex items-baseline gap-3">
-            {promotions.showOldPrices &&
-              selectedPrice.oldPrice &&
-              selectedPrice.oldPrice > selectedPrice.price && (
-                <>
-                  <span className="text-base text-muted-foreground line-through">
-                    {formatTL(selectedPrice.oldPrice)}
-                  </span>
-                  <span className="font-display text-3xl font-bold text-primary">
-                    {formatTL(selectedPrice.price)}
-                  </span>
-                  <span className="rounded-full bg-accent/20 px-2 py-0.5 text-xs font-semibold text-accent">
-                    %{Math.round((1 - selectedPrice.price / selectedPrice.oldPrice) * 100)} indirim
-                  </span>
-                </>
-              )}
-            {!(
-              promotions.showOldPrices &&
-              selectedPrice.oldPrice &&
-              selectedPrice.oldPrice > selectedPrice.price
-            ) && (
+            {selectedPrice.oldPrice && selectedPrice.oldPrice > selectedPrice.price && (
+              <>
+                <span className="text-base text-muted-foreground line-through">
+                  {formatTL(selectedPrice.oldPrice)}
+                </span>
+                <span className="font-display text-3xl font-bold text-primary">
+                  {formatTL(selectedPrice.price)}
+                </span>
+                <span className="rounded-full bg-accent/20 px-2 py-0.5 text-xs font-semibold text-accent">
+                  %{Math.round((1 - selectedPrice.price / selectedPrice.oldPrice) * 100)} indirim
+                </span>
+              </>
+            )}
+            {!(selectedPrice.oldPrice && selectedPrice.oldPrice > selectedPrice.price) && (
               <span className="font-display text-3xl font-bold text-primary">
                 {formatTL(selectedPrice.price)}
               </span>
@@ -368,11 +362,17 @@ function ProductDetail() {
 
           {/* Trust */}
           {hero.stats.length > 0 && (
-            <div className="mt-5 grid grid-cols-3 gap-3 text-center text-xs">
+            <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3 text-center text-xs">
+              <div className="sm:hidden rounded-xl border border-stone-100 bg-white p-3 text-stone-600 shadow-sm">
+                {hero.stats
+                  .slice(0, 3)
+                  .map((stat) => `${stat.label} ${stat.value}`)
+                  .join(" · ")}
+              </div>
               {hero.stats.slice(0, 3).map((stat, index) => (
                 <div
                   key={`${stat.label}-${index}`}
-                  className="rounded-xl border border-stone-100 bg-white p-3 shadow-sm"
+                  className="hidden sm:block rounded-xl border border-stone-100 bg-white p-3 shadow-sm"
                 >
                   <div className="text-lg">{["🚚", "🛡️", "💵"][index]}</div>
                   <div className="mt-1 font-semibold text-stone-800">{stat.label}</div>

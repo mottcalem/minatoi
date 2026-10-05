@@ -4,7 +4,7 @@ import { CartLink } from "./CartProvider";
 import { Link, useMatchRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { getCategories } from "@/data/categoryActions";
-import { DEFAULT_CATEGORIES, type CategoryRecord } from "@/data/categories";
+import { DEFAULT_CATEGORIES, visibleCategories, type CategoryRecord } from "@/data/categories";
 
 type StaticNavItem = { to: string; label: string };
 
@@ -41,6 +41,7 @@ export function Header() {
   const [categories, setCategories] = useState<CategoryRecord[]>(DEFAULT_CATEGORIES);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const triggerPointerType = useRef("");
   /** Fare butondan panele geçerken aradaki boşlukta ani kapanmayı önler. */
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const matchRoute = useMatchRoute();
@@ -52,7 +53,7 @@ export function Header() {
     let active = true;
     getCategories()
       .then((data) => {
-        if (active) setCategories(data);
+        if (active) setCategories(visibleCategories(data));
       })
       .catch(() => {
         /* varsayılan liste kalır */
@@ -93,16 +94,13 @@ export function Header() {
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-stone-100 shadow-sm">
       <div className="relative mx-auto flex max-w-7xl items-center gap-2 px-4 py-3">
         {/* Logo */}
-        <Link
-          to="/"
-          className="absolute left-1/2 -translate-x-1/2 flex items-center gap-3 shrink-0 lg:static lg:translate-x-0"
-        >
+        <Link to="/" className="flex min-w-0 flex-1 items-center gap-3 lg:flex-none">
           <img
             src="/images/logo-minatoi.jpg"
             alt="MinaToi — Handcrafted Leather Goods"
             width={600}
             height={155}
-            className="h-auto w-28 object-contain min-[375px]:w-36 sm:w-48"
+            className="h-auto w-28 max-w-full object-contain min-[375px]:w-36 sm:w-48"
           />
         </Link>
 
@@ -122,21 +120,31 @@ export function Header() {
           <div
             ref={dropdownRef}
             className="relative"
-            onMouseEnter={() => {
+            onPointerEnter={(event) => {
+              if (event.pointerType !== "mouse") return;
               if (closeTimer.current) {
                 clearTimeout(closeTimer.current);
                 closeTimer.current = null;
               }
               setDropdownOpen(true);
             }}
-            onMouseLeave={() => {
+            onPointerLeave={(event) => {
+              if (event.pointerType !== "mouse") return;
               if (closeTimer.current) clearTimeout(closeTimer.current);
               closeTimer.current = setTimeout(() => setDropdownOpen(false), 150);
             }}
           >
             <button
               type="button"
-              onClick={() => setDropdownOpen((o) => !o)}
+              onPointerDown={(event) => {
+                triggerPointerType.current = event.pointerType;
+              }}
+              onClick={(event) => {
+                if (closeTimer.current) clearTimeout(closeTimer.current);
+                if (event.detail > 0 && triggerPointerType.current === "mouse")
+                  setDropdownOpen(true);
+                else setDropdownOpen((o) => !o);
+              }}
               aria-expanded={dropdownOpen}
               aria-haspopup="true"
               className={`${linkBase} flex cursor-pointer items-center gap-1 ${

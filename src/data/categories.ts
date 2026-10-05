@@ -7,7 +7,33 @@ export type CategoryRecord = {
   image?: string;
 };
 
+export const PAINTERS_CATEGORY: CategoryRecord = {
+  slug: "ressamlar",
+  label: "Ressamlar",
+  description: "Sanatçıların seçili eserlerinden cam tablo koleksiyonları",
+};
+
+export function isArtistCategory(category: { slug: string }) {
+  return category.slug.startsWith("ressam-");
+}
+
+export function visibleCategories(categories: CategoryRecord[]) {
+  return categories.filter((category) => !isArtistCategory(category));
+}
+
+export function normalizeCategories(categories: CategoryRecord[]) {
+  const filtered = categories.filter(
+    (category) =>
+      !["cuzdan", "genel", "sanatci-albumu"].includes(category.slug) &&
+      category.label.trim().toLocaleLowerCase("tr-TR") !== "genel",
+  );
+  return filtered.some((category) => category.slug === "ressamlar")
+    ? filtered
+    : [...filtered, PAINTERS_CATEGORY];
+}
+
 export const DEFAULT_CATEGORIES: CategoryRecord[] = [
+  PAINTERS_CATEGORY,
   { slug: "kilif", label: "Gözlük Kılıfı", description: "Tam deri, el yapımı gözlük kılıfları" },
   {
     slug: "gozluk",

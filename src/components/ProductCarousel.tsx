@@ -1,3 +1,4 @@
+import type { CategoryRecord } from "@/data/categories";
 import { useEffect, useId, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -12,6 +13,7 @@ import { type Product } from "@/data/products";
 
 type ProductCarouselProps = {
   products: Product[];
+  artists?: CategoryRecord[];
   eyebrow: string;
   title: string;
   description?: string;
@@ -22,6 +24,7 @@ type ProductCarouselProps = {
 
 export function ProductCarousel({
   products,
+  artists,
   eyebrow,
   title,
   description,
@@ -155,7 +158,10 @@ export function ProductCarousel({
                 aria-roledescription="slayt"
                 aria-label={`${(index % products.length) + 1} / ${products.length}`}
               >
-                <ProductCard product={product} />
+                <ProductCard
+                  product={product}
+                  artist={artists?.find((artist) => artist.slug === product.category)}
+                />
               </CarouselItem>
             ))}
           </CarouselContent>
