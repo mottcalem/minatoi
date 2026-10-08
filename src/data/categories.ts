@@ -13,27 +13,39 @@ export const PAINTERS_CATEGORY: CategoryRecord = {
   description: "Sanatçıların seçili eserlerinden cam tablo koleksiyonları",
 };
 
+export const ARTIST_ALBUM_CATEGORY: CategoryRecord = {
+  slug: "sanatci-albumu",
+  label: "Sanatçının Albümü",
+  description: "Bir sanatçı seçin, eserlerinden oluşan albümünü keşfedin.",
+};
+
 export function isArtistCategory(category: { slug: string }) {
   return category.slug.startsWith("ressam-");
 }
 
 export function visibleCategories(categories: CategoryRecord[]) {
-  return categories.filter((category) => !isArtistCategory(category));
+  const visible = categories.filter((category) => !isArtistCategory(category));
+  return visible.some((category) => category.slug === ARTIST_ALBUM_CATEGORY.slug)
+    ? visible
+    : [...visible, ARTIST_ALBUM_CATEGORY];
 }
 
 export function normalizeCategories(categories: CategoryRecord[]) {
   const filtered = categories.filter(
     (category) =>
-      !["cuzdan", "genel", "sanatci-albumu"].includes(category.slug) &&
+      !["cuzdan", "genel"].includes(category.slug) &&
       category.label.trim().toLocaleLowerCase("tr-TR") !== "genel",
   );
-  return filtered.some((category) => category.slug === "ressamlar")
-    ? filtered
-    : [...filtered, PAINTERS_CATEGORY];
+  return [PAINTERS_CATEGORY, ARTIST_ALBUM_CATEGORY].reduce(
+    (items, category) =>
+      items.some((item) => item.slug === category.slug) ? items : [...items, category],
+    filtered,
+  );
 }
 
 export const DEFAULT_CATEGORIES: CategoryRecord[] = [
   PAINTERS_CATEGORY,
+  ARTIST_ALBUM_CATEGORY,
   { slug: "kilif", label: "Gözlük Kılıfı", description: "Tam deri, el yapımı gözlük kılıfları" },
   {
     slug: "gozluk",

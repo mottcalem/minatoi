@@ -14,8 +14,8 @@ export function ArtistGallery({ artist }: { artist: ArtistCollection }) {
       <nav aria-label="İçerik yolu" className="mb-6 flex flex-wrap gap-2 text-xs text-stone-400">
         <Link to="/">Anasayfa</Link>
         <span>/</span>
-        <Link to="/kategori/$slug" params={{ slug: "ressamlar" }}>
-          Ressamlar
+        <Link to="/kategori/$slug" params={{ slug: "sanatci-albumu" }}>
+          Sanatçının Albümü
         </Link>
         <span>/</span>
         <span className="text-stone-700">{artist.name}</span>

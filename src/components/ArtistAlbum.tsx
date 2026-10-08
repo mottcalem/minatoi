@@ -71,7 +71,7 @@ export function ArtistAlbum({ artists }: { artists: ArtistCollection[] }) {
             <div className="flex items-center gap-2">
               <Link
                 to="/kategori/$slug"
-                params={{ slug: "ressamlar" }}
+                params={{ slug: "sanatci-albumu" }}
                 className="mr-2 text-sm font-medium text-primary hover:underline"
               >
                 Tümünü Gör →

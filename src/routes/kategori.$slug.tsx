@@ -14,7 +14,13 @@ export const Route = createFileRoute("/kategori/$slug")({
   head: ({ params }) => {
     const canonical = `https://minatoi.ugurdogan.net/kategori/${params.slug}`;
     const artist = ARTISTS.find((item) => item.slug === params.slug);
-    const label = artist?.name ?? (params.slug === "ressamlar" ? "Ressamlar" : params.slug);
+    const label =
+      artist?.name ??
+      (params.slug === "ressamlar"
+        ? "Ressamlar"
+        : params.slug === "sanatci-albumu"
+          ? "Sanatçının Albümü"
+          : params.slug);
     return {
       meta: [{ title: `${label} — MinaToi` }, { name: "robots", content: "index, follow" }],
       links: [{ rel: "canonical", href: canonical }],
@@ -30,7 +36,7 @@ export const Route = createFileRoute("/kategori/$slug")({
     artist: ArtistCollection | undefined;
   }> => {
     const categories = await getCategories();
-    const categorySlug = params.slug === "sanatci-albumu" ? "ressamlar" : params.slug;
+    const categorySlug = params.slug;
     const cat = categories.find((c) => c.slug === categorySlug);
     if (!cat) throw notFound();
     const all = await fetchProductsServer();
@@ -96,18 +102,18 @@ function CategoryPage() {
             ))}
         </div>
       </header>
-      {cat.slug === "ressamlar" && artists.length > 0 && (
+      {cat.slug === "sanatci-albumu" && artists.length > 0 && (
         <div className="mb-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {artists.map((artist) => (
             <ArtistCard key={artist.slug} artist={artist} />
           ))}
         </div>
       )}
-      {products.length === 0 && !(cat.slug === "ressamlar" && artists.length > 0) ? (
+      {products.length === 0 && !(cat.slug === "sanatci-albumu" && artists.length > 0) ? (
         <div className="py-20 text-center text-stone-400">Bu kategoride henüz ürün eklenmemiş.</div>
       ) : (
         <div>
-          {cat.slug === "ressamlar" &&
+          {cat.slug === "sanatci-albumu" &&
             products.some((product) => !product.category.startsWith("ressam-")) && (
               <h2 className="mb-5 font-display text-2xl font-bold text-stone-900">
                 Diğer seçili eserler
@@ -116,7 +122,8 @@ function CategoryPage() {
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {products
               .filter(
-                (product) => cat.slug !== "ressamlar" || !product.category.startsWith("ressam-"),
+                (product) =>
+                  cat.slug !== "sanatci-albumu" || !product.category.startsWith("ressam-"),
               )
               .map((p) => (
                 <ProductCard key={p.slug} product={p} />

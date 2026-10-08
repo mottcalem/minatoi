@@ -31,8 +31,8 @@ export const BLOG_POSTS: BlogPost[] = [
     content: `
       <h2>İyi bir fotoğrafla başlayın</h2>
       <p>Kişiye özel bir tablo, seçtiğiniz anının duvardaki yeni hâlidir. Bu nedenle mümkün olduğunca net, iyi ışıkta çekilmiş ve ana konunun rahatça ayırt edilebildiği bir fotoğraf seçmenizi öneririz. Portrelerde göz hizasından çekilmiş kareler; aile ve çift fotoğraflarında ise yüzlerin gölgede kalmadığı görüntüler çok daha dengeli sonuç verir.</p>
-      <h2>Doğrudan bası mı, illüstrasyon mu?</h2>
-      <p>Fotoğrafın doğal renklerini ve detaylarını korumak istiyorsanız doğrudan bası sizin için uygundur. Daha yorumlanmış, sanatsal bir çalışma arıyorsanız sulu boya, yağlı boya veya kara kalem gibi illüstrasyon stillerini tercih edebilirsiniz. Her iki seçeneği de <a href="/kisiye-ozel">Kişiye Özel Tasarım</a> sayfamızda fotoğrafınızı yükleyerek inceleyebilirsiniz.</p>
+      <h2>Doğrudan baskı mı, illüstrasyon mu?</h2>
+      <p>Fotoğrafın doğal renklerini ve detaylarını korumak istiyorsanız Doğrudan baskı sizin için uygundur. Daha yorumlanmış, sanatsal bir çalışma arıyorsanız sulu boya, yağlı boya veya kara kalem gibi illüstrasyon stillerini tercih edebilirsiniz. Her iki seçeneği de <a href="/kisiye-ozel">Kişiye Özel Tasarım</a> sayfamızda fotoğrafınızı yükleyerek inceleyebilirsiniz.</p>
       <h2>Ölçü ve yön seçimi</h2>
       <p>Fotoğrafınız dikeyse dikey, yataysa yatay oranı seçmek görüntünün kırpılmadan öne çıkmasına yardımcı olur. Küçük bir anı köşesi için 25 × 35 cm; salon veya geniş duvarlar için 50 × 70 cm ve üzeri ölçüler daha güçlü bir etki yaratır.</p>
       <h2>Tasarımınıza kişisel bir anlam katın</h2>
@@ -80,7 +80,7 @@ export const BLOG_POSTS: BlogPost[] = [
       <h2>Bir anıyı hediye edin</h2>
       <p>Birlikte çekilmiş bir fotoğraf, aile portresi veya sevilen bir manzara; kişiye özel bir tasarıma dönüştüğünde yıllarca hatırlanacak bir hediyeye dönüşür. Özellikle yeni ev, yıl dönümü ve doğum günü için duvarda kalıcı bir yer bulan tasarımlar güçlü bir anlam taşır.</p>
       <h2>Hediye sahibinin tarzına göre seçim yapın</h2>
-      <p>Minimal ve zamansız detayları sevenler için doğrudan bası; sanatla bağ kuranlar için ise illüstrasyonlu tasarım daha doğru bir seçim olabilir. Evcil hayvan sahipleri için patili dostlarının portresi ise her gün gülümsetecek kişisel bir alternatiftir.</p>
+      <p>Minimal ve zamansız detayları sevenler için doğrudan baskı; sanatla bağ kuranlar için ise illüstrasyonlu tasarım daha doğru bir seçim olabilir. Evcil hayvan sahipleri için patili dostlarının portresi ise her gün gülümsetecek kişisel bir alternatiftir.</p>
       <h2>Hediyeyi kişiselleştirin</h2>
       <p>Hediye sahibinin sevdiği bir anı, mekân veya patili dostunun fotoğrafı tasarımın merkezine yerleştiğinde ortaya yalnızca ona ait bir çalışma çıkar. Seçtiğiniz kareyi tasarım ekibimizle paylaşarak süreci kolayca başlatabilirsiniz.</p>
       <p>Kişiye özel cam tablo ve portre seçeneklerini <a href="/kisiye-ozel">Kişiye Özel</a> ya da <a href="/patili-dostlara-ozel">Patili Dostlara Özel</a> sayfalarımızdan başlatabilirsiniz.</p>

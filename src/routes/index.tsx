@@ -24,7 +24,7 @@ import { HomeBannerSlider } from "@/components/HomeBannerSlider";
 const CATEGORY_IMAGES: Record<string, string> = {
   kilif: casesImg,
   gozluk: glassesImg,
-  ressamlar: ARTISTS[0].works[0].image,
+  "sanatci-albumu": ARTISTS[0].works[0].image,
 };
 
 /** Her kart kendi koleksiyonundan bir ürün gösterir; aynı fotoğrafın tekrarını azaltır. */
@@ -44,7 +44,7 @@ function categoryCovers(categories: CategoryRecord[], products: Product[]) {
       candidates.find((product) => product.image && !usedImages.has(product.image)) ??
       candidates.find((product) => product.image);
     const image =
-      category.slug === "ressamlar"
+      category.slug === "sanatci-albumu"
         ? ARTISTS[0].works[0].image
         : (representative?.image ?? category.image ?? CATEGORY_IMAGES[category.slug] ?? craftImg);
     usedImages.add(image);

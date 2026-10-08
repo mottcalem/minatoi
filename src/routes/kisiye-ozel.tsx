@@ -13,7 +13,7 @@ export const Route = createFileRoute("/kisiye-ozel")({
       {
         name: "description",
         content:
-          "Fotoğrafınızı doğrudan bası veya illüstrasyon tasarıma dönüştürün. Size özel MinaToi tasarımınızı kolayca oluşturun.",
+          "Fotoğrafınızı Doğrudan baskı veya illüstrasyon tasarıma dönüştürün. Size özel MinaToi tasarımınızı kolayca oluşturun.",
       },
     ],
   }),
@@ -130,7 +130,7 @@ function KisiyeOzel() {
   }
   const message = useMemo(
     () =>
-      `Merhaba, kişiye özel tasarım siparişi vermek istiyorum.\n\nTasarım türü: ${kind === "print" ? "Doğrudan Bası" : "İllüstrasyon Tasarım"}\nÖlçü: ${size}\nYön: ${orientation}${kind === "illustration" ? `\nStil: ${style}` : ""}${file ? `\nFotoğraf: ${file.name}` : ""}\n\nFotoğrafımı bu mesaja ek olarak gönderiyorum.`,
+      `Merhaba, kişiye özel tasarım siparişi vermek istiyorum.\n\nTasarım türü: ${kind === "print" ? "Doğrudan baskı" : "İllüstrasyon Tasarım"}\nÖlçü: ${size}\nYön: ${orientation}${kind === "illustration" ? `\nStil: ${style}` : ""}${file ? `\nFotoğraf: ${file.name}` : ""}\n\nFotoğrafımı bu mesaja ek olarak gönderiyorum.`,
     [file, kind, orientation, size, style],
   );
   return (
@@ -166,7 +166,7 @@ function KisiyeOzel() {
         <div className="mx-auto mt-10 grid max-w-4xl gap-4 md:grid-cols-2" role="tablist">
           <DesignChoice
             active={kind === "print"}
-            title="Doğrudan Bası"
+            title="Doğrudan Baskı"
             text="Fotoğrafınızın doğal görünümünü koruyan, net ve canlı baskı."
             onClick={() => setKind("print")}
           />
@@ -182,7 +182,7 @@ function KisiyeOzel() {
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-xs font-bold uppercase tracking-widest text-primary">
-                  {kind === "print" ? "Doğrudan bası" : "İllüstrasyon tasarım"}
+                  {kind === "print" ? "Doğrudan baskı" : "İllüstrasyon tasarım"}
                 </p>
                 <h2 className="mt-1 font-display text-2xl font-bold">Fotoğrafınızı yükleyin</h2>
               </div>
@@ -340,7 +340,7 @@ function KisiyeOzel() {
               </p>
               <WhatsAppButton
                 className="mt-5 w-full"
-                message={`Merhaba, ${kind === "print" ? "doğrudan bası" : "illüstrasyon tasarım"} için örnek çalışma görmek istiyorum.`}
+                message={`Merhaba, ${kind === "print" ? "Doğrudan baskı" : "illüstrasyon tasarım"} için örnek çalışma görmek istiyorum.`}
               >
                 Örnekleri iste
               </WhatsAppButton>
@@ -356,7 +356,7 @@ function KisiyeOzel() {
               [
                 "01",
                 "Tasarıma karar verin",
-                "Doğrudan bası veya illüstrasyon seçeneğini belirleyin.",
+                "Doğrudan baskı veya illüstrasyon seçeneğini belirleyin.",
               ],
               [
                 "02",
