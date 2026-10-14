@@ -1,0 +1,26 @@
+[Unit]
+Description=MinaToi isolated IP preview
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+Type=simple
+User=minatoi
+Group=minatoi
+WorkingDirectory=/var/www/minatoi/current
+ExecStart=/usr/bin/node --env-file=/var/www/minatoi/shared/.env .output/server/index.mjs
+Environment=NODE_ENV=production
+Environment=PORT=3006
+Environment=HOST=127.0.0.1
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/www/minatoi/shared /var/www/minatoi/current/data /var/www/minatoi/current/public/images/uploads
+MemoryMax=512M
+CPUQuota=100%
+
+[Install]
+WantedBy=multi-user.target

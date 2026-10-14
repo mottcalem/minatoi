@@ -36,7 +36,7 @@ Aynı ödeme isteği tekrarlandığında mevcut ödeme oturumu kullanılır. Tar
 
 Yönetim panelinin Siparişler sekmesi mevcut admin oturumunu kullanır; ikinci kez şifre istemez. Havale siparişleri panelde “Havale bekleniyor” görünür. Para banka hesabına ulaştıktan sonra “Ödeme geldi” ile onaylanır; ulaşmadan onaylanmamalıdır.
 
-Havale/EFT seçeneği ancak `BANK_TRANSFER_ENABLED=1`, banka adı, hesap sahibi ve geçerli TR IBAN birlikte tanımlandığında açılır. Müşteriye tutar, IBAN ve açıklamaya yazacağı sipariş numarası gösterilir.
+Yeni siparişlerde yalnızca kartla ödeme kabul edilir. Havale/EFT oluşturma uç noktası eski ortam ayarlarından bağımsız olarak HTTP 410 döndürür. Eski havale siparişlerinin durum ve yönetim desteği korunur.
 
 ## Doğrulama
 
@@ -44,8 +44,20 @@ Havale/EFT seçeneği ancak `BANK_TRANSFER_ENABLED=1`, banka adı, hesap sahibi 
 
 `node --env-file=.env scripts/test-payments-http.mjs`: açık localhost:8080 sunucusunda, mevcut örnek ürünle sepet ve hatalı bildirim reddini kontrol eder. PAYTR_ENABLED=0 olmalıdır. Bu script yalnızca localhost'a istek gönderir.
 
-Gerçek PayTR kart ekranı ve sağlayıcı bildirimi henüz uçtan uca denenmedi. Önceden mevcut olan kategori/ürün loader ve vite.config.ts tip hataları ayrı HEAD kopyasında da doğrulandı; yeni ödeme kodunda ek tip hatası görülmedi.
+14 Ekim 2026: Aktif sunucu (45.43.154.82) üzerinden gerçek PayTR API’sinde test_mode=1 ile token üretimi başarılı; ödeme formu HTTP 200 döndü. Kart bilgisi girilmedi ve tahsilat yapılmadı. Gerçek sağlayıcı bildirimi henüz uçtan uca denenmedi. Kullanıcının talimatıyla aktif sunucuda PAYTR_ENABLED=1 ve PAYTR_TEST_MODE=0 etkinleştirildi. Yayın adresindeki quote yanıtı paymentAvailable=true ve bankTransferAvailable=false olarak doğrulandı. PAYTR_PUBLIC_URL hâlen https://minatoi.ugurdogan.net; gerçek domain geçişinde güncellenmelidir. Önceden mevcut olan kategori/ürün loader ve vite.config.ts tip hataları ayrı HEAD kopyasında da doğrulandı; yeni ödeme kodunda ek tip hatası görülmedi.
 
 ## Kalan yayın kontrolleri
 
 Mevcut katalog ölçü başına ayrı fiyat saklamıyor; tüm ölçüler ürünün ortak fiyatını kullanıyor. Ölçülere göre fiyatlar farklıysa yayın öncesinde katalogdaki varyasyon fiyatları tamamlanmalıdır. Otomatik fatura, sipariş e-postası, stok rezervasyonu, kargo API'si ve otomatik iade bu entegrasyonun kapsamında eklenmedi. Sözleşmelerde ödeme/kargo/kampanya işleyişi güncellendi; mevcut satıcı bilgileri korunmuştur.
+
+## Gerçek domaine geçiş — ödeme için zorunlu adımlar
+
+Sadece DNS değişikliği yeterli değildir. Aktif uygulama 45.43.154.82 üzerinde, localhost:3006 portunda çalışır. Nginx şu anda yalnızca minatoi.ugurdogan.net için yapılandırılmıştır.
+
+1. minatoi.com ve www.minatoi.com DNS kayıtları yeni sunucuya yönlendirilmeli; varsa AAAA kayıtları da kontrol edilmelidir.
+2. Nginx her iki domaini karşılamalı, geçerli HTTPS sertifikası kurulmalı ve tek ana domaine yönlendirme yapılmalıdır. /api/checkout/* ve /index.php?wc-api=wc_gateway_paytrcheckout POST istekleri Node uygulamasına ulaşmalıdır; PHP/static dosya kuralına takılmamalıdır. X-Real-IP başlığı proxy tarafından yazılmalıdır.
+3. Ana domain www.minatoi.com seçilirse /var/www/minatoi/shared/.env içinde PAYTR_PUBLIC_URL=https://www.minatoi.com yapılmalı ve minatoi servisi yeniden başlatılmalıdır. Origin kontrolü ve ödeme dönüş adresi bu değeri kullanır; yanlış değer ödeme isteğini 403 ile reddeder.
+4. PayTR panelindeki güncel Bildirim URL’si doğrulanmalı. Mevcut kayıt https://www.minatoi.com/index.php?wc-api=wc_gateway_paytrcheckout ise aynı URL yeni uygulamaya doğrudan ulaştığında panel değişikliği gerekmez. /api/paytr/callback de desteklenir. DNS geçişi tamamlanmadan yeni gerçek siparişlerin bildirimi eski WooCommerce’e gidebilir.
+5. Nihai domain üzerinden düşük tutarlı gerçek kart ödemesi yapılmalı; PayTR panelinde Başarılı ve uygulamada paid görüldüğü, müşteri dönüş ekranının doğru domainde açıldığı doğrulanmalıdır. Yalnızca token/form testi, tahsilat ve bildirim akışının tamamını doğrulamaz.
+
+Eski WooCommerce bekleyen ödemeleri geçiş öncesi kontrol edilmelidir; yeni uygulama eski siparişleri tanımaz.

@@ -314,7 +314,7 @@ test("provider timeout returns a recoverable order reference without a second to
   assert.equal((await retry.json()).id, first.id);
   assert.equal(f.calls, 1);
 });
-test("bank transfer creates an awaiting order without calling PayTR", async () => {
+test("bank transfer is rejected even when old environment settings enable it", async () => {
   const f = fixture({
     env: {
       BANK_TRANSFER_ENABLED: "1",
@@ -323,11 +323,12 @@ test("bank transfer creates an awaiting order without calling PayTR", async () =
       BANK_TRANSFER_IBAN: "TR000000000000000000000000",
     },
   });
-  const result = await (await f.request("/api/checkout/bank-transfer", f.input())).json();
-  assert.equal(result.status, "awaiting_transfer");
-  assert.equal(result.bankTransfer.bankName, "Örnek Banka");
-  assert.equal(f.rows.get(result.id).payment_method, "bank_transfer");
+  const result = await f.request("/api/checkout/bank-transfer", f.input());
+  assert.equal(result.status, 410);
+  assert.equal(f.rows.size, 0);
   assert.equal(f.calls, 0);
+  const quote = await (await f.request("/api/checkout/quote", { items: f.input().items })).json();
+  assert.equal(quote.bankTransferAvailable, false);
 });
 test("admin session token lists orders without asking for plaintext password", async () => {
   const f = fixture();
@@ -348,7 +349,8 @@ test("admin can mark only an awaiting bank transfer as paid", async () => {
       BANK_TRANSFER_IBAN: "TR000000000000000000000000",
     },
   });
-  const order = await (await f.request("/api/checkout/bank-transfer", f.input())).json();
+  const order = { id: "MT" + "a".repeat(32) };
+  f.rows.set(order.id, { ...order, payment_method: "bank_transfer", status: "awaiting_transfer" });
   const changed = await f.request("/api/checkout/admin-order-status", {
     token: f.env.ADMIN_PASS_HASH,
     id: order.id,
@@ -377,7 +379,7 @@ test("default quote and checkout charge full price without a campaign", async ()
   assert.equal((await f.request("/api/checkout/start", input)).status, 200);
   assert.equal(f.sent.get("payment_amount"), "122000");
 });
-test("coupon revalidated for both payment methods and rejected after deactivation", async () => {
+test("coupon revalidated for card payments and rejected after deactivation", async () => {
   const promotions = {
     ...DEFAULT_PROMOTIONS,
     codes: [{ code: "SAVE", percent: 20, active: true }],
@@ -402,12 +404,11 @@ test("coupon revalidated for both payment methods and rejected after deactivatio
     ...input,
     requestId: randomUUID(),
   });
-  assert.equal(bank.status, 200);
-  assert.equal((await bank.json()).amount, 97600);
+  assert.equal(bank.status, 410);
   promotions.codes[0].active = false;
   assert.equal(
     (await f.request("/api/checkout/bank-transfer", { ...input, requestId: randomUUID() })).status,
-    400,
+    410,
   );
   assert.equal(
     (await f.request("/api/checkout/start", { ...input, requestId: randomUUID() })).status,

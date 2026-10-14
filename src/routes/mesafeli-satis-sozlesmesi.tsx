@@ -125,22 +125,11 @@ function Page() {
           heading: "Madde 4 — Ödeme Koşulları",
           body: (
             <>
-              <p>Ödeme aşağıdaki yöntemlerle yapılabilir:</p>
+              <p>Ödeme kredi kartı veya banka kartı ile yapılabilir:</p>
               <ul className="list-disc space-y-2 pl-5 mt-2">
                 <li>
                   <strong>Kredi kartı / banka kartı:</strong> PayTR ödeme altyapısı üzerinden tek
                   çekim olarak tahsil edilir. Kart bilgileri {SITE.name} tarafından saklanmaz.
-                </li>
-                <li>
-                  <strong>Havale / EFT:</strong> Sipariş oluşturulduktan sonra gösterilen banka
-                  hesabına, sipariş numarası açıklamaya yazılarak gönderilir. Sipariş, ödemenin
-                  hesaba geçtiği doğrulandıktan sonra hazırlanır.
-                </li>
-                <li>
-                  <strong>Kapıda ödeme:</strong> ALICI, teslimat sırasında kargo görevlisine nakit
-                  veya kart ile ödeme yapar. Kapıda ödeme talebinin kargo firmasınca reddedilmesi
-                  veya ALICI'nın ödemeyi reddetmesi durumunda ürün iade edilir ve sipariş iptal
-                  edilir.
                 </li>
               </ul>
             </>

@@ -92,9 +92,8 @@ function Page() {
               <p>
                 Kullanıcı, ürünleri sepete ekleyip teslimat bilgilerini girerek sipariş talebi
                 oluşturur. Kart ödemeleri PayTR üzerinden tek çekim olarak yapılır; ödeme sonucu
-                doğrulandığında sipariş onaylanır. Havale/EFT siparişleri ödemenin banka hesabına
-                geçtiği doğrulandıktan sonra onaylanır. Sunulan ürünlerde kapıda ödeme talebi
-                WhatsApp üzerinden iletilebilir.
+                doğrulandığında sipariş onaylanır. Sunulan ürünlerde kapıda ödeme talebi WhatsApp
+                üzerinden iletilebilir.
               </p>
               <p>
                 Kapıda ödeme siparişleri, Kullanıcı’nın WhatsApp üzerinden ilettiği teslimat

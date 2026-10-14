@@ -41,7 +41,6 @@ export function Footer() {
             <li><Link to="/iletisim" className="hover:text-primary transition-colors">İletişim</Link></li>
             <li><Link to="/blog" className="hover:text-primary transition-colors">Blog</Link></li>
             <li><a href={SITE.instagram} target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">Instagram</a></li>
-            <li><a href={SITE.shopierStore} target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">Shopier Mağaza</a></li>
           </ul>
           <h4 className="mt-5 text-sm font-semibold text-stone-800">Mevzuat</h4>
           <ul className="mt-3 space-y-2 text-sm text-stone-500">

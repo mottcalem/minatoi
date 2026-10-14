@@ -167,7 +167,7 @@ export function createPaymentAPI({
           return json({
             ...priceCart(input.items, products, await readPromotions(), input.couponCode ?? ""),
             paymentAvailable: env.PAYTR_ENABLED === "1",
-            bankTransferAvailable: Boolean(bankConfig()),
+            bankTransferAvailable: false,
           });
         } catch (error) {
           if (error instanceof Error && error.name !== "ZodError")
@@ -198,67 +198,7 @@ export function createPaymentAPI({
         });
       }
       if (path === "/api/checkout/bank-transfer") {
-        const bank = bankConfig();
-        if (!bank) throw new PublicError("Havale/EFT şu anda kullanıma açık değil.", 503);
-        throttle("bank:" + (userIP(request) || "unknown"), 10);
-        const parsed = checkoutSchema.safeParse(input);
-        if (!parsed.success)
-          throw new PublicError("Teslimat bilgilerini ve sözleşme onayını kontrol edin.");
-        const data = parsed.data;
-        let priced;
-        try {
-          priced = priceCart(
-            data.items,
-            await readProducts(),
-            await readPromotions(),
-            data.couponCode,
-          );
-        } catch {
-          throw new PublicError("Sepet doğrulanamadı. Lütfen sepetinizi güncelleyin.");
-        }
-        if (priced.amount !== data.expectedAmount)
-          throw new PublicError("Ürün fiyatı değişti. Sepeti yenileyerek tekrar deneyin.", 409);
-        const requestHash = digest(
-          JSON.stringify({ ...data, requestId: undefined, paymentMethod: "bank_transfer" }),
-        );
-        const secret = env.ADMIN_PASS_HASH || env.PAYTR_MERCHANT_KEY;
-        if (!secret) throw new PublicError("Havale/EFT yapılandırması eksik.", 503);
-        const access = digest(sign(data.requestId + "bank_transfer", secret));
-        const id = "MT" + randomBytes(16).toString("hex");
-        const created = await getPool().query(
-          `INSERT INTO orders(id,request_id,request_hash,access_hash,customer,items,amount,test_mode,discount,status,payment_method) VALUES($1,$2,$3,$4,$5,$6,$7,false,$8,'awaiting_transfer','bank_transfer') ON CONFLICT(request_id) DO NOTHING RETURNING id`,
-          [
-            id,
-            data.requestId,
-            requestHash,
-            digest(access),
-            JSON.stringify(data.customer),
-            JSON.stringify(priced.items),
-            priced.amount,
-            priced.discount,
-          ],
-        );
-        if (!created.rowCount) {
-          const old = (
-            await getPool().query("SELECT * FROM orders WHERE request_id=$1", [data.requestId])
-          ).rows[0];
-          if (!old || old.request_hash !== requestHash || old.payment_method !== "bank_transfer")
-            throw new PublicError("Sipariş bilgileri değişti. Sayfayı yenileyerek deneyin.", 409);
-          return json({
-            id: old.id,
-            access,
-            status: old.status,
-            amount: old.amount,
-            bankTransfer: bank,
-          });
-        }
-        return json({
-          id,
-          access,
-          status: "awaiting_transfer",
-          amount: priced.amount,
-          bankTransfer: bank,
-        });
+        throw new PublicError("Havale/EFT ile ödeme kaldırıldı. Kartla ödeme yapabilirsiniz.", 410);
       }
       if (path === "/api/checkout/start") {
         if (env.PAYTR_ENABLED !== "1")

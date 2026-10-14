@@ -1,0 +1,33 @@
+server {
+    listen 8086;
+    server_name 104.233.4.39;
+    root /var/www/minatoi/current/.output/public;
+    client_max_body_size 50m;
+
+    location ^~ /products/ {
+        alias /var/www/minatoi/current/public/products/;
+    }
+    location ^~ /assets/ {
+        alias /var/www/minatoi/current/.output/public/assets/;
+        try_files $uri =404;
+        expires 1y;
+    }
+    location ^~ /images/uploads/ {
+        alias /var/www/minatoi/current/public/images/uploads/;
+        try_files $uri =404;
+    }
+    location /images/ {
+        root /var/www/minatoi/current/public;
+        try_files $uri @minatoi;
+    }
+    location / { try_files $uri @minatoi; }
+    location @minatoi {
+        proxy_pass http://127.0.0.1:3006;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 60s;
+    }
+}

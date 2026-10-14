@@ -12,7 +12,6 @@ export const Route = createFileRoute("/sepet")({
 type Quote = {
   discountLabel: string;
   paymentAvailable: boolean;
-  bankTransferAvailable: boolean;
   amount: number;
   subtotal: number;
   discount: number;
@@ -29,13 +28,6 @@ function CartPage() {
   const [quoteAttempt, setQuoteAttempt] = useState(0);
   const [error, setError] = useState("");
   const [pendingOrder, setPendingOrder] = useState<{ id: string; access: string } | null>(null);
-  const [paymentMethod, setPaymentMethod] = useState<"card" | "bank_transfer">("card");
-  const [bankOrder, setBankOrder] = useState<{
-    id: string;
-    access: string;
-    amount: number;
-    bankTransfer: { iban: string; accountHolder: string; bankName: string };
-  } | null>(null);
   const [busy, setBusy] = useState(false);
   const [payment, setPayment] = useState<{
     token: string;
@@ -86,7 +78,6 @@ function CartPage() {
       customer,
       consent: form.get("consent") === "on",
       expectedAmount: quote.amount,
-      paymentMethod,
     };
     const serialized = JSON.stringify(payload);
     try {
@@ -118,10 +109,8 @@ function CartPage() {
           /* In-memory id still protects repeated submits. */
         }
       }
-      const endpoint = paymentMethod === "bank_transfer" ? "bank-transfer" : "start";
-      const { paymentMethod: _paymentMethod, ...checkoutPayload } = payload;
-      const result = await checkoutRequest(endpoint, {
-        ...checkoutPayload,
+      const result = await checkoutRequest("start", {
+        ...payload,
         requestId: requestId.current,
       });
       try {
@@ -131,10 +120,6 @@ function CartPage() {
         );
       } catch {
         /* Payment can proceed using the result link without browser storage. */
-      }
-      if (paymentMethod === "bank_transfer") {
-        setBankOrder(result);
-        return;
       }
       if (result.status) {
         window.location.href =
@@ -157,43 +142,6 @@ function CartPage() {
     }
   }
   if (!ready) return <div className="p-12 text-center">Sepet yükleniyor…</div>;
-  if (bankOrder)
-    return (
-      <section className="mx-auto max-w-2xl px-4 py-12">
-        <p className="text-xs font-semibold uppercase tracking-widest text-primary">Havale / EFT</p>
-        <h1 className="mt-2 font-display text-3xl font-bold">Siparişiniz oluşturuldu</h1>
-        <p className="mt-4 text-stone-600">
-          Açıklama alanına sipariş numaranızı yazarak {formatTL(bankOrder.amount / 100)} gönderin.
-          Ödeme kontrol edildikten sonra siparişiniz hazırlanacaktır.
-        </p>
-        <dl className="mt-8 space-y-4 rounded-2xl border border-stone-200 bg-white p-6">
-          <div>
-            <dt className="text-sm text-stone-500">Banka</dt>
-            <dd className="font-semibold">{bankOrder.bankTransfer.bankName}</dd>
-          </div>
-          <div>
-            <dt className="text-sm text-stone-500">Hesap sahibi</dt>
-            <dd className="font-semibold">{bankOrder.bankTransfer.accountHolder}</dd>
-          </div>
-          <div>
-            <dt className="text-sm text-stone-500">IBAN</dt>
-            <dd className="break-all font-mono font-semibold">{bankOrder.bankTransfer.iban}</dd>
-          </div>
-          <div>
-            <dt className="text-sm text-stone-500">Açıklama / sipariş no</dt>
-            <dd className="break-all font-semibold">{bankOrder.id}</dd>
-          </div>
-        </dl>
-        <a
-          href={
-            "/odeme-sonucu#" + new URLSearchParams({ id: bankOrder.id, access: bankOrder.access })
-          }
-          className="mt-6 inline-block underline"
-        >
-          Sipariş durumunu görüntüle
-        </a>
-      </section>
-    );
   if (payment)
     return (
       <section className="mx-auto max-w-3xl px-4 py-10">
@@ -377,9 +325,7 @@ function CartPage() {
                   </button>
                 </div>
               )}
-              <p className="mt-3 text-sm text-stone-500">
-                Kartla tek çekim veya havale/EFT. Üyelik gerekmez.
-              </p>
+              <p className="mt-3 text-sm text-stone-500">Kartla tek çekim. Üyelik gerekmez.</p>
             </div>
           </div>
           <form onSubmit={submit} className="space-y-4">
@@ -437,59 +383,22 @@ function CartPage() {
                 </span>
               </label>
             </fieldset>
-            <fieldset className="space-y-3" disabled={busy}>
-              <legend className="mb-2 font-display text-xl font-bold">Ödeme yöntemi</legend>
-              <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-stone-200 p-4">
-                <input
-                  type="radio"
-                  name="paymentMethod"
-                  value="card"
-                  checked={paymentMethod === "card"}
-                  onChange={() => setPaymentMethod("card")}
-                />
-                <span>
-                  <strong className="block">Kredi / banka kartı</strong>
-                  <small className="text-stone-500">PayTR ile güvenli, tek çekim</small>
-                </span>
-              </label>
-              <label
-                className={`flex items-start gap-3 rounded-xl border border-stone-200 p-4 ${quote?.bankTransferAvailable ? "cursor-pointer" : "opacity-50"}`}
-              >
-                <input
-                  type="radio"
-                  name="paymentMethod"
-                  value="bank_transfer"
-                  disabled={!quote?.bankTransferAvailable}
-                  checked={paymentMethod === "bank_transfer"}
-                  onChange={() => setPaymentMethod("bank_transfer")}
-                />
-                <span>
-                  <strong className="block">Havale / EFT</strong>
-                  <small className="text-stone-500">
-                    {quote?.bankTransferAvailable
-                      ? "Sipariş sonrası IBAN bilgileri gösterilir"
-                      : "Banka bilgileri hazırlanıyor"}
-                  </small>
-                </span>
-              </label>
-            </fieldset>
+            <div className="space-y-3">
+              <h2 className="font-display text-xl font-bold">Ödeme yöntemi</h2>
+              <div className="rounded-xl border border-stone-200 p-4">
+                <strong className="block">Kredi / banka kartı</strong>
+                <small className="text-stone-500">PayTR ile güvenli, tek çekim</small>
+              </div>
+            </div>
             <button
-              disabled={
-                !quote ||
-                busy ||
-                (paymentMethod === "card" ? !quote.paymentAvailable : !quote.bankTransferAvailable)
-              }
+              disabled={!quote || busy || !quote.paymentAvailable}
               className="w-full rounded-full bg-gradient-gold px-6 py-4 font-semibold text-white disabled:opacity-50"
             >
-              {paymentMethod === "card" && quote && !quote.paymentAvailable
+              {quote && !quote.paymentAvailable
                 ? "Kartla ödeme şu anda kapalı"
-                : paymentMethod === "bank_transfer" && quote && !quote.bankTransferAvailable
-                  ? "Havale/EFT şu anda kapalı"
-                  : busy
-                    ? "Ödeme hazırlanıyor…"
-                    : (paymentMethod === "bank_transfer"
-                        ? "Havale siparişi oluştur"
-                        : "Ödemeye geç") + (quote ? " · " + formatTL(quote.amount / 100) : "")}
+                : busy
+                  ? "Ödeme hazırlanıyor…"
+                  : "Ödemeye geç" + (quote ? " · " + formatTL(quote.amount / 100) : "")}
             </button>
           </form>
         </div>
