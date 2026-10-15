@@ -84,6 +84,7 @@ function fixture(options = {}) {
     },
   };
   const api = createPaymentAPI({
+    queueOrderEmails: options.queueOrderEmails,
     env,
     readPromotions: async () =>
       options.promotions ?? { ...DEFAULT_PROMOTIONS, secondProductEnabled: true },
@@ -108,7 +109,9 @@ function fixture(options = {}) {
       sent = new URLSearchParams(init.body);
       if (options.timeout) throw new Error("Simulated timeout");
       return Response.json(
-        options.reject ? { status: "failed" } : { status: "success", token: "fixtureToken123" },
+        options.reject
+          ? { status: "failed" }
+          : { status: "success", token: options.providerToken ?? "fixtureToken123" },
       );
     },
   });
@@ -418,4 +421,74 @@ test("coupon revalidated for card payments and rejected after deactivation", asy
     (await f.request("/api/checkout/quote", { items: input.items, couponCode: "SAVE" })).status,
     400,
   );
+});
+
+test("checkout quote accepts explicitly configured www origin and rejects other origins", async () => {
+  const f = fixture({ env: { CHECKOUT_ALLOWED_ORIGINS: "https://www.shop.example" } });
+  const input = { items: f.input().items };
+  for (const origin of ["https://shop.example", "https://www.shop.example"]) {
+    const response = await f.request("/api/checkout/quote", input, { Origin: origin });
+    assert.equal(response.status, 200);
+    assert.equal((await response.json()).amount, 106750);
+  }
+  for (const origin of [
+    "https://evil.example",
+    "https://www.shop.example.evil.example",
+    "http://www.shop.example",
+    "null",
+    "",
+  ]) {
+    assert.equal((await f.request("/api/checkout/quote", input, { Origin: origin })).status, 403);
+  }
+});
+
+test("checkout quote rejects unconfigured www origin", async () => {
+  const f = fixture();
+  assert.equal(
+    (
+      await f.request(
+        "/api/checkout/quote",
+        { items: f.input().items },
+        { Origin: "https://www.shop.example" },
+      )
+    ).status,
+    403,
+  );
+});
+
+test("successful payment queues email once; failed and invalid callbacks never queue", async () => {
+  const queued = [];
+  const f = fixture({ queueOrderEmails: async (_client, id) => queued.push(id) });
+  const started = await (await f.request("/api/checkout/start", f.input())).json();
+  assert.equal((await f.callback(started.id)).status, 200);
+  assert.equal((await f.callback(started.id)).status, 200);
+  assert.deepEqual(queued, [started.id]);
+  const failed = await (await f.request("/api/checkout/start", f.input())).json();
+  assert.equal((await f.callback(failed.id, "failed")).status, 200);
+  assert.deepEqual(queued, [started.id]);
+  const mismatch = await (await f.request("/api/checkout/start", f.input())).json();
+  assert.equal((await f.callback(mismatch.id, "success", "1")).status, 400);
+  assert.deepEqual(queued, [started.id]);
+});
+
+test("PayTR URL-safe tokens containing hyphens are accepted and reused", async () => {
+  const token = "fixture-Token_123-" + "a".repeat(57);
+  const f = fixture({ providerToken: token });
+  const input = f.input();
+  const response = await f.request("/api/checkout/start", input);
+  assert.equal(response.status, 200);
+  const result = await response.json();
+  assert.equal(result.token, token);
+  assert.equal(f.rows.get(result.id).status, "pending");
+  assert.equal((await (await f.request("/api/checkout/start", input)).json()).token, token);
+  assert.equal(f.calls, 1);
+});
+
+test("unsafe and oversized provider tokens never become iframe URLs", async () => {
+  for (const token of ["../path", "x?redirect=bad", "<script>", "", "a".repeat(513)]) {
+    const f = fixture({ providerToken: token });
+    const response = await f.request("/api/checkout/start", f.input());
+    assert.equal(response.status, 502);
+    assert.equal((await response.json()).token, undefined);
+  }
 });

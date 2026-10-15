@@ -13,7 +13,7 @@ export const Route = createFileRoute("/mesafeli-satis-sozlesmesi")({
       },
       { name: "robots", content: "index, follow" },
     ],
-    links: [{ rel: "canonical", href: "https://minatoi.ugurdogan.net/mesafeli-satis-sozlesmesi" }],
+    links: [{ rel: "canonical", href: "https://minatoi.com/mesafeli-satis-sozlesmesi" }],
   }),
   component: Page,
 });
@@ -62,7 +62,7 @@ function Page() {
                     <strong>Telefon / WhatsApp:</strong> {SITE.phone}
                   </li>
                   <li>
-                    <strong>Web Sitesi:</strong> https://minatoi.ugurdogan.net
+                    <strong>Web Sitesi:</strong> https://minatoi.com
                   </li>
                 </ul>
               </div>
@@ -81,10 +81,10 @@ function Page() {
           heading: "Madde 2 — Sözleşmenin Konusu",
           body: (
             <p>
-              Bu Sözleşme; ALICI'nın https://minatoi.ugurdogan.net adresinden veya Shopier mağazası
-              üzerinden elektronik ortamda sipariş verdiği ürünlerin satışı ve teslimatına ilişkin
-              tarafların hak ve yükümlülüklerini 6502 sayılı Kanun ve ilgili yönetmelikler
-              çerçevesinde düzenler.
+              Bu Sözleşme; ALICI'nın https://minatoi.com adresinden veya Shopier mağazası üzerinden
+              elektronik ortamda sipariş verdiği ürünlerin satışı ve teslimatına ilişkin tarafların
+              hak ve yükümlülüklerini 6502 sayılı Kanun ve ilgili yönetmelikler çerçevesinde
+              düzenler.
             </p>
           ),
         },

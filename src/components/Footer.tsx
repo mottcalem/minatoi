@@ -18,7 +18,8 @@ export function Footer() {
           </div>
           <p className="mt-3 text-sm text-stone-500">{SITE.tagline}</p>
           <p className="mt-3 text-xs text-stone-400">
-            {SITE.owner} · {SITE.companyType}<br />
+            {SITE.owner} · {SITE.companyType}
+            <br />
             {SITE.taxOffice} {SITE.taxNumber}
           </p>
         </div>
@@ -27,10 +28,30 @@ export function Footer() {
         <div>
           <h4 className="text-sm font-semibold text-stone-800">Kategoriler</h4>
           <ul className="mt-3 space-y-2 text-sm text-stone-500">
-            <li><Link to="/kategori/$slug" params={{ slug: "kilif" }} className="hover:text-primary transition-colors">Gözlük Kılıfı</Link></li>
-            <li><Link to="/kisiye-ozel" className="hover:text-primary transition-colors">Kişiye Özel</Link></li>
-            <li><Link to="/patili-dostlara-ozel" className="hover:text-primary transition-colors">Patili Dostlara Özel</Link></li>
-            <li><Link to="/urunler" className="hover:text-primary transition-colors">Tüm Ürünler</Link></li>
+            <li>
+              <Link
+                to="/kategori/$slug"
+                params={{ slug: "kilif" }}
+                className="hover:text-primary transition-colors"
+              >
+                Gözlük Kılıfı
+              </Link>
+            </li>
+            <li>
+              <Link to="/kisiye-ozel" className="hover:text-primary transition-colors">
+                Kişiye Özel
+              </Link>
+            </li>
+            <li>
+              <Link to="/patili-dostlara-ozel" className="hover:text-primary transition-colors">
+                Patili Dostlara Özel
+              </Link>
+            </li>
+            <li>
+              <Link to="/urunler" className="hover:text-primary transition-colors">
+                Tüm Ürünler
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -38,17 +59,57 @@ export function Footer() {
         <div>
           <h4 className="text-sm font-semibold text-stone-800">Kurumsal</h4>
           <ul className="mt-3 space-y-2 text-sm text-stone-500">
-            <li><Link to="/iletisim" className="hover:text-primary transition-colors">İletişim</Link></li>
-            <li><Link to="/blog" className="hover:text-primary transition-colors">Blog</Link></li>
-            <li><a href={SITE.instagram} target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">Instagram</a></li>
+            <li>
+              <Link to="/iletisim" className="hover:text-primary transition-colors">
+                İletişim
+              </Link>
+            </li>
+            <li>
+              <Link to="/blog" className="hover:text-primary transition-colors">
+                Blog
+              </Link>
+            </li>
+            <li>
+              <a
+                href={SITE.instagram}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-primary transition-colors"
+              >
+                Instagram
+              </a>
+            </li>
           </ul>
           <h4 className="mt-5 text-sm font-semibold text-stone-800">Mevzuat</h4>
           <ul className="mt-3 space-y-2 text-sm text-stone-500">
-            <li><Link to="/kullanici-sozlesmesi" className="hover:text-primary transition-colors">Kullanıcı Sözleşmesi</Link></li>
-            <li><Link to="/mesafeli-satis-sozlesmesi" className="hover:text-primary transition-colors">Mesafeli Satış Sözleşmesi</Link></li>
-            <li><Link to="/iptal-iade" className="hover:text-primary transition-colors">İptal & İade</Link></li>
-            <li><Link to="/gizlilik-politikasi" className="hover:text-primary transition-colors">Gizlilik Politikası</Link></li>
-            <li><Link to="/kvkk" className="hover:text-primary transition-colors">KVKK Aydınlatma Metni</Link></li>
+            <li>
+              <Link to="/kullanici-sozlesmesi" className="hover:text-primary transition-colors">
+                Kullanıcı Sözleşmesi
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/mesafeli-satis-sozlesmesi"
+                className="hover:text-primary transition-colors"
+              >
+                Mesafeli Satış Sözleşmesi
+              </Link>
+            </li>
+            <li>
+              <Link to="/iptal-iade" className="hover:text-primary transition-colors">
+                İptal & İade
+              </Link>
+            </li>
+            <li>
+              <Link to="/gizlilik-politikasi" className="hover:text-primary transition-colors">
+                Gizlilik Politikası
+              </Link>
+            </li>
+            <li>
+              <Link to="/kvkk" className="hover:text-primary transition-colors">
+                KVKK Aydınlatma Metni
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -56,7 +117,11 @@ export function Footer() {
         <div>
           <h4 className="text-sm font-semibold text-stone-800">İletişim</h4>
           <ul className="mt-3 space-y-2 text-sm text-stone-500">
-            <li><a href={`mailto:${SITE.email}`} className="hover:text-primary transition-colors">{SITE.email}</a></li>
+            <li>
+              <a href={`mailto:${SITE.email}`} className="hover:text-primary transition-colors">
+                {SITE.email}
+              </a>
+            </li>
             <li>{SITE.phone}</li>
             <li>
               <a

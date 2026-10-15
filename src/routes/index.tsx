@@ -78,14 +78,14 @@ export const Route = createFileRoute("/")({
         content:
           "Minatoi, yaşam alanlarınıza estetik ve modern bir dokunuş katmak için özenle hazırlanmış cam tablo koleksiyonları sunar.",
       },
-      { property: "og:url", content: "https://minatoi.ugurdogan.net/" },
+      { property: "og:url", content: "https://minatoi.com/" },
       {
         property: "og:image",
-        content: "https://minatoi.ugurdogan.net/images/kisiye-ozel-ornek.jpg",
+        content: "https://minatoi.com/images/kisiye-ozel-ornek.jpg",
       },
       { name: "robots", content: "index, follow" },
     ],
-    links: [{ rel: "canonical", href: "https://minatoi.ugurdogan.net/" }],
+    links: [{ rel: "canonical", href: "https://minatoi.com/" }],
   }),
   loader: async () => {
     const [products, banners, categories, hero, about] = await Promise.all([

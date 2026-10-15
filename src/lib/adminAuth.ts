@@ -28,8 +28,7 @@ function generateToken(): string {
 }
 
 export type AuthResult =
-  | { ok: true }
-  | { ok: false; error: "invalid_credentials" | "env_not_configured" };
+  { ok: true } | { ok: false; error: "invalid_credentials" | "env_not_configured" };
 
 /** Kullanıcı adı ve şifreyi doğrular, başarılıysa session kaydeder */
 export async function adminLogin(username: string, password: string): Promise<AuthResult> {
@@ -48,11 +47,11 @@ export async function adminLogin(username: string, password: string): Promise<Au
   // Token + oluşturma zamanı + passHash (API auth için) 8 saatlik geçerlilik
   const payload = JSON.stringify({ token, passHash, createdAt: Date.now() });
   sessionStorage.setItem(SESSION_KEY, payload);
-  
+
   // API istekleri için passHash'i localStorage'a da kaydet
   // (saveProducts fonksiyonu localStorage'dan okuyor)
   localStorage.setItem("admin_token", passHash);
-  
+
   return { ok: true };
 }
 

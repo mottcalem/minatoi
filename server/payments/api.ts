@@ -13,6 +13,7 @@ import {
 } from "./core.ts";
 
 type Dependencies = {
+  queueOrderEmails?: (client: Pick<PoolClient, "query">, orderId: string) => Promise<void>;
   readPromotions?: () => Promise<Promotions>;
   getPool: () => Pick<Pool, "query">;
   withTransaction: <T>(operation: (client: Pick<PoolClient, "query">) => Promise<T>) => Promise<T>;
@@ -22,6 +23,7 @@ type Dependencies = {
 };
 export function createPaymentAPI({
   getPool,
+  queueOrderEmails = async () => {},
   readPromotions = async () => DEFAULT_PROMOTIONS,
   withTransaction,
   readProducts,
@@ -89,7 +91,13 @@ export function createPaymentAPI({
   }
   function checkOrigin(request: Request) {
     const origin = request.headers.get("origin");
-    const allowed = [env.PAYTR_PUBLIC_URL?.replace(/\/$/, "")];
+    const allowed = [
+      env.PAYTR_PUBLIC_URL?.replace(/\/$/, ""),
+      ...(env.CHECKOUT_ALLOWED_ORIGINS ?? "")
+        .split(",")
+        .map((value) => value.trim().replace(/\/$/, ""))
+        .filter(Boolean),
+    ];
     if (env.NODE_ENV !== "production")
       allowed.push("http://localhost:8080", "http://127.0.0.1:8080");
     if (!origin || !allowed.includes(origin))
@@ -144,6 +152,7 @@ export function createPaymentAPI({
             "UPDATE orders SET status=$2,paid_at=CASE WHEN $2='paid' THEN now() ELSE NULL END,failure_code=$3,iframe_token=NULL WHERE id=$1",
             [data.merchant_oid, nextStatus, data.failed_reason_code?.slice(0, 40) ?? null],
           );
+          if (nextStatus === "paid") await queueOrderEmails(client, data.merchant_oid);
         });
         return new Response("OK", {
           headers: { "Content-Type": "text/plain", "Cache-Control": "no-store" },
@@ -327,7 +336,7 @@ export function createPaymentAPI({
         if (
           result.status !== "success" ||
           typeof result.token !== "string" ||
-          !/^[a-zA-Z0-9]+$/.test(result.token)
+          !/^[a-zA-Z0-9_-]{1,512}$/.test(result.token)
         ) {
           await getPool().query(
             "UPDATE orders SET status='failed',failure_code='token_rejected' WHERE id=$1 AND status='pending'",

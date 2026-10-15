@@ -25,10 +25,10 @@ export const Route = createFileRoute("/urunler")({
         property: "og:description",
         content: "MinaToi ürün koleksiyonu ve kişiye özel tasarım seçenekleri.",
       },
-      { property: "og:url", content: "https://minatoi.ugurdogan.net/urunler" },
+      { property: "og:url", content: "https://minatoi.com/urunler" },
       { name: "robots", content: "index, follow" },
     ],
-    links: [{ rel: "canonical", href: "https://minatoi.ugurdogan.net/urunler" }],
+    links: [{ rel: "canonical", href: "https://minatoi.com/urunler" }],
   }),
   loader: async () => {
     const [all, categories] = await Promise.all([fetchProductsServer(), getCategories()]);

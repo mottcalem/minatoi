@@ -67,3 +67,12 @@ export function generateCategorySlug(name: string): string {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 }
+
+/** Özel koleksiyonlar genel ürün ızgarası yerine kendi ana sayfalarını açar. */
+export function categoryLink(slug: string) {
+  if (slug === "patili-dostalara-ozel" || slug === "patili-dostlara-ozel") {
+    return { to: "/patili-dostlara-ozel" as const };
+  }
+  if (slug === "kisiye-ozel") return { to: "/kisiye-ozel" as const };
+  return { to: "/kategori/$slug" as const, params: { slug } };
+}

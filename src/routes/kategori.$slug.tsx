@@ -2,29 +2,18 @@ import type { Product } from "@/data/products";
 import { ArtistGallery } from "@/components/ArtistGallery";
 import { ArtistCard } from "@/components/ArtistAlbum";
 import { ARTISTS, artistCollections, type ArtistCollection } from "@/data/artists";
-import { visibleCategories, type CategoryRecord } from "@/data/categories";
+import { categoryLink, visibleCategories, type CategoryRecord } from "@/data/categories";
 import { productInCategory } from "@/data/productCategories";
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 import { fetchProductsServer } from "@/data/adminProducts";
 import { getCategories } from "@/data/categoryActions";
 import { mixProducts } from "@/data/productOrder";
 import { ProductCard } from "@/components/ProductCard";
 
 export const Route = createFileRoute("/kategori/$slug")({
-  head: ({ params }) => {
-    const canonical = `https://minatoi.ugurdogan.net/kategori/${params.slug}`;
-    const artist = ARTISTS.find((item) => item.slug === params.slug);
-    const label =
-      artist?.name ??
-      (params.slug === "ressamlar"
-        ? "Ressamlar"
-        : params.slug === "sanatci-albumu"
-          ? "Sanatçının Albümü"
-          : params.slug);
-    return {
-      meta: [{ title: `${label} — MinaToi` }, { name: "robots", content: "index, follow" }],
-      links: [{ rel: "canonical", href: canonical }],
-    };
+  beforeLoad: ({ params }) => {
+    const destination = categoryLink(params.slug);
+    if (destination.to !== "/kategori/$slug") throw redirect(destination);
   },
   loader: async ({
     params,
@@ -48,6 +37,21 @@ export const Route = createFileRoute("/kategori/$slug")({
       products,
       artists,
       artist: artists.find((artist) => artist.slug === categorySlug),
+    };
+  },
+  head: ({ params }) => {
+    const canonical = `https://minatoi.com/kategori/${params.slug}`;
+    const artist = ARTISTS.find((item) => item.slug === params.slug);
+    const label =
+      artist?.name ??
+      (params.slug === "ressamlar"
+        ? "Ressamlar"
+        : params.slug === "sanatci-albumu"
+          ? "Sanatçının Albümü"
+          : params.slug);
+    return {
+      meta: [{ title: `${label} — MinaToi` }, { name: "robots", content: "index, follow" }],
+      links: [{ rel: "canonical", href: canonical }],
     };
   },
   notFoundComponent: () => (
@@ -93,8 +97,7 @@ function CategoryPage() {
             .map((c) => (
               <Link
                 key={c.slug}
-                to="/kategori/$slug"
-                params={{ slug: c.slug }}
+                {...categoryLink(c.slug)}
                 className="rounded-full border border-stone-200 bg-white px-4 py-1.5 text-xs font-medium text-stone-600 hover:border-primary hover:text-primary transition-colors"
               >
                 {c.label}

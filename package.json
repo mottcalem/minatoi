@@ -16,7 +16,8 @@
     "db:init": "node scripts/init-db.mjs",
     "db:test-products": "node scripts/test-products-db.mjs",
     "db:orders": "node scripts/init-orders.mjs",
-    "test:payments": "node --test server/payments/*.test.mjs"
+    "test:payments": "node --test server/payments/*.test.mjs",
+    "test:emails": "node --test server/notifications/*.test.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -58,6 +59,7 @@
     "embla-carousel-react": "^8.6.0",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.575.0",
+    "nodemailer": "^10.1.1",
     "pg": "^8.23.0",
     "react": "^19.2.0",
     "react-day-picker": "^9.14.0",
@@ -77,6 +79,7 @@
     "@eslint/js": "^9.32.0",
     "@lovable.dev/vite-tanstack-config": "^2.6.2",
     "@types/node": "^22.16.5",
+    "@types/nodemailer": "^8.0.2",
     "@types/pg": "^8.23.1",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",

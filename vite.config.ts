@@ -13,7 +13,5 @@ export default defineConfig({
   nitro: {
     // Windows sunucusunda çalışacak; node-server preset kullan
     preset: "node-server",
-    // server/routes/ klasöründeki API route'larını dahil et
-    serverDir: "server",
   },
 });

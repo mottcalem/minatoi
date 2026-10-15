@@ -5,10 +5,7 @@ const ROOT = resolve(process.cwd());
 // .env'den şifre hash'ini al — birden fazla yolu dene
 export async function loadPassHash(): Promise<string> {
   // 1. Önce process.env'den al (pm2 ecosystem veya export ile set edilmişse)
-  const fromEnv =
-    process.env["ADMIN_PASS_HASH"] ??
-    process.env["VITE_ADMIN_PASS_HASH"] ??
-    "";
+  const fromEnv = process.env["ADMIN_PASS_HASH"] ?? process.env["VITE_ADMIN_PASS_HASH"] ?? "";
   if (fromEnv) {
     console.log("[loadPassHash] Loaded from process.env");
     return fromEnv;
@@ -16,9 +13,9 @@ export async function loadPassHash(): Promise<string> {
 
   // 2. .env dosyasını çeşitli lokasyonlardan bulmaya çalış
   const envCandidates = [
-    resolve(ROOT, ".env"),                          // cwd/.env
-    resolve(ROOT, "..", ".env"),                    // bir üst dizin
-    resolve(process.execPath, "..", "..", ".env"),  // node binary yanı
+    resolve(ROOT, ".env"), // cwd/.env
+    resolve(ROOT, "..", ".env"), // bir üst dizin
+    resolve(process.execPath, "..", "..", ".env"), // node binary yanı
   ];
 
   for (const envPath of envCandidates) {
@@ -37,10 +34,14 @@ export async function loadPassHash(): Promise<string> {
           if (val) return val;
         }
       }
-    } catch { /* devam */ }
+    } catch {
+      /* devam */
+    }
   }
 
-  console.error(`[loadPassHash] Could not find ADMIN_PASS_HASH. ROOT=${ROOT}, cwd=${process.cwd()}`);
+  console.error(
+    `[loadPassHash] Could not find ADMIN_PASS_HASH. ROOT=${ROOT}, cwd=${process.cwd()}`,
+  );
   return "";
 }
 
@@ -50,4 +51,3 @@ export function safeEqual(a: string, b: string): boolean {
   for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
   return diff === 0;
 }
-

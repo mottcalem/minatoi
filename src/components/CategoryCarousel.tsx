@@ -1,3 +1,4 @@
+import { categoryLink } from "@/data/categories";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -154,8 +155,7 @@ export function CategoryCarousel({ categories }: { categories: CategoryCard[] })
                 </div>
               ) : (
                 <Link
-                  to="/kategori/$slug"
-                  params={{ slug: category.slug }}
+                  {...categoryLink(category.slug)}
                   className="group relative block aspect-square overflow-hidden rounded-2xl border border-stone-100 bg-white shadow-sm transition-shadow hover:shadow-elegant focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary"
                 >
                   <img

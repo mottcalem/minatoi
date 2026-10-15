@@ -109,10 +109,25 @@ function CartPage() {
           /* In-memory id still protects repeated submits. */
         }
       }
-      const result = await checkoutRequest("start", {
+      let result = await checkoutRequest("start", {
         ...payload,
         requestId: requestId.current,
       });
+      // A terminal failed attempt cannot be resumed; retry once with a fresh id.
+      // Pending and paid attempts retain their original idempotency key.
+      if (result.status === "failed") {
+        requestId.current = crypto.randomUUID();
+        try {
+          const previous = JSON.parse(sessionStorage.getItem("minatoi-payment-attempt") ?? "{}");
+          sessionStorage.setItem(
+            "minatoi-payment-attempt",
+            JSON.stringify({ ...previous, requestId: requestId.current }),
+          );
+        } catch {
+          /* The in-memory key still protects retries. */
+        }
+        result = await checkoutRequest("start", { ...payload, requestId: requestId.current });
+      }
       try {
         sessionStorage.setItem(
           "minatoi-order",

@@ -18,7 +18,10 @@ export async function readBanners(): Promise<Banner[]> {
 }
 
 export async function writeBanners(banners: Banner[]) {
-  if (databaseConfigured()) { await writeCollection("banners", banners); return; }
+  if (databaseConfigured()) {
+    await writeCollection("banners", banners);
+    return;
+  }
   await mkdir(directory, { recursive: true });
   const temporary = `${file}.${randomUUID()}.tmp`;
   await writeFile(temporary, JSON.stringify(banners), "utf8");

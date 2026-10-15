@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
 import { getAdminPromotions, savePromotions } from "@/data/promotionActions";
 import { DEFAULT_PROMOTIONS, type Promotions } from "@/data/promotions";
+function promotionError(error: unknown) {
+  const message = error instanceof Error ? error.message : "";
+  if (!message || /<[^>]+>|502|503|504|failed to fetch|network/i.test(message)) {
+    return "Sunucuya ulaşılamadı. Değişiklikleriniz bu formda duruyor; lütfen tekrar deneyin.";
+  }
+  return message;
+}
+
 export function PromotionManager() {
   const [content, setContent] = useState<Promotions>(DEFAULT_PROMOTIONS);
   const [ready, setReady] = useState(false);
@@ -12,7 +20,7 @@ export function PromotionManager() {
         setContent(data);
         setReady(true);
       })
-      .catch((e) => setMessage(e.message));
+      .catch((error) => setMessage(promotionError(error)));
   }, []);
   return (
     <form
@@ -27,7 +35,7 @@ export function PromotionManager() {
           });
           setMessage("Kampanya ayarları kaydedildi.");
         } catch (error) {
-          setMessage(error instanceof Error ? error.message : "Kaydedilemedi.");
+          setMessage(promotionError(error));
         } finally {
           setBusy(false);
         }
@@ -82,7 +90,7 @@ export function PromotionManager() {
                 required
                 minLength={2}
                 maxLength={40}
-                pattern="[A-Za-z0-9_-]+"
+                pattern={String.raw`[A-Za-z0-9_\-]+`}
                 value={row.code}
                 onChange={(e) =>
                   setContent({

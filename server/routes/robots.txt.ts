@@ -10,7 +10,7 @@ Allow: /
 Disallow: /admin
 Disallow: /api/
 
-Sitemap: https://minatoi.ugurdogan.net/sitemap.xml
+Sitemap: https://minatoi.com/sitemap.xml
 `;
 
 export default defineEventHandler(async (event) => {

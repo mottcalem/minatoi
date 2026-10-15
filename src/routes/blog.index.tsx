@@ -20,16 +20,15 @@ export const Route = createFileRoute("/blog/")({
         content: "MinaToi cam tablo ve kişiye özel tasarım dünyasından yazılar.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://minatoi.ugurdogan.net/blog" },
+      { property: "og:url", content: "https://minatoi.com/blog" },
       { name: "robots", content: "index, follow" },
     ],
-    links: [{ rel: "canonical", href: "https://minatoi.ugurdogan.net/blog" }],
+    links: [{ rel: "canonical", href: "https://minatoi.com/blog" }],
   }),
   component: BlogIndex,
 });
 
-const TAG_COLORS: Record<string, string> = {
-};
+const TAG_COLORS: Record<string, string> = {};
 
 function TagBadge({ tag }: { tag: string }) {
   const cls = TAG_COLORS[tag] ?? "bg-stone-100 text-stone-600 border-stone-200";
@@ -119,16 +118,16 @@ function BlogIndex() {
     "@type": "Blog",
     name: "MinaToi Blog",
     description: "MinaToi cam tablo ve kişiye özel tasarım dünyasından yazılar",
-    url: "https://minatoi.ugurdogan.net/blog",
+    url: "https://minatoi.com/blog",
     publisher: {
       "@type": "Organization",
       name: "MinaToi",
-      url: "https://minatoi.ugurdogan.net",
+      url: "https://minatoi.com",
     },
     blogPost: BLOG_POSTS.map((p) => ({
       "@type": "BlogPosting",
       headline: p.title,
-      url: `https://minatoi.ugurdogan.net/blog/${p.slug}`,
+      url: `https://minatoi.com/blog/${p.slug}`,
       datePublished: p.publishedAt,
       dateModified: p.updatedAt,
       description: p.metaDescription,

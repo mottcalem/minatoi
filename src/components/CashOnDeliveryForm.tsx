@@ -6,7 +6,10 @@ import { formatTL } from "@/data/products";
 
 const schema = z.object({
   name: z.string().trim().min(2, "İsim en az 2 karakter").max(80),
-  phone: z.string().trim().regex(/^[0-9 +()-]{10,20}$/, "Geçerli bir telefon girin"),
+  phone: z
+    .string()
+    .trim()
+    .regex(/^[0-9 +()-]{10,20}$/, "Geçerli bir telefon girin"),
   city: z.string().trim().min(2, "Şehir gerekli").max(60),
   address: z.string().trim().min(10, "Adresi tam yazın").max(400),
   qty: z.coerce.number().int().min(1).max(20),
@@ -64,9 +67,16 @@ export function CashOnDeliveryForm({ product }: { product: Product }) {
       <div className="flex items-start justify-between gap-3">
         <div>
           <h3 className="font-display text-lg font-bold">Kapıda Ödeme Formu</h3>
-          <p className="text-xs text-muted-foreground">Formu doldurun; sipariş WhatsApp üzerinden onaylanır.</p>
+          <p className="text-xs text-muted-foreground">
+            Formu doldurun; sipariş WhatsApp üzerinden onaylanır.
+          </p>
         </div>
-        <button onClick={() => setOpen(false)} className="text-xs text-muted-foreground hover:text-foreground">Kapat</button>
+        <button
+          onClick={() => setOpen(false)}
+          className="text-xs text-muted-foreground hover:text-foreground"
+        >
+          Kapat
+        </button>
       </div>
       {sent && (
         <div className="mt-3 rounded-lg border border-primary/40 bg-primary/10 p-3 text-sm text-primary">
@@ -75,7 +85,13 @@ export function CashOnDeliveryForm({ product }: { product: Product }) {
       )}
       <form onSubmit={onSubmit} className="mt-4 grid gap-3">
         <Field label="Ad Soyad" name="name" error={errors.name} />
-        <Field label="Telefon" name="phone" type="tel" placeholder="05XX XXX XX XX" error={errors.phone} />
+        <Field
+          label="Telefon"
+          name="phone"
+          type="tel"
+          placeholder="05XX XXX XX XX"
+          error={errors.phone}
+        />
         <div className="grid gap-3 sm:grid-cols-2">
           <Field label="Şehir" name="city" error={errors.city} />
           <Field label="Adet" name="qty" type="number" defaultValue="1" error={errors.qty} />
@@ -97,9 +113,21 @@ export function CashOnDeliveryForm({ product }: { product: Product }) {
 }
 
 function Field({
-  label, name, type = "text", placeholder, defaultValue, textarea, error,
+  label,
+  name,
+  type = "text",
+  placeholder,
+  defaultValue,
+  textarea,
+  error,
 }: {
-  label: string; name: string; type?: string; placeholder?: string; defaultValue?: string; textarea?: boolean; error?: string;
+  label: string;
+  name: string;
+  type?: string;
+  placeholder?: string;
+  defaultValue?: string;
+  textarea?: boolean;
+  error?: string;
 }) {
   return (
     <label className="block">

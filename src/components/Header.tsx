@@ -4,7 +4,12 @@ import { CartLink } from "./CartProvider";
 import { Link, useMatchRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { getCategories } from "@/data/categoryActions";
-import { DEFAULT_CATEGORIES, visibleCategories, type CategoryRecord } from "@/data/categories";
+import {
+  DEFAULT_CATEGORIES,
+  categoryLink,
+  visibleCategories,
+  type CategoryRecord,
+} from "@/data/categories";
 
 type StaticNavItem = { to: string; label: string };
 
@@ -162,8 +167,7 @@ export function Header() {
                 {categories.map((category) => (
                   <Link
                     key={category.slug}
-                    to="/kategori/$slug"
-                    params={{ slug: category.slug }}
+                    {...categoryLink(category.slug)}
                     onClick={() => setDropdownOpen(false)}
                     className="block px-4 py-2.5 text-sm text-stone-600 transition-colors hover:bg-stone-50 hover:text-primary"
                   >
@@ -303,8 +307,7 @@ export function Header() {
             {categories.map((category) => (
               <Link
                 key={category.slug}
-                to="/kategori/$slug"
-                params={{ slug: category.slug }}
+                {...categoryLink(category.slug)}
                 onClick={() => setOpen(false)}
                 className="border-b border-stone-100 py-4 pl-4 text-sm font-semibold text-stone-800"
                 activeProps={{ className: "text-primary font-semibold" }}

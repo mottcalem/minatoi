@@ -20,9 +20,26 @@ const PET_EXAMPLES = [
 ] as const;
 
 export const Route = createFileRoute("/urun/$slug")({
+  loader: async ({ params }) => {
+    const [all, categories, hero] = await Promise.all([
+      fetchProductsServer(),
+      getCategories(),
+      getHeroContent(),
+    ]);
+    const product = all.find((p) => p.slug === params.slug);
+    if (!product) throw notFound();
+    return {
+      product: product as Product,
+      categories,
+      hero,
+      related: all
+        .filter((p) => p.category === product.category && p.slug !== params.slug)
+        .slice(0, 10),
+    };
+  },
   head: ({ loaderData, params }) => {
     const product = loaderData?.product;
-    const SITE = "https://minatoi.ugurdogan.net";
+    const SITE = "https://minatoi.com";
     const canonical = `${SITE}/urun/${params.slug}`;
 
     if (!product) {
@@ -58,23 +75,6 @@ export const Route = createFileRoute("/urun/$slug")({
         { name: "robots", content: "index, follow" },
       ],
       links: [{ rel: "canonical", href: canonical }],
-    };
-  },
-  loader: async ({ params }) => {
-    const [all, categories, hero] = await Promise.all([
-      fetchProductsServer(),
-      getCategories(),
-      getHeroContent(),
-    ]);
-    const product = all.find((p) => p.slug === params.slug);
-    if (!product) throw notFound();
-    return {
-      product: product as Product,
-      categories,
-      hero,
-      related: all
-        .filter((p) => p.category === product.category && p.slug !== params.slug)
-        .slice(0, 10),
     };
   },
   notFoundComponent: () => (

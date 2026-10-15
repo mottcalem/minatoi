@@ -17,7 +17,7 @@ import { CUSTOM_PRODUCTS } from "@/data/customProducts";
 import { fetchProductsServer } from "@/data/adminProducts";
 
 export const Route = createFileRoute("/patili-dostlara-ozel")({
-  validateSearch: (search: Record<string, unknown>) => ({
+  validateSearch: (search: Record<string, unknown>): { tab?: PortraitKind } => ({
     tab: search.tab === "illustration" ? "illustration" : "costume",
   }),
   head: () => ({
@@ -36,8 +36,8 @@ export const Route = createFileRoute("/patili-dostlara-ozel")({
 
 function PatiliProductLanding() {
   const { tab } = Route.useSearch();
-  const [kind, setKind] = useState<PortraitKind>(tab);
-  useEffect(() => setKind(tab), [tab]);
+  const [kind, setKind] = useState<PortraitKind>(tab ?? "costume");
+  useEffect(() => setKind(tab ?? "costume"), [tab]);
   const cmsCostumes = Route.useLoaderData().filter(
     (product) => product.category === "patili-dostalara-ozel",
   );

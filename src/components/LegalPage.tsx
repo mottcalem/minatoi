@@ -24,7 +24,9 @@ export function LegalPage({
             <h2 className="font-display text-lg font-semibold">
               {i + 1}. {s.heading}
             </h2>
-            <div className="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground">{s.body}</div>
+            <div className="mt-3 space-y-3 text-sm leading-relaxed text-muted-foreground">
+              {s.body}
+            </div>
           </section>
         ))}
       </div>

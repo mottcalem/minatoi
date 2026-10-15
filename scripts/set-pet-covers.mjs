@@ -4,7 +4,10 @@ import { readProductRows, writeProductRows } from "../server/utils/productReposi
 
 process.loadEnvFile();
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL, connectionTimeoutMillis: 5000 });
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  connectionTimeoutMillis: 5000,
+});
 const db = await pool.connect();
 
 try {
@@ -17,7 +20,11 @@ try {
     if (product.category !== "patili-dostalara-ozel") return product;
     const cover = product.images.find((image) => /_1\.png$/i.test(image));
     assert(cover, `${product.name} için telefonlu kapak görseli bulunamadı.`);
-    return { ...product, image: cover, images: [cover, ...product.images.filter((image) => image !== cover)] };
+    return {
+      ...product,
+      image: cover,
+      images: [cover, ...product.images.filter((image) => image !== cover)],
+    };
   });
   await writeProductRows(db, after);
   await db.query("COMMIT");
