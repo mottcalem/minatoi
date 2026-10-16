@@ -29,15 +29,6 @@ export function Footer() {
           <h4 className="text-sm font-semibold text-stone-800">Kategoriler</h4>
           <ul className="mt-3 space-y-2 text-sm text-stone-500">
             <li>
-              <Link
-                to="/kategori/$slug"
-                params={{ slug: "kilif" }}
-                className="hover:text-primary transition-colors"
-              >
-                Gözlük Kılıfı
-              </Link>
-            </li>
-            <li>
               <Link to="/kisiye-ozel" className="hover:text-primary transition-colors">
                 Kişiye Özel
               </Link>
