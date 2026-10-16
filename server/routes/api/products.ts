@@ -1,4 +1,4 @@
-import { loadPassHash, safeEqual } from "../../utils/adminAuth";
+import { isAdminToken } from "../../utils/adminAuth";
 /**
  * GET  /api/products  → ürün satırlarını okur
  * POST /api/products  → ürünleri ve ilişkilerini transaction ile kaydeder (auth gerekli)
@@ -29,14 +29,11 @@ export default defineEventHandler(async (event) => {
 
   // ── POST ────────────────────────────────────────────────────────────────
   if (method === "POST") {
-    const expectedHash = await loadPassHash();
     const auth = getHeader(event, "authorization") ?? "";
     const token = auth.startsWith("Bearer ") ? auth.slice(7) : "";
 
-    if (!safeEqual(token, expectedHash)) {
-      console.error(
-        `[api/products POST] Auth failed. Token length: ${token.length}, Expected hash length: ${expectedHash.length}, Hash found: ${!!expectedHash}`,
-      );
+    if (!(await isAdminToken(token))) {
+      console.error("[api/products POST] Unauthorized");
       event.node.res.statusCode = 401;
       return JSON.stringify({ error: "Unauthorized" });
     }

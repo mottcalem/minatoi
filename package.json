@@ -17,7 +17,8 @@
     "db:test-products": "node scripts/test-products-db.mjs",
     "db:orders": "node scripts/init-orders.mjs",
     "test:payments": "node --test server/payments/*.test.mjs",
-    "test:emails": "node --test server/notifications/*.test.mjs"
+    "test:emails": "node --test server/notifications/*.test.mjs",
+    "test:admin": "node --test server/admin/*.test.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

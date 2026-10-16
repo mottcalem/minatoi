@@ -2,8 +2,8 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { promotionsSchema } from "./promotions";
 async function authorize(token: string) {
-  const { loadPassHash, safeEqual } = await import("../../server/utils/adminAuth");
-  if (!safeEqual(token, await loadPassHash())) throw new Error("Oturum doğrulanamadı.");
+  const { isAdminToken } = await import("../../server/utils/adminAuth");
+  if (!(await isAdminToken(token))) throw new Error("Oturum doğrulanamadı.");
 }
 export const getPublicPromotions = createServerFn({ method: "GET" }).handler(async () => {
   const { readPromotions } = await import("../../server/utils/promotionStore");

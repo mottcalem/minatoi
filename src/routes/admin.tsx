@@ -95,8 +95,10 @@ function LoginPage({ onSuccess }: { onSuccess: () => void }) {
       const result = await adminLogin(username.trim(), password);
       if (result.ok) {
         onSuccess();
-      } else if (result.error === "env_not_configured") {
-        setError("Sistem yapılandırması eksik. .env dosyasını kontrol edin.");
+      } else if (result.error === "unavailable") {
+        setError("Giriş hizmetine ulaşılamadı. Lütfen tekrar deneyin.");
+      } else if (result.error === "rate_limited") {
+        setError("Çok fazla deneme yaptınız. Beş dakika sonra tekrar deneyin.");
       } else {
         setError("Kullanıcı adı veya şifre hatalı.");
       }

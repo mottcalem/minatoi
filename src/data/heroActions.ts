@@ -43,8 +43,8 @@ export const getHeroContent = createServerFn({ method: "GET" }).handler(
 export const saveHeroContent = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => saveSchema.parse(data))
   .handler(async ({ data }) => {
-    const { loadPassHash, safeEqual } = await import("../../server/utils/adminAuth");
-    if (!safeEqual(data.token, await loadPassHash())) {
+    const { isAdminToken } = await import("../../server/utils/adminAuth");
+    if (!(await isAdminToken(data.token))) {
       throw new Error("Oturum doğrulanamadı. Tekrar giriş yapın.");
     }
     const { writeHeroContent } = await import("../../server/utils/heroStore");

@@ -29,8 +29,8 @@ const persistProducts = createServerFn({ method: "POST" })
     return data;
   })
   .handler(async ({ data }) => {
-    const { loadPassHash, safeEqual } = await import("../../server/utils/adminAuth");
-    if (!safeEqual(data.token, await loadPassHash()))
+    const { isAdminToken } = await import("../../server/utils/adminAuth");
+    if (!(await isAdminToken(data.token)))
       throw new Error("Oturum doğrulanamadı. Tekrar giriş yapın.");
     const { writeProducts } = await import("../../server/utils/productStore");
     await writeProducts(data.products);
@@ -52,8 +52,8 @@ function getAdminToken(): string {
     const sessionKey = "thebulls_admin_session";
     const raw = sessionStorage.getItem(sessionKey);
     if (raw) {
-      const { passHash } = JSON.parse(raw) as { passHash: string };
-      if (passHash) return passHash;
+      const { token } = JSON.parse(raw) as { token?: string };
+      if (token) return token;
     }
   } catch (err) {
     console.warn("[getAdminToken] sessionStorage parse error:", err);

@@ -85,6 +85,7 @@ function fixture(options = {}) {
   };
   const api = createPaymentAPI({
     queueOrderEmails: options.queueOrderEmails,
+    authorizeAdmin: options.authorizeAdmin,
     env,
     readPromotions: async () =>
       options.promotions ?? { ...DEFAULT_PROMOTIONS, secondProductEnabled: true },
@@ -491,4 +492,11 @@ test("unsafe and oversized provider tokens never become iframe URLs", async () =
     assert.equal(response.status, 502);
     assert.equal((await response.json()).token, undefined);
   }
+});
+
+test("admin order endpoints accept centrally verified sessions rather than password hashes", async () => {
+  const session = "f".repeat(64);
+  const f = fixture({ authorizeAdmin: async (token) => token === session });
+  assert.equal((await f.request("/api/checkout/admin", { token: session })).status, 200);
+  assert.equal((await f.request("/api/checkout/admin", { token: "invalid" })).status, 401);
 });

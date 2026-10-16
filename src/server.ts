@@ -42,6 +42,10 @@ export default {
     try {
       const url = new URL(request.url);
       const path = url.pathname;
+      if (path.startsWith("/api/admin/")) {
+        const { adminAPI } = await import("../server/admin/index");
+        return await adminAPI(request);
+      }
       if (
         path.startsWith("/api/checkout/") ||
         path === "/api/paytr/callback" ||

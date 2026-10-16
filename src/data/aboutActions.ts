@@ -45,8 +45,8 @@ export const getAboutContent = createServerFn({ method: "GET" }).handler(
 export const saveAboutContent = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => saveSchema.parse(data))
   .handler(async ({ data }) => {
-    const { loadPassHash, safeEqual } = await import("../../server/utils/adminAuth");
-    if (!safeEqual(data.token, await loadPassHash())) {
+    const { isAdminToken } = await import("../../server/utils/adminAuth");
+    if (!(await isAdminToken(data.token))) {
       throw new Error("Oturum doğrulanamadı. Tekrar giriş yapın.");
     }
     const { writeAboutContent } = await import("../../server/utils/aboutStore");
@@ -73,8 +73,8 @@ const uploadSchema = z.object({
 export const uploadAboutImage = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => uploadSchema.parse(data))
   .handler(async ({ data }) => {
-    const { loadPassHash, safeEqual } = await import("../../server/utils/adminAuth");
-    if (!safeEqual(data.token, await loadPassHash())) {
+    const { isAdminToken } = await import("../../server/utils/adminAuth");
+    if (!(await isAdminToken(data.token))) {
       throw new Error("Oturum doğrulanamadı. Tekrar giriş yapın.");
     }
     const { writeFile, mkdir } = await import("node:fs/promises");

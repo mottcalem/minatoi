@@ -34,8 +34,8 @@ function decodeImage(dataUrl: string): { buffer: Buffer; extension: string } {
 }
 
 async function requireAdmin(token: string) {
-  const { loadPassHash, safeEqual } = await import("../../server/utils/adminAuth");
-  if (!safeEqual(token, await loadPassHash())) {
+  const { isAdminToken } = await import("../../server/utils/adminAuth");
+  if (!(await isAdminToken(token))) {
     throw new Error("Oturum doğrulanamadı. Tekrar giriş yapın.");
   }
 }

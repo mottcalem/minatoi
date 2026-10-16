@@ -13,6 +13,7 @@ import {
 } from "./core.ts";
 
 type Dependencies = {
+  authorizeAdmin?: (token: string) => Promise<boolean>;
   queueOrderEmails?: (client: Pick<PoolClient, "query">, orderId: string) => Promise<void>;
   readPromotions?: () => Promise<Promotions>;
   getPool: () => Pick<Pool, "query">;
@@ -23,6 +24,7 @@ type Dependencies = {
 };
 export function createPaymentAPI({
   getPool,
+  authorizeAdmin,
   queueOrderEmails = async () => {},
   readPromotions = async () => DEFAULT_PROMOTIONS,
   withTransaction,
@@ -30,6 +32,15 @@ export function createPaymentAPI({
   fetch,
   env,
 }: Dependencies) {
+  async function adminAuthorized(actual: string) {
+    if (authorizeAdmin) return authorizeAdmin(actual);
+    const expected = env.ADMIN_PASS_HASH ?? "";
+    return (
+      /^[a-f0-9]{64}$/.test(expected) &&
+      actual.length === expected.length &&
+      timingSafeEqual(Buffer.from(actual), Buffer.from(expected))
+    );
+  }
   const digest = (s: string) => createHash("sha256").update(s).digest("hex");
   const json = (data: unknown, status = 200) =>
     Response.json(data, {
@@ -355,14 +366,8 @@ export function createPaymentAPI({
       }
       if (path === "/api/checkout/admin") {
         throttle("admin", 10);
-        const expected = env.ADMIN_PASS_HASH ?? "";
         const actual = typeof input.token === "string" ? input.token : "";
-        if (
-          !/^[a-f0-9]{64}$/.test(expected) ||
-          actual.length !== expected.length ||
-          !timingSafeEqual(Buffer.from(actual), Buffer.from(expected))
-        )
-          throw new PublicError("Şifre doğrulanamadı.", 401);
+        if (!(await adminAuthorized(actual))) throw new PublicError("Şifre doğrulanamadı.", 401);
         const page =
           Number.isInteger(input.page) && input.page >= 0 ? Math.min(input.page, 10000) : 0;
         const result = await getPool().query(
@@ -373,14 +378,8 @@ export function createPaymentAPI({
       }
       if (path === "/api/checkout/admin-order-status") {
         throttle("admin-status", 30);
-        const expected = env.ADMIN_PASS_HASH ?? "";
         const actual = typeof input.token === "string" ? input.token : "";
-        if (
-          !/^[a-f0-9]{64}$/.test(expected) ||
-          actual.length !== expected.length ||
-          !timingSafeEqual(Buffer.from(actual), Buffer.from(expected))
-        )
-          throw new PublicError("Oturum doğrulanamadı.", 401);
+        if (!(await adminAuthorized(actual))) throw new PublicError("Oturum doğrulanamadı.", 401);
         if (
           typeof input.id !== "string" ||
           !/^MT[a-f0-9]{32}$/.test(input.id) ||

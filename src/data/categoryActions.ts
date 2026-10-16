@@ -50,8 +50,8 @@ export const getCategories = createServerFn({ method: "GET" }).handler(
 export const saveCategories = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => saveSchema.parse(data))
   .handler(async ({ data }) => {
-    const { loadPassHash, safeEqual } = await import("../../server/utils/adminAuth");
-    if (!safeEqual(data.token, await loadPassHash())) {
+    const { isAdminToken } = await import("../../server/utils/adminAuth");
+    if (!(await isAdminToken(data.token))) {
       throw new Error("Oturum doğrulanamadı. Tekrar giriş yapın.");
     }
     const { writeCategories } = await import("../../server/utils/categoryStore");
