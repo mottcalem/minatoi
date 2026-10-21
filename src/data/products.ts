@@ -132,7 +132,6 @@ export type Product = {
   /** Ölçü varyasyonları (ör. "25*35 cm"); boşsa ürün tek ölçüdür. */
   sizes?: string[];
   sizePrices?: import("./productPricing").SizePrice[];
-  shopierUrl: string;
   badge?: string;
   featured?: boolean;
   glasses?: GlassesDetails;
@@ -141,7 +140,6 @@ export type Product = {
 
 // ─── Gözlük şablonu ────────────────────────────────────────────────────────────
 
-const SHOPIER = "https://www.shopier.com/minatoi";
 
 const GLASSES_TECH_SPECS: TechSpec[] = [
   { label: "Ürün Tipi", value: "Güneş Gözlüğü" },
@@ -181,7 +179,7 @@ const GLASSES_FEATURES = [
 export function makeGlasses(
   series: GlassesSeries,
   model: string,
-  opts: { price: number; oldPrice?: number; image?: string; shopierUrl?: string; badge?: string },
+  opts: { price: number; oldPrice?: number; image?: string; badge?: string },
 ): Product {
   return {
     slug: `${series}-${model.toLowerCase()}`,
@@ -193,7 +191,6 @@ export function makeGlasses(
     shortDescription: `${SERIES[series].label} — UV korumalı, gradient camlı güneş gözlüğü.`,
     description: GLASSES_DESCRIPTION,
     features: GLASSES_FEATURES,
-    shopierUrl: opts.shopierUrl ?? SHOPIER,
     badge: opts.badge,
     glasses: {
       series,
@@ -284,7 +281,6 @@ export const PRODUCTS: Product[] = [
       "RFID koruma",
       "İki banknot gözü",
     ],
-    shopierUrl: "https://www.shopier.com/ShowProductNew/products.php?id=24888698",
     badge: "Çok Satan",
     wallet: {
       techSpecs: [
@@ -353,7 +349,6 @@ export const PRODUCTS: Product[] = [
       "Kenar perdahı el ile yapılmıştır",
       "Kullandıkça güzelleşen patina",
     ],
-    shopierUrl: SHOPIER,
     badge: "Yeni",
     wallet: {
       techSpecs: [
@@ -412,7 +407,6 @@ export const PRODUCTS: Product[] = [
       "Her boyut gözlüğe uygun",
       "Kullandıkça güzelleşen patina",
     ],
-    shopierUrl: SHOPIER,
     badge: "El Yapımı",
   },
 

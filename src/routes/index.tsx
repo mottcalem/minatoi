@@ -1,3 +1,4 @@
+import { getCustomContent } from "@/data/customContentActions";
 import { productInCategory } from "@/data/productCategories";
 import { isCustomProduct } from "@/data/customProducts";
 import type { Product } from "@/data/products";
@@ -44,9 +45,10 @@ function categoryCovers(categories: CategoryRecord[], products: Product[]) {
       candidates.find((product) => product.image && !usedImages.has(product.image)) ??
       candidates.find((product) => product.image);
     const image =
-      category.slug === "sanatci-albumu"
+      category.image ??
+      (category.slug === "sanatci-albumu"
         ? ARTISTS[0].works[0].image
-        : (representative?.image ?? category.image ?? CATEGORY_IMAGES[category.slug] ?? craftImg);
+        : (representative?.image ?? category.image ?? CATEGORY_IMAGES[category.slug] ?? craftImg));
     usedImages.add(image);
     return { ...category, image };
   });
@@ -88,20 +90,21 @@ export const Route = createFileRoute("/")({
     links: [{ rel: "canonical", href: "https://minatoi.com/" }],
   }),
   loader: async () => {
-    const [products, banners, categories, hero, about] = await Promise.all([
+    const [products, banners, categories, hero, about, customContent] = await Promise.all([
       fetchProductsServer(),
       getBanners(),
       getCategories(),
       getHeroContent(),
       getAboutContent(),
+      getCustomContent(),
     ]);
-    return { products, banners, categories, hero, about };
+    return { products, banners, categories, hero, about, customContent };
   },
   component: Index,
 });
 
 function Index() {
-  const { products, banners, categories, hero, about } = Route.useLoaderData();
+  const { products, banners, categories, hero, about, customContent } = Route.useLoaderData();
   const featuredProducts = products.filter((product) => product.featured);
   const kiliflar = products.filter((p) => p.category === "kilif");
   const artists = artistCollections(categories, products);
@@ -178,7 +181,7 @@ function Index() {
               </WhatsAppButton>
             </div>
             {hero.stats.length > 0 && (
-              <dl className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-3 border-t border-stone-100 pt-8">
+              <dl className="mt-10 grid grid-cols-1 sm:grid-cols-none sm:grid-flow-col sm:auto-cols-fr gap-3 border-t border-stone-100 pt-8">
                 <div className="sm:hidden text-center text-xs text-stone-600">
                   {hero.stats.map(({ label, value }) => `${label} ${value}`).join(" · ")}
                 </div>
@@ -208,14 +211,14 @@ function Index() {
             href="/patili-dostlara-ozel"
             title="Kostümlü Portreler"
             text="Eğlenceli ve karakter dolu tasarımlar"
-            image="/images/patili-ornek-1.jpg"
+            image={customContent.covers.petCostume}
           />
           <FeatureCollection
             href="/patili-dostlara-ozel"
             search={{ tab: "illustration" }}
             title="Pati İllüstrasyonları"
             text="Karakalem, sulu boya ve yağlı boya"
-            image="/images/patili-ornek-2.jpg"
+            image={customContent.covers.petIllustration}
           />
         </div>
         <CollectionHeading
@@ -227,14 +230,14 @@ function Index() {
             href="/kisiye-ozel"
             title="Doğrudan Baskı"
             text="Fotoğrafınızın doğal görünümüyle"
-            image="/images/kisiye-ozel-ornek.jpg"
+            image={customContent.covers.personalPrint}
           />
           <FeatureCollection
             href="/kisiye-ozel"
             search={{ tab: "illustration" }}
             title="Kişiye Özel İllüstrasyon"
             text="Anınızı sanat stilinde yeniden yorumlayın"
-            image="/images/patili-ornek-3.jpg"
+            image={customContent.covers.personalIllustration}
           />
         </div>
       </section>

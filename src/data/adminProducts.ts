@@ -1,3 +1,4 @@
+import { catalogProducts } from "./catalog";
 import { createServerFn } from "@tanstack/react-start";
 import type { Product, Category } from "./products";
 
@@ -7,10 +8,16 @@ export const fetchProductsServer = createServerFn({ method: "GET" }).handler(
   async (): Promise<Product[]> => {
     const { readProducts } = await import("../../server/utils/productStore");
     const { CUSTOM_PRODUCTS } = await import("./customProducts");
-    return [
-      ...(await readProducts()).filter((product) => product.category !== "cuzdan"),
-      ...CUSTOM_PRODUCTS,
-    ];
+    return catalogProducts(await readProducts(), CUSTOM_PRODUCTS).storefront;
+  },
+);
+
+// Yönetim yalnızca kalıcı katalog kayıtlarını düzenler. Sanal sipariş şablonları
+// kataloğa karıştırılırsa tüm listeyi kaydeden doğrulama başarısız olur.
+export const fetchManagedProducts = createServerFn({ method: "GET" }).handler(
+  async (): Promise<Product[]> => {
+    const { readProducts } = await import("../../server/utils/productStore");
+    return catalogProducts(await readProducts(), []).managed;
   },
 );
 
@@ -103,5 +110,4 @@ export const EMPTY_PRODUCT: Omit<Product, "slug"> = {
   shortDescription: "",
   description: "",
   features: [],
-  shopierUrl: "https://www.shopier.com/minatoi",
 };

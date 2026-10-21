@@ -45,12 +45,10 @@ function Page() {
                     <strong>İşletme Türü:</strong> {SITE.companyType}
                   </li>
                   <li>
-                    <strong>Merkez Adres:</strong> Cemil Meriç Mah. Ocak Sk. No: 18 D: 4 Ümraniye /
-                    İstanbul
+                    <strong>Merkez Adres:</strong>
                   </li>
                   <li>
-                    <strong>Üretim Adresi:</strong> Değirmenaltı Mah. Adnan Karaevli Sk. No: 7-9B
-                    Süleymanpaşa / Tekirdağ
+                    <strong>Üretim Adresi:</strong>
                   </li>
                   <li>
                     <strong>Vergi Dairesi / No:</strong> {SITE.taxOffice} / {SITE.taxNumber}
@@ -81,10 +79,9 @@ function Page() {
           heading: "Madde 2 — Sözleşmenin Konusu",
           body: (
             <p>
-              Bu Sözleşme; ALICI'nın https://minatoi.com adresinden veya Shopier mağazası üzerinden
-              elektronik ortamda sipariş verdiği ürünlerin satışı ve teslimatına ilişkin tarafların
-              hak ve yükümlülüklerini 6502 sayılı Kanun ve ilgili yönetmelikler çerçevesinde
-              düzenler.
+              Bu Sözleşme; ALICI'nın https://minatoi.com adresi üzerinden elektronik ortamda sipariş
+              verdiği ürünlerin satışı ve teslimatına ilişkin tarafların hak ve yükümlülüklerini
+              6502 sayılı Kanun ve ilgili yönetmelikler çerçevesinde düzenler.
             </p>
           ),
         },
@@ -182,8 +179,6 @@ function Page() {
               <p className="mt-2 rounded-xl bg-stone-50 border border-stone-200 px-4 py-3 text-sm font-medium text-stone-700">
                 {SITE.owner} / {SITE.name}
                 <br />
-                Cemil Meriç Mah. Ocak Sk. No: 18 D: 4<br />
-                Ümraniye / İstanbul
               </p>
               <p className="mt-2">
                 SATICI, iade edilen ürünü teslim aldıktan sonra <strong>14 gün</strong> içinde

@@ -60,19 +60,6 @@ function Contact() {
             Takip Et
           </a>
         </div>
-        <div className="rounded-2xl border border-border bg-card p-6">
-          <div className="text-3xl">🛍️</div>
-          <h2 className="mt-3 font-display text-xl font-bold">Shopier Mağaza</h2>
-          <p className="mt-1 text-sm text-muted-foreground">Güvenli ödeme & hızlı kargo</p>
-          <a
-            href={SITE.shopierStore}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-gradient-gold px-5 py-3 text-sm font-semibold text-primary-foreground hover:brightness-110"
-          >
-            Mağazaya Git
-          </a>
-        </div>
       </div>
 
       <div className="mt-10 rounded-2xl border border-border bg-card/40 p-6 text-sm text-muted-foreground">
@@ -107,18 +94,11 @@ function Contact() {
         <div className="mt-4 border-t border-border pt-4 grid gap-3 sm:grid-cols-2">
           <div>
             <p className="font-medium text-foreground">📍 Merkez Adres</p>
-            <p className="mt-0.5">
-              Cemil Meriç Mah. Ocak Sk. No: 18 D: 4<br />
-              Ümraniye / İstanbul
-            </p>
+            <p className="mt-0.5"></p>
           </div>
           <div>
             <p className="font-medium text-foreground">🏭 Üretim Adresi</p>
-            <p className="mt-0.5">
-              Değirmenaltı Mah. Adnan Karaevli Sk. No: 7-9B
-              <br />
-              Süleymanpaşa / Tekirdağ
-            </p>
+            <p className="mt-0.5"></p>
           </div>
         </div>
 

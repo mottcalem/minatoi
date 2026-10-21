@@ -83,7 +83,6 @@ export function validateProducts(data: unknown): asserts data is Product[] {
       "image",
       "shortDescription",
       "description",
-      "shopierUrl",
     ]) {
       if (typeof item[field] !== "string") throw new Error(`Ürün alanı geçersiz: ${field}`);
     }
@@ -163,7 +162,6 @@ export async function readProductRows(db: Database): Promise<Product[]> {
     image: row.image,
     shortDescription: row.short_description,
     description: row.description,
-    shopierUrl: row.shopier_url,
     features: row.features,
     ...(row.images_present ? { images: row.images } : {}),
     ...(row.size_prices != null ? { sizePrices: row.size_prices } : {}),
@@ -204,7 +202,7 @@ export async function writeProductRows(db: Database, data: unknown): Promise<voi
         product.image,
         product.shortDescription,
         product.description,
-        product.shopierUrl,
+        "",
         product.badge ?? null,
         product.featured ?? null,
         position,

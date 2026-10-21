@@ -1,3 +1,5 @@
+import { syncProductPriceFields } from "@/data/productPriceForm";
+import { CustomContentManager } from "@/components/CustomContentManager";
 import { PromotionManager } from "@/components/PromotionManager";
 import { productInCategory } from "@/data/productCategories";
 import { OrderManager } from "@/components/OrderManager";
@@ -12,8 +14,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { formatTL, type Product } from "@/data/products";
 import {
-  fetchProducts,
-  fetchProductsServer,
+  fetchManagedProducts,
   saveProducts,
   generateSlug,
   EMPTY_PRODUCT,
@@ -24,7 +25,7 @@ import { adminLogin, adminLogout, isAdminLoggedIn } from "@/lib/adminAuth";
 export const Route = createFileRoute("/admin")({
   head: () => ({ meta: [{ title: "Admin — MinaToi" }] }),
   loader: async () => {
-    const products = await fetchProductsServer();
+    const products = await fetchManagedProducts();
     return { initialProducts: products };
   },
   component: AdminRoot,
@@ -38,9 +39,11 @@ type AdminTab =
   | "announcements"
   | "banners"
   | "hero"
-  | "about";
+  | "about"
+  | "custom";
 
 const ADMIN_TABS: { id: AdminTab; label: string }[] = [
+  { id: "custom", label: "Özel Tasarımlar / Örnekler" },
   { id: "promotions", label: "Kampanyalar / Kodlar" },
   { id: "orders", label: "Siparişler" },
   { id: "products", label: "Ürün Yönetimi" },
@@ -278,7 +281,6 @@ type FormState = {
   /** Ölçü varyasyonları; her satır bir ölçü (ör. "25*35 cm"). */
   sizes: string;
   sizePrices: string;
-  shopierUrl: string;
   badge: string;
 };
 
@@ -297,7 +299,6 @@ function productToForm(p: Partial<Product>, isNew = false): FormState {
     sizes: p.sizes?.join("\n") ?? "",
     sizePrices:
       p.sizePrices?.map((v) => `${v.size} | ${v.price} | ${v.oldPrice ?? ""}`).join("\n") ?? "",
-    shopierUrl: p.shopierUrl ?? "https://www.shopier.com/minatoi",
     badge: p.badge ?? "",
   };
 }
@@ -337,7 +338,6 @@ function formToProduct(form: FormState, existingFeatured?: boolean): Product {
             }),
         }
       : {}),
-    shopierUrl: form.shopierUrl.trim(),
     badge: form.badge.trim() || undefined,
     featured: existingFeatured,
   };
@@ -349,10 +349,12 @@ function ProductForm({
   onCancel,
 }: {
   initial?: Product;
-  onSave: (p: Product) => void;
+  onSave: (p: Product) => Promise<void>;
   onCancel: () => void;
 }) {
   const [form, setForm] = useState<FormState>(productToForm(initial ?? EMPTY_PRODUCT, !initial));
+  const [uploading, setUploading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [categories, setCategories] =
     useState<{ slug: string; label: string }[]>(FALLBACK_CATEGORIES);
@@ -368,7 +370,7 @@ function ProductForm({
     };
   }, []);
   function set(key: keyof FormState, value: string) {
-    setForm((f) => ({ ...f, [key]: value }));
+    setForm((f) => syncProductPriceFields(f, key, value));
   }
   function validate(): boolean {
     const e: Partial<Record<keyof FormState, string>> = {};
@@ -406,9 +408,19 @@ function ProductForm({
     setErrors(e);
     return Object.keys(e).length === 0;
   }
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (validate()) onSave(formToProduct(form, initial?.featured));
+    if (uploading || submitting || !validate()) return;
+    setSubmitting(true);
+    try {
+      await onSave({
+        ...formToProduct(form, initial?.featured),
+        ...(initial?.wallet ? { wallet: initial.wallet } : {}),
+        ...(initial?.glasses ? { glasses: initial.glasses } : {}),
+      });
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -427,7 +439,7 @@ function ProductForm({
             className={inputCls(errors.slug)}
             value={form.slug}
             onChange={(e) => set("slug", generateSlug(e.target.value))}
-            placeholder="ör. miki-fare-afis-cam-tablo-af114"
+            placeholder="ör. kisiye-ozel-cam-tablo"
           />
           <p className="mt-1 text-xs text-stone-400">
             Ürün bağlantısında kullanılacak adres. Boş bırakılırsa ürün adından oluşturulur.
@@ -477,13 +489,6 @@ function ProductForm({
             placeholder="ör. Yeni, Çok Satan, Premium"
           />
         </FormField>
-        <FormField label="Shopier URL">
-          <input
-            className={inputCls()}
-            value={form.shopierUrl}
-            onChange={(e) => set("shopierUrl", e.target.value)}
-          />
-        </FormField>
       </div>
       <FormField label="Ölçü Varyasyonları — opsiyonel">
         <textarea
@@ -507,12 +512,13 @@ function ProductForm({
           placeholder={"25*35 cm | 610 | 920\n35*50 cm | 990 | 1250"}
         />
         <p className="mt-1 text-xs text-stone-400">
-          Her satır: ölçü | satış fiyatı | eski fiyat. Ölçülerle aynı sırada giriniz. Boşsa tüm
+          Her satır: ölçü | satış fiyatı | eski fiyat. İlk ölçünün fiyatı ile ürün fiyatı otomatik eşitlenir. Diğer ölçülerin fiyatları ayrı düzenlenir. Ölçülerle aynı sırada giriniz. Boşsa tüm
           ölçüler ürün fiyatını kullanır.
         </p>
       </FormField>
       <FormField label="Görseller *" error={errors.images}>
         <ImageUploader
+          onBusyChange={setUploading}
           value={form.images}
           onChange={(urls) => setForm((f) => ({ ...f, images: urls }))}
           slug={initial?.slug ?? generateSlug(form.name)}
@@ -527,14 +533,14 @@ function ProductForm({
           rows={2}
           value={form.shortDescription}
           onChange={(e) => set("shortDescription", e.target.value)}
-          placeholder="Kart listesinde görünen 1-2 cümle"
+          placeholder="4 mm temperli cam üzerine UV baskıyla hazırlanan, canlı renkleri ve parlak yüzeyiyle dekorasyonunuzu tamamlayan cam tablo."
         />
       </FormField>
       <FormField label="Tam Açıklama">
         <RichTextEditor
           value={form.description}
           onChange={(html) => set("description", html)}
-          placeholder="Ürün detay sayfasında görünen uzun açıklama. Kalın, italik, başlık ve liste biçimlerini kullanabilirsiniz."
+          placeholder="MinaToi cam tabloları, 4 mm temperli cam üzerine UV baskı ile hazırlanır. Tasarımın renklerini, kullanım alanlarını ve ürünün dekorasyona kattığı detayları burada anlatın."
         />
       </FormField>
       <FormField label="Özellikler (her satıra bir özellik)">
@@ -543,15 +549,22 @@ function ProductForm({
           rows={5}
           value={form.features}
           onChange={(e) => set("features", e.target.value)}
-          placeholder="%100 hakiki deri, el dikişi&#10;6 kart gözü&#10;RFID koruma"
+          placeholder="4 mm temperli cam&#10;Yüksek çözünürlüklü UV baskı&#10;Canlı renkler ve parlak yüzey&#10;Korumalı ambalaj ve ücretsiz kargo"
         />
       </FormField>
       <div className="flex items-center gap-3 pt-2 border-t border-stone-100">
         <button
           type="submit"
+          disabled={uploading || submitting}
           className="rounded-full bg-gradient-gold px-6 py-2.5 text-sm font-semibold text-white shadow-glow hover:brightness-110 transition"
         >
-          {initial ? "Değişiklikleri Kaydet" : "Ürünü Ekle"}
+          {uploading
+            ? "Görseller yükleniyor…"
+            : submitting
+              ? "Kaydediliyor…"
+              : initial
+                ? "Değişiklikleri Kaydet"
+                : "Ürünü Ekle"}
         </button>
         <button
           type="button"
@@ -612,7 +625,7 @@ function AdminPage({
 
   // Kayıt sonrası güncel listeyi server'dan çek
   const reloadProducts = useCallback(async () => {
-    const data = await fetchProducts();
+    const data = await fetchManagedProducts();
     setProducts(data);
   }, []);
 
@@ -626,6 +639,7 @@ function AdminPage({
       await reloadProducts();
       window.dispatchEvent(new Event("products-saved"));
       showToast(successMsg, "ok");
+      return true;
     } else {
       console.error("[Admin] Save failed:", result.error);
       const errMsg = result.error?.includes("401")
@@ -634,6 +648,7 @@ function AdminPage({
           ? "Yetki hatası. Şifre değişti mi? Tekrar giriş yapın."
           : `Kayıt başarısız: ${result.error}`;
       showToast(errMsg, "err");
+      return false;
     }
   }
 
@@ -651,7 +666,11 @@ function AdminPage({
     } else {
       updated = [...products, p];
     }
-    await persist(updated, editing ? `"${p.name}" güncellendi.` : `"${p.name}" eklendi.`);
+    const saved = await persist(
+      updated,
+      editing ? `"${p.name}" güncellendi.` : `"${p.name}" eklendi.`,
+    );
+    if (!saved) return;
     setMode("list");
     setEditing(null);
     setFormInitial(null);
@@ -1022,6 +1041,7 @@ function AdminPage({
       {tab === "banners" && <BannerManager />}
       {tab === "hero" && <HeroManager />}
       {tab === "about" && <AboutManager />}
+      {tab === "custom" && <CustomContentManager />}
     </div>
   );
 }

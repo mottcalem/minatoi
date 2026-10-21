@@ -1,3 +1,7 @@
+import { isCostumeProduct } from "@/data/catalog";
+import { getCustomContent } from "@/data/customContentActions";
+import { ExampleGallery } from "@/components/ExampleGallery";
+import type { CustomContent } from "@/data/customContent";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   Check,
@@ -30,7 +34,10 @@ export const Route = createFileRoute("/patili-dostlara-ozel")({
       },
     ],
   }),
-  loader: () => fetchProductsServer(),
+  loader: async () => {
+    const [products, content] = await Promise.all([fetchProductsServer(), getCustomContent()]);
+    return { products, content };
+  },
   component: PatiliProductLanding,
 });
 
@@ -38,9 +45,8 @@ function PatiliProductLanding() {
   const { tab } = Route.useSearch();
   const [kind, setKind] = useState<PortraitKind>(tab ?? "costume");
   useEffect(() => setKind(tab ?? "costume"), [tab]);
-  const cmsCostumes = Route.useLoaderData().filter(
-    (product) => product.category === "patili-dostalara-ozel",
-  );
+  const { content, products: catalog } = Route.useLoaderData();
+  const cmsCostumes = catalog.filter(isCostumeProduct);
   const fallbackPetProducts = CUSTOM_PRODUCTS.filter(
     (product) => product.customization.group === "pet",
   );
@@ -55,6 +61,8 @@ function PatiliProductLanding() {
         : true
       : "customization" in product && !product.slug.includes("kostumlu"),
   );
+  if (kind === "illustration")
+    return <PatiliDosyalaraOzel content={content} onCostume={() => setKind("costume")} />;
   return (
     <main>
       <section className="bg-stone-950 text-white">
@@ -85,7 +93,7 @@ function PatiliProductLanding() {
           </button>
           <button
             onClick={() => setKind("illustration")}
-            className={`rounded-2xl border p-5 text-left font-semibold ${kind === "illustration" ? "border-stone-900 bg-stone-900 text-white" : "border-stone-200 bg-white"}`}
+            className="rounded-2xl border border-stone-200 bg-white p-5 text-left font-semibold"
           >
             Pati İllüstrasyon
             <span className="mt-1 block text-sm font-normal opacity-70">
@@ -98,6 +106,7 @@ function PatiliProductLanding() {
             <ProductCard key={product.slug} product={product} />
           ))}
         </div>
+        <ExampleGallery examples={content.examples.petCostume} />
       </section>
     </main>
   );
@@ -105,36 +114,26 @@ function PatiliProductLanding() {
 
 const SIZES = ["25 × 35 cm", "35 × 50 cm", "50 × 70 cm", "60 × 90 cm"];
 const COSTUMES = ["Korsan", "Prens / Prenses", "Bekçi", "Müdür", "Çöpçü"];
-const STYLES = ["Sulu boya", "Kara kalem", "Yağlı boya", "Pop art"];
+
 const EXAMPLES = [
   "/images/patili-ornek-1.jpg",
   "/images/patili-ornek-2.jpg",
   "/images/patili-ornek-3.jpg",
 ];
-const COSTUME_EXAMPLES = [
-  ["Korsan", "/products/Patili Dostlara Özel_Kostümlü Portre Yeni Sistem/Korsan/Korsan_1.png"],
-  ["Prens", "/products/Patili Dostlara Özel_Kostümlü Portre Yeni Sistem/Prens/Prens_1.png"],
-  ["Prenses", "/products/Patili Dostlara Özel_Kostümlü Portre Yeni Sistem/Prenses/Prenses_1.png"],
-  ["Hemşire", "/products/Patili Dostlara Özel_Kostümlü Portre Yeni Sistem/Hemşire/Hemşire_1.png"],
-  ["Müdür", "/products/Patili Dostlara Özel_Kostümlü Portre Yeni Sistem/Müdür/Müdür_1.png"],
-  ["Çöpçü", "/products/Patili Dostlara Özel_Kostümlü Portre Yeni Sistem/Çöpçü/Çöpçü_1.png"],
-] as const;
-const ILLUSTRATION_EXAMPLES = [
-  [
-    "İllüstrasyonlu Portre",
-    "/products/Patili Dostlara Özel_İllüstrasyonlu Portre/İllüstrasyonlu Portre/İllüstrasyonlu Portre_1.png",
-  ],
-  ["Karakalem", "/images/patili-ornek-1.jpg"],
-  ["Sulu boya", "/images/patili-ornek-2.jpg"],
-  ["Yağlı boya", "/images/patili-ornek-3.jpg"],
-] as const;
+
 type PortraitKind = "costume" | "illustration";
 
-function PatiliDosyalaraOzel() {
-  const [kind, setKind] = useState<PortraitKind>("costume");
+function PatiliDosyalaraOzel({
+  content,
+  onCostume,
+}: {
+  content: CustomContent;
+  onCostume: () => void;
+}) {
+  const [kind, setKind] = useState<PortraitKind>("illustration");
   const [size, setSize] = useState(SIZES[0]);
   const [orientation, setOrientation] = useState("Dikey");
-  const [treatment, setTreatment] = useState(COSTUMES[0]);
+  const [treatment, setTreatment] = useState(content.petStyles[0]);
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
   const [error, setError] = useState("");
@@ -164,10 +163,17 @@ function PatiliDosyalaraOzel() {
   );
 
   function switchKind(next: PortraitKind) {
+    if (next === "costume") {
+      onCostume();
+      return;
+    }
     setKind(next);
-    setTreatment(next === "costume" ? COSTUMES[0] : STYLES[0]);
+    setTreatment(content.petStyles[0]);
   }
-  const selectedExamples = kind === "costume" ? COSTUME_EXAMPLES : ILLUSTRATION_EXAMPLES;
+  const selectedExamples =
+    kind === "costume"
+      ? content.examples.petCostume.map(({ label, image }) => [label, image])
+      : content.examples.petIllustration.map(({ label, image }) => [label, image]);
 
   return (
     <main className="overflow-hidden">
@@ -243,7 +249,7 @@ function PatiliDosyalaraOzel() {
               <Options
                 title={kind === "costume" ? "Kostümünü seç" : "İllüstrasyon stilini seç"}
                 value={treatment}
-                options={kind === "costume" ? COSTUMES : STYLES}
+                options={kind === "costume" ? COSTUMES : content.petStyles}
                 onChange={setTreatment}
               />
               <div>
@@ -303,6 +309,7 @@ function PatiliDosyalaraOzel() {
                 )}
               </div>
             </div>
+            <ExampleGallery examples={content.examples.petIllustration} />
             <div className="mt-7 border-t border-stone-100 pt-6">
               <WhatsAppButton message={message} size="lg" className="w-full">
                 <span className="flex items-center justify-center gap-2">

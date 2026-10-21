@@ -31,7 +31,7 @@ for row in csv.DictReader((source / 'urunler.csv').open(encoding='utf-8-sig', ne
         price=float(row['Price']), image=images[0], images=images,
         shortDescription=title + ' — Zen Koleksiyonu.',
         description=title + '. Zen Koleksiyonu’ndan dekoratif cam tablo.',
-        features=[], shopierUrl=row['URL'],
+        features=[], 
         **({'badge': 'Yeni Gelenler'} if 'Yeni Gelenler' in categories else {})))
 products = [{**p, **premium} for p in products]
 assert len(products) == 19

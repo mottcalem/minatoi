@@ -23,7 +23,7 @@ function Page() {
       intro={
         <p>
           İşbu Kullanıcı Sözleşmesi (“Sözleşme”), {SITE.name} ({SITE.owner}, {SITE.companyType};{" "}
-          {SITE.taxOffice} / {SITE.taxNumber}) tarafından sunulan web sitesi ve Shopier mağazası
+          {SITE.taxOffice} / {SITE.taxNumber}) tarafından sunulan web sitesi
           üzerinden gerçekleştirilen alışveriş işlemlerine uygulanır. Site üzerinden sipariş veren
           kullanıcı (“Kullanıcı”) aşağıdaki koşulları kabul etmiş sayılır.
         </p>

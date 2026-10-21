@@ -54,7 +54,7 @@ for row in rows:
     urls = ['/' + quote(files[i].relative_to(ROOT / 'public').as_posix(), safe='/') for i in order]
     slug = slugify(row['Title'])
     product = dict(slug=slug, name=row['Title'], category=category, image=urls[0], images=urls,
-                   shopierUrl=row['URL'], **PREMIUM)
+                   **PREMIUM)
     if 'Yeni Gelenler' in labels: product['badge'] = 'Yeni Gelenler'
     duplicate = slug in products
     if duplicate:

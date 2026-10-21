@@ -10,7 +10,6 @@ export const SITE = {
   taxOffice: "",
   taxNumber: "",
   instagram: "https://www.instagram.com/minatoi.art/",
-  shopierStore: "#",
 };
 
 export function waLink(message: string) {

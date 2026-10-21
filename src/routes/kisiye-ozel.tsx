@@ -1,10 +1,9 @@
+import { getCustomContent } from "@/data/customContentActions";
+import { ExampleGallery } from "@/components/ExampleGallery";
 import { createFileRoute } from "@tanstack/react-router";
 import { Check, ChevronRight, ImagePlus, ShieldCheck, Sparkles, Upload, X } from "lucide-react";
 import { useEffect, useId, useMemo, useState, type ReactNode } from "react";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
-import { ProductCard } from "@/components/ProductCard";
-import { CUSTOM_PRODUCTS } from "@/data/customProducts";
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 
 export const Route = createFileRoute("/kisiye-ozel")({
   head: () => ({
@@ -20,94 +19,22 @@ export const Route = createFileRoute("/kisiye-ozel")({
   validateSearch: (search: Record<string, unknown>): { tab?: DesignKind } => ({
     tab: search.tab === "illustration" ? "illustration" : "print",
   }),
+  loader: () => getCustomContent(),
   component: KisiyeOzel,
 });
 
-function KisiyeOzelLanding() {
-  const [kind, setKind] = useState<DesignKind | null>(null);
-  const products = CUSTOM_PRODUCTS.filter(
-    (product) =>
-      product.customization.group === "personal" &&
-      (!kind ||
-        (kind === "print"
-          ? product.slug.includes("dogrudan")
-          : !product.slug.includes("dogrudan"))),
-  );
-  return (
-    <main>
-      <section className="bg-stone-950 text-white">
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:py-14">
-          <p className="text-xs font-bold uppercase tracking-[.24em] text-stone-300">
-            MinaToi atölye
-          </p>
-          <h1 className="mt-3 max-w-3xl font-display text-3xl font-bold sm:text-5xl">
-            Anılarınızı size özel bir tasarıma dönüştürelim.
-          </h1>
-          <p className="mt-3 max-w-2xl text-stone-300">
-            Ürününüzü seçin; fotoğrafınızı ürün detay sayfasındaki güvenli alandan yükleyin.
-          </p>
-        </div>
-      </section>
-      <section className="mx-auto max-w-7xl px-4 py-10 sm:py-14">
-        <h2 className="font-display text-2xl font-bold">Tasarım türünü seçin</h2>
-        <div className="mt-5 grid gap-3 sm:grid-cols-2">
-          <button
-            onClick={() => setKind("print")}
-            className={`rounded-2xl border p-5 text-left font-semibold ${kind === "print" ? "border-stone-900 bg-stone-900 text-white" : "border-stone-200 bg-white"}`}
-          >
-            Doğrudan Baskı
-            <span className="mt-1 block text-sm font-normal opacity-70">
-              Fotoğrafınızın doğal görünümü korunur
-            </span>
-          </button>
-          <button
-            onClick={() => setKind("illustration")}
-            className={`rounded-2xl border p-5 text-left font-semibold ${kind === "illustration" ? "border-stone-900 bg-stone-900 text-white" : "border-stone-200 bg-white"}`}
-          >
-            Kişiye Özel İllüstrasyon
-            <span className="mt-1 block text-sm font-normal opacity-70">
-              Karakalem, sulu boya veya yağlı boya
-            </span>
-          </button>
-        </div>
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {products.map((product) => (
-            <ProductCard key={product.slug} product={product} />
-          ))}
-        </div>
-      </section>
-    </main>
-  );
-}
-
 const SIZES = ["25 × 35 cm", "35 × 50 cm", "50 × 70 cm", "60 × 90 cm"];
-const STYLES = ["Sulu boya", "Yağlı boya", "Kara kalem", "Mozaik"];
-const DIRECT_PRINT_EXAMPLES = [
-  "/images/direct-print-examples/cift-portresi.jpg",
-  "/images/direct-print-examples/erkek-portresi.jpg",
-  "/images/direct-print-examples/siyah-beyaz-portre.jpg",
-  "/images/direct-print-examples/yakin-plan-portre.jpg",
-  "/images/direct-print-examples/gunluk-portre.jpg",
-] as const;
-const ILLUSTRATION_PRINT_EXAMPLES = [
-  ["Karakalem", "/images/illustration-print-examples/karakalem-erkek.jpg"],
-  ["Kübik portre", "/images/illustration-print-examples/kubik-erkek.jpg"],
-  ["Sulu boya", "/images/illustration-print-examples/sulu-boya-erkek.jpg"],
-  ["Kübik çift portresi", "/images/illustration-print-examples/kubik-cift.jpg"],
-  ["Sulu boya çift portresi", "/images/illustration-print-examples/sulu-boya-cift.jpg"],
-  ["Karakalem", "/images/illustration-print-examples/karakalem-kadin.jpg"],
-  ["Kübik portre", "/images/illustration-print-examples/kubik-kadin.jpg"],
-  ["Eskiz", "/images/illustration-print-examples/eskiz-kadin.jpg"],
-] as const;
+
 type DesignKind = "print" | "illustration";
 
 function KisiyeOzel() {
+  const content = Route.useLoaderData();
   const { tab } = Route.useSearch();
   const [kind, setKind] = useState<DesignKind>(tab ?? "print");
   useEffect(() => setKind(tab ?? "print"), [tab]);
   const [size, setSize] = useState(SIZES[0]);
   const [orientation, setOrientation] = useState("Dikey");
-  const [style, setStyle] = useState(STYLES[0]);
+  const [style, setStyle] = useState(content.styles[0]);
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
   const [fileError, setFileError] = useState("");
@@ -205,7 +132,7 @@ function KisiyeOzel() {
                 <OptionGroup
                   title="İllüstrasyon stili"
                   value={style}
-                  options={STYLES}
+                  options={content.styles}
                   onChange={setStyle}
                 />
               )}
@@ -266,35 +193,11 @@ function KisiyeOzel() {
                 )}
               </div>
             </div>
-            <section className="mt-7 border-t border-stone-100 pt-6" aria-label="Örnek çalışmalar">
-              <h3 className="text-center font-display text-xl font-bold text-stone-800">
-                Örnek Çalışmalar
-              </h3>
-              <Carousel opts={{ align: "start", loop: true }} className="mt-4 w-full">
-                <CarouselContent className="-ml-3">
-                  {(kind === "print" ? DIRECT_PRINT_EXAMPLES : ILLUSTRATION_PRINT_EXAMPLES).map(
-                    (entry, index) => {
-                      const [label, src] =
-                        typeof entry === "string" ? ["Doğrudan baskı", entry] : entry;
-                      return (
-                        <CarouselItem
-                          key={`${label}-${src}-${index}`}
-                          className="basis-1/3 pl-3 sm:basis-1/5"
-                        >
-                          <figure>
-                            <img
-                              src={src}
-                              alt={`${label} doğrudan baskı örneği`}
-                              className="aspect-[3/4] w-full rounded-xl object-cover"
-                            />
-                          </figure>
-                        </CarouselItem>
-                      );
-                    },
-                  )}
-                </CarouselContent>
-              </Carousel>
-            </section>
+            <ExampleGallery
+              examples={
+                content.examples[kind === "print" ? "personalPrint" : "personalIllustration"]
+              }
+            />
             <div className="mt-7 border-t border-stone-100 pt-6">
               <WhatsAppButton message={message} size="lg" className="w-full">
                 <span className="flex items-center justify-center gap-2">

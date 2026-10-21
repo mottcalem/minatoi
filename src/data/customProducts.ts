@@ -17,7 +17,6 @@ const common = {
     { size: "35 × 50 cm", price: 1790, oldPrice: 2190 },
     { size: "50 × 70 cm", price: 2390, oldPrice: 2890 },
   ],
-  shopierUrl: "https://www.shopier.com/minatoi",
   features: ["4 mm temperli cam", "UV baskı", "Tasarım onayı", "Ücretsiz kargo"],
 };
 

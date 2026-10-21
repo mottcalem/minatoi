@@ -5,6 +5,7 @@ type ImageUploaderProps = {
   /** Yüklenmiş görsel URL'leri; sıraları galeri sırasıdır. */
   value: string[];
   onChange: (urls: string[]) => void;
+  onBusyChange?: (busy: boolean) => void;
   /** Yükleme klasörünü belirleyen ürün adresi; boşsa geçici anahtar kullanılır. */
   slug: string;
   /** Form kaydedilmeden yükleneni engellemek için üst bileşen bildirir. */
@@ -39,7 +40,13 @@ type Card = {
 };
 
 /** Ürün görselleri için çoklu yükleme alanı; URL listesini üst bileşene verir. */
-export function ImageUploader({ value, onChange, slug, onNotify }: ImageUploaderProps) {
+export function ImageUploader({
+  value,
+  onChange,
+  slug,
+  onNotify,
+  onBusyChange,
+}: ImageUploaderProps) {
   const input = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -107,6 +114,7 @@ export function ImageUploader({ value, onChange, slug, onNotify }: ImageUploader
       return;
     }
     setBusy(true);
+    onBusyChange?.(true);
     setError("");
     // Anında önizleme: dosya seçilir seçilmez yerel URL ile gösterilir.
     const batch = files.slice(0, MAX_FILES_PER_REQUEST).map((file) => ({
@@ -154,6 +162,7 @@ export function ImageUploader({ value, onChange, slug, onNotify }: ImageUploader
       notify(err instanceof Error ? err.message : "Yükleme başarısız.");
     } finally {
       setBusy(false);
+      onBusyChange?.(false);
       if (input.current) input.current.value = "";
     }
   }
