@@ -86,6 +86,7 @@ function fixture(options = {}) {
   const api = createPaymentAPI({
     queueOrderEmails: options.queueOrderEmails,
     authorizeAdmin: options.authorizeAdmin,
+    hydrateOrderItems: options.hydrateOrderItems,
     env,
     readPromotions: async () =>
       options.promotions ?? { ...DEFAULT_PROMOTIONS, secondProductEnabled: true },
@@ -101,9 +102,10 @@ function fixture(options = {}) {
         release();
       }
     },
-    readProducts: async () => [
-      { slug: "one", name: "Ürün", price: 610, image: "/product.jpg", sizes: ["S"] },
-    ],
+    readProducts: async () =>
+      options.products ?? [
+        { slug: "one", name: "Ürün", price: 610, image: "/product.jpg", sizes: ["S"] },
+      ],
     fetch: async (url, init) => {
       calls++;
       assert.equal(url, "https://www.paytr.com/odeme/api/get-token");
@@ -499,4 +501,70 @@ test("admin order endpoints accept centrally verified sessions rather than passw
   const f = fixture({ authorizeAdmin: async (token) => token === session });
   assert.equal((await f.request("/api/checkout/admin", { token: session })).status, 200);
   assert.equal((await f.request("/api/checkout/admin", { token: "invalid" })).status, 401);
+});
+
+test("personalized purchase validates upload before charging and persists photo with paid order", async () => {
+  const { createUploadStore } = await import("../design/orderUploads.ts");
+  const { mkdtemp, rm } = await import("node:fs/promises");
+  const { tmpdir } = await import("node:os");
+  const { join } = await import("node:path");
+  const dir = await mkdtemp(join(tmpdir(), "minatoi-order-"));
+  try {
+    const store = createUploadStore(dir);
+    const product = {
+      slug: "custom",
+      name: "Kostümlü portre",
+      category: "patili-dostalara-ozel",
+      price: 1290,
+      image: "/sample.jpg",
+      sizes: ["S"],
+    };
+    const png = Buffer.from(
+      "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII=",
+      "base64",
+    );
+    const uploaded = await store.save(
+      { slug: product.slug, size: "S", orientation: "Dikey", style: "Korsan" },
+      new File([png], "pet.png", { type: "image/png" }),
+    );
+    const queued = [];
+    const f = fixture({
+      products: [product],
+      hydrateOrderItems: (items) => store.hydrate(items),
+      queueOrderEmails: async (_, id) => queued.push(id),
+    });
+    const payload = {
+      ...f.input(),
+      items: [
+        {
+          slug: product.slug,
+          size: "S",
+          quantity: 1,
+          customization: { uploadId: uploaded.uploadId },
+        },
+      ],
+      expectedAmount: 129000,
+    };
+    const quote = await f.request("/api/checkout/quote", { items: payload.items });
+    assert.equal(quote.status, 200);
+    assert.equal((await quote.json()).items[0].customization.style, "Korsan");
+    const started = await (await f.request("/api/checkout/start", payload)).json();
+    assert.ok(started.token);
+    const order = f.rows.get(started.id);
+    assert.equal(order.items[0].customization.photoUrl, uploaded.photoUrl);
+    assert.equal(order.items[0].image, uploaded.photoUrl);
+    assert.equal(await (await f.callback(started.id, "success", "129000")).text(), "OK");
+    assert.equal(order.status, "paid");
+    assert.deepEqual(queued, [order.id]);
+    const bad = {
+      ...payload,
+      requestId: randomUUID(),
+      items: [{ ...payload.items[0], customization: { uploadId: randomUUID() } }],
+    };
+    assert.equal((await f.request("/api/checkout/start", bad)).status, 400);
+    assert.equal(f.calls, 1);
+    assert.equal((await f.request("/api/checkout/quote", { items: bad.items })).status, 400);
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
 });

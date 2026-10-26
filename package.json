@@ -19,7 +19,8 @@
     "test:payments": "node --test server/payments/*.test.mjs",
     "test:emails": "node --test server/notifications/*.test.mjs",
     "test:admin": "node --test server/admin/*.test.mjs",
-    "test:catalog": "node --test tests/admin-catalog.test.mjs tests/product-price-form.test.mjs"
+    "test:catalog": "node --test tests/admin-catalog.test.mjs tests/product-price-form.test.mjs",
+    "db:cart-reminders": "node scripts/init-cart-reminders.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

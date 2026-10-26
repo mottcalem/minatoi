@@ -1,3 +1,4 @@
+import { deliverNextCartReminder } from "../notifications/cartReminders";
 import { definePlugin } from "nitro";
 import { withTransaction } from "../utils/database";
 import { deliverNextEmail } from "../notifications/queue";
@@ -13,6 +14,16 @@ export default definePlugin((nitro) => {
       for (let i = 0; i < 10; i++) {
         if (!(await withTransaction((client) => deliverNextEmail(client, mailer.send)))) break;
       }
+      if (process.env.CART_REMINDER_ENABLED === "1") {
+        for (let i = 0; i < 10; i++) {
+          if (
+            !(await withTransaction((client) =>
+              deliverNextCartReminder(client, mailer.sendReminder),
+            ))
+          )
+            break;
+        }
+      }
     } catch {
       console.error("[order-email] Queue unavailable; will retry");
     } finally {
@@ -23,6 +34,7 @@ export default definePlugin((nitro) => {
   timer.unref();
   nitro.hooks.hook("close", () => {
     clearInterval(timer);
+    mailer.close();
   });
   void tick();
 });

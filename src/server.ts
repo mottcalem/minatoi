@@ -42,6 +42,14 @@ export default {
     try {
       const url = new URL(request.url);
       const path = url.pathname;
+      if (path === "/api/custom-order-uploads" || path.startsWith("/api/custom-order-images/")) {
+        const { orderUploadAPI } = await import("../server/design/orderUploadEntry");
+        return await orderUploadAPI(request);
+      }
+      if (path.startsWith("/api/cart-reminders/")) {
+        const { cartReminderAPI } = await import("../server/notifications/cartReminderEntry");
+        return await cartReminderAPI(request);
+      }
       if (path === "/api/design-requests") {
         const { designAPI } = await import("../server/design/api");
         return await designAPI(request);

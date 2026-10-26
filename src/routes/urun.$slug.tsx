@@ -311,17 +311,19 @@ function ProductDetail() {
                 </button>
               </div>
             </div>
-            <button
-              type="button"
-              disabled={!ready}
-              onClick={() => {
-                add(product, selectedSize, quantity);
-                setAdded(true);
-              }}
-              className="block w-full rounded-full bg-gradient-gold px-6 py-4 text-center text-sm font-semibold text-primary-foreground shadow-glow transition hover:brightness-110"
-            >
-              Sepete ekle
-            </button>
+            {!(isCustomProduct(product) || isPetProduct) && (
+              <button
+                type="button"
+                disabled={!ready}
+                onClick={() => {
+                  add(product, selectedSize, quantity);
+                  setAdded(true);
+                }}
+                className="block w-full rounded-full bg-gradient-gold px-6 py-4 text-center text-sm font-semibold text-primary-foreground shadow-glow transition hover:brightness-110"
+              >
+                Sepete ekle
+              </button>
+            )}
             {added && (
               <div
                 role="status"
@@ -340,7 +342,13 @@ function ProductDetail() {
               </div>
             )}
             {isCustomProduct(product) || isPetProduct ? (
-              <DesignRequestForm file={upload} details={waMsg} />
+              <DesignRequestForm
+                file={upload}
+                product={product}
+                size={selectedSize}
+                quantity={quantity}
+                style={isCustomProduct(product) ? product.customization.style : product.name}
+              />
             ) : (
               <WhatsAppButton message={waMsg} size="lg" className="w-full">
                 WhatsApp'tan Bu Ürünü Sor

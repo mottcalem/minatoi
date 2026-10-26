@@ -48,7 +48,7 @@ Yeni siparişlerde yalnızca kartla ödeme kabul edilir. Havale/EFT oluşturma u
 
 ## Kalan yayın kontrolleri
 
-Mevcut katalog ölçü başına ayrı fiyat saklamıyor; tüm ölçüler ürünün ortak fiyatını kullanıyor. Ölçülere göre fiyatlar farklıysa yayın öncesinde katalogdaki varyasyon fiyatları tamamlanmalıdır. Otomatik fatura, sipariş e-postası, stok rezervasyonu, kargo API'si ve otomatik iade bu entegrasyonun kapsamında eklenmedi. Sözleşmelerde ödeme/kargo/kampanya işleyişi güncellendi; mevcut satıcı bilgileri korunmuştur.
+Mevcut katalog ölçü başına ayrı fiyat saklamıyor; tüm ölçüler ürünün ortak fiyatını kullanıyor. Ölçülere göre fiyatlar farklıysa yayın öncesinde katalogdaki varyasyon fiyatları tamamlanmalıdır. Sipariş e-postaları ödeme onayından sonra müşteri ve admin için kuyruğa alınır; SMTP kurulum ve etkinleştirme adımları `docs/order-emails.md` dosyasındadır. Otomatik fatura, stok rezervasyonu, kargo API'si ve otomatik iade bu entegrasyonun kapsamında eklenmedi. Sözleşmelerde ödeme/kargo/kampanya işleyişi güncellendi; mevcut satıcı bilgileri korunmuştur.
 
 ## Gerçek domaine geçiş — ödeme için zorunlu adımlar
 

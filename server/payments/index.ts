@@ -1,3 +1,6 @@
+import { orderUploadStore } from "../design/orderUploads";
+import { catalogProducts } from "../../src/data/catalog";
+import { CUSTOM_PRODUCTS } from "../../src/data/customProducts";
 import { isAdminToken } from "../utils/adminAuth";
 import { queueOrderEmails } from "../notifications/queue";
 import { readPromotions } from "../utils/promotionStore";
@@ -10,7 +13,8 @@ export const paymentAPI = createPaymentAPI({
   readPromotions,
   getPool,
   withTransaction,
-  readProducts,
+  readProducts: async () => catalogProducts(await readProducts(), CUSTOM_PRODUCTS).storefront,
+  hydrateOrderItems: (items) => orderUploadStore.hydrate(items),
   fetch: globalThis.fetch,
   env: process.env,
 });

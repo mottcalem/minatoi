@@ -1,8 +1,10 @@
+import { fetchProductsServer } from "@/data/adminProducts";
+import { CUSTOM_PRODUCTS } from "@/data/customProducts";
 import { getCustomContent } from "@/data/customContentActions";
 import { ExampleGallery } from "@/components/ExampleGallery";
 import { createFileRoute } from "@tanstack/react-router";
 import { Check, ChevronRight, ImagePlus, ShieldCheck, Sparkles, Upload, X } from "lucide-react";
-import { useEffect, useId, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useId, useState, type ReactNode } from "react";
 import { DesignRequestForm } from "@/components/DesignRequestForm";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 
@@ -20,20 +22,21 @@ export const Route = createFileRoute("/kisiye-ozel")({
   validateSearch: (search: Record<string, unknown>): { tab?: DesignKind } => ({
     tab: search.tab === "illustration" ? "illustration" : "print",
   }),
-  loader: () => getCustomContent(),
+  loader: async () => ({
+    content: await getCustomContent(),
+    products: await fetchProductsServer(),
+  }),
   component: KisiyeOzel,
 });
-
-const SIZES = ["25 × 35 cm", "35 × 50 cm", "50 × 70 cm", "60 × 90 cm"];
 
 type DesignKind = "print" | "illustration";
 
 function KisiyeOzel() {
-  const content = Route.useLoaderData();
+  const { content, products } = Route.useLoaderData();
   const { tab } = Route.useSearch();
   const [kind, setKind] = useState<DesignKind>(tab ?? "print");
   useEffect(() => setKind(tab ?? "print"), [tab]);
-  const [size, setSize] = useState(SIZES[0]);
+  const [size, setSize] = useState("25 × 35 cm");
   const [orientation, setOrientation] = useState("Dikey");
   const [style, setStyle] = useState(content.styles[0]);
   const [file, setFile] = useState<File | null>(null);
@@ -56,11 +59,18 @@ function KisiyeOzel() {
     setFileError("");
     setFile(candidate);
   }
-  const message = useMemo(
-    () =>
-      `Merhaba, kişiye özel tasarım siparişi vermek istiyorum.\n\nTasarım türü: ${kind === "print" ? "Doğrudan baskı" : "İllüstrasyon Tasarım"}\nÖlçü: ${size}\nYön: ${orientation}${kind === "illustration" ? `\nStil: ${style}` : ""}${file ? `\nFotoğraf: ${file.name}` : ""}\n\nFotoğrafımı talebimle birlikte paylaşıyorum.`,
-    [file, kind, orientation, size, style],
-  );
+  const slug =
+    kind === "print"
+      ? "kisiye-ozel-dogrudan-baski"
+      : /sulu/i.test(style)
+        ? "kisiye-ozel-sulu-boya"
+        : /yağ|yag|mozaik/i.test(style)
+          ? "kisiye-ozel-yagli-boya"
+          : "kisiye-ozel-karakalem";
+  const product =
+    products.find((p) => p.slug === slug) ?? CUSTOM_PRODUCTS.find((p) => p.slug === slug)!;
+  const sizes = product.sizes ?? [];
+  const selectedSize = sizes.includes(size) ? size : sizes[0];
   return (
     <main className="overflow-hidden">
       <section className="border-b border-stone-200 bg-white text-stone-900">
@@ -122,7 +132,12 @@ function KisiyeOzel() {
                 : "Tasarım ekibimiz görselinizi seçtiğiniz stile göre yorumlar ve onayınıza sunar."}
             </p>
             <div className="mt-7 space-y-6">
-              <OptionGroup title="Tablo ölçüsü" value={size} options={SIZES} onChange={setSize} />
+              <OptionGroup
+                title="Tablo ölçüsü"
+                value={selectedSize}
+                options={sizes}
+                onChange={setSize}
+              />
               <OptionGroup
                 title="Yön seçimi"
                 value={orientation}
@@ -194,14 +209,20 @@ function KisiyeOzel() {
                 )}
               </div>
             </div>
+            <div className="mt-6">
+              <DesignRequestForm
+                file={file}
+                product={product}
+                size={selectedSize}
+                orientation={orientation}
+                style={kind === "print" ? "Doğrudan baskı" : style}
+              />
+            </div>
             <ExampleGallery
               examples={
                 content.examples[kind === "print" ? "personalPrint" : "personalIllustration"]
               }
             />
-            <div className="mt-7 border-t border-stone-100 pt-6">
-              <DesignRequestForm file={file} details={message} />
-            </div>
           </section>
           <aside className="space-y-5">
             <InfoCard title="Fotoğraf boyutu hakkında">
@@ -258,7 +279,7 @@ function KisiyeOzel() {
               [
                 "02",
                 "Fotoğrafınızı paylaşın",
-                "Görselinizi yükleyin ve sipariş detaylarını gönderin.",
+                "Görselinizi yükleyin ve tasarımınızı sepete ekleyin.",
               ],
               [
                 "03",

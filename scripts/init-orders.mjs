@@ -1,3 +1,4 @@
+import { CART_REMINDER_SCHEMA } from "../server/notifications/cartReminders.ts";
 import { Pool } from "pg";
 import { ORDER_SCHEMA } from "../server/payments/core.ts";
 import { EMAIL_SCHEMA } from "../server/notifications/queue.ts";
@@ -14,6 +15,7 @@ try {
   if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL eksik");
   await pool.query(ORDER_SCHEMA);
   await pool.query(EMAIL_SCHEMA);
+  await pool.query(CART_REMINDER_SCHEMA);
   console.log("Sipariş tablosu hazır.");
 } catch {
   console.error("Sipariş tablosu hazırlanamadı. PostgreSQL bağlantısını kontrol edin.");

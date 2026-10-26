@@ -1,3 +1,6 @@
+import { useCartReminder } from "@/lib/useCartReminder";
+import { ShieldCheck } from "lucide-react";
+import { cartPayload } from "@/data/orderCustomization";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useCart } from "@/components/CartProvider";
@@ -22,6 +25,7 @@ function CartPage() {
   const { items, ready, update } = useCart();
   const [couponDraft, setCouponDraft] = useState("");
   const [couponCode, setCouponCode] = useState("");
+  const reminder = useCartReminder(couponCode, setCouponCode);
   const [quote, setQuote] = useState<Quote | null>(null);
   const [quoteLoading, setQuoteLoading] = useState(false);
   const [quoteError, setQuoteError] = useState("");
@@ -37,9 +41,7 @@ function CartPage() {
   } | null>(null);
   const requestId = useRef("");
   const lastPayload = useRef("");
-  const cartJSON = JSON.stringify(
-    items.map(({ slug, size, quantity }) => ({ slug, size, quantity })),
-  );
+  const cartJSON = JSON.stringify(cartPayload(items));
   useEffect(() => {
     let active = true;
     setQuote(null);
@@ -128,6 +130,7 @@ function CartPage() {
         }
         result = await checkoutRequest("start", { ...payload, requestId: requestId.current });
       }
+      void reminder.linkOrder(result);
       try {
         sessionStorage.setItem(
           "minatoi-order",
@@ -156,11 +159,16 @@ function CartPage() {
       setBusy(false);
     }
   }
-  if (!ready) return <div className="p-12 text-center">Sepet yükleniyor…</div>;
+  if (!ready || reminder.restoring)
+    return <div className="p-12 text-center">Sepet yükleniyor…</div>;
   if (payment)
     return (
       <section className="mx-auto max-w-3xl px-4 py-10">
         <h1 className="font-display text-3xl font-bold">Güvenli ödeme</h1>
+        <p className="mt-4 flex items-center gap-2 font-semibold text-amber-900">
+          <ShieldCheck className="h-5 w-5" />
+          Hasarsız Teslimat Garantisi
+        </p>
         <p className="my-4">{formatTL(payment.amount / 100)} · Tek çekim · Ücretsiz kargo</p>
         <iframe
           title="PayTR güvenli kart ödeme formu"
@@ -181,6 +189,11 @@ function CartPage() {
     <section className="mx-auto max-w-6xl px-4 py-10">
       <p className="text-xs uppercase tracking-widest text-primary">MinaToi alışveriş</p>
       <h1 className="mt-2 font-display text-3xl font-bold">Sepetim</h1>
+      {reminder.notice && (
+        <p role="status" className="mt-4 rounded-xl bg-stone-100 p-4">
+          {reminder.notice}
+        </p>
+      )}
       {!items.length ? (
         <div className="my-10 rounded-2xl bg-stone-50 p-10 text-center">
           <p>Sepetiniz henüz boş.</p>
@@ -196,7 +209,7 @@ function CartPage() {
           <div className="space-y-4">
             {items.map((i) => (
               <div
-                key={i.slug + "|" + i.size}
+                key={i.slug + "|" + i.size + "|" + (i.customization?.uploadId ?? "")}
                 className="flex gap-4 rounded-2xl border border-stone-200 p-4"
               >
                 <img src={i.image} alt={i.name} className="h-20 w-20 rounded-xl object-cover" />
@@ -205,11 +218,28 @@ function CartPage() {
                     {i.name}
                   </Link>
                   {i.size && <p className="text-sm text-stone-500">Ölçü: {i.size}</p>}
+                  {i.customization && (
+                    <div className="mt-1 text-sm text-stone-500">
+                      <p>
+                        {i.customization.style} · {i.customization.orientation}
+                      </p>
+                      <a
+                        href={i.customization.photoUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="underline"
+                      >
+                        Yüklediğiniz görseli aç
+                      </a>
+                    </div>
+                  )}
                   <div className="mt-3 flex flex-wrap items-center gap-3">
                     <button
                       type="button"
                       disabled={busy}
-                      onClick={() => update(i.slug, i.size, i.quantity - 1)}
+                      onClick={() =>
+                        update(i.slug, i.size, i.quantity - 1, i.customization?.uploadId)
+                      }
                       className="h-9 w-9 rounded border"
                       aria-label={`${i.name} adet azalt`}
                     >
@@ -219,7 +249,9 @@ function CartPage() {
                     <button
                       type="button"
                       disabled={busy || i.quantity >= 20}
-                      onClick={() => update(i.slug, i.size, i.quantity + 1)}
+                      onClick={() =>
+                        update(i.slug, i.size, i.quantity + 1, i.customization?.uploadId)
+                      }
                       className="h-9 w-9 rounded border"
                       aria-label={`${i.name} adet artır`}
                     >
@@ -228,7 +260,7 @@ function CartPage() {
                     <button
                       type="button"
                       disabled={busy}
-                      onClick={() => update(i.slug, i.size, 0)}
+                      onClick={() => update(i.slug, i.size, 0, i.customization?.uploadId)}
                       className="text-sm underline"
                     >
                       Kaldır
@@ -340,6 +372,15 @@ function CartPage() {
                   </button>
                 </div>
               )}
+              <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-amber-950">
+                <div className="flex items-center gap-2 font-semibold">
+                  <ShieldCheck className="h-6 w-6 shrink-0" />
+                  Hasarsız Teslimat Garantisi
+                </div>
+                <p className="mt-2 text-sm">
+                  Özenle paketleme ve ücretsiz kargoyla güvenle kapınıza.
+                </p>
+              </div>
               <p className="mt-3 text-sm text-stone-500">Kartla tek çekim. Üyelik gerekmez.</p>
             </div>
           </div>
@@ -358,6 +399,13 @@ function CartPage() {
                   <input
                     required
                     name={f.name}
+                    value={f.name === "email" ? reminder.email : undefined}
+                    onChange={
+                      f.name === "email"
+                        ? (event) => reminder.setEmail(event.target.value)
+                        : undefined
+                    }
+                    onBlur={f.name === "email" ? () => void reminder.save() : undefined}
                     type={f.type ?? "text"}
                     autoComplete={f.auto}
                     maxLength={f.max}

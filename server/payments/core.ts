@@ -1,4 +1,8 @@
 import {
+  requiresCustomization,
+  type OrderCustomization,
+} from "../../src/data/orderCustomization.ts";
+import {
   DEFAULT_PROMOTIONS,
   promotionsSchema,
   type Promotions,
@@ -14,6 +18,7 @@ export const cartSchema = z
         slug: z.string().min(1).max(160),
         size: z.string().max(100).default(""),
         quantity: z.number().int().min(1).max(20),
+        customization: z.object({ uploadId: z.string().uuid() }).strict().optional(),
       })
       .strict(),
   )
@@ -42,6 +47,7 @@ export const checkoutSchema = z
   })
   .strict();
 export type OrderItem = {
+  customization?: Pick<OrderCustomization, "uploadId"> & Partial<OrderCustomization>;
   slug: string;
   size: string;
   quantity: number;
@@ -54,6 +60,8 @@ export function priceCart(
   input: unknown,
   products: {
     slug: string;
+    category?: string;
+    customization?: unknown;
     name: string;
     price: number;
     image: string;
@@ -72,7 +80,11 @@ export function priceCart(
   const cart = cartSchema.parse(input);
   const seen = new Set<string>();
   const items: OrderItem[] = cart.map((item) => {
-    const key = JSON.stringify([item.slug, normalizeSize(item.size)]);
+    const key = JSON.stringify([
+      item.slug,
+      normalizeSize(item.size),
+      item.customization?.uploadId ?? "",
+    ]);
     if (seen.has(key)) throw new Error("Sepette tekrarlanan ürün var.");
     seen.add(key);
     const p = products.find((p) => p.slug === item.slug);
@@ -84,6 +96,10 @@ export function priceCart(
         : item.size !== ""
     )
       throw new Error("Ürün ölçüsü geçersiz. Lütfen ürünü yeniden ekleyin.");
+    if (requiresCustomization(p) && !item.customization)
+      throw new Error("Bu ürün için fotoğraf yükleyin ve yeniden sepete ekleyin.");
+    if (!requiresCustomization(p) && item.customization)
+      throw new Error("Bu ürün kişiselleştirilemiyor.");
     const unitAmount = Math.round(priceForSize(p, item.size).price * 100);
     if (!Number.isSafeInteger(unitAmount) || unitAmount <= 0)
       throw new Error("Ürün fiyatı geçersiz.");

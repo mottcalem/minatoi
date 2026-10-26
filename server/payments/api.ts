@@ -4,6 +4,7 @@ import { isIP } from "node:net";
 import type { Pool, PoolClient } from "pg";
 import type { Product } from "../../src/data/products";
 import {
+  type OrderItem,
   checkoutSchema,
   priceCart,
   sign,
@@ -13,6 +14,7 @@ import {
 } from "./core.ts";
 
 type Dependencies = {
+  hydrateOrderItems?: (items: OrderItem[]) => Promise<OrderItem[]>;
   authorizeAdmin?: (token: string) => Promise<boolean>;
   queueOrderEmails?: (client: Pick<PoolClient, "query">, orderId: string) => Promise<void>;
   readPromotions?: () => Promise<Promotions>;
@@ -24,6 +26,10 @@ type Dependencies = {
 };
 export function createPaymentAPI({
   getPool,
+  hydrateOrderItems = async (items) => {
+    if (items.some((item) => item.customization)) throw new Error("Kişiselleştirme doğrulanamadı.");
+    return items;
+  },
   authorizeAdmin,
   queueOrderEmails = async () => {},
   readPromotions = async () => DEFAULT_PROMOTIONS,
@@ -185,7 +191,15 @@ export function createPaymentAPI({
         const products = await readProducts();
         try {
           return json({
-            ...priceCart(input.items, products, await readPromotions(), input.couponCode ?? ""),
+            ...(await (async () => {
+              const priced = priceCart(
+                input.items,
+                products,
+                await readPromotions(),
+                input.couponCode ?? "",
+              );
+              return { ...priced, items: await hydrateOrderItems(priced.items) };
+            })()),
             paymentAvailable: env.PAYTR_ENABLED === "1",
             bankTransferAvailable: false,
           });
@@ -238,6 +252,7 @@ export function createPaymentAPI({
             await readPromotions(),
             data.couponCode,
           );
+          priced.items = await hydrateOrderItems(priced.items);
         } catch {
           throw new PublicError("Sepet doğrulanamadı. Lütfen sepetinizi güncelleyin.");
         }

@@ -1,3 +1,4 @@
+import type { Product } from "@/data/products";
 import { isCostumeProduct } from "@/data/catalog";
 import { getCustomContent } from "@/data/customContentActions";
 import { ExampleGallery } from "@/components/ExampleGallery";
@@ -14,7 +15,7 @@ import {
   Upload,
   X,
 } from "lucide-react";
-import { useEffect, useId, useMemo, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { DesignRequestForm } from "@/components/DesignRequestForm";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ProductCard } from "@/components/ProductCard";
@@ -63,7 +64,13 @@ function PatiliProductLanding() {
       : "customization" in product && !product.slug.includes("kostumlu"),
   );
   if (kind === "illustration")
-    return <PatiliDosyalaraOzel content={content} onCostume={() => setKind("costume")} />;
+    return (
+      <PatiliDosyalaraOzel
+        products={catalog}
+        content={content}
+        onCostume={() => setKind("costume")}
+      />
+    );
   return (
     <main>
       <section className="bg-stone-950 text-white">
@@ -113,7 +120,6 @@ function PatiliProductLanding() {
   );
 }
 
-const SIZES = ["25 × 35 cm", "35 × 50 cm", "50 × 70 cm", "60 × 90 cm"];
 const COSTUMES = ["Korsan", "Prens / Prenses", "Bekçi", "Müdür", "Çöpçü"];
 
 const EXAMPLES = [
@@ -125,14 +131,16 @@ const EXAMPLES = [
 type PortraitKind = "costume" | "illustration";
 
 function PatiliDosyalaraOzel({
+  products,
   content,
   onCostume,
 }: {
+  products: Product[];
   content: CustomContent;
   onCostume: () => void;
 }) {
   const [kind, setKind] = useState<PortraitKind>("illustration");
-  const [size, setSize] = useState(SIZES[0]);
+  const [size, setSize] = useState("25 × 35 cm");
   const [orientation, setOrientation] = useState("Dikey");
   const [treatment, setTreatment] = useState(content.petStyles[0]);
   const [file, setFile] = useState<File | null>(null);
@@ -157,11 +165,15 @@ function PatiliDosyalaraOzel({
     setFile(candidate);
   }
 
-  const message = useMemo(
-    () =>
-      `Merhaba, patili dostum için kişiye özel tablo siparişi vermek istiyorum.\n\nTasarım türü: ${kind === "costume" ? "Kostümlü Portre" : "İllüstrasyon Portre"}\n${kind === "costume" ? "Kostüm" : "Stil"}: ${treatment}\nÖlçü: ${size}\nYön: ${orientation}${file ? `\nFotoğraf: ${file.name}` : ""}\n\nFotoğrafımı talebimle birlikte paylaşıyorum.`,
-    [file, kind, orientation, size, treatment],
-  );
+  const slug = /sulu/i.test(treatment)
+    ? "patili-sulu-boya"
+    : /yağ|yag/i.test(treatment)
+      ? "patili-yagli-boya"
+      : "patili-karakalem";
+  const product =
+    products.find((p) => p.slug === slug) ?? CUSTOM_PRODUCTS.find((p) => p.slug === slug)!;
+  const sizes = product.sizes ?? [];
+  const selectedSize = sizes.includes(size) ? size : sizes[0];
 
   function switchKind(next: PortraitKind) {
     if (next === "costume") {
@@ -240,7 +252,12 @@ function PatiliDosyalaraOzel({
               Yüzü net görünen, gün ışığında çekilmiş bir fotoğraf en iyi sonucu verir.
             </p>
             <div className="mt-7 space-y-6">
-              <Options title="Tablo ölçüsü" value={size} options={SIZES} onChange={setSize} />
+              <Options
+                title="Tablo ölçüsü"
+                value={selectedSize}
+                options={sizes}
+                onChange={setSize}
+              />
               <Options
                 title="Yön seçimi"
                 value={orientation}
@@ -310,10 +327,16 @@ function PatiliDosyalaraOzel({
                 )}
               </div>
             </div>
-            <ExampleGallery examples={content.examples.petIllustration} />
-            <div className="mt-7 border-t border-stone-100 pt-6">
-              <DesignRequestForm file={file} details={message} />
+            <div className="mt-6">
+              <DesignRequestForm
+                file={file}
+                product={product}
+                size={selectedSize}
+                orientation={orientation}
+                style={treatment}
+              />
             </div>
+            <ExampleGallery examples={content.examples.petIllustration} />
           </section>
           <aside className="space-y-5">
             <Info title="Fotoğraf ipuçları">

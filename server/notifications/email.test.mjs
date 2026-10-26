@@ -78,3 +78,70 @@ test("empty outbox sends no email", async () => {
     false,
   );
 });
+
+test("existing Notifiva credentials support order delivery without duplicate secrets", async () => {
+  const { orderSmtpConfig } = await import("./smtp.ts");
+  assert.deepEqual(orderSmtpConfig({ NOTIFIVA_SMTP_PASSWORD: "test-secret" }), {
+    host: "smtp.notifiva.com",
+    port: 587,
+    user: "notifiva",
+    pass: "test-secret",
+    from: "no-reply@e.dijitalpanter.com",
+    admin: "info@minatoi.com",
+  });
+  const custom = orderSmtpConfig({
+    SMTP_HOST: "smtp.example.com",
+    SMTP_PORT: "465",
+    SMTP_USER: "user",
+    SMTP_PASS: "custom",
+    SMTP_FROM: "shop@example.com",
+    ORDER_ADMIN_EMAIL: "admin@example.com",
+    NOTIFIVA_SMTP_PASSWORD: "other",
+  });
+  assert.equal(custom.host, "smtp.example.com");
+  assert.equal(custom.pass, "custom");
+  assert.equal(custom.port, 465);
+  assert.throws(() =>
+    orderSmtpConfig({ SMTP_HOST: "smtp.example.com", NOTIFIVA_SMTP_PASSWORD: "other" }),
+  );
+});
+
+test("order summary shows item pricing, discount, delivery and contact information", () => {
+  const message = orderMessage(order, "customer");
+  for (const value of [
+    "Sipariş özeti",
+    "Birim:",
+    "Ara toplam",
+    "1.220,00",
+    "1.120,00",
+    "Ücretsiz",
+    "Kadıköy",
+    "buyer@example.com",
+  ])
+    assert.ok(message.html.includes(value), value);
+  assert.match(message.html, /bu e-postayı yanıtlayabilirsiniz/);
+});
+
+test("personalized order emails retain style, orientation and photo link for both audiences", () => {
+  const custom = {
+    ...order,
+    items: [
+      {
+        ...order.items[0],
+        customization: {
+          uploadId: "12345678-1234-4234-8234-123456789012",
+          style: "Sulu <boya>",
+          orientation: "Yatay",
+          filename: "pet.png",
+          photoUrl: "/api/custom-order-images/12345678-1234-4234-8234-123456789012",
+        },
+      },
+    ],
+  };
+  for (const audience of ["customer", "admin"]) {
+    const message = orderMessage(custom, audience, false, "https://shop.example");
+    assert.match(message.text, /Sulu <boya> · Yatay/);
+    assert.match(message.html, /Sulu &lt;boya&gt;/);
+    assert.match(message.html, /https:\/\/shop.example\/api\/custom-order-images\//);
+  }
+});

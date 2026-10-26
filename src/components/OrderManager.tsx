@@ -1,3 +1,4 @@
+import type { OrderCustomization } from "@/data/orderCustomization";
 import { useEffect, useState } from "react";
 import { checkoutRequest } from "@/lib/checkout";
 import { formatTL } from "@/data/products";
@@ -11,7 +12,7 @@ type Order = {
     city: string;
     district: string;
   };
-  items: { name: string; size: string; quantity: number }[];
+  items: { name: string; size: string; quantity: number; customization?: OrderCustomization }[];
   amount: number;
   discount: number;
   status: string;
@@ -111,6 +112,30 @@ export function OrderManager() {
               <li key={n}>
                 {i.quantity} × {i.name}
                 {i.size ? " · " + i.size : ""}
+                {i.customization && (
+                  <div className="mt-2 mb-4 flex items-center gap-3">
+                    <a href={i.customization.photoUrl} target="_blank" rel="noreferrer">
+                      <img
+                        src={i.customization.photoUrl}
+                        alt="Müşterinin yüklediği görsel"
+                        className="h-24 w-24 rounded-lg object-contain"
+                      />
+                    </a>
+                    <div>
+                      <p>
+                        {i.customization.style} · {i.customization.orientation}
+                      </p>
+                      <a
+                        href={i.customization.photoUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="underline"
+                      >
+                        Orijinal görseli aç
+                      </a>
+                    </div>
+                  </div>
+                )}
               </li>
             ))}
           </ul>
