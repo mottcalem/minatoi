@@ -81,14 +81,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     scripts: [
       {
-        src: "https://www.googletagmanager.com/gtag/js?id=G-R32VEKYQ7R",
+        src: "https://www.googletagmanager.com/gtag/js?id=G-2C6547VHP4",
         async: true,
       },
       {
         children: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'G-R32VEKYQ7R');`,
+gtag('config', 'G-2C6547VHP4');`,
       },
       {
         children: `window.chatwootSettings = {"position":"right","type":"expanded_bubble","launcherTitle":"Canlı Destek"};

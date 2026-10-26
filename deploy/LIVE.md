@@ -18,3 +18,5 @@ veritabanı içe aktarım betiklerini çalıştırmayı gerektirmez.
 Bu yayında TypeScript ve build başarılı; ana sayfa, özel tasarım sayfaları,
 eski kategori yönlendirmeleri, sitemap ve yerel statik dosyalar HTTP ile doğrulandı.
 Gerçek ödeme işlemi yapılmadı.
+
+26 Ekim 2026: Üretim derlemesi yenilendi. `llm.txt` ve `llms.txt` içerikleri eşitlendi; Instagram, iletişim ve ödeme bilgileri güncellendi, Shopier tanıtımı kaldırıldı. Nginx canlı sunucu bloğuna `charset utf-8` eklendi; statik metinlerde Türkçe karakterlerin doğru yorumlanması sağlandı. Yayın öncesi yedekler `/var/www/minatoi/shared/pre-text-update-*` altında tutulur.

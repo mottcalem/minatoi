@@ -2,6 +2,7 @@ server {
     server_name minatoi.com www.minatoi.com;
     root /var/www/minatoi/current/.output/public;
     client_max_body_size 50m;
+    charset utf-8;
 
     location ^~ /products/ {
         alias /var/www/minatoi/current/public/products/;

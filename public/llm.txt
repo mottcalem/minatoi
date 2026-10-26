@@ -7,16 +7,15 @@
 - **Marka Adı:** MinaToi
 - **Tür:** Kişiye özel cam tablo ve portre tasarım markası
 - **Konum:** Türkiye
-- **Kurucu:** Uğur Doğan
+- **Kurucu:** MinaToi
 - **Web Sitesi:** https://minatoi.com
-- **E-posta:** hello@minatoi.com
-- **Instagram:** https://instagram.com/minatoi
-- **Shopier Mağaza:** https://www.shopier.com/minatoi
+- **E-posta:** info@minatoi.com
+- **Instagram:** https://www.instagram.com/minatoi.art/
 
 ## Ürün Kategorileri
 
 ### Kişiye Özel Cam Tablo
-Fotoğrafınızı Doğrudan baskı veya sulu boya, yağlı boya ve kara kalem gibi illüstrasyon stilleriyle kişiye özel bir tasarıma dönüştürün.
+Fotoğrafınızı doğrudan baskı veya sulu boya, yağlı boya ve karakalem gibi illüstrasyon stilleriyle kişiye özel bir tasarıma dönüştürün.
 
 ### Patili Dostlara Özel
 Kedi veya köpeğinizin fotoğrafını kostümlü ya da illüstrasyonlu özel bir portreye dönüştürün.
@@ -36,12 +35,12 @@ Kedi veya köpeğinizin fotoğrafını kostümlü ya da illüstrasyonlu özel bi
 - Canlı ve solmaz renkler
 - Türkiye geneli ücretsiz kargo
 - WhatsApp üzerinden birebir müşteri desteği
-- Kişiselleştirme: logo ve isim kazıma
+- Kişiselleştirme: yüklenen fotoğrafa göre baskı veya portre tasarımı
 
 ## Sık Sorulan Sorular
 
 **Kargo ve ödeme seçenekleri nelerdir?**
-Türkiye geneline ücretsiz kargo sunulur. Ödeme seçenekleri sipariş türüne göre paylaşılır.
+Türkiye geneline ücretsiz kargo sunulur. Sitedeki sepet üzerinden PayTR güvenli ödeme formuyla TL cinsinden, tek çekim kart ödemesi yapılır.
 
 **Kişiselleştirme yapılıyor mu?**
 Evet. Önce ürün/stil kartını seçin, ardından ürün sayfasındaki görsel yükleme alanından fotoğrafınızı ekleyin. Patili ve kişiye özel illüstrasyonda karakalem, sulu boya ve yağlı boya seçenekleri vardır.
@@ -51,6 +50,13 @@ Kartlarda "başlayan fiyat" görünür. Nihai fiyat seçilen ölçüye göre ür
 
 **Toptan sipariş mümkün mü?**
 Evet, kurumsal ve toptan siparişler için WhatsApp veya e-posta üzerinden iletişime geçilmelidir.
+
+## Temel Sayfalar
+
+- [Tüm Ürünler](https://minatoi.com/urunler)
+- [Kişiye Özel Tasarımlar](https://minatoi.com/kisiye-ozel)
+- [Patili Dostlara Özel](https://minatoi.com/patili-dostlara-ozel)
+- [İletişim](https://minatoi.com/iletisim)
 
 ## Blog İçerikleri
 
@@ -62,9 +68,8 @@ Site, kişiye özel tasarımlar hakkında bilgilendirici makaleler içerir:
 ## İletişim
 
 - **WhatsApp:** https://wa.me/905400250008
-- **E-posta:** hello@minatoi.com
+- **E-posta:** info@minatoi.com
 - **Telefon:** 0540 025 00 08
-- **Vergi Dairesi:** Alemdağ V.D. — 38134086812
 
 ---
 

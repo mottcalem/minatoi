@@ -7,19 +7,27 @@
 - **Marka Adı:** MinaToi
 - **Tür:** Kişiye özel cam tablo ve portre tasarım markası
 - **Konum:** Türkiye
+- **Kurucu:** MinaToi
 - **Web Sitesi:** https://minatoi.com
-- **E-posta:** hello@minatoi.com
-- **Instagram:** https://instagram.com/minatoi
+- **E-posta:** info@minatoi.com
+- **Instagram:** https://www.instagram.com/minatoi.art/
 
-## Tasarım Seçenekleri
+## Ürün Kategorileri
 
 ### Kişiye Özel Cam Tablo
-
-Fotoğrafınızı Doğrudan baskı veya sulu boya, yağlı boya ve kara kalem gibi illüstrasyon stilleriyle kişiye özel tasarıma dönüştürün.
+Fotoğrafınızı doğrudan baskı veya sulu boya, yağlı boya ve karakalem gibi illüstrasyon stilleriyle kişiye özel bir tasarıma dönüştürün.
 
 ### Patili Dostlara Özel
-
 Kedi veya köpeğinizin fotoğrafını kostümlü ya da illüstrasyonlu özel bir portreye dönüştürün.
+
+- Kostümlü portre seçenekleri ürün kartı olarak listelenir.
+- Pati illüstrasyon stilleri: karakalem, sulu boya ve yağlı boya.
+- Fotoğraf yükleme, seçilen ürünün detay sayfasında yapılır.
+
+### Kişiye Özel
+- Doğrudan baskı: Fotoğraf doğrudan ürün detay sayfasından yüklenir.
+- İllüstrasyon stilleri: karakalem, sulu boya ve yağlı boya.
+- Yapay zekâ önizlemesi şu an sunulmaz; tasarım üretim öncesinde ekip tarafından teyit edilir.
 
 ## Öne Çıkan Özellikler
 
@@ -27,13 +35,42 @@ Kedi veya köpeğinizin fotoğrafını kostümlü ya da illüstrasyonlu özel bi
 - Canlı ve solmaz renkler
 - Türkiye geneli ücretsiz kargo
 - WhatsApp üzerinden birebir müşteri desteği
+- Kişiselleştirme: yüklenen fotoğrafa göre baskı veya portre tasarımı
+
+## Sık Sorulan Sorular
+
+**Kargo ve ödeme seçenekleri nelerdir?**
+Türkiye geneline ücretsiz kargo sunulur. Sitedeki sepet üzerinden PayTR güvenli ödeme formuyla TL cinsinden, tek çekim kart ödemesi yapılır.
+
+**Kişiselleştirme yapılıyor mu?**
+Evet. Önce ürün/stil kartını seçin, ardından ürün sayfasındaki görsel yükleme alanından fotoğrafınızı ekleyin. Patili ve kişiye özel illüstrasyonda karakalem, sulu boya ve yağlı boya seçenekleri vardır.
+
+**Fiyatlar nasıl gösterilir?**
+Kartlarda "başlayan fiyat" görünür. Nihai fiyat seçilen ölçüye göre ürün detay sayfasında netleşir; varsa eski fiyat silik, indirimli fiyat belirgin olarak yan yana gösterilir.
+
+**Toptan sipariş mümkün mü?**
+Evet, kurumsal ve toptan siparişler için WhatsApp veya e-posta üzerinden iletişime geçilmelidir.
+
+## Temel Sayfalar
+
+- [Tüm Ürünler](https://minatoi.com/urunler)
+- [Kişiye Özel Tasarımlar](https://minatoi.com/kisiye-ozel)
+- [Patili Dostlara Özel](https://minatoi.com/patili-dostlara-ozel)
+- [İletişim](https://minatoi.com/iletisim)
 
 ## Blog İçerikleri
+
+Site, kişiye özel tasarımlar hakkında bilgilendirici makaleler içerir:
 
 - [Fotoğraftan Kişiye Özel Cam Tablo](https://minatoi.com/blog/fotograftan-kisiye-ozel-cam-tablo-nasil-hazirlanir)
 - [Patili Dost Portresi İçin Fotoğraf Seçimi](https://minatoi.com/blog/patili-dostunuz-icin-portre-fotografi-secme-rehberi)
 
 ## İletişim
 
-- **WhatsApp:** https://wa.me/905382120458
-- **E-posta:** hello@minatoi.com
+- **WhatsApp:** https://wa.me/905400250008
+- **E-posta:** info@minatoi.com
+- **Telefon:** 0540 025 00 08
+
+---
+
+*Bu dosya, yapay zeka dil modelleri ve arama motorlarının MinaToi hakkında doğru ve güncel bilgiye erişmesini kolaylaştırmak amacıyla hazırlanmıştır (GEO — Generative Engine Optimization).*
