@@ -15,6 +15,7 @@ import {
   X,
 } from "lucide-react";
 import { useEffect, useId, useMemo, useState } from "react";
+import { DesignRequestForm } from "@/components/DesignRequestForm";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ProductCard } from "@/components/ProductCard";
 import { CUSTOM_PRODUCTS } from "@/data/customProducts";
@@ -158,7 +159,7 @@ function PatiliDosyalaraOzel({
 
   const message = useMemo(
     () =>
-      `Merhaba, patili dostum için kişiye özel tablo siparişi vermek istiyorum.\n\nTasarım türü: ${kind === "costume" ? "Kostümlü Portre" : "İllüstrasyon Portre"}\n${kind === "costume" ? "Kostüm" : "Stil"}: ${treatment}\nÖlçü: ${size}\nYön: ${orientation}${file ? `\nFotoğraf: ${file.name}` : ""}\n\nFotoğrafımı bu mesaja ek olarak gönderiyorum.`,
+      `Merhaba, patili dostum için kişiye özel tablo siparişi vermek istiyorum.\n\nTasarım türü: ${kind === "costume" ? "Kostümlü Portre" : "İllüstrasyon Portre"}\n${kind === "costume" ? "Kostüm" : "Stil"}: ${treatment}\nÖlçü: ${size}\nYön: ${orientation}${file ? `\nFotoğraf: ${file.name}` : ""}\n\nFotoğrafımı talebimle birlikte paylaşıyorum.`,
     [file, kind, orientation, size, treatment],
   );
 
@@ -311,14 +312,7 @@ function PatiliDosyalaraOzel({
             </div>
             <ExampleGallery examples={content.examples.petIllustration} />
             <div className="mt-7 border-t border-stone-100 pt-6">
-              <WhatsAppButton message={message} size="lg" className="w-full">
-                <span className="flex items-center justify-center gap-2">
-                  Portre talebini gönder <ChevronRight className="h-4 w-4" />
-                </span>
-              </WhatsAppButton>
-              <p className="mt-3 text-center text-xs text-muted-foreground">
-                WhatsApp açıldığında fotoğrafınızı mesaja ekleyerek talebinizi tamamlayın.
-              </p>
+              <DesignRequestForm file={file} details={message} />
             </div>
           </section>
           <aside className="space-y-5">

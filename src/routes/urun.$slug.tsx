@@ -7,6 +7,7 @@ import type { Product, GlassesDetails, WalletDetails } from "@/data/products";
 import { getCategories } from "@/data/categoryActions";
 import { getHeroContent } from "@/data/heroActions";
 import { fetchProductsServer } from "@/data/adminProducts";
+import { DesignRequestForm } from "@/components/DesignRequestForm";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ProductCarousel } from "@/components/ProductCarousel";
 import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
@@ -338,9 +339,13 @@ function ProductDetail() {
                 </a>
               </div>
             )}
-            <WhatsAppButton message={waMsg} size="lg" className="w-full">
-              WhatsApp'tan Bu Ürünü Sor
-            </WhatsAppButton>
+            {isCustomProduct(product) || isPetProduct ? (
+              <DesignRequestForm file={upload} details={waMsg} />
+            ) : (
+              <WhatsAppButton message={waMsg} size="lg" className="w-full">
+                WhatsApp'tan Bu Ürünü Sor
+              </WhatsAppButton>
+            )}
           </div>
 
           {/* Features */}

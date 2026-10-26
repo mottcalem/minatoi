@@ -3,6 +3,7 @@ import { ExampleGallery } from "@/components/ExampleGallery";
 import { createFileRoute } from "@tanstack/react-router";
 import { Check, ChevronRight, ImagePlus, ShieldCheck, Sparkles, Upload, X } from "lucide-react";
 import { useEffect, useId, useMemo, useState, type ReactNode } from "react";
+import { DesignRequestForm } from "@/components/DesignRequestForm";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 export const Route = createFileRoute("/kisiye-ozel")({
@@ -57,7 +58,7 @@ function KisiyeOzel() {
   }
   const message = useMemo(
     () =>
-      `Merhaba, kişiye özel tasarım siparişi vermek istiyorum.\n\nTasarım türü: ${kind === "print" ? "Doğrudan baskı" : "İllüstrasyon Tasarım"}\nÖlçü: ${size}\nYön: ${orientation}${kind === "illustration" ? `\nStil: ${style}` : ""}${file ? `\nFotoğraf: ${file.name}` : ""}\n\nFotoğrafımı bu mesaja ek olarak gönderiyorum.`,
+      `Merhaba, kişiye özel tasarım siparişi vermek istiyorum.\n\nTasarım türü: ${kind === "print" ? "Doğrudan baskı" : "İllüstrasyon Tasarım"}\nÖlçü: ${size}\nYön: ${orientation}${kind === "illustration" ? `\nStil: ${style}` : ""}${file ? `\nFotoğraf: ${file.name}` : ""}\n\nFotoğrafımı talebimle birlikte paylaşıyorum.`,
     [file, kind, orientation, size, style],
   );
   return (
@@ -199,14 +200,7 @@ function KisiyeOzel() {
               }
             />
             <div className="mt-7 border-t border-stone-100 pt-6">
-              <WhatsAppButton message={message} size="lg" className="w-full">
-                <span className="flex items-center justify-center gap-2">
-                  Tasarım talebini gönder <ChevronRight className="h-4 w-4" />
-                </span>
-              </WhatsAppButton>
-              <p className="mt-3 text-center text-xs text-muted-foreground">
-                WhatsApp açıldığında fotoğrafınızı mesaja ekleyerek talebinizi tamamlayın.
-              </p>
+              <DesignRequestForm file={file} details={message} />
             </div>
           </section>
           <aside className="space-y-5">

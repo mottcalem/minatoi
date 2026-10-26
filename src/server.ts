@@ -42,6 +42,10 @@ export default {
     try {
       const url = new URL(request.url);
       const path = url.pathname;
+      if (path === "/api/design-requests") {
+        const { designAPI } = await import("../server/design/api");
+        return await designAPI(request);
+      }
       if (path.startsWith("/api/admin/")) {
         const { adminAPI } = await import("../server/admin/index");
         return await adminAPI(request);
