@@ -18,9 +18,6 @@ export function ExampleGallery({ examples }: { examples: { label: string; image:
                   loading="lazy"
                   className="aspect-[3/4] w-full rounded-xl object-cover"
                 />
-                <figcaption className="mt-2 text-center text-xs text-stone-600">
-                  {example.label}
-                </figcaption>
               </figure>
             </CarouselItem>
           ))}
