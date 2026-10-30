@@ -153,8 +153,8 @@ export function CategoryManager({ onSaved }: { onSaved?: () => void }) {
       <p className="mt-2 text-sm text-stone-500">
         Sanatçı koleksiyonu eklemek için aşağıdaki seçeneği işaretleyin. Açıklama alanı kısa
         biyografidir. Ürünleri sanatçının kategorisine atayın; öne çıkan ilk eser kapak olur. Üretim
-        bilgisini ürünün kısa açıklamasına, adet bilgisini etikete (ör. Sadece 10 adet) yazın. Her
-        eserin ve ölçünün fiyatı ürün formundan ayrı belirlenir.
+        bilgisini ürünün kısa açıklamasına yazın. Eserlerde “Sınırlı sayıda” gösterilir. Her eserin
+        ve ölçünün fiyatı ürün formundan ayrı belirlenir.
       </p>
       <label className="mt-4 flex items-center gap-2 text-sm">
         <input

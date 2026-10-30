@@ -17,7 +17,11 @@ export const fetchProductsServer = createServerFn({ method: "GET" }).handler(
 export const fetchManagedProducts = createServerFn({ method: "GET" }).handler(
   async (): Promise<Product[]> => {
     const { readProducts } = await import("../../server/utils/productStore");
-    return catalogProducts(await readProducts(), []).managed;
+    const { managedArtistProducts } = await import("./artists");
+    const { managedPersonalProducts } = await import("./customProducts");
+    return managedPersonalProducts(
+      managedArtistProducts(catalogProducts(await readProducts(), []).managed),
+    );
   },
 );
 

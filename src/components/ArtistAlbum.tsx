@@ -32,12 +32,10 @@ export function ArtistCard({ artist }: { artist: ArtistCollection }) {
       <div className="flex flex-1 flex-col p-4">
         <h3 className="font-display text-base font-semibold text-stone-900">{artist.name}</h3>
         <p className="mt-1 text-xs text-stone-500">{cover.production}</p>
-        <p className="mt-3 text-lg font-bold text-primary">
-          {cover.price === undefined ? "Fiyat için bilgi alın" : formatTL(cover.price)}
-        </p>
-        <p className="mt-1 text-xs text-stone-500">
-          {cover.stockLabel ?? "Stok ve adet bilgisi için iletişime geçin"}
-        </p>
+        {cover.price !== undefined && (
+          <p className="mt-3 text-lg font-bold text-primary">{formatTL(cover.price)}</p>
+        )}
+        <p className="mt-1 text-xs text-stone-500">Sınırlı sayıda</p>
         <span className="mt-4 text-sm font-semibold text-stone-700">
           {artist.works.length} eseri incele →
         </span>

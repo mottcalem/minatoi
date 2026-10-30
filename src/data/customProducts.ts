@@ -30,6 +30,19 @@ function custom(
 ): CustomProduct {
   return {
     ...common,
+    ...(group === "personal"
+      ? {
+          price: 610,
+          oldPrice: 920,
+          sizes: ["25*35 cm", "35*50 cm", "50*70 cm", "60*90 cm"],
+          sizePrices: [
+            { size: "25*35 cm", price: 610, oldPrice: 920 },
+            { size: "35*50 cm", price: 990, oldPrice: 1250 },
+            { size: "50*70 cm", price: 1450, oldPrice: 1850 },
+            { size: "60*90 cm", price: 1750, oldPrice: 2250 },
+          ],
+        }
+      : {}),
     slug,
     name,
     category,
@@ -116,4 +129,12 @@ export const CUSTOM_PRODUCTS: CustomProduct[] = [
 
 export function isCustomProduct(product: Product): product is CustomProduct {
   return "customization" in product;
+}
+
+/** Persist ordinary catalog fields; customization metadata is restored at read time. */
+export function managedPersonalProducts(stored: Product[]): Product[] {
+  const defaults = CUSTOM_PRODUCTS.filter((p) => p.customization.group === "personal").map(
+    ({ customization, ...product }) => product,
+  );
+  return [...stored, ...defaults.filter((p) => !stored.some((item) => item.slug === p.slug))];
 }

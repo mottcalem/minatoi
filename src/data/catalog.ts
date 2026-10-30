@@ -5,7 +5,14 @@ export function catalogProducts(stored: Product[], templates: Product[]) {
   return {
     managed: stored,
     storefront: [
-      ...stored.filter((product) => product.category !== "cuzdan"),
+      ...stored
+        .filter((product) => product.category !== "cuzdan")
+        .map((product) => {
+          const template = templates.find((item) => item.slug === product.slug);
+          return template && "customization" in template
+            ? { ...product, customization: template.customization }
+            : product;
+        }),
       ...templates.filter((template) => !stored.some((product) => product.slug === template.slug)),
     ],
   };

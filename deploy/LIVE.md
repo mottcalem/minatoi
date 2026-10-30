@@ -1,5 +1,7 @@
 # MinaToi canlı yayın
 
+30 Ekim 2026: Tasarım seçim düğmeleri ortaklaştırıldı; ölçüye bağlı belirgin fiyat alanı eklendi. Kişiye özel dört ürünün varsayılan ölçü/fiyatları ürün detayıyla eşitlendi ve panelden düzenlenebilir hâle getirildi. Mevcut sanatçı eserleri panel yönetimine bağlandı; albümlerde ölçü fiyatları ve “Sınırlı sayıda” metni gösteriliyor. TypeScript, ilgili lint kontrolleri, 48 test ve üretim derlemesi geçti. Canlı ana sayfa, özel tasarım sayfaları (kanonik yönlendirme sonrası), iki sanatçı albümü ve admin HTTPS 200 ile doğrulandı; kişiye özel sayfada 60*90 cm, 610 TL ve yeni başlıklar kontrol edildi. Veritabanı, yüklemeler ve ortam ayarları korunmuştur. Yedek: `/var/www/minatoi/shared/pre-ui-pricing-20261030-100403/application.tar.gz`.
+
 - Adres: https://minatoi.com (www alan adı da HTTPS ile açık)
 - Sunucu: 104.233.4.39, SSH portu 25416
 - Uygulama: /var/www/minatoi/current

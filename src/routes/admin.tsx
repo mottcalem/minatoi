@@ -499,8 +499,8 @@ function ProductForm({
           placeholder={"Her satıra bir ölçü yazın, örn.:\n25*35 cm\n35*50 cm\n50*70 cm"}
         />
         <p className="mt-1 text-xs text-stone-400">
-          Girildiğinde ürün sayfasında seçilebilir ölçü butonları görünür; boşsa ürün tek ölçü kabul
-          edilir.
+          İstediğiniz ölçüyü yazabilirsiniz; sabit bir liste yoktur. Girildiğinde ürün sayfasında
+          seçilebilir ölçü butonları görünür; boşsa ürün tek ölçü kabul edilir.
         </p>
       </FormField>
       <FormField label="Ölçü Fiyatları — opsiyonel" error={errors.sizePrices}>
@@ -512,8 +512,9 @@ function ProductForm({
           placeholder={"25*35 cm | 610 | 920\n35*50 cm | 990 | 1250"}
         />
         <p className="mt-1 text-xs text-stone-400">
-          Her satır: ölçü | satış fiyatı | eski fiyat. İlk ölçünün fiyatı ile ürün fiyatı otomatik eşitlenir. Diğer ölçülerin fiyatları ayrı düzenlenir. Ölçülerle aynı sırada giriniz. Boşsa tüm
-          ölçüler ürün fiyatını kullanır.
+          Her satır: ölçü | satış fiyatı | eski fiyat. İlk ölçünün fiyatı ile ürün fiyatı otomatik
+          eşitlenir. Diğer ölçülerin fiyatları ayrı düzenlenir. Ölçülerle aynı sırada giriniz. Boşsa
+          tüm ölçüler ürün fiyatını kullanır.
         </p>
       </FormField>
       <FormField label="Görseller *" error={errors.images}>

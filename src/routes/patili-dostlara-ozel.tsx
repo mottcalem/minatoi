@@ -1,20 +1,12 @@
+import { CustomDesignPrice } from "@/components/CustomDesignPrice";
+import { DesignChoice } from "@/components/DesignChoice";
 import type { Product } from "@/data/products";
 import { isCostumeProduct } from "@/data/catalog";
 import { getCustomContent } from "@/data/customContentActions";
 import { ExampleGallery } from "@/components/ExampleGallery";
 import type { CustomContent } from "@/data/customContent";
 import { createFileRoute } from "@tanstack/react-router";
-import {
-  Check,
-  ChevronRight,
-  Crown,
-  ImagePlus,
-  PawPrint,
-  ShieldCheck,
-  Sparkles,
-  Upload,
-  X,
-} from "lucide-react";
+import { Check, ImagePlus, PawPrint, ShieldCheck, Sparkles, Upload, X } from "lucide-react";
 import { useEffect, useId, useState } from "react";
 import { DesignRequestForm } from "@/components/DesignRequestForm";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -74,7 +66,7 @@ function PatiliProductLanding() {
   return (
     <main>
       <section className="bg-stone-950 text-white">
-        <div className="mx-auto max-w-7xl px-4 py-10 sm:py-14">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14">
           <p className="text-xs font-bold uppercase tracking-[.24em] text-stone-300">
             MinaToi patili dostlar
           </p>
@@ -87,27 +79,21 @@ function PatiliProductLanding() {
           </p>
         </div>
       </section>
-      <section className="mx-auto max-w-7xl px-4 py-10 sm:py-14">
+      <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14">
         <h2 className="font-display text-2xl font-bold">Tasarım türünü seçin</h2>
-        <div className="mt-5 grid gap-3 sm:grid-cols-2">
-          <button
+        <div className="mx-auto mt-10 grid max-w-4xl gap-4 md:grid-cols-2" role="tablist">
+          <DesignChoice
+            active={kind === "costume"}
+            title="Kostümlü Portre"
+            text="Dostunuzu seçtiğiniz eğlenceli karaktere dönüştürelim."
             onClick={() => setKind("costume")}
-            className={`rounded-2xl border p-5 text-left font-semibold ${kind === "costume" ? "border-stone-900 bg-stone-900 text-white" : "border-stone-200 bg-white"}`}
-          >
-            Kostümlü Portre
-            <span className="mt-1 block text-sm font-normal opacity-70">
-              Eğlenceli, karakterli portreler
-            </span>
-          </button>
-          <button
+          />
+          <DesignChoice
+            active={false}
+            title="İllüstrasyonlu Portre"
+            text="Fotoğrafını farklı bir sanat stilinde yeniden yorumlayalım."
             onClick={() => setKind("illustration")}
-            className="rounded-2xl border border-stone-200 bg-white p-5 text-left font-semibold"
-          >
-            Pati İllüstrasyon
-            <span className="mt-1 block text-sm font-normal opacity-70">
-              Karakalem, sulu boya veya yağlı boya
-            </span>
-          </button>
+          />
         </div>
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {products.map((product) => (
@@ -220,17 +206,15 @@ function PatiliDosyalaraOzel({
           </p>
         </div>
         <div className="mx-auto mt-10 grid max-w-4xl gap-4 md:grid-cols-2" role="tablist">
-          <Choice
+          <DesignChoice
             active={kind === "costume"}
-            icon={<Crown />}
             title="Kostümlü Portre"
             text="Dostunuzu seçtiğiniz eğlenceli karaktere dönüştürelim."
             onClick={() => switchKind("costume")}
           />
-          <Choice
+          <DesignChoice
             active={kind === "illustration"}
-            icon={<Sparkles />}
-            title="İllüstrasyon Portre"
+            title="İllüstrasyonlu Portre"
             text="Fotoğrafını farklı bir sanat stilinde yeniden yorumlayalım."
             onClick={() => switchKind("illustration")}
           />
@@ -252,6 +236,7 @@ function PatiliDosyalaraOzel({
               Yüzü net görünen, gün ışığında çekilmiş bir fotoğraf en iyi sonucu verir.
             </p>
             <div className="mt-7 space-y-6">
+              <CustomDesignPrice product={product} size={selectedSize} />
               <Options
                 title="Tablo ölçüsü"
                 value={selectedSize}
@@ -419,38 +404,6 @@ function Feature({ icon, text }: { icon: React.ReactNode; text: string }) {
       {icon}
       {text}
     </span>
-  );
-}
-function Choice({
-  active,
-  icon,
-  title,
-  text,
-  onClick,
-}: {
-  active: boolean;
-  icon: React.ReactNode;
-  title: string;
-  text: string;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      role="tab"
-      aria-selected={active}
-      onClick={onClick}
-      className={`rounded-3xl border p-6 text-left transition ${active ? "border-primary bg-primary text-primary-foreground shadow-glow" : "border-stone-200 bg-white hover:border-primary/50"}`}
-    >
-      <span className={active ? "text-amber-200" : "text-primary"}>{icon}</span>
-      <h3 className="mt-4 font-display text-2xl font-bold">{title}</h3>
-      <p className={`mt-2 text-sm leading-6 ${active ? "text-white/80" : "text-muted-foreground"}`}>
-        {text}
-      </p>
-      <span className="mt-5 flex items-center gap-1 text-sm font-semibold">
-        Seç <ChevronRight className="h-4 w-4" />
-      </span>
-    </button>
   );
 }
 function Options({

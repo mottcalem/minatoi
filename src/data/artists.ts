@@ -7,7 +7,8 @@ export type ArtistWork = {
   image: string;
   production: string;
   price?: number;
-  stockLabel?: string;
+  sizes?: string[];
+  sizePrices?: Product["sizePrices"];
 };
 
 export type ArtistCollection = {
@@ -45,43 +46,56 @@ export const ARTISTS: ArtistCollection[] = [
   },
 ];
 
-/** Yönetim panelindeki yeni sanatçı kategorileri de aynı albümde görünür. */
+/** Existing albums become editable product records without inventing prices. */
+export function managedArtistProducts(products: Product[]): Product[] {
+  const defaults = ARTISTS.flatMap((artist) =>
+    artist.works.map((work) => ({
+      slug: work.slug,
+      name: work.title,
+      category: artist.slug,
+      image: work.image,
+      images: [work.image],
+      shortDescription: work.production,
+      description: work.production,
+      features: [],
+      price: work.price ?? 0,
+      badge: "Sınırlı sayıda",
+    })),
+  );
+  return [...products, ...defaults.filter((work) => !products.some((p) => p.slug === work.slug))];
+}
+
 export function artistCollections(
   categories: CategoryRecord[],
   products: Product[],
 ): ArtistCollection[] {
-  const collections = ARTISTS.map((artist) => ({
-    ...artist,
-    biography:
-      categories.find((category) => category.slug === artist.slug)?.description || artist.biography,
-  }));
-  const additional = categories
-    .filter(
-      (category) =>
-        category.slug.startsWith("ressam-") &&
-        !ARTISTS.some((artist) => artist.slug === category.slug),
-    )
-    .flatMap((category) => {
-      const items = products.filter((product) => product.category === category.slug);
-      const cover = items.find((product) => product.featured) ?? items[0];
-      if (!cover) return [];
-      return [
-        {
-          slug: category.slug,
-          name: category.label,
-          biography: category.description || undefined,
-          coverSlug: cover.slug,
-          works: items.map((product) => ({
-            slug: product.slug,
-            title: product.name,
-            image: product.image,
-            production: product.shortDescription,
-            price: product.price,
-            stockLabel:
-              product.badge && /adet|stok/i.test(product.badge) ? product.badge : undefined,
-          })),
-        },
-      ];
-    });
-  return [...collections, ...additional];
+  const artistCategories = [
+    ...categories.filter((category) => category.slug.startsWith("ressam-")),
+    ...ARTISTS.filter(
+      (artist) => !categories.some((category) => category.slug === artist.slug),
+    ).map((artist) => ({ slug: artist.slug, label: artist.name, description: artist.biography })),
+  ];
+  const items = managedArtistProducts(products);
+  return artistCategories.flatMap((category) => {
+    const works = items.filter((product) => product.category === category.slug);
+    const cover = works.find((product) => product.featured) ?? works[0];
+    if (!cover) return [];
+    return [
+      {
+        slug: category.slug,
+        name: category.label,
+        biography: category.description || undefined,
+        coverSlug: cover.slug,
+        works: works.map((product) => ({
+          slug: product.slug,
+          title: product.name,
+          image: product.image,
+          production: product.shortDescription,
+          price: product.price > 0 ? product.price : undefined,
+          sizes: product.sizes,
+          sizePrices: product.sizePrices,
+        })),
+      },
+    ];
+  });
 }

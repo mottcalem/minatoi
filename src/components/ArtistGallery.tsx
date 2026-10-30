@@ -6,9 +6,13 @@ import type { ArtistCollection, ArtistWork } from "@/data/artists";
 import { formatTL } from "@/data/products";
 
 export function ArtistGallery({ artist }: { artist: ArtistCollection }) {
+  const [sizes, setSizes] = useState<Record<string, string>>({});
+  const selectedSize = (work: ArtistWork) => sizes[work.slug] ?? work.sizes?.[0];
+  const selectedPrice = (work: ArtistWork) =>
+    work.sizePrices?.find((variant) => variant.size === selectedSize(work))?.price ?? work.price;
   const [selected, setSelected] = useState<ArtistWork | null>(null);
   const inquiry = (work: ArtistWork) =>
-    `Merhaba, ${artist.name} sanatçısının ${work.title} çalışması hakkında fiyat, stok ve adet bilgisi almak istiyorum.\nEser: ${work.slug}`;
+    `Merhaba, ${artist.name} sanatçısının ${work.title} çalışması hakkında ölçü ve sipariş bilgisi almak istiyorum.\nEser: ${work.slug}${selectedSize(work) ? `\nÖlçü: ${selectedSize(work)}` : ""}`;
   return (
     <section className="mx-auto max-w-7xl px-4 py-12">
       <nav aria-label="İçerik yolu" className="mb-6 flex flex-wrap gap-2 text-xs text-stone-400">
@@ -60,12 +64,30 @@ export function ArtistGallery({ artist }: { artist: ArtistCollection }) {
             <div className="flex flex-1 flex-col p-4">
               <h2 className="font-display font-semibold text-stone-900">{work.title}</h2>
               <p className="mt-1 text-xs text-stone-500">{work.production}</p>
-              <p className="mt-3 font-bold text-primary">
-                {work.price === undefined ? "Fiyat için bilgi alın" : formatTL(work.price)}
-              </p>
-              <p className="mt-1 text-xs text-stone-500">
-                {work.stockLabel ?? "Stok ve adet bilgisi için iletişime geçin"}
-              </p>
+              {work.sizes && work.sizes.length > 0 && (
+                <label className="mt-3 text-sm text-stone-600">
+                  Tablo ölçüsü
+                  <select
+                    className="mt-1 w-full rounded-lg border border-stone-300 bg-white p-2"
+                    value={selectedSize(work)}
+                    onChange={(event) =>
+                      setSizes((current) => ({ ...current, [work.slug]: event.target.value }))
+                    }
+                  >
+                    {work.sizes.map((size) => (
+                      <option key={size} value={size}>
+                        {size}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              )}
+              {selectedPrice(work) !== undefined && (
+                <p className="mt-3 text-xl font-bold text-primary" aria-live="polite">
+                  {formatTL(selectedPrice(work)!)}
+                </p>
+              )}
+              <p className="mt-2 text-sm font-semibold text-stone-600">Sınırlı sayıda</p>
               <WhatsAppButton message={inquiry(work)} variant="outline" className="mt-4">
                 Bu eser için bilgi alın
               </WhatsAppButton>
@@ -93,9 +115,7 @@ export function ArtistGallery({ artist }: { artist: ArtistCollection }) {
                 height={1080}
                 className="max-h-[65dvh] w-full object-contain"
               />
-              <WhatsAppButton message={inquiry(selected)}>
-                Fiyat ve stok bilgisi alın
-              </WhatsAppButton>
+              <WhatsAppButton message={inquiry(selected)}>Bu eser için bilgi alın</WhatsAppButton>
             </>
           )}
         </DialogContent>

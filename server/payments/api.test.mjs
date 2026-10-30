@@ -47,6 +47,8 @@ function fixture(options = {}) {
       }
       if (sql.includes("WHERE request_id=$1"))
         return found([...rows.values()].filter((r) => r.request_id === args[0]));
+      if (sql.includes("FROM orders ORDER BY created_at DESC"))
+        return found([...rows.values()].slice(args[0], args[0] + 50));
       if (sql.startsWith("SELECT")) {
         let r = rows.get(args[0]);
         if (sql.includes("access_hash=$2") && r?.access_hash !== args[1]) r = undefined;
@@ -553,6 +555,17 @@ test("personalized purchase validates upload before charging and persists photo 
     const order = f.rows.get(started.id);
     assert.equal(order.items[0].customization.photoUrl, uploaded.photoUrl);
     assert.equal(order.items[0].image, uploaded.photoUrl);
+    const admin = await f.request("/api/checkout/admin", {
+      token: createHash("sha256").update("fixture-password").digest("hex"), page: 0,
+    });
+    assert.equal(admin.status, 200);
+    const adminOrders = await admin.json();
+    const adminItem = adminOrders.find((item) => item.id === started.id).items[0];
+    assert.equal(adminItem.customization.photoUrl, uploaded.photoUrl);
+    assert.equal(adminItem.customization.filename, "pet.png");
+    assert.equal(adminItem.customization.orientation, "Dikey");
+    assert.equal(adminItem.customization.style, "Korsan");
+
     assert.equal(await (await f.callback(started.id, "success", "129000")).text(), "OK");
     assert.equal(order.status, "paid");
     assert.deepEqual(queued, [order.id]);

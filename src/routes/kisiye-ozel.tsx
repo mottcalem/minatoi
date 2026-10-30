@@ -1,9 +1,11 @@
+import { CustomDesignPrice } from "@/components/CustomDesignPrice";
+import { DesignChoice } from "@/components/DesignChoice";
 import { fetchProductsServer } from "@/data/adminProducts";
 import { CUSTOM_PRODUCTS } from "@/data/customProducts";
 import { getCustomContent } from "@/data/customContentActions";
 import { ExampleGallery } from "@/components/ExampleGallery";
 import { createFileRoute } from "@tanstack/react-router";
-import { Check, ChevronRight, ImagePlus, ShieldCheck, Sparkles, Upload, X } from "lucide-react";
+import { Check, ImagePlus, ShieldCheck, Sparkles, Upload, X } from "lucide-react";
 import { useEffect, useId, useState, type ReactNode } from "react";
 import { DesignRequestForm } from "@/components/DesignRequestForm";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -110,7 +112,7 @@ function KisiyeOzel() {
           />
           <DesignChoice
             active={kind === "illustration"}
-            title="İllüstrasyon Tasarım"
+            title="İllüstrasyon Baskı"
             text="Fotoğrafınızı seçtiğiniz sanat stiliyle özel bir illüstrasyona dönüştürelim."
             onClick={() => setKind("illustration")}
           />
@@ -132,6 +134,7 @@ function KisiyeOzel() {
                 : "Tasarım ekibimiz görselinizi seçtiğiniz stile göre yorumlar ve onayınıza sunar."}
             </p>
             <div className="mt-7 space-y-6">
+              <CustomDesignPrice product={product} size={selectedSize} />
               <OptionGroup
                 title="Tablo ölçüsü"
                 value={selectedSize}
@@ -306,35 +309,6 @@ function Feature({ icon, text }: { icon: ReactNode; text: string }) {
       {icon}
       {text}
     </span>
-  );
-}
-function DesignChoice({
-  active,
-  title,
-  text,
-  onClick,
-}: {
-  active: boolean;
-  title: string;
-  text: string;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      role="tab"
-      aria-selected={active}
-      onClick={onClick}
-      className={`rounded-2xl border p-4 text-left transition ${active ? "border-primary bg-primary text-primary-foreground shadow-glow" : "border-stone-200 bg-white hover:border-primary/50"}`}
-    >
-      <h3 className="font-display text-xl font-bold">{title}</h3>
-      <p className={`mt-2 text-sm leading-6 ${active ? "text-white/80" : "text-muted-foreground"}`}>
-        {text}
-      </p>
-      <span className="mt-3 flex items-center gap-1 text-sm font-semibold">
-        Seç <ChevronRight className="h-4 w-4" />
-      </span>
-    </button>
   );
 }
 function OptionGroup({
