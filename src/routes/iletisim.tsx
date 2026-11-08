@@ -66,22 +66,6 @@ function Contact() {
         <h2 className="font-display text-base font-semibold text-foreground">Firma Bilgileri</h2>
         <dl className="mt-3 grid gap-x-8 gap-y-2 sm:grid-cols-2">
           <div>
-            <dt className="inline font-medium text-foreground">Yetkili: </dt>
-            <dd className="inline">{SITE.owner}</dd>
-          </div>
-          <div>
-            <dt className="inline font-medium text-foreground">Şirket Türü: </dt>
-            <dd className="inline">{SITE.companyType}</dd>
-          </div>
-          <div>
-            <dt className="inline font-medium text-foreground">Vergi Dairesi: </dt>
-            <dd className="inline">{SITE.taxOffice}</dd>
-          </div>
-          <div>
-            <dt className="inline font-medium text-foreground">VKN: </dt>
-            <dd className="inline">{SITE.taxNumber}</dd>
-          </div>
-          <div>
             <dt className="inline font-medium text-foreground">E-posta: </dt>
             <dd className="inline">{SITE.email}</dd>
           </div>
@@ -90,17 +74,6 @@ function Contact() {
             <dd className="inline">{SITE.phone}</dd>
           </div>
         </dl>
-
-        <div className="mt-4 border-t border-border pt-4 grid gap-3 sm:grid-cols-2">
-          <div>
-            <p className="font-medium text-foreground">📍 Merkez Adres</p>
-            <p className="mt-0.5"></p>
-          </div>
-          <div>
-            <p className="font-medium text-foreground">🏭 Üretim Adresi</p>
-            <p className="mt-0.5"></p>
-          </div>
-        </div>
 
         <div className="mt-4 border-t border-border pt-4">
           <strong className="text-foreground">Çalışma saatleri:</strong> Hafta içi 09:00 – 19:00 ·

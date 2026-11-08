@@ -100,7 +100,6 @@ function PatiliProductLanding() {
             <ProductCard key={product.slug} product={product} />
           ))}
         </div>
-        <ExampleGallery examples={content.examples.petCostume} />
       </section>
     </main>
   );
