@@ -2,6 +2,7 @@ import type { OrderCustomization } from "@/data/orderCustomization";
 import { useEffect, useState } from "react";
 import { checkoutRequest } from "@/lib/checkout";
 import { formatTL } from "@/data/products";
+import { attributionLabel, type OrderAttribution } from "@/lib/orderAttribution";
 type Order = {
   id: string;
   customer: {
@@ -19,6 +20,7 @@ type Order = {
   created_at: string;
   test_mode: boolean;
   payment_method: "card" | "bank_transfer";
+  attribution?: OrderAttribution;
 };
 export function OrderManager() {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -101,6 +103,16 @@ export function OrderManager() {
           <p className="mt-2 text-sm text-stone-500">
             {new Date(o.created_at).toLocaleString("tr-TR")}
           </p>
+          <div className="mt-3 rounded-lg bg-stone-50 p-3 text-sm">
+            <p>
+              <strong>Sipariş kaynağı:</strong> {attributionLabel(o.attribution)}
+            </p>
+            {o.attribution?.utm_source && <p>UTM kaynak: {o.attribution.utm_source}</p>}
+            {o.attribution?.utm_medium && <p>UTM ortam: {o.attribution.utm_medium}</p>}
+            {o.attribution?.utm_campaign && <p>Kampanya: {o.attribution.utm_campaign}</p>}
+            {o.attribution?.utm_content && <p>İçerik: {o.attribution.utm_content}</p>}
+            {o.attribution?.utm_term && <p>Anahtar kelime: {o.attribution.utm_term}</p>}
+          </div>
           <p className="mt-4">
             {o.customer.name} · {o.customer.phone} · {o.customer.email}
           </p>

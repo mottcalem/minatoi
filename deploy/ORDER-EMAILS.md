@@ -15,6 +15,7 @@ kısıtlı dosyada tutulur; kaynak kodda veya tarayıcı ortamında bulunmaz.
 - `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`: SMTP bağlantısı.
 - `SMTP_FROM`: gönderen, mevcut hesap `notify@dijitalpanter.com`.
 - `ORDER_ADMIN_EMAIL`: yönetici alıcısı.
+- `ORDER_ADMIN_CC`: yalnızca yönetici sipariş bildirimlerine eklenen, virgülle ayrılmış ek alıcılar. Müşteri ve sepet hatırlatma e-postalarına eklenmez; test alıcısı tanımlandığında devre dışıdır.
 - `ORDER_EMAIL_TEST_TO`: doluyken **hem müşteri hem admin** bu adrese gider;
   e-postalarda TEST ibaresi görünür. 15 Ekim 2026 itibarıyla bu değer boşaltıldı;
   gerçek müşteri adreslerine gönderim açık. Admin alıcısı `oztassema@hotmail.com`.

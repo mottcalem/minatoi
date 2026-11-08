@@ -12,13 +12,21 @@ export function orderSmtpConfig(env: NodeJS.ProcessEnv = process.env) {
     pass: env.SMTP_PASS || (notifiva ? env.NOTIFIVA_SMTP_PASSWORD : undefined),
     from: email.parse(env.SMTP_FROM || (notifiva ? "no-reply@e.dijitalpanter.com" : undefined)),
     admin: email.parse(env.ORDER_ADMIN_EMAIL || "info@minatoi.com"),
+    adminCc: [
+      ...new Set(
+        (env.ORDER_ADMIN_CC || "")
+          .split(",")
+          .map((value) => value.trim())
+          .filter(Boolean),
+      ),
+    ].map((value) => email.parse(value)),
   };
   if (!config.host || !config.user || !config.pass || ![465, 587].includes(config.port))
     throw new Error("SMTP configuration missing");
   return config;
 }
 export function createOrderMailer(env: NodeJS.ProcessEnv = process.env) {
-  const { host, port, user, pass, from, admin } = orderSmtpConfig(env);
+  const { host, port, user, pass, from, admin, adminCc } = orderSmtpConfig(env);
   const override = env.ORDER_EMAIL_TEST_TO ? email.parse(env.ORDER_EMAIL_TEST_TO) : undefined;
   const transport = nodemailer.createTransport({
     host,
@@ -57,6 +65,10 @@ export function createOrderMailer(env: NodeJS.ProcessEnv = process.env) {
       const result = await transport.sendMail({
         from: { name: "MinaToi", address: from },
         to,
+        cc:
+          audience === "admin" && !override
+            ? adminCc.filter((address) => address !== admin)
+            : undefined,
         replyTo: audience === "admin" ? email.parse(order.customer.email) : admin,
         messageId: `<${order.id}.${audience}@${from.split("@")[1]}>`,
         ...orderMessage(

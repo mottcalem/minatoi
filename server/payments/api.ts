@@ -219,13 +219,29 @@ export function createPaymentAPI({
         )
           throw new PublicError("Sipariş bulunamadı.", 404);
         const result = await getPool().query(
-          "SELECT id,status,amount,test_mode,payment_method FROM orders WHERE id=$1 AND access_hash=$2",
+          "SELECT id,status,amount,test_mode,payment_method,items FROM orders WHERE id=$1 AND access_hash=$2",
           [input.id, digest(input.access)],
         );
         if (!result.rowCount) throw new PublicError("Sipariş bulunamadı.", 404);
         const order = result.rows[0];
         return json({
-          ...order,
+          id: order.id,
+          status: order.status,
+          amount: order.amount,
+          test_mode: order.test_mode,
+          payment_method: order.payment_method,
+          ...(order.status === "paid"
+            ? {
+                items: (order.items ?? []).map((item: OrderItem) => ({
+                  slug: item.slug,
+                  name: item.name,
+                  size: item.size,
+                  quantity: item.quantity,
+                  unitAmount: item.unitAmount,
+                  discount: item.discount,
+                })),
+              }
+            : {}),
           ...(order.payment_method === "bank_transfer" && bankConfig()
             ? { bankTransfer: bankConfig() }
             : {}),
@@ -261,12 +277,14 @@ export function createPaymentAPI({
             "Ürün fiyatı değişti. Sepeti yenileyerek güncel tutarı kontrol edin.",
             409,
           );
-        const hash = digest(JSON.stringify({ ...data, requestId: undefined }));
+        const hash = digest(
+          JSON.stringify({ ...data, requestId: undefined, attribution: undefined }),
+        );
         // The access secret is reproducible for safe retries, but never stored in clear text.
         const access = createHash("sha256").update(sign(data.requestId, cfg.key)).digest("hex");
         const id = "MT" + randomBytes(16).toString("hex");
         const created = await getPool().query(
-          `INSERT INTO orders(id,request_id,request_hash,access_hash,customer,items,amount,test_mode,discount) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) ON CONFLICT(request_id) DO NOTHING RETURNING id`,
+          `INSERT INTO orders(id,request_id,request_hash,access_hash,customer,items,amount,test_mode,discount,attribution) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10::jsonb) ON CONFLICT(request_id) DO NOTHING RETURNING id`,
           [
             id,
             data.requestId,
@@ -277,6 +295,7 @@ export function createPaymentAPI({
             priced.amount,
             cfg.mode === "1",
             priced.discount,
+            JSON.stringify(data.attribution ?? {}),
           ],
         );
         if (!created.rowCount) {
@@ -386,7 +405,7 @@ export function createPaymentAPI({
         const page =
           Number.isInteger(input.page) && input.page >= 0 ? Math.min(input.page, 10000) : 0;
         const result = await getPool().query(
-          "SELECT id,customer,items,amount,discount,status,test_mode,payment_method,created_at FROM orders ORDER BY created_at DESC LIMIT 50 OFFSET $1",
+          "SELECT id,customer,items,amount,discount,status,test_mode,payment_method,created_at,attribution FROM orders ORDER BY created_at DESC LIMIT 50 OFFSET $1",
           [page * 50],
         );
         return json(result.rows);

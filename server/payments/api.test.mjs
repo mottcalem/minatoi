@@ -39,6 +39,7 @@ function fixture(options = {}) {
           amount: args[6],
           test_mode: bankTransfer ? false : args[7],
           discount: bankTransfer ? args[7] : args[8],
+          attribution: args[9] ? JSON.parse(args[9]) : {},
           status: bankTransfer ? "awaiting_transfer" : "pending",
           payment_method: bankTransfer ? "bank_transfer" : "card",
         };
@@ -556,7 +557,8 @@ test("personalized purchase validates upload before charging and persists photo 
     assert.equal(order.items[0].customization.photoUrl, uploaded.photoUrl);
     assert.equal(order.items[0].image, uploaded.photoUrl);
     const admin = await f.request("/api/checkout/admin", {
-      token: createHash("sha256").update("fixture-password").digest("hex"), page: 0,
+      token: createHash("sha256").update("fixture-password").digest("hex"),
+      page: 0,
     });
     assert.equal(admin.status, 200);
     const adminOrders = await admin.json();
@@ -580,4 +582,37 @@ test("personalized purchase validates upload before charging and persists photo 
   } finally {
     await rm(dir, { recursive: true, force: true });
   }
+});
+
+test("checkout stores attribution and admin returns it; attribution changes cannot create a second payment on retry", async () => {
+  const session = "session-token";
+  const f = fixture({ authorizeAdmin: async (token) => token === session });
+  const input = {
+    ...f.input(),
+    attribution: {
+      utm_source: "facebook",
+      utm_medium: "paid_social",
+      utm_campaign: "portraits",
+      capturedAt: new Date().toISOString(),
+    },
+  };
+  const response = await f.request("/api/checkout/start", input);
+  assert.equal(response.status, 200);
+  const order = await response.json();
+  assert.deepEqual(f.rows.get(order.id).attribution, input.attribution);
+  const retried = await f.request("/api/checkout/start", {
+    ...input,
+    attribution: { ...input.attribution, utm_source: "google" },
+  });
+  assert.equal(retried.status, 200);
+  assert.equal((await retried.json()).id, order.id);
+  assert.equal(f.calls, 1);
+  const listing = await f.request("/api/checkout/admin", { token: session });
+  assert.equal(listing.status, 200);
+  assert.deepEqual((await listing.json())[0].attribution, input.attribution);
+  const invalid = await f.request("/api/checkout/start", {
+    ...f.input(),
+    attribution: { utm_source: "x".repeat(201) },
+  });
+  assert.equal(invalid.status, 400);
 });

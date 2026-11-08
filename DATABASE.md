@@ -1,3 +1,14 @@
+# Güncel geliştirme bağlantısı
+
+3 Kasım 2026: Yerel `.env`, sunucudaki güncel MinaToi veritabanına SSH tüneli
+(`127.0.0.1:15432` → `104.233.4.39` üzerindeki `127.0.0.1:5432`) ile bağlanır.
+Yerel PostgreSQL kopyası kullanılmaz. Yerel panelde yapılan veri değişiklikleri canlı veriyi etkiler.
+
+Mevcut SSH tüneli açık olduğu sürece bu bağlantı kullanılabilir. Otomatik tünel
+başlatma kurulmadı. Önceden çalışan geliştirme sunucusunu `.env` değişikliğini
+alması için yeniden başlatın. Parola yalnızca git dışındaki `.env` içindedir.
+Sunucu verileri üzerine yerel yedek aktarılmadı.
+
 # Yerel PostgreSQL
 
 Proje kökündeki `.env` dosyasına bağlantıyı ekleyin:

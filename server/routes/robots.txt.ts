@@ -7,7 +7,6 @@ import { readPublicText } from "../utils/readPublicText";
 
 const FALLBACK = `User-agent: *
 Allow: /
-Disallow: /admin
 Disallow: /api/
 
 Sitemap: https://minatoi.com/sitemap.xml

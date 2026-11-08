@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /admin
 Disallow: /api/
 
 # Sitemap
@@ -29,7 +28,6 @@ Allow: /
 # GPT / ChatGPT web tarama
 User-agent: GPTBot
 Allow: /
-Disallow: /admin
 Disallow: /api/
 
 # ChatGPT kullanıcı tarama

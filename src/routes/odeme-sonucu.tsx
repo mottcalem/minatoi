@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useCart } from "@/components/CartProvider";
 import { checkoutRequest } from "@/lib/checkout";
+import { trackPaidOrder } from "@/lib/purchase-tracking";
 export const Route = createFileRoute("/odeme-sonucu")({
   head: () => ({
     meta: [
@@ -56,6 +57,7 @@ function Result() {
           }
         }
         if (result.status === "paid") {
+          trackPaidOrder(result);
           if (saved.id === order && saved.cart) clear(saved.cart);
           return;
         }

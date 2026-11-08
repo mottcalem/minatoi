@@ -88,6 +88,7 @@ test("existing Notifiva credentials support order delivery without duplicate sec
     pass: "test-secret",
     from: "no-reply@e.dijitalpanter.com",
     admin: "info@minatoi.com",
+    adminCc: [],
   });
   const custom = orderSmtpConfig({
     SMTP_HOST: "smtp.example.com",
@@ -104,6 +105,51 @@ test("existing Notifiva credentials support order delivery without duplicate sec
   assert.throws(() =>
     orderSmtpConfig({ SMTP_HOST: "smtp.example.com", NOTIFIVA_SMTP_PASSWORD: "other" }),
   );
+});
+
+test("additional order recipients receive only admin notifications and test override isolates them", async () => {
+  const { default: nodemailer } = await import("nodemailer");
+  const { createOrderMailer, orderSmtpConfig } = await import("./smtp.ts");
+  const env = {
+    NOTIFIVA_SMTP_PASSWORD: "test-secret",
+    ORDER_ADMIN_EMAIL: "admin@example.com",
+    ORDER_ADMIN_CC: " extra@example.com, extra@example.com,admin@example.com ",
+    CART_REMINDER_SECRET: "test-reminder-secret-with-at-least-32-characters",
+  };
+  assert.throws(() => orderSmtpConfig({ ...env, ORDER_ADMIN_CC: "invalid" }));
+  const original = nodemailer.createTransport;
+  const messages = [];
+  nodemailer.createTransport = () => ({
+    sendMail: async (message) => {
+      messages.push(message);
+      return { accepted: [message.to], rejected: [] };
+    },
+    close() {},
+  });
+  try {
+    const mailer = createOrderMailer(env);
+    await mailer.send(order, "admin");
+    assert.equal(messages[0].to, "admin@example.com");
+    assert.deepEqual(messages[0].cc, ["extra@example.com"]);
+    await mailer.send(order, "customer");
+    assert.equal(messages[1].to, order.customer.email);
+    assert.equal(messages[1].cc, undefined);
+    assert.equal(messages[1].replyTo, "admin@example.com");
+    await mailer.sendReminder({
+      id: "test-cart",
+      email: "buyer@example.com",
+      items: order.items,
+      coupon_code: "",
+      test_mode: true,
+    });
+    assert.equal(messages[2].cc, undefined);
+    const testMailer = createOrderMailer({ ...env, ORDER_EMAIL_TEST_TO: "test@example.com" });
+    await testMailer.send(order, "admin");
+    assert.equal(messages[3].to, "test@example.com");
+    assert.equal(messages[3].cc, undefined);
+  } finally {
+    nodemailer.createTransport = original;
+  }
 });
 
 test("order summary shows item pricing, discount, delivery and contact information", () => {

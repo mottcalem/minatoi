@@ -1,3 +1,4 @@
+import { updateSizePrices } from "@/data/bulkSizePricing";
 import { syncProductPriceFields } from "@/data/productPriceForm";
 import { CustomContentManager } from "@/components/CustomContentManager";
 import { PromotionManager } from "@/components/PromotionManager";
@@ -23,7 +24,12 @@ import { getCategories } from "@/data/categoryActions";
 import { adminLogin, adminLogout, isAdminLoggedIn } from "@/lib/adminAuth";
 
 export const Route = createFileRoute("/admin")({
-  head: () => ({ meta: [{ title: "Admin — MinaToi" }] }),
+  head: () => ({
+    meta: [
+      { title: "Admin — MinaToi" },
+      { name: "robots", content: "noindex, nofollow, noarchive" },
+    ],
+  }),
   loader: async () => {
     const products = await fetchManagedProducts();
     return { initialProducts: products };
@@ -589,6 +595,7 @@ function AdminPage({
   onLogout: () => void;
 }) {
   const [products, setProducts] = useState<Product[]>(initialProducts);
+  const [bulkPrices, setBulkPrices] = useState("25/35 | 710\n60/90 | 1890");
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [tab, setTab] = useState<AdminTab>("products");
@@ -833,6 +840,60 @@ function AdminPage({
       {/* Ürün yönetimi sekmesi */}
       {tab === "products" && (
         <>
+          {mode === "list" && (
+            <div className="mb-6 rounded-2xl border border-stone-200 bg-white p-5">
+              <h2 className="font-semibold text-stone-900">Toplu Ölçü Fiyatı Güncelleme</h2>
+              <p className="my-2 text-sm text-stone-600">
+                Her satıra ölçü | fiyat girin. Tüm kategorilerde bu ölçüye sahip ürünler
+                güncellenir; diğer ölçüler korunur. Üzeri çizili eski fiyat yeni fiyatın altında
+                kalırsa kaldırılır.
+              </p>
+              <label htmlFor="bulk-size-prices" className="text-sm">
+                Ölçü | Satış fiyatı (TL)
+              </label>
+              <textarea
+                id="bulk-size-prices"
+                className="mt-1 block w-full rounded-lg border p-3"
+                rows={3}
+                value={bulkPrices}
+                disabled={saving}
+                onChange={(event) => setBulkPrices(event.target.value)}
+              />
+              <button
+                disabled={saving || !bulkPrices.trim()}
+                className="mt-3 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white disabled:opacity-50"
+                onClick={async () => {
+                  try {
+                    const updates = bulkPrices
+                      .trim()
+                      .split("\n")
+                      .map((line) => {
+                        const parts = line.split("|").map((part) => part.trim());
+                        if (parts.length !== 2)
+                          throw new Error("Her satırı ölçü | fiyat biçiminde giriniz.");
+                        return { size: parts[0], price: Number(parts[1].replace(",", ".")) };
+                      });
+                    const updated = updateSizePrices(products, updates);
+                    if (!updated.count) {
+                      showToast("Bu ölçülere sahip ürün bulunamadı.", "err");
+                      return;
+                    }
+                    await persist(
+                      updated.products,
+                      `${updated.count} ürünün ölçü fiyatları güncellendi.`,
+                    );
+                  } catch (error) {
+                    showToast(
+                      error instanceof Error ? error.message : "Güncelleme başarısız.",
+                      "err",
+                    );
+                  }
+                }}
+              >
+                {saving ? "Kaydediliyor…" : "Tüm Ürünlere Uygula ve Kaydet"}
+              </button>
+            </div>
+          )}
           {/* Form modu */}
           {(mode === "add" || mode === "edit") && (
             <div className="mb-8 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">

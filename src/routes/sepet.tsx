@@ -80,8 +80,9 @@ function CartPage() {
       customer,
       consent: form.get("consent") === "on",
       expectedAmount: quote.amount,
+      attribution: captureCurrentAttribution(),
     };
-    const serialized = JSON.stringify(payload);
+    const serialized = JSON.stringify({ ...payload, attribution: undefined });
     try {
       if (lastPayload.current !== serialized) {
         const fingerprint = Array.from(
@@ -482,3 +483,4 @@ function CartPage() {
     </section>
   );
 }
+import { captureCurrentAttribution } from "@/lib/orderAttribution";

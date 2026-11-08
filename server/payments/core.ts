@@ -10,6 +10,7 @@ import {
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { normalizeSize, priceForSize, type SizePrice } from "../../src/data/productPricing.ts";
 import { z } from "zod";
+import { attributionSchema } from "../../src/lib/orderAttribution.ts";
 
 export const cartSchema = z
   .array(
@@ -44,6 +45,7 @@ export const checkoutSchema = z
     consent: z.literal(true),
     requestId: z.string().uuid(),
     expectedAmount: z.number().int().positive(),
+    attribution: attributionSchema.optional(),
   })
   .strict();
 export type OrderItem = {
@@ -160,6 +162,7 @@ export const ORDER_SCHEMA = `CREATE TABLE IF NOT EXISTS orders (
  consent_at timestamptz NOT NULL DEFAULT now(), consent_version text NOT NULL DEFAULT 'checkout-v1'
 ); CREATE INDEX IF NOT EXISTS orders_created_idx ON orders(created_at DESC);
 ALTER TABLE orders ADD COLUMN IF NOT EXISTS discount integer NOT NULL DEFAULT 0 CHECK(discount>=0);
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS attribution jsonb NOT NULL DEFAULT '{}'::jsonb;
 ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_method text NOT NULL DEFAULT 'card';
 ALTER TABLE orders DROP CONSTRAINT IF EXISTS orders_status_check;
 ALTER TABLE orders ADD CONSTRAINT orders_status_check CHECK(status IN ('pending','awaiting_transfer','paid','failed'));

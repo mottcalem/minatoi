@@ -4,10 +4,11 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
 import { AnnouncementBar } from "@/components/AnnouncementBar";
 
@@ -16,6 +17,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CartProvider } from "@/components/CartProvider";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { captureCurrentAttribution } from "@/lib/orderAttribution";
 
 function NotFoundComponent() {
   return (
@@ -78,18 +80,42 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
+  head: ({ matches }) => ({
     scripts: [
       {
-        src: "https://www.googletagmanager.com/gtag/js?id=G-2C6547VHP4",
-        async: true,
+        // Read the current path at send time, including SPA and back/forward navigation.
+        children: `Object.defineProperty(window, 'ga-disable-G-2C6547VHP4', {
+  configurable: true,
+  get: function() { return /^\\/admin(?:\\/|$)/.test(window.location.pathname); }
+});`,
       },
-      {
-        children: `window.dataLayer = window.dataLayer || [];
+      ...(matches.some((match) => /^\/admin(?:\/|$)/.test(match.pathname))
+        ? []
+        : [
+            {
+              children: `!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1720727192407837');
+fbq('track', 'PageView');`,
+            },
+            {
+              src: "https://www.googletagmanager.com/gtag/js?id=G-2C6547VHP4",
+              async: true,
+            },
+            {
+              children: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'G-2C6547VHP4');`,
-      },
+gtag('config', 'G-2C6547VHP4');
+gtag('config', 'AW-18304768905');`,
+            },
+          ]),
       {
         children: `window.chatwootSettings = {"position":"right","type":"expanded_bubble","launcherTitle":"Canlı Destek"};
 (function(d,t) {
@@ -163,12 +189,26 @@ gtag('config', 'G-2C6547VHP4');`,
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const isAdmin = useRouterState({
+    select: (state) => /^\/admin(?:\/|$)/.test(state.location.pathname),
+  });
   return (
     <html lang="tr" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
       <body suppressHydrationWarning>
+        {!isAdmin && (
+          <noscript>
+            <img
+              height="1"
+              width="1"
+              style={{ display: "none" }}
+              src="https://www.facebook.com/tr?id=1720727192407837&ev=PageView&noscript=1"
+              alt=""
+            />
+          </noscript>
+        )}
         {children}
         <Scripts />
       </body>
@@ -178,6 +218,23 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const href = useRouterState({ select: (state) => state.location.href });
+  useEffect(() => {
+    captureCurrentAttribution();
+  }, [href]);
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const lastPageView = useRef<string | null>(null);
+  useEffect(() => {
+    if (lastPageView.current === pathname) return;
+    lastPageView.current = pathname;
+    if (/^\/admin(?:\/|$)/.test(pathname)) return;
+    const tagWindow = window as Window & { gtag?: (...args: unknown[]) => void };
+    tagWindow.gtag?.("event", "conversion", {
+      send_to: "AW-18304768905/mBBOCJy3--AcEIm3sphE",
+      value: 0,
+      currency: "TRY",
+    });
+  }, [pathname]);
 
   return (
     <QueryClientProvider client={queryClient}>
