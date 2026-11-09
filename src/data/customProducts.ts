@@ -62,14 +62,6 @@ function custom(
 
 export const CUSTOM_PRODUCTS: CustomProduct[] = [
   custom(
-    "patili-kostumlu-portre",
-    "Kostümlü Patili Portre",
-    "patili",
-    "/images/patili-ornek-1.jpg",
-    "Kostümlü portre",
-    "pet",
-  ),
-  custom(
     "patili-karakalem",
     "Patili Karakalem İllüstrasyon",
     "patili",

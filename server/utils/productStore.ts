@@ -4,10 +4,12 @@ import { databaseConfigured, getPool, withTransaction } from "./database";
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { resolve, dirname } from "node:path";
 import { existsSync } from "node:fs";
+import { migrateProductGallery } from "./migrateProductGallery";
 
 const ROOT = resolve(process.cwd());
 const PUBLIC_JSON = resolve(ROOT, "public", "products.json");
 const DATA_JSON = resolve(ROOT, "data", "products.json");
+let galleryMigration: Promise<void> | undefined;
 
 // Her iki konuma da yazar (senkron tutar)
 export async function writeProducts(data: unknown): Promise<void> {
@@ -44,7 +46,14 @@ export async function writeProducts(data: unknown): Promise<void> {
 
 // İlk bulunan kaynaktan okur
 export async function readProducts(): Promise<import("../../src/data/products").Product[]> {
-  if (databaseConfigured()) return readProductRows(getPool());
+  if (databaseConfigured()) {
+    galleryMigration ??= migrateProductGallery().catch((error) => {
+      galleryMigration = undefined;
+      throw error;
+    });
+    await galleryMigration;
+    return readProductRows(getPool());
+  }
   const paths = [PUBLIC_JSON, DATA_JSON];
 
   for (const p of paths) {

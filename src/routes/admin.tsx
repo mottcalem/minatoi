@@ -7,7 +7,6 @@ import { OrderManager } from "@/components/OrderManager";
 import { BannerManager } from "@/components/BannerManager";
 import { AnnouncementManager } from "@/components/AnnouncementManager";
 import { CategoryManager } from "@/components/CategoryManager";
-import { ProductGalleryManager } from "@/components/ProductGalleryManager";
 import { HeroManager } from "@/components/HeroManager";
 import { AboutManager } from "@/components/AboutManager";
 import { RichTextEditor } from "@/components/RichTextEditor";
@@ -45,7 +44,6 @@ type AdminTab =
   | "categories"
   | "announcements"
   | "banners"
-  | "gallery"
   | "hero"
   | "about"
   | "custom";
@@ -55,7 +53,6 @@ const ADMIN_TABS: { id: AdminTab; label: string }[] = [
   { id: "promotions", label: "Kampanyalar / Kodlar" },
   { id: "orders", label: "Siparişler" },
   { id: "products", label: "Ürün Yönetimi" },
-  { id: "gallery", label: "Ortak Ürün Görseli" },
   { id: "categories", label: "Kategoriler" },
   { id: "announcements", label: "Duyuru Bandı" },
   { id: "banners", label: "Anasayfa Slider" },
@@ -1105,7 +1102,6 @@ function AdminPage({
       {/* Slider sekmesi */}
       {tab === "banners" && <BannerManager />}
       {tab === "hero" && <HeroManager />}
-      {tab === "gallery" && <ProductGalleryManager />}
       {tab === "about" && <AboutManager />}
       {tab === "custom" && <CustomContentManager />}
     </div>

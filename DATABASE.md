@@ -1,5 +1,10 @@
 # Güncel geliştirme bağlantısı
 
+Askı aparatı artık ürünün normal `product_images` listesinde yönetilir. İlk ürün
+okumasında `005_product_owned_gallery` geçişi eski ortak görseli mevcut ürünlerin
+galerilerinin sonuna bir kez aktarır. Sonraki silme ve sıralama değişiklikleri korunur;
+yeni ürünlere otomatik ortak görsel eklenmez. Ortak görsel yönetim sekmesi kaldırılmıştır.
+
 3 Kasım 2026: Yerel `.env`, sunucudaki güncel MinaToi veritabanına SSH tüneli
 (`127.0.0.1:15432` → `104.233.4.39` üzerindeki `127.0.0.1:5432`) ile bağlanır.
 Yerel PostgreSQL kopyası kullanılmaz. Yerel panelde yapılan veri değişiklikleri canlı veriyi etkiler.

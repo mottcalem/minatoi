@@ -66,6 +66,14 @@ function Contact() {
         <h2 className="font-display text-base font-semibold text-foreground">Firma Bilgileri</h2>
         <dl className="mt-3 grid gap-x-8 gap-y-2 sm:grid-cols-2">
           <div>
+            <dt className="inline font-medium text-foreground">Adres: </dt>
+            <dd className="inline">{SITE.address}</dd>
+          </div>
+          <div>
+            <dt className="inline font-medium text-foreground">Vergi No: </dt>
+            <dd className="inline">{SITE.taxNumber}</dd>
+          </div>
+          <div>
             <dt className="inline font-medium text-foreground">E-posta: </dt>
             <dd className="inline">{SITE.email}</dd>
           </div>

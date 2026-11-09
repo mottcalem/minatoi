@@ -71,10 +71,12 @@ export function ProductGalleryManager() {
 
   return (
     <section className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
-      <h2 className="font-display text-xl font-bold">Ortak Ürün Görseli</h2>
+      <h2 className="font-display text-xl font-bold">Ortak Ürün Görseli — Askı Aparatı</h2>
       <p className="mt-2 text-sm text-stone-600">
         Tüm ürünlerin küçük görsellerinin sonuna eklenir. Askı aparatı fotoğrafını buradan
-        değiştirebilir veya tüm ürünlerden kaldırabilirsiniz.
+        değiştirebilir veya tüm ürünlerden kaldırabilirsiniz. Bu görsel ürünün kendi görsellerinden
+        ayrı yönetilir. Buradaki değişiklikler ürünün kaydet düğmesini beklemeden tüm ürünlere
+        uygulanır.
       </p>
       {ready && (
         <div className="mt-5 space-y-4">

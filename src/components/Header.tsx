@@ -4,6 +4,8 @@ import { CartLink } from "./CartProvider";
 import { Link, useMatchRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { getCategories } from "@/data/categoryActions";
+import { fetchProductsServer } from "@/data/adminProducts";
+import { formatTL, type Product } from "@/data/products";
 import {
   DEFAULT_CATEGORIES,
   categoryLink,
@@ -40,9 +42,40 @@ function ChevronDown({ className }: { className?: string }) {
 }
 
 const linkBase = "text-sm font-semibold transition-colors hover:text-primary";
+const normalizeSearch = (value: string) =>
+  value
+    .toLocaleLowerCase("tr-TR")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/ı/g, "i");
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [searchProducts, setSearchProducts] = useState<Product[] | null>(null);
+  const [searchError, setSearchError] = useState(false);
+  useEffect(() => {
+    if (!searchOpen || searchProducts) return;
+    let active = true;
+    setSearchError(false);
+    fetchProductsServer()
+      .then((products) => {
+        if (active) setSearchProducts(products);
+      })
+      .catch(() => {
+        if (active) setSearchError(true);
+      });
+    return () => {
+      active = false;
+    };
+  }, [searchOpen, searchProducts]);
+  const searchTerm = query.trim();
+  const results = searchTerm
+    ? (searchProducts ?? []).filter((product) =>
+        normalizeSearch(product.name).includes(normalizeSearch(searchTerm)),
+      )
+    : [];
   const [categories, setCategories] = useState<CategoryRecord[]>(DEFAULT_CATEGORIES);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -199,7 +232,7 @@ export function Header() {
         </nav>
 
         <div className="ml-auto flex shrink-0 items-center gap-1 pl-2">
-          <Popover>
+          <Popover open={searchOpen} onOpenChange={setSearchOpen}>
             <PopoverTrigger asChild>
               <button
                 type="button"
@@ -214,7 +247,7 @@ export function Header() {
               sideOffset={12}
               collisionPadding={16}
               aria-label="Ürün arama"
-              className="w-72 max-w-[calc(100vw-2rem)] rounded-2xl border-stone-200 bg-white p-2 shadow-lg"
+              className="w-96 max-w-[calc(100vw-2rem)] rounded-2xl border-stone-200 bg-white p-2 shadow-lg"
             >
               <form
                 action="/urunler"
@@ -233,6 +266,9 @@ export function Header() {
                   name="q"
                   aria-label="Ürün adına göre ara"
                   placeholder="Ürün ara…"
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  aria-controls="header-search-results"
                   required
                   maxLength={100}
                   className="min-w-0 flex-1 bg-transparent py-2 text-sm outline-none placeholder:text-stone-400"
@@ -245,6 +281,52 @@ export function Header() {
                   <ArrowRight size={18} aria-hidden="true" />
                 </button>
               </form>
+              {searchTerm && (
+                <div id="header-search-results" className="mt-2 border-t border-stone-100 pt-2">
+                  <p role="status" className="px-3 py-2 text-xs text-stone-500">
+                    {searchError
+                      ? "Ürünler yüklenemedi. Aramayı yeniden açarak tekrar deneyin."
+                      : !searchProducts
+                        ? "Aranıyor…"
+                        : results.length
+                          ? `${results.length} ürün bulundu`
+                          : "Eşleşen ürün bulunamadı."}
+                  </p>
+                  <ul className="max-h-[50vh] overflow-y-auto">
+                    {results.slice(0, 8).map((product) => (
+                      <li key={product.slug}>
+                        <Link
+                          to="/urun/$slug"
+                          params={{ slug: product.slug }}
+                          onClick={() => setSearchOpen(false)}
+                          className="flex items-center gap-3 rounded-xl px-3 py-2 hover:bg-stone-50 focus-visible:bg-stone-50"
+                        >
+                          <img
+                            src={product.image}
+                            alt=""
+                            loading="lazy"
+                            className="h-14 w-14 shrink-0 rounded-lg object-cover"
+                          />
+                          <span className="min-w-0 text-sm">
+                            <span className="block font-medium">{product.name}</span>
+                            <span className="text-stone-500">{formatTL(product.price)}</span>
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  {results.length > 0 && (
+                    <Link
+                      to="/urunler"
+                      search={{ q: searchTerm }}
+                      onClick={() => setSearchOpen(false)}
+                      className="mt-2 block rounded-xl bg-stone-100 px-3 py-3 text-center text-sm font-semibold hover:bg-stone-200"
+                    >
+                      Tüm sonuçları gör ({results.length})
+                    </Link>
+                  )}
+                </div>
+              )}
             </PopoverContent>
           </Popover>
           <CartLink />

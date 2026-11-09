@@ -12,7 +12,6 @@ import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ProductCarousel } from "@/components/ProductCarousel";
 import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
 import { isCustomProduct } from "@/data/customProducts";
-import { getProductGallerySettings } from "@/data/productGalleryActions";
 import { isCostumeProduct } from "@/data/catalog";
 
 const PET_EXAMPLES = [
@@ -24,11 +23,10 @@ const PET_EXAMPLES = [
 
 export const Route = createFileRoute("/urun/$slug")({
   loader: async ({ params }) => {
-    const [all, categories, hero, gallerySettings] = await Promise.all([
+    const [all, categories, hero] = await Promise.all([
       fetchProductsServer(),
       getCategories(),
       getHeroContent(),
-      getProductGallerySettings(),
     ]);
     const product = all.find((p) => p.slug === params.slug);
     if (!product) throw notFound();
@@ -36,7 +34,6 @@ export const Route = createFileRoute("/urun/$slug")({
       product: product as Product,
       categories,
       hero,
-      gallerySettings,
       related: all
         .filter((p) => p.category === product.category && p.slug !== params.slug)
         .slice(0, 10),
@@ -109,16 +106,13 @@ function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
   const [upload, setUpload] = useState<File | null>(null);
-  const { product, categories, related, hero, gallerySettings } = Route.useLoaderData();
+  const { product, categories, related, hero } = Route.useLoaderData();
   const [selectedSize, setSelectedSize] = useState<string>(product.sizes?.[0] ?? "");
   const selectedPrice = priceForSize(product, selectedSize);
   const isPetProduct =
     product.category === "patili-dostalara-ozel" ||
     (isCustomProduct(product) && product.customization.group === "pet");
-  const isCostumePortrait =
-    isCostumeProduct(product) ||
-    product.slug === "patili-kostumlu-portre" ||
-    product.slug === "kostumlu-portre";
+  const isCostumePortrait = isCostumeProduct(product) || product.slug === "kostumlu-portre";
   const cat = categories.find((c) => c.slug === product.category) ?? {
     slug: product.category,
     label: product.category,
@@ -151,7 +145,7 @@ function ProductDetail() {
         {/* Image gallery */}
         <div className="relative min-w-0">
           <div className="absolute -inset-4 -z-10 rounded-3xl bg-gradient-gold opacity-15 blur-2xl" />
-          <ProductGallery product={product} sharedImage={gallerySettings.image} />
+          <ProductGallery product={product} />
         </div>
 
         {/* Info */}
@@ -672,11 +666,8 @@ function WalletInfo({ details }: { details: WalletDetails }) {
   );
 }
 
-function ProductGallery({ product, sharedImage }: { product: Product; sharedImage: string }) {
-  const images = [
-    ...(product.images?.length ? product.images : [product.image]),
-    ...(sharedImage ? [sharedImage] : []),
-  ];
+function ProductGallery({ product }: { product: Product }) {
+  const images = product.images?.length ? product.images : [product.image];
   const [active, setActive] = useState(0);
 
   return (

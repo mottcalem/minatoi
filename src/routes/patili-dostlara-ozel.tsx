@@ -351,9 +351,6 @@ function PatiliDosyalaraOzel({
                       alt={`${label} patili dost portre örneği`}
                       className="aspect-[3/4] w-full rounded-lg object-cover"
                     />
-                    <figcaption className="mt-1 truncate text-center text-[10px] text-stone-300">
-                      {label}
-                    </figcaption>
                   </figure>
                 ))}
               </div>

@@ -45,13 +45,13 @@ function Page() {
                     <strong>İşletme Türü:</strong> {SITE.companyType}
                   </li>
                   <li>
-                    <strong>Merkez Adres:</strong>
+                    <strong>Merkez Adres:</strong> {SITE.address}
                   </li>
                   <li>
                     <strong>Üretim Adresi:</strong>
                   </li>
                   <li>
-                    <strong>Vergi Dairesi / No:</strong> {SITE.taxOffice} / {SITE.taxNumber}
+                    <strong>Vergi No:</strong> {SITE.taxNumber}
                   </li>
                   <li>
                     <strong>E-posta:</strong> {SITE.email}

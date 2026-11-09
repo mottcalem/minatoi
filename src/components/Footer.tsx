@@ -40,6 +40,7 @@ export function Footer() {
               </svg>
             </a>
           </div>
+          <p className="mt-3 text-xs text-stone-500">{SITE.address}</p>
           {(SITE.owner || SITE.companyType || SITE.taxOffice || SITE.taxNumber) && (
             <p className="mt-3 text-xs text-stone-400">
               {[SITE.owner, SITE.companyType].filter(Boolean).join(" · ")}
