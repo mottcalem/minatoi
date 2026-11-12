@@ -23,9 +23,9 @@ function Page() {
       intro={
         <p>
           İşbu Kullanıcı Sözleşmesi (“Sözleşme”), {SITE.name} ({SITE.owner}, {SITE.companyType};{" "}
-          {SITE.taxOffice} / {SITE.taxNumber}) tarafından sunulan web sitesi
-          üzerinden gerçekleştirilen alışveriş işlemlerine uygulanır. Site üzerinden sipariş veren
-          kullanıcı (“Kullanıcı”) aşağıdaki koşulları kabul etmiş sayılır.
+          {SITE.taxOffice} / {SITE.taxNumber}) tarafından sunulan web sitesi üzerinden
+          gerçekleştirilen alışveriş işlemlerine uygulanır. Site üzerinden sipariş veren kullanıcı
+          (“Kullanıcı”) aşağıdaki koşulları kabul etmiş sayılır.
         </p>
       }
       sections={[
@@ -92,14 +92,7 @@ function Page() {
               <p>
                 Kullanıcı, ürünleri sepete ekleyip teslimat bilgilerini girerek sipariş talebi
                 oluşturur. Kart ödemeleri PayTR üzerinden tek çekim olarak yapılır; ödeme sonucu
-                doğrulandığında sipariş onaylanır. Sunulan ürünlerde kapıda ödeme talebi WhatsApp
-                üzerinden iletilebilir.
-              </p>
-              <p>
-                Kapıda ödeme siparişleri, Kullanıcı’nın WhatsApp üzerinden ilettiği teslimat
-                bilgileri doğrultusunda hazırlanır ve İşletme tarafından teyit edildikten sonra
-                kargoya verilir. Kapıda ödeme talebinin reddedilmesi halinde ürün Kullanıcı’ya
-                teslim edilmez ve sipariş iptal edilir.
+                doğrulandığında sipariş onaylanır.
               </p>
             </>
           ),
@@ -108,10 +101,10 @@ function Page() {
           heading: "Teslimat",
           body: (
             <p>
-              Siparişler, saat 15:00’e kadar alınanlar aynı gün, sonrasında alınanlar ise takip eden
-              iş günü kargoya verilir. Tahmini teslim süresi 1–3 iş günüdür; kargo firmasının
-              yoğunluğu, hava muhalefeti ve adres doğruluğu gibi nedenlerle bu süre değişebilir.
-              Teslimat sırasında Kullanıcı veya yetkili kişinin imzası talep edilir.
+              Siparişler, sipariş tarihinden itibaren 2 gün içinde kargoya verilir. Tahmini teslim
+              süresi 1–3 iş günüdür; kargo firmasının yoğunluğu, hava muhalefeti ve adres doğruluğu
+              gibi nedenlerle bu süre değişebilir. Teslimat sırasında Kullanıcı veya yetkili kişinin
+              imzası talep edilir.
             </p>
           ),
         },

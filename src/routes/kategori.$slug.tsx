@@ -2,7 +2,12 @@ import type { Product } from "@/data/products";
 import { ArtistGallery } from "@/components/ArtistGallery";
 import { ArtistCard } from "@/components/ArtistAlbum";
 import { ARTISTS, artistCollections, type ArtistCollection } from "@/data/artists";
-import { categoryLink, visibleCategories, type CategoryRecord } from "@/data/categories";
+import {
+  categoryLink,
+  isArtistCategory,
+  visibleCategories,
+  type CategoryRecord,
+} from "@/data/categories";
 import { productInCategory } from "@/data/productCategories";
 import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 import { fetchProductsServer } from "@/data/adminProducts";
@@ -29,7 +34,7 @@ export const Route = createFileRoute("/kategori/$slug")({
     const cat = categories.find((c) => c.slug === categorySlug);
     if (!cat) throw notFound();
     const all = await fetchProductsServer();
-    const products = mixProducts(all.filter((p) => productInCategory(p, categorySlug)));
+    const products = mixProducts(all.filter((p) => productInCategory(p, categorySlug, categories)));
     const artists = artistCollections(categories, all);
     return {
       cat,
@@ -117,7 +122,14 @@ function CategoryPage() {
       ) : (
         <div>
           {cat.slug === "sanatci-albumu" &&
-            products.some((product) => !product.category.startsWith("ressam-")) && (
+            products.some(
+              (product) =>
+                !isArtistCategory(
+                  categories.find((item) => item.slug === product.category) ?? {
+                    slug: product.category,
+                  },
+                ),
+            ) && (
               <h2 className="mb-5 font-display text-2xl font-bold text-stone-900">
                 Diğer seçili eserler
               </h2>
@@ -126,7 +138,12 @@ function CategoryPage() {
             {products
               .filter(
                 (product) =>
-                  cat.slug !== "sanatci-albumu" || !product.category.startsWith("ressam-"),
+                  cat.slug !== "sanatci-albumu" ||
+                  !isArtistCategory(
+                    categories.find((item) => item.slug === product.category) ?? {
+                      slug: product.category,
+                    },
+                  ),
               )
               .map((p) => (
                 <ProductCard key={p.slug} product={p} />

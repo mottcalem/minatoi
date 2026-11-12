@@ -20,7 +20,7 @@ export const ARTIST_ALBUM_CATEGORY: CategoryRecord = {
 };
 
 export function isArtistCategory(category: { slug: string }) {
-  return category.slug.startsWith("ressam-");
+  return category.slug.startsWith("ressam-") || ["eda-cartoon", "eda-cartoun"].includes(category.slug);
 }
 
 export function visibleCategories(categories: CategoryRecord[]) {

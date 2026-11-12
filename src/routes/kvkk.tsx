@@ -70,10 +70,10 @@ function Page() {
           heading: "Kişisel Verilerin Aktarımı",
           body: (
             <p>
-              Kişisel verileriniz; kargo firmaları, ödeme hizmet sağlayıcıları (PayTR,
-              bankalar), muhasebe ve yasal danışmanlar ile yasal mercilerle, yukarıda belirtilen
-              amaçlar doğrultusunda paylaşılabilir. Veriler, yurt dışına aktarılması gereken
-              durumlarda KVKK md. 9’da öngörülen uygun güvenceler sağlanarak aktarılır.
+              Kişisel verileriniz; kargo firmaları, ödeme hizmet sağlayıcıları (PayTR, bankalar),
+              muhasebe ve yasal danışmanlar ile yasal mercilerle, yukarıda belirtilen amaçlar
+              doğrultusunda paylaşılabilir. Veriler, yurt dışına aktarılması gereken durumlarda KVKK
+              md. 9’da öngörülen uygun güvenceler sağlanarak aktarılır.
             </p>
           ),
         },
@@ -81,10 +81,9 @@ function Page() {
           heading: "Kişisel Verilerin Toplanma Yöntemi",
           body: (
             <p>
-              Kişisel verileriniz; Site, PayTR ödeme ve sipariş akışları, kapıda ödeme
-              formu, kişiye özel tasarım talepleri, WhatsApp ve e-posta iletişimleri, çerezler ve
-              Site kullanım kayıtları aracılığıyla otomatik veya kısmen otomatik yöntemlerle
-              toplanır.
+              Kişisel verileriniz; Site, PayTR ödeme ve sipariş akışları, kişiye özel tasarım
+              talepleri, WhatsApp ve e-posta iletişimleri, çerezler ve Site kullanım kayıtları
+              aracılığıyla otomatik veya kısmen otomatik yöntemlerle toplanır.
             </p>
           ),
         },

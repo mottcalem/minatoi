@@ -87,8 +87,8 @@ function Contact() {
           <strong className="text-foreground">Çalışma saatleri:</strong> Hafta içi 09:00 – 19:00 ·
           Cumartesi 10:00 – 17:00
           <br />
-          <strong className="text-foreground">Kargo:</strong> Aynı gün kargolama (saat 15:00'e kadar
-          olan siparişler).
+          <strong className="text-foreground">Kargo:</strong> Siparişiniz, sipariş tarihinden
+          itibaren 2 gün içinde kargoya verilir.
           <br />
           Hızlı yanıt için{" "}
           <a

@@ -137,10 +137,9 @@ function Page() {
           body: (
             <>
               <p>
-                Siparişler, saat <strong>15:00'e</strong> kadar alınanlar aynı iş günü, sonrasında
-                alınanlar ise takip eden iş günü kargoya verilir. Tahmini teslim süresi{" "}
-                <strong>1–3 iş günüdür</strong>; kargo firmasının yoğunluğu, hava koşulları ve adres
-                doğruluğu nedeniyle bu süre uzayabilir.
+                Siparişler, sipariş tarihinden itibaren <strong>2 gün içinde</strong> kargoya
+                verilir. Tahmini teslim süresi <strong>1–3 iş günüdür</strong>; kargo firmasının
+                yoğunluğu, hava koşulları ve adres doğruluğu nedeniyle bu süre uzayabilir.
               </p>
               <p className="mt-2">
                 Ürünler, ALICI'nın sipariş formunda belirttiği teslimat adresine teslim edilir.

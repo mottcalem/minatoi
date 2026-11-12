@@ -1,4 +1,4 @@
-import type { CategoryRecord } from "./categories";
+import { isArtistCategory, type CategoryRecord } from "./categories.ts";
 import type { Product } from "./products";
 
 export type ArtistWork = {
@@ -70,7 +70,7 @@ export function artistCollections(
   products: Product[],
 ): ArtistCollection[] {
   const artistCategories = [
-    ...categories.filter((category) => category.slug.startsWith("ressam-")),
+    ...categories.filter(isArtistCategory),
     ...ARTISTS.filter(
       (artist) => !categories.some((category) => category.slug === artist.slug),
     ).map((artist) => ({ slug: artist.slug, label: artist.name, description: artist.biography })),

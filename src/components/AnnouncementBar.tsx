@@ -1,19 +1,11 @@
 import { useCart } from "./CartProvider";
 import { useEffect, useRef, useState } from "react";
+import { DEFAULT_ANNOUNCEMENTS } from "@/data/announcements";
 import { getAnnouncements } from "@/data/announcementActions";
-
-/** Sunucudan duyurular okunana kadar ilk render'da gösterilen varsayılan liste. */
-const INITIAL_ANNOUNCEMENTS = [
-  "Kapıda Ödeme · Tüm Türkiye",
-  "Türkiye'nin Her Yerine Ücretsiz Kargo",
-  "4mm Temperli Cam",
-  "Solmaz Ömürlük Renkler",
-  "Hasarsız Teslimat Garantisi",
-];
 
 export function AnnouncementBar() {
   const { promotions } = useCart();
-  const [announcements, setAnnouncements] = useState<string[]>(INITIAL_ANNOUNCEMENTS);
+  const [announcements, setAnnouncements] = useState<string[]>(DEFAULT_ANNOUNCEMENTS);
 
   useEffect(() => {
     let active = true;

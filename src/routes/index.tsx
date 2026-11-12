@@ -35,7 +35,7 @@ function categoryCovers(categories: CategoryRecord[], products: Product[]) {
     const candidates = products
       .filter(
         (product) =>
-          productInCategory(product, category.slug) ||
+          productInCategory(product, category.slug, categories) ||
           (category.slug === "patili-dostalara-ozel" &&
             isCustomProduct(product) &&
             product.customization.group === "pet"),
@@ -83,8 +83,9 @@ export const Route = createFileRoute("/")({
       { property: "og:url", content: "https://minatoi.com/" },
       {
         property: "og:image",
-        content: "https://minatoi.com/images/kisiye-ozel-ornek.jpg",
+        content: "https://minatoi.com/images/minatoi-share-logo.jpg",
       },
+      { name: "twitter:image", content: "https://minatoi.com/images/minatoi-share-logo.jpg" },
       { name: "robots", content: "index, follow" },
     ],
     links: [{ rel: "canonical", href: "https://minatoi.com/" }],

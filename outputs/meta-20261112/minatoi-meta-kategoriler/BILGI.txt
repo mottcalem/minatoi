@@ -1,0 +1,28 @@
+MinaToi Meta katalog aktarımı — 12 Kasım 2026
+
+Her CSV, Meta şablonundaki 31 sütunu ve Pixel ile eşleşen ürün kimliklerini korur.
+Ana kategorilerde toplam 252 benzersiz ürün vardır.
+Yeni Gelenler (84 ürün) ve Sanatçının Albümü (16 ürün) mevcut ürünlerin ek koleksiyonlarıdır; bu iki dosyadaki ürünler ana kategori dosyalarında da bulunur.
+Aynı id ile yükleme mevcut katalog ürününü günceller. Eski WooCommerce kimlikleriyle kayıtlı ürünlerin kimlikleri farklı olabilir.
+Fiyatı tanımlanmayan 18 Ayten Yetiş Doğu eseri dahil edilmedi; bu kategori için boş CSV oluşturulmadı.
+500×500 pikselden küçük görsele sahip 7 kişiye özel ürün de ana dosyadaki gibi hariç tutuldu.
+Fiyatlar listelenen başlangıç ölçüsüne aittir. Örnek satır veya açıklama satırı yoktur.
+
+Afiş: 20 ürün (afis.csv)
+Kedi: 23 ürün (kedi.csv)
+Zen Koleksiyonu: 19 ürün (zen-koleksiyonu.csv)
+Genel: 2 ürün (genel.csv)
+Kişiye Özel: 2 ürün (kisiye-ozel.csv)
+Patili Dostlara Özel: 13 ürün (patili-dostalara-ozel.csv)
+Hayvanlar Alemi: 20 ürün (hayvanlar-alemi.csv)
+Göz ve Nazar Boncuğu: 16 ürün (goz-ve-nazar-boncugu.csv)
+Işık ve Renk: 20 ürün (isik-ve-renk.csv)
+Gerçeküstü: 21 ürün (gercekustu.csv)
+Tasarımcının Listesi: 48 ürün (tasarimcinin-listesi.csv)
+Ressamlar: 12 ürün (ressamlar.csv)
+Manzara: 8 ürün (manzara.csv)
+Mustafa Kemal Atatürk: 12 ürün (mustafa-kemal-ataturk.csv)
+Cem Uzunoğlu: 8 ürün (ressam-cem-uzunoglu.csv)
+Eda Cartoon: 8 ürün (eda-cartoun.csv)
+Yeni Gelenler: 84 ürün (yeni-gelenler.csv)
+Sanatçının Albümü: 16 ürün (sanatci-albumu.csv)

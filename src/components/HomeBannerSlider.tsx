@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -11,23 +10,9 @@ import { type Product } from "@/data/products";
 
 export function HomeBannerSlider({ banners }: { banners: (Banner & { product?: Product })[] }) {
   const [api, setApi] = useState<CarouselApi>();
-  const [selected, setSelected] = useState(0);
   const [hovered, setHovered] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(true);
-  const activeProduct = banners[selected]?.product;
   const hasMultiple = banners.length > 1;
-
-  useEffect(() => {
-    if (!api) return;
-    const updateSelected = () => setSelected(api.selectedScrollSnap());
-    updateSelected();
-    api.on("select", updateSelected);
-    api.on("reInit", updateSelected);
-    return () => {
-      api.off("select", updateSelected);
-      api.off("reInit", updateSelected);
-    };
-  }, [api]);
 
   useEffect(() => {
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -80,24 +65,6 @@ export function HomeBannerSlider({ banners }: { banners: (Banner & { product?: P
           ))}
         </CarouselContent>
       </div>
-      <button
-        type="button"
-        onClick={() => api?.scrollPrev()}
-        disabled={!hasMultiple}
-        aria-label="Önceki banner"
-        className="absolute left-3 top-1/2 z-10 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/60 bg-white/85 text-stone-900 shadow-md backdrop-blur-sm transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900 disabled:cursor-default disabled:opacity-50 sm:left-6"
-      >
-        <ChevronLeft className="size-6" />
-      </button>
-      <button
-        type="button"
-        onClick={() => api?.scrollNext()}
-        disabled={!hasMultiple}
-        aria-label="Sonraki banner"
-        className="absolute right-3 top-1/2 z-10 flex size-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/60 bg-white/85 text-stone-900 shadow-md backdrop-blur-sm transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900 disabled:cursor-default disabled:opacity-50 sm:right-6"
-      >
-        <ChevronRight className="size-6" />
-      </button>
     </Carousel>
   );
 }

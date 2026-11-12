@@ -104,15 +104,6 @@ function Page() {
           ),
         },
         {
-          heading: "Kapıda Ödeme Siparişlerinin İadesi",
-          body: (
-            <p>
-              Kapıda ödeme ile satın alınan ürünlerin iadesinde, ürün bedeli iade edilir; ancak
-              kapıda ödeme hizmet bedeli ve kargo ücreti iade kapsamında değildir.
-            </p>
-          ),
-        },
-        {
           heading: "İletişim",
           body: (
             <p>

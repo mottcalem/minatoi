@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { currentAnnouncements } from "./announcements";
 
 const saveSchema = z.object({
   token: z.string().max(256),
@@ -15,7 +16,7 @@ const saveSchema = z.object({
 export const getAnnouncements = createServerFn({ method: "GET" }).handler(
   async (): Promise<string[]> => {
     const { readAnnouncements } = await import("../../server/utils/announcementStore");
-    return readAnnouncements();
+    return currentAnnouncements(await readAnnouncements());
   },
 );
 
@@ -27,6 +28,6 @@ export const saveAnnouncements = createServerFn({ method: "POST" })
       throw new Error("Oturum doğrulanamadı. Tekrar giriş yapın.");
     }
     const { writeAnnouncements } = await import("../../server/utils/announcementStore");
-    await writeAnnouncements(data.announcements);
+    await writeAnnouncements(currentAnnouncements(data.announcements));
     return { ok: true };
   });

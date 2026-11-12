@@ -130,3 +130,29 @@ test("personal designs match product detail prices and remain editable without l
   assert.equal(result.customization.group, "personal");
   assert.equal(storefront.filter((p) => p.slug === edited.slug).length, 1);
 });
+
+test("artist albums include Eda Cartoon and prefixed categories without changing URLs", async () => {
+  const { artistCollections } = await import("../src/data/artists.ts");
+  const { visibleCategories } = await import("../src/data/categories.ts");
+  const { productInCategory } = await import("../src/data/productCategories.ts");
+  const categories = [
+    { slug: "eda-cartoun", label: "Eda Cartoon", description: "" },
+    { slug: "ressam-yeni-sanatci", label: "Yeni Sanatçı", description: "" },
+    { slug: "manzara", label: "Manzara", description: "" },
+  ];
+  const products = categories.flatMap((category) => Array.from({ length: 8 }, (_, i) => ({
+    ...product, slug: `${category.slug}-${i}`, category: category.slug, featured: i === 3,
+  })));
+  const albums = artistCollections(categories, products);
+  for (const category of categories.slice(0, 2)) {
+    const album = albums.find((item) => item.slug === category.slug);
+    assert.equal(album.name, category.label);
+    assert.equal(album.works.length, 8);
+    assert.equal(album.coverSlug, `${category.slug}-3`);
+    assert.equal(visibleCategories(categories).some((item) => item.slug === category.slug), false);
+    assert.equal(productInCategory(products.find((item) => item.category === category.slug), "sanatci-albumu", categories), true);
+  }
+  assert.equal(albums.some((item) => item.slug === "manzara"), false);
+  assert.equal(productInCategory(products.at(-1), "sanatci-albumu", categories), false);
+  assert.equal(productInCategory(products[0], "eda-cartoun", categories), true);
+});

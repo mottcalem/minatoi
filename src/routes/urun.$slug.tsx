@@ -1,7 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useCart } from "@/components/CartProvider";
 import { priceForSize } from "@/data/productPricing";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { trackMetaProduct } from "@/lib/meta-product-tracking";
 import { SERIES, formatTL } from "@/data/products";
 import type { Product, GlassesDetails, WalletDetails } from "@/data/products";
 import { getCategories } from "@/data/categoryActions";
@@ -57,8 +58,8 @@ export const Route = createFileRoute("/urun/$slug")({
     const catLabel = loaderData?.categories?.find((c) => c.slug === product.category)?.label ?? "";
     const title = `${product.name} | MinaToi`;
     const desc = product.shortDescription
-      ? `${product.shortDescription} ${formatTL(product.price)}. Kapıda ödeme, Türkiye geneli kargo.`
-      : `${catLabel} — ${formatTL(product.price)}. Kapıda ödeme, Türkiye geneli kargo.`;
+      ? `${product.shortDescription} ${formatTL(product.price)}. Türkiye geneli kargo.`
+      : `${catLabel} — ${formatTL(product.price)}. Türkiye geneli kargo.`;
     const image = product.images?.[0] ? `${SITE}${product.images[0]}` : `${SITE}${product.image}`;
 
     return {
@@ -109,6 +110,12 @@ function ProductDetail() {
   const { product, categories, related, hero } = Route.useLoaderData();
   const [selectedSize, setSelectedSize] = useState<string>(product.sizes?.[0] ?? "");
   const selectedPrice = priceForSize(product, selectedSize);
+  const viewedSlug = useRef<string | null>(null);
+  useEffect(() => {
+    if (viewedSlug.current === product.slug) return;
+    viewedSlug.current = product.slug;
+    trackMetaProduct("ViewContent", product, product.sizes?.[0] ?? "");
+  }, [product]);
   const isPetProduct =
     product.category === "patili-dostalara-ozel" ||
     (isCustomProduct(product) && product.customization.group === "pet");

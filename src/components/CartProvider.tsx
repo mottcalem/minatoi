@@ -1,3 +1,4 @@
+import { trackMetaProduct } from "@/lib/meta-product-tracking";
 import { cartPayload, type OrderCustomization } from "@/data/orderCustomization";
 import { getPublicPromotions } from "@/data/promotionActions";
 import { DEFAULT_PROMOTIONS } from "@/data/promotions";
@@ -73,6 +74,18 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [items, ready]);
   function add(p: Product, size: string, quantity = 1, customization?: OrderCustomization) {
     quantity = Number.isFinite(quantity) ? Math.min(20, Math.max(1, Math.floor(quantity))) : 1;
+    const existing = items.find(
+      (item) =>
+        item.slug === p.slug &&
+        item.size === size &&
+        item.customization?.uploadId === customization?.uploadId,
+    );
+    const addedQuantity = existing
+      ? Math.min(quantity, 20 - existing.quantity)
+      : items.length < 50
+        ? quantity
+        : 0;
+    if (addedQuantity <= 0) return;
     setItems((prev) => {
       const found = prev.some(
         (i) =>
@@ -100,6 +113,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
             },
           ].slice(0, 50);
     });
+    trackMetaProduct("AddToCart", p, size, addedQuantity);
   }
   function update(slug: string, size: string, quantity: number, uploadId?: string) {
     setItems((prev) =>
